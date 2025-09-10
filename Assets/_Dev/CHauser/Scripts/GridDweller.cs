@@ -1,8 +1,9 @@
-using NUnit.Framework;
 using UnityEngine;
+using ZinklofDev.Utils.MathZ;
 
 public class GridDweller : MonoBehaviour
 {
+/*
     [SerializeField] GridSystem grid;
     [SerializeField] public int positionIndex;
     [SerializeField] public int positionGoalIndex;
@@ -30,13 +31,35 @@ public class GridDweller : MonoBehaviour
     {
         if(navigating)
         {
+            List<int> potentialPoints = new List<int>();
+            
             foreach (Vector3 direction in directions)
             {
-                if(!Physics.Raycast(transform.position, direction, out RaycastHit hit, grid.tileSize))
-                {
-                    // Use the hit.point in empty space and find closest grid point. Then add it to a list that will be sorted through to find the closest point to the target point.
-                }
+                if(Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), direction, out RaycastHit hit, grid.tileSize))
+                    continue;
+                    
+                Vector3 hitPoint = transform.position + (direction * grid.tileSize);
+                Vector3 closestGridPoint;
+                int closestGridIndex;
+                int i = 0;
                 
+                foreach(Vector2 point in GridSystem.points)
+                {
+                    if(Vectors.SqrDist3f(hitPoint, new Vector3(point.x, 0f, point.y)) < Vectors.SqrDist3f(closestGridPoint, new Vector3(point.x, 0f, point.y)))
+                    {
+                        closestGridPoint = hitPoint;
+                        closestGridIndex = i;
+                    }
+                    i++;
+                }
+
+                potentialPoints.Add(closestGridIndex);
+            }
+            
+            foreach (int point in potentialPoints)
+            {
+                if(Vectors.SqrDist2f(GridSystem[point], GridSystem[positionGoalIndex]) < Vectors.SqrDist2f(GridSystem[positionIndex], GridSystem[positionGoalIndex]))
+                    positionIndex = point;
             }
         }
         if (snapToGrid)
@@ -46,4 +69,5 @@ public class GridDweller : MonoBehaviour
             transform.position = new Vector3(position.x, 0, position.y);
         }
     }
+    */
 }
