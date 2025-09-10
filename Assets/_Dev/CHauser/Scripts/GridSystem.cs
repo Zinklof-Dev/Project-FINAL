@@ -7,14 +7,20 @@ public class GridSystem : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private bool drawGizmos = true;
     [Header("Map Attributes")]
-    [SerializeField] private float tileSize = 2f;
+    [SerializeField] public float tileSize = 2f;
     [SerializeField] private int mapSize = 10;
+    [SerializeField] private float offsetX = 0;
+    [SerializeField] private float offsetY = 0;
+    private static float staticOffsetX;
+    private static float staticOffsetY;
     [SerializeField] public static List<Vector2> points = new List<Vector2>();
     [Header("Grid Dwellers (Currently for Debugging)")]
     [SerializeField] public static List<GridDweller> dwellers = new List<GridDweller>();
 
     private void Start()
     {
+        staticOffsetX = offsetX - (mapSize);
+        staticOffsetY = offsetY - (mapSize);
         GenerateGrid(tileSize, mapSize);
     }
 
@@ -36,14 +42,14 @@ public class GridSystem : MonoBehaviour
         points = new List<Vector2>();
         float x = 0;
         float y = 0;
-        float x1 = 0;
-        float y1 = 0;
+        float x1 = staticOffsetX;
+        float y1 = staticOffsetY;
 
         // Logic for creating grid points
 
         for(x = 0; x < mapSize; x++)
         {
-            y1 = 0;
+            y1 = staticOffsetY;
 
             for(y = 0; y < mapSize; y++)
             {
