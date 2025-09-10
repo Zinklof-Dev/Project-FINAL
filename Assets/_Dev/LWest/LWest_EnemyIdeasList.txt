@@ -20,3 +20,6 @@ Just some brain vomit that I came up with in the span of a few minutes. Let me k
 	- Town Guardians (A significant step-up from the Townsfolk. Law enforcement occupy roles that they especially excel in)
 		- Footman (Simple blade and blunt-using rookies with light armor. Typically accompanied by someone who ranks higher than them)
 		- Archer (Wield standard-duty bows with a limited amount of arrows. Also equipped with a smaller side weapon to fall back to in case you're not dead by then)
+		- Mercenary (Specialized soldiers meant to target specific groups or individuals that are just too much for footmen to handle. Excel with more valuable equipment and complicated builds)
+		- Executioner (A heavy axe-wielding menace who deals more damage to characters with less health, whilst simultaneously targeting weaker characters to pick them off)
+		- 
