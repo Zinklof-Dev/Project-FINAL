@@ -51,7 +51,7 @@ public class GridDweller : MonoBehaviour
         List<int> path = new List<int>();
         int nextPoint = positionIndex;
 
-        for (int i = 0; i < grid.mapSize * grid.mapSize; i++)
+        for (int i = 0; i < grid.mapSize * grid.mapSize * 10; i++)
         {
             List<int> potentialPoints = new List<int>();
             
