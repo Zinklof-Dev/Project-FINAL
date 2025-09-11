@@ -63,7 +63,7 @@ public class GridSystem : MonoBehaviour
     [Command("Moves Grid Dwellers")]
     public static void MoveDweller(int dwellerIndex, int gridIndex)
     {
-        dwellers[dwellerIndex].positionIndex = gridIndex;
+       // dwellers[dwellerIndex].positionIndex = gridIndex;
     }
 
     private void OnApplicationQuit()
