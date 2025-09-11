@@ -99,8 +99,22 @@ public class GridDweller : MonoBehaviour
                 path.Add(nextPoint);
             else
             {
-                path.RemoveAt(path.Count - 1);
+                // try and catch here for rare edge case that on the first step the dweller is completely boxed in and cannot move
+                try
+                {
+                    path.RemoveAt(path.Count - 1);
+                }
+                catch
+                {
+                    Debug.Log("Goal is unreachable. No path found!");
+                    return;
+                }
                 deadEndPoints.Add(nextPoint);
+                if (path.count == 0)
+                {
+                    Debug.Log("Goal is unreachable. No path found!");
+                    return;
+                }
                 nextPoint = path[path.Count - 1];
             }
         }
