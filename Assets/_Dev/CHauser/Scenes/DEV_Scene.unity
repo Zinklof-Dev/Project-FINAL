@@ -247,7 +247,7 @@ GameObject:
   - component: {fileID: 409886133}
   - component: {fileID: 409886132}
   m_Layer: 0
-  m_Name: Gird
+  m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -477,10 +477,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 409886132}
-  positionIndex: 2
+  positionIndex: 0
+  positionGoalIndex: 0
   position: {x: 0, y: 0}
   snapToGrid: 1
-  registerWithCommand: 1
+  navigating: 0
+  registerWithCommand: 0
+  directions:
+  - {x: 1, y: 0, z: 0}
+  - {x: 1, y: 0, z: 1}
+  - {x: 0, y: 0, z: 1}
+  - {x: -1, y: 0, z: 1}
+  - {x: 1, y: 0, z: -1}
+  - {x: -1, y: 0, z: 0}
+  - {x: -1, y: 0, z: -1}
+  - {x: 0, y: 0, z: -1}
+  path: 
 --- !u!135 &1317974259
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -961,9 +973,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 409886132}
   positionIndex: 0
+  positionGoalIndex: 9
   position: {x: 0, y: 0}
   snapToGrid: 1
-  registerWithCommand: 1
+  navigating: 0
+  registerWithCommand: 0
+  directions:
+  - {x: 1, y: 0, z: 0}
+  - {x: 1, y: 0, z: 1}
+  - {x: 0, y: 0, z: 1}
+  - {x: -1, y: 0, z: 1}
+  - {x: 1, y: 0, z: -1}
+  - {x: -1, y: 0, z: 0}
+  - {x: -1, y: 0, z: -1}
+  - {x: 0, y: 0, z: -1}
+  path: 
 --- !u!65 &1793388870
 BoxCollider:
   m_ObjectHideFlags: 0

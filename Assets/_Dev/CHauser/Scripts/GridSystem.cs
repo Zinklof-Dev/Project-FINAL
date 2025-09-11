@@ -8,7 +8,7 @@ public class GridSystem : MonoBehaviour
     [SerializeField] private bool drawGizmos = true;
     [Header("Map Attributes")]
     [SerializeField] public float tileSize = 2f;
-    [SerializeField] private int mapSize = 10;
+    [SerializeField] public int mapSize = 10;
     [SerializeField] private float offsetX = 0;
     [SerializeField] private float offsetY = 0;
     private static float staticOffsetX;
@@ -63,7 +63,7 @@ public class GridSystem : MonoBehaviour
     [Command("Moves Grid Dwellers")]
     public static void MoveDweller(int dwellerIndex, int gridIndex)
     {
-       // dwellers[dwellerIndex].positionIndex = gridIndex;
+        dwellers[dwellerIndex].positionIndex = gridIndex;
     }
 
     private void OnApplicationQuit()
