@@ -48,7 +48,8 @@ public class GridDweller : MonoBehaviour
     private void MakePath()
     {
         List<int> deadEndPoints = new List<int>();
-        List<int> path = new List<int>();
+        path = new List<int>();
+        path.Add(positionIndex);
         int nextPoint = positionIndex;
 
         for (int i = 0; i < grid.mapSize * grid.mapSize * 10; i++)
@@ -99,16 +100,7 @@ public class GridDweller : MonoBehaviour
                 path.Add(nextPoint);
             else
             {
-                // try and catch here for rare edge case that on the first step the dweller is completely boxed in and cannot move
-                try
-                {
-                    path.RemoveAt(path.Count - 1);
-                }
-                catch
-                {
-                    Debug.Log("Goal is unreachable. No path found!");
-                    return;
-                }
+                path.RemoveAt(path.Count - 1);
                 deadEndPoints.Add(nextPoint);
                 if (path.count == 0)
                 {
