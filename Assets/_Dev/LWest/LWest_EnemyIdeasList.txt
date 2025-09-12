@@ -8,22 +8,73 @@ Just some brain vomit that I came up with in the span of a few minutes. Let me k
 	- Undead Soldier (Uncommon, Still stupid, Lightweight defense, Unable to use any weapons)
 -  
 
-	- SIMPLE -
+	- THE KINGDOM -
 "Rogues, Thieves, Vigilantes, Shady Merchants, what exactly isn't out there that could potentially put a dagger through your chest?"
-- Common & Innocent:
+
 	- Townsfolk (Residents of towns you walk past. Little to no real protection or weapon efficiency, but can occasionally wield something that'll take you by surprise.)
-		- Farmer (Pitchforks and torches make for great witch hunters who know nothing but grow crops and die of smallpox)
-		- Cleric (Act as support for their allies without the need for magic. They'll run out of supplies eventually)
-		- Priest (Support their allies through weak holy magic)
-		- Blacksmith (Wield homemade weapons and lightweight yet lackluster armor)
-		- Delinquints (Carries items like tripwires, molotovs, etc. A nusiance for everyone if left unattended. Their tricks tend to also affect their friends. Not trained for combat or self defense)
+		- Farmer 
+			+ Pitchforks and torches make for great witch hunters who know nothing but grow crops and die of smallpox
+		- Cleric 
+			+ Act as support for their allies without the need for magic. They'll run out of supplies eventually
+		- Priest 
+			+ Support their allies through weak holy magic
+		- Blacksmith 
+			+ Wield homemade weapons and lightweight yet lackluster armor
+		- Delinquints 
+			+ Carries items like tripwires, molotovs, etc. A nusiance for everyone if left unattended. Their tricks tend to also affect their friends. 
+			+ Not trained for combat or self defense
+
 	- Town Guardians (A significant step-up from the Townsfolk. Enemies start to occupy roles that they especially excel in)
-		- Footman (Simple blade and blunt-using rookies with light armor. Typically accompanied by someone who ranks higher than them)
-		- Archer (Wield standard-duty bows with a limited amount of arrows. Also equipped with a smaller side weapon to fall back to in case you're not dead by then)
-		- Mercenary (Specialized soldiers meant to target specific groups or individuals that are just too much for footmen to handle. Excel with more valuable equipment and complicated builds)
-		- Executioner (A heavy axe-wielding menace who deals MUCH more damage to characters with less health, whilst simultaneously targeting weaker characters to pick them off)
-		- Ranger (A much more sophisticated (and legal) version of the Delinquint. Specializes with long-range combat and trap set-ups. Not very deadly while up close, but still capable of shoving someone away)
-		- Knight (Much like the footman, but with more valuable weapons and protection. Knights with a one-handed weapon will use a shield in their free hand. Can occasionally be seen riding on the back of a horse)
-			- Squire (Can be found accompanying a knight in their journeys. Acts like a footman in terms of behavior, but inheriting lesser equipment that is similar to the knight they are paired with)
-		- Hunter (Very similar to the ranger, but with much less focus on traps, with that focus being shifted towards combat capabilities in both long-range and short-range. Additionally, they're accompanied by tamed wolves)
-			- Hunting Wolf (Follows their owner closely, only leaving their side when told to attack a specified target. While fast and deadly, they lack endurance and armor piercing capabilities. Their behaviors are rather simple and predictable)
+		- Footman 
+			+ Simple blade and blunt-using rookies with light armor. Typically accompanied by someone who ranks higher than them
+		- Archer 
+			+ Wield standard-duty bows with a limited amount of arrows. 
+			+ Also equipped with a smaller side weapon to fall back to in case you're not dead by then
+		- Mercenary 
+			+ Specialized soldiers meant to target specific groups or individuals that are just too much for footmen to handle. Excel with more valuable equipment and complicated builds
+		- Executioner 
+			+ A heavy axe-wielding menace who deals MUCH more damage to characters with less health, whilst simultaneously targeting weaker characters to pick them off
+		- Ranger 
+			+ A much more sophisticated (and legal) version of the Delinquint. Specializes with long-range combat and trap set-ups. 
+			+ Not very deadly while up close, but still capable of shoving someone away
+		- Knight 
+			+ Much like the footman, but with more valuable weapons and protection. Knights with a one-handed weapon will use a shield in their free hand. 
+			+ Can occasionally be seen riding on the back of a horse
+			> Squire 
+				+ Can be found accompanying a knight in their journeys. Acts like a footman in terms of behavior, but inheriting lesser equipment that is similar to the knight they are paired with.
+		- Hunter 
+			+ Very similar to the ranger, but with much less focus on traps, with that focus being shifted towards combat capabilities in both long-range and short-range. Additionally, they're accompanied by tamed wolves
+			> Hunting Wolf 
+				+ Follows their owner closely, only leaving their side when told to attack a specified target. While fast and deadly, they lack endurance and armor piercing capabilities. 
+				+ Their behaviors are rather simple and predictable
+		- Assassin 
+			+ Fast, agile, and tricky. They hold the ability to enter a stealth state, making them only visible upclose, or when damaged. 
+			+ While they lack armor and direct damage output, they become extremely dangerous when forgotten about, allowing them to perform stealth attacks that can devestate opponents
+
+	- Royal Guardians (Well armed, well talented, and well trusted. Encountering enemies of this tier likely means you're entering territory that is reserved for those of royalty)
+		- Paladin 
+			+ Much like the knight, but without any squire or horse to accompany them. 
+			+ To compensate, they wield lesser support abilities, some of which are associated with holy magic
+		- Jester 
+			+ The courtroom's most brilliant of fools who isn't even supposed to be fighting anyone in the first place. 
+			+ While extremely lacking in endurance, they make up for it with their mobility and trickery, being able to set traps, mock units until they lose their temper, and evade attacks better than most. 
+			+ They tend to also use a lot more stamina than others, leaving them winded and vulnerable after each performance.
+		- Preacher
+			+ An important figure of the kingdom's religion. They excel with holy sourcery exclusively.
+			+ When other holy magic users are nearby, the preacher becomes stronger.
+			+ Unholy magic is extremely effective against them, as long as it is powerful enough.
+
+	- Rare Encounters (Harder to locate, harder to fight, much more rewarding. Consists of more supernatural encounters)
+		- "The Fool" 
+			+ Much like the Jester, except with mimicry capabilities. After a lengthy cooldown, they may transform into another character during a battle for a single turn, to which they will then revert to their typical form. 
+			+ These alternatives of Jesters are considered demonic creatures, and are greatly hindered by sourcery- especially holy magic
+			+ "They say imitation is a sincere form of flattery. But with these horrid mask-wearing pretenders, they exist to humiliate and terrify through the same method."
+		- "Father Nobody"
+			+ Much like the Preacher, except with high-level dark sourcery and lesser necromancy. Weapons of silver are highly effective against Father Nobody.
+			+ "Do not struggle, for your lord is dead. You will learn just like I have, along the same path I chose to tread. ~ Father Nobody"
+		- "The Shade"
+			+ A supernatural entity that relies almost exclusively on stealth-based actions.
+			+ Any attack related to, or synergized with magic is much more effective against it.
+			+ Much less likely to attack characters in groups.
+			+ Will target only one enemy at a time, only switching targets if they are slain or prove themselves to be too dangerous for it to handle.
+			+ "Little Billy was always afraid of his own shadow. Nobody believed him when he said he had two. If only they knew who snapped his spine in two. ~ Unknown, Allegedly warning the oblivious about The Shade's arrival"
