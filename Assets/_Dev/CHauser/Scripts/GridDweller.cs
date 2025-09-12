@@ -70,7 +70,7 @@ public class GridDweller : MonoBehaviour
 
                 Vector3 hitPoint = new Vector3(GridSystem.points[nextPoint].x, 0, GridSystem.points[nextPoint].y) + (direction * (grid.tileSize - 0.1f));
                 Debug.Log(hitPoint);
-                Vector3 closestGridPoint = new Vector3(GridSystem.points[nextPoint].x, 0, GridSystem.points[nextPoint].y);
+                Vector3 closestGridPoint = new Vector3(grid.mapSize * grid.mapSize * 10, 0, grid.mapSize * grid.mapSize * 10);
                 int closestGridIndex = nextPoint;
                 int j = 0;
 
