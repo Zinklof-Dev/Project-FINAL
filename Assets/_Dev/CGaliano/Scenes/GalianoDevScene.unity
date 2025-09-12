@@ -238,7 +238,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 3e7c6f214fd32eb45b9afdc5b87a8286, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 634395f51ae315a479b0554df0102012, type: 2}
+      objectReference: {fileID: 2100000, guid: 448b3d5ce113d7246a01d8255b993005, type: 2}
     - target: {fileID: 919132149155446097, guid: 3e7c6f214fd32eb45b9afdc5b87a8286, type: 3}
       propertyPath: m_Name
       value: Wall (1)
@@ -1377,7 +1377,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 3e7c6f214fd32eb45b9afdc5b87a8286, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 634395f51ae315a479b0554df0102012, type: 2}
+      objectReference: {fileID: 2100000, guid: 448b3d5ce113d7246a01d8255b993005, type: 2}
     - target: {fileID: 919132149155446097, guid: 3e7c6f214fd32eb45b9afdc5b87a8286, type: 3}
       propertyPath: m_Name
       value: Wall (2)
@@ -1614,6 +1614,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 4b4fd424956f1194fb69079c7b8bfacb, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 448b3d5ce113d7246a01d8255b993005, type: 2}
     - target: {fileID: 919132149155446097, guid: 4b4fd424956f1194fb69079c7b8bfacb, type: 3}
       propertyPath: m_Name
       value: Ceiling (1)
@@ -2298,7 +2302,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: df5e873b9c3e7aa4c9e74cbdf691e324, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 634395f51ae315a479b0554df0102012, type: 2}
+      objectReference: {fileID: 2100000, guid: 448b3d5ce113d7246a01d8255b993005, type: 2}
     - target: {fileID: 919132149155446097, guid: df5e873b9c3e7aa4c9e74cbdf691e324, type: 3}
       propertyPath: m_Name
       value: Terrain (1)
@@ -3707,7 +3711,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 3e7c6f214fd32eb45b9afdc5b87a8286, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 634395f51ae315a479b0554df0102012, type: 2}
+      objectReference: {fileID: 2100000, guid: 448b3d5ce113d7246a01d8255b993005, type: 2}
     - target: {fileID: 919132149155446097, guid: 3e7c6f214fd32eb45b9afdc5b87a8286, type: 3}
       propertyPath: m_Name
       value: Wall
@@ -4247,7 +4251,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 3e7c6f214fd32eb45b9afdc5b87a8286, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 634395f51ae315a479b0554df0102012, type: 2}
+      objectReference: {fileID: 2100000, guid: 448b3d5ce113d7246a01d8255b993005, type: 2}
     - target: {fileID: 919132149155446097, guid: 3e7c6f214fd32eb45b9afdc5b87a8286, type: 3}
       propertyPath: m_Name
       value: Wall (3)
