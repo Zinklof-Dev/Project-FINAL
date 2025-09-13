@@ -4,6 +4,7 @@ using ZinklofDev.Utils.MathZ;
 
 public class GridDweller : MonoBehaviour
 {
+/*
     [SerializeField] GridSystem grid;
     [SerializeField] public int positionIndex;
     [SerializeField] public int positionGoalIndex;
@@ -58,44 +59,39 @@ public class GridDweller : MonoBehaviour
 
     private void MakePath()
     {
+        // Defines a list of points that lead to dead ends
         List<int> deadEndPoints = new List<int>();
+        // Clears the path so a new one can be made
         path = new List<int>();
+        // Initilizes the start of the path to be the starting position
         path.Add(positionIndex);
+        // Stores the point that is checked and then stored in the path
         int nextPoint = positionIndex;
         List<int> potentialPoints = new List<int>();
 
         for (int i = 0; i < grid.mapSize * grid.mapSize * 10; i++)
         {
-            potentialPoints = new List<int>();
-
             if (nextPoint == positionGoalIndex)
             {
                 foreach (int point in path)
                     Debug.Log(point);
                 return;
             }
-
+            
+            potentialPoints = new List<int>();            
+            
             foreach (Vector3 direction in directions)
             {
                 if (Physics.Raycast(new Vector3(GridSystem.points[nextPoint].x, 1, GridSystem.points[nextPoint].y), direction, out RaycastHit hit, grid.tileSize))
                     continue;
+                    
+                Vector3 hitPoint = new Vector3 (GridSystem.points[nextPoint].x, 0, GridSystem.points[nextPoint].y) + (direction * grid.tileSize);
+                int index = GridSystem.points.IndexOf(new Vector2(hitPoint.x, hitPoint.z));
+                
+                if (index == -1)
+                    continue;
 
-                Vector3 hitPoint = new Vector3(GridSystem.points[nextPoint].x, 0, GridSystem.points[nextPoint].y) + (direction * (grid.tileSize - 0.1f));
-                Vector3 closestGridPoint = new Vector3(GridSystem.points[nextPoint].x, 0, GridSystem.points[nextPoint].y);
-                int closestGridIndex = nextPoint;
-                int j = 0;
-
-                foreach (Vector2 point in GridSystem.points)
-                {
-                    if (Vectors.SqrDist3f(hitPoint, new Vector3(point.x, 0f, point.y)) < Vectors.SqrDist3f(closestGridPoint, hitPoint))
-                    {
-                        closestGridPoint = point;
-                        closestGridIndex = j;
-                    }
-                    j++;
-                }
-
-                potentialPoints.Add(closestGridIndex);
+                potentialPoints.Add(index);
             }
 
             bool viablePointFound = false;
@@ -137,4 +133,5 @@ public class GridDweller : MonoBehaviour
         foreach(int point in path)
             Debug.Log(point);
     }
+    */
 }
