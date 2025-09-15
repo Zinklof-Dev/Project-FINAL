@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GridSystem : MonoBehaviour
 {
-/*
     [Header("Settings")]
     [SerializeField] private bool drawGizmos = true;
     [Header("Map Attributes")]
@@ -72,5 +71,4 @@ public class GridSystem : MonoBehaviour
         points = new List<Vector2>();
         dwellers = new List<GridDweller>();
     }
-    */
 }

@@ -1,10 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
 using ZinklofDev.Utils.MathZ;
+using System;
+using Unity.Mathematics;
 
 public class GridDweller : MonoBehaviour
 {
-/*
     [SerializeField] GridSystem grid;
     [SerializeField] public int positionIndex;
     [SerializeField] public int positionGoalIndex;
@@ -12,7 +13,7 @@ public class GridDweller : MonoBehaviour
     [SerializeField] public bool snapToGrid = true;
     [SerializeField] public bool navigating = false;
     [SerializeField] public bool registerWithCommand;
-    [SerializeField] private Vector3[] directions = {new Vector3(1, 0, 0), new Vector3(1, 0, 1), new Vector3(0, 0, 1), new Vector3(-1, 0, 1), new Vector3(1, 0, -1), new Vector3(-1, 0, 0), new Vector3(-1, 0, -1), new Vector3(0, 0, -1) };
+    [SerializeField] private Vector3[] directions = { new Vector3(0, 0, -1),  new Vector3(0, 0, 1), new Vector3(-1, 0, 0), new Vector3(1, 0, 0), new Vector3(1, 0, 1), new Vector3(-1, 0, 1), new Vector3(1, 0, -1), new Vector3(-1, 0, -1) };
     [SerializeField] private List<int> path = new List<int>();
 
 
@@ -28,6 +29,7 @@ public class GridDweller : MonoBehaviour
         foreach(int point in path)
         {
             Gizmos.color = Color.red;
+            Gizmos.DrawSphere(new Vector3(GridSystem.points[point].x, 1, GridSystem.points[point].y), 0.25f);
             if(count < path.Count - 1)
             {
                 Gizmos.DrawLine(new Vector3(GridSystem.points[point].x, 1, GridSystem.points[point].y), new Vector3(GridSystem.points[path[count + 1]].x, 1, GridSystem.points[path[count + 1]].y));
@@ -59,6 +61,7 @@ public class GridDweller : MonoBehaviour
 
     private void MakePath()
     {
+        DateTime startTime = DateTime.Now;
         // Defines a list of points that lead to dead ends
         List<int> deadEndPoints = new List<int>();
         // Clears the path so a new one can be made
@@ -73,8 +76,7 @@ public class GridDweller : MonoBehaviour
         {
             if (nextPoint == positionGoalIndex)
             {
-                foreach (int point in path)
-                    Debug.Log(point);
+                Debug.Log((DateTime.Now - startTime).TotalMilliseconds); 
                 return;
             }
             
@@ -99,10 +101,26 @@ public class GridDweller : MonoBehaviour
 
             foreach (int point in potentialPoints)
             {
+                float dx1 = Mathf.Abs(GridSystem.points[point].x - GridSystem.points[positionGoalIndex].x);
+                float dy1 = Mathf.Abs(GridSystem.points[point].y - GridSystem.points[positionGoalIndex].y);
+                float dx2 = Mathf.Abs(GridSystem.points[nextPoint].x - GridSystem.points[positionGoalIndex].x);
+                float dy2 = Mathf.Abs(GridSystem.points[nextPoint].y - GridSystem.points[positionGoalIndex].y);
+
+                /*
+                 * 
+                 *  F(n) = g(n) + h(n)
+                 dx = abs(current_cell.x – goal.x)
+                    dy = abs(current_cell.y – goal.y)
+ 
+                    h = D * (dx + dy) + (D2 - 2 * D) * min(dx, dy)
+                    where D is length of each node(usually = 1) and D2 is diagonal distance between each node (usually = sqrt(2) ). 
+                */
+
+
                 if (first)
                 {
                     if (!path.Contains(point) && !deadEndPoints.Contains(point))
-                    { 
+                    {
                         first = false;
                         nextPoint = point;
                         viablePointFound = true;
@@ -133,5 +151,4 @@ public class GridDweller : MonoBehaviour
         foreach(int point in path)
             Debug.Log(point);
     }
-    */
 }
