@@ -101,22 +101,6 @@ public class GridDweller : MonoBehaviour
 
             foreach (int point in potentialPoints)
             {
-                float dx1 = Mathf.Abs(GridSystem.points[point].x - GridSystem.points[positionGoalIndex].x);
-                float dy1 = Mathf.Abs(GridSystem.points[point].y - GridSystem.points[positionGoalIndex].y);
-                float dx2 = Mathf.Abs(GridSystem.points[nextPoint].x - GridSystem.points[positionGoalIndex].x);
-                float dy2 = Mathf.Abs(GridSystem.points[nextPoint].y - GridSystem.points[positionGoalIndex].y);
-
-                /*
-                 * 
-                 *  F(n) = g(n) + h(n)
-                 dx = abs(current_cell.x – goal.x)
-                    dy = abs(current_cell.y – goal.y)
- 
-                    h = D * (dx + dy) + (D2 - 2 * D) * min(dx, dy)
-                    where D is length of each node(usually = 1) and D2 is diagonal distance between each node (usually = sqrt(2) ). 
-                */
-
-
                 if (first)
                 {
                     if (!path.Contains(point) && !deadEndPoints.Contains(point))
@@ -124,9 +108,28 @@ public class GridDweller : MonoBehaviour
                         first = false;
                         nextPoint = point;
                         viablePointFound = true;
+                        continue;
                     }
                 }
-                else if (Vectors.SqrDist2f(GridSystem.points[point], GridSystem.points[positionGoalIndex]) < Vectors.SqrDist2f(GridSystem.points[nextPoint], GridSystem.points[positionGoalIndex]) && !path.Contains(point) && !deadEndPoints.Contains(point))
+
+                float dx1 = Mathf.Abs(GridSystem.points[point].x - GridSystem.points[positionGoalIndex].x);
+                float dy1 = Mathf.Abs(GridSystem.points[point].y - GridSystem.points[positionGoalIndex].y);
+                float dx2 = Mathf.Abs(GridSystem.points[nextPoint].x - GridSystem.points[positionGoalIndex].x);
+                float dy2 = Mathf.Abs(GridSystem.points[nextPoint].y - GridSystem.points[positionGoalIndex].y);
+                float D = grid.tileSize;
+                float D2 = Mathf.Sqrt(grid.tileSize * grid.tileSize * 2);
+                float h1 = D * (dx1 + dy1) + (D2 - 2 * D) * Mathf.Min(dx1, dy1);
+                float h2 = D * (dx2 + dy2) + (D2 - 2 * D) * Mathf.Min(dx2, dy2);
+                /*
+                F(n) = g(n) + h(n)
+                dx = abs(current_cell.x â€“ goal.x)
+                dy = abs(current_cell.y â€“ goal.y)
+ 
+                h = D * (dx + dy) + (D2 - 2 * D) * min(dx, dy)
+                where D is length of each node (usually = 1) and D2 is diagonal distance between each node (usually = sqrt(2)). 
+                */
+                
+                if (Mathf.Sqrt(Vectors.SqrDist2f(GridSystem.points[point], GridSystem.points[positionGoalIndex])) + h1 < Mathf.Sqrt(Vectors.SqrDist2f(GridSystem.points[nextPoint], GridSystem.points[positionGoalIndex])) + h2 && !path.Contains(point) && !deadEndPoints.Contains(point))
                 {
                     nextPoint = point;
                     viablePointFound = true;
