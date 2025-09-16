@@ -2,9 +2,28 @@ using UnityEngine;
 using System.Collections.Generic;
 using ZinklofDev.Utils.MathZ;
 using System;
-using Unity.Mathematics;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
+
+public class Node
+{
+    public float g;
+    public float h;
+    public float f;
+    public int gridIndex;
+
+    public Node(float g, float h, int gridIndex)
+    {
+        this.g = g;
+        this.h = h;
+        this.gridIndex = gridIndex;
+        f = g + h;
+    }
+}
+
+public class AStar
+{
+    
+}
 
 public class GridDweller : MonoBehaviour
 {
@@ -51,7 +70,7 @@ public class GridDweller : MonoBehaviour
     {
         if(navigating)
         {
-            MakePath();
+            AStarPath(positionIndex, positionGoalIndex);
             navigating = false;
         }
         if (snapToGrid)
@@ -62,147 +81,20 @@ public class GridDweller : MonoBehaviour
         }
     }
 
-    private async void MakePath()
+    private async void AStarPath(int startIndex, int goalIndex)
     {
-        DateTime startTime = DateTime.Now;
-        // Defines a list of points that lead to dead ends
-        List<int> deadEndPoints = new List<int>();
-        // Clears the path so a new one can be made
-        path = new List<int>();
-        // Initilizes the start of the path to be the starting position
-        path.Add(positionIndex);
-        // Stores the point that is checked and then stored in the path
-        int currentPoint = positionIndex;
-        List<int> potentialPoints = new List<int>();
+        List<Node> openList = new List<Node>();
+        List<Node> closedList = new List<Node>();
+        openList.Add(new Node(0, 0, startIndex));
 
-        for (int i = 0; i < grid.mapSize * grid.mapSize * 10; i++)
+        while(openList.Count != 0)
         {
-            await Task.Delay(speedDelay);
-
-            if (currentPoint == positionGoalIndex)
+            Node q = new Node(Mathf.Infinity, Mathf.Infinity, 0);
+            foreach (Node n in openList)
             {
-                Debug.Log((DateTime.Now - startTime).TotalMilliseconds); 
-                return;
+                if(n.f < q.f)
+                    q = n;
             }
-            
-            potentialPoints = PotentialPoints(currentPoint);
-            int nextPoint = FindNextBestPoint(currentPoint, potentialPoints, deadEndPoints);
-            
-            
-            if (nextPoint != -1)
-            {
-                currentPoint = nextPoint;
-                path.Add(nextPoint);
-            }
-
-            else
-            {
-                path.RemoveAt(path.Count - 1);
-                deadEndPoints.Add(currentPoint);
-                if (path.Count == 0)
-                {
-                    Debug.Log("Goal is unreachable. No path found!");
-                    return;
-                }
-                currentPoint = path[path.Count - 1];
-            }
-        }
-
-        foreach(int point in path)
-            Debug.Log(point);
-    }
-    private List<int> PotentialPoints(int currentPoint)
-    {
-        List<int> potentialPoints = new List<int>();
-        foreach (Vector3 direction in directions)
-        {
-            if (Physics.Raycast(new Vector3(GridSystem.points[currentPoint].x, 1, GridSystem.points[currentPoint].y), direction, out RaycastHit hit, grid.tileSize))
-                continue;
-
-            Vector3 hitPoint = new Vector3(GridSystem.points[currentPoint].x, 0, GridSystem.points[currentPoint].y) + (direction * grid.tileSize);
-            int index = GridSystem.points.IndexOf(new Vector2(hitPoint.x, hitPoint.z));
-
-            if (index == -1)
-                continue;
-
-            potentialPoints.Add(index);
-        }
-
-        return potentialPoints;
-    }
-
-    private int FindNextBestPoint(int currentPoint, List<int> potentialPoints, List<int> deadEndPoints)
-    {
-        bool viablePointFound = false;
-        float gRef = 0;
-        /*
-        int iterations = 0;
-        foreach (int prev in path)
-        {
-            if (iterations == 0)
-            {
-                iterations++;
-                continue;
-            }
-
-            gRef += Mathf.Sqrt(Vectors.SqrDist2f(GridSystem.points[path[iterations - 1]], GridSystem.points[path[iterations]]));
-            iterations++;
-        }
-        */
-
-        gRef = path.Count * grid.tileSize;
-
-        float bestF = Mathf.Infinity;
-        int bestPoint = -1;
-
-        foreach (int point in potentialPoints)
-        {
-            if (path.Contains(point) || deadEndPoints.Contains(point))
-                continue;
-            /*
-            float dx = Mathf.Abs(GridSystem.points[point].x - GridSystem.points[positionGoalIndex].x);
-            float dy = Mathf.Abs(GridSystem.points[currentPoint].y - GridSystem.points[positionGoalIndex].y);
-            float D = grid.tileSize;
-            float D2 = Mathf.Sqrt(grid.tileSize * grid.tileSize * 2);
-            float h = D * (dx + dy) + (D2 - 2 * D) * Mathf.Min(dx, dy);
-            */
-
-            //float h = Mathf.Sqrt(Vectors.SqrDist2f(GridSystem.points[point], GridSystem.points[positionGoalIndex]));
-
-            float h = Mathf.Abs(GridSystem.points[point].x - GridSystem.points[positionGoalIndex].x) + Mathf.Abs(GridSystem.points[point].y - GridSystem.points[positionGoalIndex].y);
-
-            //float g = gRef + Mathf.Sqrt(Vectors.SqrDist2f(GridSystem.points[point], GridSystem.points[currentPoint]));
-
-            float g = gRef += grid.tileSize;
-
-            float f = h + g;
-
-
-            if (f < bestF)
-            {
-                bestF = f;
-                bestPoint = point;
-                viablePointFound = true;
-            }
-            /*else if (f == bestF)
-            {
-                List<int> bestFPoints = PotentialPoints(bestPoint);
-                List<int> fPoints = PotentialPoints(point);
-                if(FindNextBestPoint(point, fPoints, deadEndPoints) < FindNextBestPoint(bestPoint, bestFPoints, deadEndPoints))
-                {
-                    bestF = f;
-                    bestPoint = point;
-                    viablePointFound = true;
-                }
-            }*/
-        }
-        if (viablePointFound)
-        {
-            return bestPoint;
-        }
-        else
-        {
-            return -1;
         }
     }
 }
