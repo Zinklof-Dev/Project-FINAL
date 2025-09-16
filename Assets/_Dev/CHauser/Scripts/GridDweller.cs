@@ -102,8 +102,8 @@ public class GridDweller : MonoBehaviour
             {
                 if(Physics.Raycast(new Vector3(q.position.x, 1, q.position.y), direction, out RaycastHit hit, grid.tileSize))
                     continue;
-                    
-                Vector2 successorPosition = q.position + (direction * grid.tileSize);
+                
+                Vector2 successorPosition = q.position + (new Vector2(direction.x, direction.z) * grid.tileSize);
                 int sucessorIndex = GridSystem.points.IndexOf(successorPosition);
                 if(sucessorIndex == -1)
                     continue;
@@ -141,15 +141,11 @@ public class GridDweller : MonoBehaviour
             closedList.Add(q);
         }
         
-        Node next = null;
-        int current = closedList.Count - 1;
-        for (int 1 = 0; i < closedList.Count; i++)
+        Node current = closedList[closedList.Count - 1];
+        for (int i = 0; i < closedList.count && current != null; i++)
         {
-            next = closedList[current];
-            path.Add(next.positionIndex);
-            if (next.parent == null)
-                break;
-            current = next.parent.positionIndex;
+            path.Add(current.gridIndex);
+            current = current.parent;
         }
         path.Reverse();
     }
