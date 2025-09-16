@@ -107,7 +107,7 @@ public class GridDweller : MonoBehaviour
                     continue;
                 }
 
-                gRef += Mathf.Sqrt(Vectors.SquareDist2f(GridSystem.points[path[iterations - 1]], GridSystem.points[path[iterations]]));
+                gRef += Mathf.Sqrt(Vectors.SqrDist2f(GridSystem.points[path[iterations - 1]], GridSystem.points[path[iterations]]));
                 iterations++;
             }
 
@@ -121,7 +121,7 @@ public class GridDweller : MonoBehaviour
                 float D = grid.tileSize;
                 float D2 = Mathf.Sqrt(grid.tileSize * grid.tileSize * 2);
                 float h = D * (dx + dy) + (D2 - 2 * D) * Mathf.Min(dx, dy);
-                float g = gRef + Mathf.Sqrt(Vectors.SquareDist2f(GridSystem.points[point], GridSystem.points[currentPoint]));
+                float g = gRef + Mathf.Sqrt(Vectors.SqrDist2f(GridSystem.points[point], GridSystem.points[currentPoint]));
                 
                 
                 if (h + g < bestF && !path.Contains(point) && !deadEndPoints.Contains(point))
