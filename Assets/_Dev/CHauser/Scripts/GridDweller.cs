@@ -4,7 +4,7 @@ using ZinklofDev.Utils.MathZ;
 using System;
 using System.Threading.Tasks;
 
-public class Node
+/*public class Node
 {
     public float g;
     public float h;
@@ -23,6 +23,7 @@ public class Node
         position = GridSystem.points[gridIndex];
     }
 }
+*/
 
 public class GridDweller : MonoBehaviour
 {
@@ -83,7 +84,8 @@ public class GridDweller : MonoBehaviour
     {
         if(navigating)
         {
-            AStarPath(positionIndex, positionGoalIndex);
+            //AStarPath(positionIndex, positionGoalIndex);
+            path = PathFinding.AStarPath(positionIndex, positionGoalIndex);
             navigating = false;
         }
         if (snapToGrid)
@@ -93,7 +95,8 @@ public class GridDweller : MonoBehaviour
             transform.position = new Vector3(position.x, 0, position.y);
         }
     }
-
+    
+    /*
     private async void AStarPath(int startIndex, int goalIndex)
     {
         DateTime startTime = DateTime.Now;
@@ -161,6 +164,10 @@ public class GridDweller : MonoBehaviour
                 
                 openList.Add(successor);
             }
+
+            if(pathFound)
+
+                break;
             await Task.Delay(delay);
             closedList.Add(q);
         }
@@ -178,6 +185,12 @@ public class GridDweller : MonoBehaviour
             path.Add(current.gridIndex);
             current = current.parent;
         }
+
+        if (path[path.Count -1] != startIndex)
+        {
+            path.Add(startIndex);
+        }
+
         path.Reverse();
 
         Debug.Log("Time it took to run in miliseconds: " + (DateTime.Now - startTime).TotalMilliseconds);
@@ -191,4 +204,5 @@ public class GridDweller : MonoBehaviour
         float D2 = Mathf.Sqrt(2) * D;
         return D * (dx + dy) + (D2 - 2 * D) * Mathf.Min(dx, dy);
     }
+    */
 }

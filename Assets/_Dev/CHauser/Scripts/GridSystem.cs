@@ -13,12 +13,14 @@ public class GridSystem : MonoBehaviour
     [SerializeField] private float offsetY = 0;
     private static float staticOffsetX;
     private static float staticOffsetY;
+    public static float staticTileSize;
     [SerializeField] public static List<Vector2> points = new List<Vector2>();
     [Header("Grid Dwellers (Currently for Debugging)")]
     [SerializeField] public static List<GridDweller> dwellers = new List<GridDweller>();
 
     private void Start()
     {
+        staticTileSize = tileSize;
         staticOffsetX = offsetX - (mapSize);
         staticOffsetY = offsetY - (mapSize);
         GenerateGrid(tileSize, mapSize);
