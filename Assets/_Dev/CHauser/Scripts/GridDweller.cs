@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using ZinklofDev.Utils.MathZ;
 using System;
+using System.Threading.Tasks;
 
 public class Node
 {
@@ -34,6 +35,10 @@ public class GridDweller : MonoBehaviour
     [SerializeField] public bool registerWithCommand;
     [SerializeField] private Vector3[] directions = { new Vector3(0, 0, -1),  new Vector3(0, 0, 1), new Vector3(-1, 0, 0), new Vector3(1, 0, 0), new Vector3(1, 0, 1), new Vector3(-1, 0, 1), new Vector3(1, 0, -1), new Vector3(-1, 0, -1) };
     [SerializeField] private List<int> path = new List<int>();
+    [SerializeField] private int delay;
+
+    List<Node> openList = new List<Node>();
+    List<Node> closedList = new List<Node>();
 
     private void OnDrawGizmos()
     {
@@ -42,8 +47,20 @@ public class GridDweller : MonoBehaviour
             Gizmos.DrawRay(transform.position, direction);
         }
 
-        int count = 0;
+        foreach(Node closedNode in closedList)
+        {
+            Gizmos.color = Color.orange;
+            Gizmos.DrawSphere(new Vector3(closedNode.position.x, 0, closedNode.position.y));
+        }
 
+        foreach(Node openNode in openList)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(new Vector3(openNode.position.x, 0, openNode.position.y));
+        }
+
+        int count = 0;
+        
         foreach(int point in path)
         {
             Gizmos.color = Color.red;
@@ -77,18 +94,22 @@ public class GridDweller : MonoBehaviour
         }
     }
 
-    private void AStarPath(int startIndex, int goalIndex)
+    private async void AStarPath(int startIndex, int goalIndex)
     {
-        path.Clear();
+        DateTime startTime = DateTime.Now();
+        path = new List<int>();
         
         Vector2 goalPosition = GridSystem.points[goalIndex];
         
-        List<Node> openList = new List<Node>();
-        List<Node> closedList = new List<Node>();
+        openList = new List<Node>();
+        closedList = new List<Node>();
         openList.Add(new Node(0, 0, startIndex, null));
+
+        bool pathFound = false;
 
         for (int i = 0; openList.Count != 0 && i < 1000000; i++)
         {
+            await Task.Delay(delay);
             Node q = openList[0];
             foreach (Node n in openList)
             {
@@ -100,6 +121,7 @@ public class GridDweller : MonoBehaviour
                 
             foreach (Vector3 direction in directions)
             {
+                await Task.Delay(delay);
                 if(Physics.Raycast(new Vector3(q.position.x, 1, q.position.y), direction, out RaycastHit hit, grid.tileSize))
                     continue;
                 
@@ -113,6 +135,7 @@ public class GridDweller : MonoBehaviour
                 if(sucessorIndex == goalIndex)
                 {
                     closedList.Add(sucessor);
+                    pathFound = true;
                     break;
                 }
 
@@ -138,16 +161,26 @@ public class GridDweller : MonoBehaviour
                 
                 openList.Add(successor);
             }
+            await Task.Delay(delay);
             closedList.Add(q);
+        }
+
+        if(!pathFound)
+        {
+            Debug.Log("No path found.");
+            return;
         }
         
         Node current = closedList[closedList.Count - 1];
         for (int i = 0; i < closedList.count && current != null; i++)
         {
+            await Task.Delay(delay);
             path.Add(current.gridIndex);
             current = current.parent;
         }
         path.Reverse();
+
+        Debug.Log("Time it took to run in miliseconds: " + (DateTime.Now - startTime).TotalMilliseconds);
     }
 
     private float DiagonalHeuristic(Vector2 successorPosition, Vector2 goalPosition)
