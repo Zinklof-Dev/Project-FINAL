@@ -49,14 +49,14 @@ public class GridDweller : MonoBehaviour
 
         foreach(Node closedNode in closedList)
         {
-            Gizmos.color = Color.orange;
-            Gizmos.DrawSphere(new Vector3(closedNode.position.x, 0, closedNode.position.y));
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawSphere(new Vector3(closedNode.position.x, 0, closedNode.position.y), 0.25f);
         }
 
         foreach(Node openNode in openList)
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(new Vector3(openNode.position.x, 0, openNode.position.y));
+            Gizmos.DrawSphere(new Vector3(openNode.position.x, 0, openNode.position.y), 0.25f);
         }
 
         int count = 0;
@@ -96,7 +96,7 @@ public class GridDweller : MonoBehaviour
 
     private async void AStarPath(int startIndex, int goalIndex)
     {
-        DateTime startTime = DateTime.Now();
+        DateTime startTime = DateTime.Now;
         path = new List<int>();
         
         Vector2 goalPosition = GridSystem.points[goalIndex];
@@ -134,16 +134,16 @@ public class GridDweller : MonoBehaviour
                 
                 if(sucessorIndex == goalIndex)
                 {
-                    closedList.Add(sucessor);
+                    closedList.Add(successor);
                     pathFound = true;
                     break;
                 }
 
                 bool skip = false;
                 
-                foreach (Node checOpenkNode in openList)
+                foreach (Node checkOpenNode in openList)
                 {
-                    if (checkOpenNode.positionIndex == sucessorIndex && checkOpenNode.f < successor.f)
+                    if (checkOpenNode.gridIndex == sucessorIndex && checkOpenNode.f < successor.f)
                         skip = true;
                 }
 
@@ -152,7 +152,7 @@ public class GridDweller : MonoBehaviour
                     
                 foreach (Node checkClosedNode in closedList)
                 {
-                    if (checkClosedNode.positionIndex == sucessorIndex && checkClosedNode.f < successor.f)
+                    if (checkClosedNode.gridIndex == sucessorIndex && checkClosedNode.f < successor.f)
                         skip = true;
                 }
 
@@ -172,7 +172,7 @@ public class GridDweller : MonoBehaviour
         }
         
         Node current = closedList[closedList.Count - 1];
-        for (int i = 0; i < closedList.count && current != null; i++)
+        for (int i = 0; i < closedList.Count && current != null; i++)
         {
             await Task.Delay(delay);
             path.Add(current.gridIndex);
