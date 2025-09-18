@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Agent : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class Agent : MonoBehaviour
 
   private void OnDrawGizmos()
   {
-    if(!currentState == State.Moving)
+    if(currentState != State.Moving)
       return;
     
   }
@@ -30,7 +31,7 @@ public class Agent : MonoBehaviour
     switch (currentState)
     {
       case State.Idle:
-        transform.position = 
+        //transform.position = 
         break;
         
       case State.Moving:
