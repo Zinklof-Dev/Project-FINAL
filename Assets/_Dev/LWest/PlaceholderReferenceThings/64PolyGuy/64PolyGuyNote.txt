@@ -1,0 +1,4 @@
+The joint in the skeleton placed at the heel isn't supposed to be there- I'm not sure why I even made it in the first place.
+Take a look at Maya's HumanIK menu to toggle the visibility of things like the joints, IK and FK handles.
+
+:3
