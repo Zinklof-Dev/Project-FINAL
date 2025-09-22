@@ -28,7 +28,7 @@ public class Agent : MonoBehaviour
 
     private void Start()
     {
-    
+
     }
   
     private void Update()
@@ -66,9 +66,17 @@ public class Agent : MonoBehaviour
     private void Move()
     {
         nextIndex = path[step];
+
         Vector3 next = new Vector3(GridSystem.points[nextIndex].x, transform.position.y, GridSystem.points[nextIndex].y);
-        Quaternion targetRotation = Quaternion.LookRotation(next - transform.position, Vector3.forward);
         transform.position = Vector3.MoveTowards(transform.position, next, moveSpeed * Time.deltaTime);
+
+        Vector3 nextLookPosition = new Vector3(GridSystem.points[nextIndex].x, transform.position.y, GridSystem.points[nextIndex].y);
+        Vector3 directionToTarget = nextLookPosition - transform.position;
+        Quaternion goalRotation = Quaternion.LookRotation(directionToTarget, Vector3.up);
+        if (Quaternion.Angle(transform.rotation, goalRotation) < 0.1f)
+            transform.rotation = goalRotation;
+        else
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, goalRotation, rotationSpeed * Time.deltaTime);
 
         if(Mathf.Sqrt(Vectors.SqrDist3f(transform.position, next)) < 0.01f)
         {
