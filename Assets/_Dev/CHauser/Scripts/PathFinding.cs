@@ -137,4 +137,30 @@ public class PathFinding
         float D2 = Mathf.Sqrt(2) * D;
         return D * (dx + dy) + (D2 - 2 * D) * Mathf.Min(dx, dy);
     }
+
+    public static List<int> TrimPath(List<int> path)
+    {
+        List<int> result = new List<int>();
+
+        Vector3 previousDirection = new Vector3();
+
+        for(int i = 1; i < path.Count; i++)
+        {
+            Vector3 direction = GridSystem.points[path[i]] - GridSystem.points[path[i - 1]];
+
+            if (direction == previousDirection)
+            {
+                previousDirection = direction;
+                continue;
+            }
+
+            previousDirection = direction;
+            result.Add(path[i - 1]);
+        }
+
+        if (result[result.Count - 1] != path[path.Count - 1])
+            result.Add(path[path.Count - 1]);
+
+        return result;
+    }
 }

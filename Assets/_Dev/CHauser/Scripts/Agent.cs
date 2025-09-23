@@ -21,9 +21,13 @@ public class Agent : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if(currentState != State.Moving)
+        if (currentState != State.Moving)
             return;
-        
+        foreach (int i in path)
+        { 
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(new Vector3(GridSystem.points[i].x,1, GridSystem.points[i].y), 0.25f);
+        }
     }
 
     private void Start()
@@ -59,6 +63,7 @@ public class Agent : MonoBehaviour
             Debug.Log("Can't Move! No path found.");
             return;
         }
+        path = PathFinding.TrimPath(path);
         currentState = State.Moving;
         step = 1;
     }
