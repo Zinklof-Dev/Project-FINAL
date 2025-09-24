@@ -88,8 +88,9 @@ public class Agent : MonoBehaviour
             transform.position = next;
             step++;
 
-            if(step == path.Count)
+            if (step == path.Count)
             {
+                transform.rotation = goalRotation;
                 currentIndex = goalIndex;
                 currentState = State.Idle;
             }
