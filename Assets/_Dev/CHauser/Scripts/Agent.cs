@@ -68,7 +68,7 @@ public class Agent : MonoBehaviour
         step = 1;
     }
 
-    private void Move()
+    public void Move()
     {
         nextIndex = path[step];
 
