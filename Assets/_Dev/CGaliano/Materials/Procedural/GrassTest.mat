@@ -77,6 +77,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 2800000, guid: 9cad0925d89b8d14f8fc8a1697ee3a73, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -98,7 +102,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _test:
-        m_Texture: {fileID: 2800000, guid: a8cf8fa4c3ade4843b7d0396fb05c1e0, type: 3}
+        m_Texture: {fileID: 2800000, guid: e783ef04741b6544aab590a54a3ea408, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -148,13 +152,14 @@ Material:
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _Tile: 0.1
+    - _TotalTiles: 1000
     - _Triplannar_Blend: 1
     - _Triplannar_Tile: 0.5
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.3146246, g: 0.6415094, b: 0.1543254, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Tiling: {r: 1000, g: 1000, b: 0, a: 0}
