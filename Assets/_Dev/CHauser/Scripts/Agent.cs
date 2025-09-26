@@ -14,7 +14,7 @@ public class Agent : MonoBehaviour
     [Header("Indicies Of The Grid")]
     [SerializeField] private int startIndex;
     [SerializeField] private int goalIndex;
-    [SerializeField] private int currentIndex;
+    [SerializeField] public int currentIndex;
     [SerializeField] private int nextIndex;
     private List<int> path = new List<int>();
     private int step = 1;

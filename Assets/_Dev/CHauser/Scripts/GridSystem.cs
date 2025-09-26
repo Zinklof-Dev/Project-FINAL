@@ -6,15 +6,17 @@ public class GridSystem : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private bool drawGizmos = true;
+
     [Header("Map Attributes")]
     [SerializeField] public float tileSize = 2f;
     [SerializeField] public int mapSize = 10;
     [SerializeField] private float offsetX = 0;
     [SerializeField] private float offsetY = 0;
-    private static float staticOffsetX;
-    private static float staticOffsetY;
+    public static float staticOffsetX;
+    public static float staticOffsetY;
     public static float staticTileSize;
     [SerializeField] public static List<Vector2> points = new List<Vector2>();
+
     [Header("Grid Dwellers (Currently for Debugging)")]
     [SerializeField] public static List<GridDweller> dwellers = new List<GridDweller>();
 

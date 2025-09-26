@@ -1,0 +1,30 @@
+using UnityEngine;
+
+public class Actor : MonoBehaviour
+{
+    public enum ActorType { PartyMember, Enemy }
+
+    [SerializeField] public ActorType type = ActorType.PartyMember;
+
+    [SerializeField] private float health;
+    [SerializeField] private float maxHealth;
+    [SerializeField] private float speed;
+
+
+    public Agent agent;
+    [SerializeField] private PlayerInputManager playerInputManager;
+
+
+    private void Start()
+    {
+        agent = GetComponent<Agent>();
+
+        if (agent == null)
+        {
+            Debug.Log("No Agent Attatched to Actor!");
+            gameObject.SetActive(false);
+        }
+
+        playerInputManager = FindFirstObjectByType<PlayerInputManager>();
+    }
+}
