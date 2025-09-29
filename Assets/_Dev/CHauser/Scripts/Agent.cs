@@ -13,7 +13,7 @@ public class Agent : MonoBehaviour
     [SerializeField] private State currentState = State.Idle;
     [Header("Indicies Of The Grid")]
     [SerializeField] private int startIndex;
-    [SerializeField] private int goalIndex;
+    [SerializeField] public int goalIndex;
     [SerializeField] public int currentIndex;
     [SerializeField] private int nextIndex;
     private List<int> path = new List<int>();
