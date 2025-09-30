@@ -6,6 +6,8 @@ public class Actor : MonoBehaviour
 
     [SerializeField] public ActorType type = ActorType.PartyMember;
 
+    [SerializeField] public string actorName = "Default Actor Name";
+
     [SerializeField] private float health;
     [SerializeField] private float maxHealth;
     [SerializeField] private float speed;

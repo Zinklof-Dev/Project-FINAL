@@ -32,7 +32,7 @@ public class PathFinding
         List<int> path = new List<int>();
         bool pathFound = false;
 
-        DateTime startTime = DateTime.Now;
+        //DateTime startTime = DateTime.Now;
 
         Vector2 goalPosition = GridSystem.points[goalIndex];
 
@@ -96,9 +96,10 @@ public class PathFinding
             }
 
             if (pathFound)
-
                 break;
+
             //await Task.Delay(delay);
+
             closedList.Add(q);
         }
 
@@ -124,7 +125,7 @@ public class PathFinding
 
             path.Reverse();
 
-            Debug.Log("Time it took to run in miliseconds: " + (DateTime.Now - startTime).TotalMilliseconds);
+            //Debug.Log("Time it took to run in miliseconds: " + (DateTime.Now - startTime).TotalMilliseconds);
 
             return path;
     }

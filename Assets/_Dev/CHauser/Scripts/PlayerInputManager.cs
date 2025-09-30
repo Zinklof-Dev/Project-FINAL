@@ -10,17 +10,31 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] List<Actor> partyMemberActors = new List<Actor>();
     [SerializeField] List<Actor> enemyActors = new List<Actor>();
 
+    // Display Manager Refrence
+
+    [SerializeField] PlayerInputDisplay display;
+
+    // Path Visaulizer Refrence
+
+    [SerializeField] LineRenderer lineRenderer;
+
     // Current Input State
 
-    enum InputState { SelectingPartyMember, SelectingGoal, Confirming, Inactive };
-    InputState state = InputState.SelectingPartyMember;
+    public enum InputState { SelectingPartyMember, SelectingGoal, Confirming, Inactive };
+    public InputState state = InputState.SelectingPartyMember;
 
     // Current Actor and Goal Index
-    Actor currentSelectedActor = null;
+    public Actor currentSelectedActor = null;
     int goalIndex = 0;
+
+    List<int> visualPath = new List<int>();
+
+    public bool confirmButtonHit = false;
 
     private void Start()
     {
+        lineRenderer.enabled = false;
+
         allActors = FindObjectsByType<Actor>(FindObjectsSortMode.None).ToList();
 
         // Ensure that there is nly one in the scene
@@ -50,13 +64,49 @@ public class PlayerInputManager : MonoBehaviour
         switch (state)
         {
             case InputState.SelectingPartyMember:
-                SelectPartyMemberActor();
+
+                if(SelectPartyMemberActor())
+                {
+                    display.SetSelectedNameText(currentSelectedActor.actorName);
+                    state = InputState.SelectingGoal;
+                }
+
                 break;
 
             case InputState.SelectingGoal:
+
+                if(SelectingGoal())
+                {
+                    display.SetSelectedGoalPositionText(goalIndex.ToString());
+                    state = InputState.Confirming;
+
+                    visualPath = PathFinding.AStarPath(currentSelectedActor.agent.currentIndex, goalIndex);
+                    visualPath = PathFinding.TrimPath(visualPath);
+                }
+
                 break;
 
             case InputState.Confirming:
+
+                lineRenderer.enabled = true;
+                lineRenderer.positionCount = visualPath.Count;
+                int i = 0;
+
+                foreach(int point in visualPath)
+                {
+                    lineRenderer.SetPosition(i, new Vector3(GridSystem.points[point].x, 0.1f, GridSystem.points[point].y));
+                    i++;
+                }
+
+                if (!confirmButtonHit)
+                    return;
+
+                confirmButtonHit = false;
+                currentSelectedActor.agent.goalIndex = goalIndex;
+                currentSelectedActor.agent.StartNavigation();
+                state = InputState.Inactive;
+                lineRenderer.enabled = false;
+
                 break;
 
             case InputState.Inactive:
@@ -64,23 +114,59 @@ public class PlayerInputManager : MonoBehaviour
         }
     }
 
-    void SelectPartyMemberActor()
+    bool SelectPartyMemberActor()
     {
-        if(!Input.GetMouseButton(0)) 
-            return;
+        if(!Input.GetMouseButtonDown(0)) 
+            return false;
 
         if (!Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
-            return;
+            return false;
 
         float x = /*Numbers.*/RoundToMultiple(hit.point.x, GridSystem.staticTileSize, GridSystem.staticOffsetX);
         float y = /*Numbers.*/RoundToMultiple(hit.point.z, GridSystem.staticTileSize, GridSystem.staticOffsetY);
 
         Vector2 selectedPosition = new Vector2(x, y);
 
+        bool actorFound = false;
+
         foreach(Actor actor in partyMemberActors)
         {
-            //if(actor.agent.currentIndex == )
+            if(actor.agent.currentIndex == GridSystem.points.IndexOf(selectedPosition))
+            {
+                currentSelectedActor = actor;
+                actorFound = true;
+                break;
+            }
         }
+
+        return actorFound;
+    }
+
+    bool SelectingGoal()
+    {
+        if (!Input.GetMouseButtonDown(0))
+            return false;
+
+        if (!Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
+            return false;
+
+        float x = /*Numbers.*/RoundToMultiple(hit.point.x, GridSystem.staticTileSize, GridSystem.staticOffsetX);
+        float y = /*Numbers.*/RoundToMultiple(hit.point.z, GridSystem.staticTileSize, GridSystem.staticOffsetY);
+
+        Vector2 selectedPosition = new Vector2(x, y);
+
+        bool indexFound = false;
+
+        foreach(Vector2 position in GridSystem.points)
+        {
+            if(selectedPosition == position)
+            {
+                indexFound = true;
+                goalIndex = GridSystem.points.IndexOf(position);
+            }
+        }
+
+        return indexFound;
     }
 
 
