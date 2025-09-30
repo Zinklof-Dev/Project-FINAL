@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerInputDisplay : MonoBehaviour
 {
@@ -30,5 +29,17 @@ public class PlayerInputDisplay : MonoBehaviour
         {
             playerInputManager.confirmButtonHit = true;
         }
+    }
+
+    public void Clear()
+    {
+        if (playerInputManager.state == PlayerInputManager.InputState.Inactive)
+            return;
+
+        playerInputManager.currentSelectedActor = null;
+        playerInputManager.lineRenderer.enabled = false;
+        playerInputManager.state = PlayerInputManager.InputState.SelectingPartyMember;
+        selectedActorText.text = "None";
+        selectedGoalPositionText.text = "None";
     }
 }

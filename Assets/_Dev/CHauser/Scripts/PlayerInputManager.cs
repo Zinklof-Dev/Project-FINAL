@@ -12,11 +12,11 @@ public class PlayerInputManager : MonoBehaviour
 
     // Display Manager Refrence
 
-    [SerializeField] PlayerInputDisplay display;
+    [SerializeField] public PlayerInputDisplay display;
 
     // Path Visaulizer Refrence
 
-    [SerializeField] LineRenderer lineRenderer;
+    [SerializeField] public LineRenderer lineRenderer;
 
     // Current Input State
 
@@ -26,10 +26,13 @@ public class PlayerInputManager : MonoBehaviour
     // Current Actor and Goal Index
     public Actor currentSelectedActor = null;
     int goalIndex = 0;
+    int prevGoalIndex = 0; // for debgging, just to make sure that the line path doesn't change and recalculate if the path is already the same.
 
     List<int> visualPath = new List<int>();
 
     public bool confirmButtonHit = false;
+
+    float debugTick = 0f;
 
     private void Start()
     {
@@ -37,7 +40,7 @@ public class PlayerInputManager : MonoBehaviour
 
         allActors = FindObjectsByType<Actor>(FindObjectsSortMode.None).ToList();
 
-        // Ensure that there is nly one in the scene
+        // Ensure that there is only one in the scene
 
         PlayerInputManager manager = FindFirstObjectByType<PlayerInputManager>();
 
@@ -78,25 +81,40 @@ public class PlayerInputManager : MonoBehaviour
                 if(SelectingGoal())
                 {
                     display.SetSelectedGoalPositionText(goalIndex.ToString());
-                    state = InputState.Confirming;
 
+
+                    if (Input.GetMouseButtonDown(0))
+                        state = InputState.Confirming;
+
+                    if (debugTick < 0.1f)
+                    {
+                        debugTick += Time.deltaTime;
+                        return;
+                    }
+
+                    if (goalIndex == prevGoalIndex)
+                        return;
+
+                    debugTick = 0;
                     visualPath = PathFinding.AStarPath(currentSelectedActor.agent.currentIndex, goalIndex);
                     visualPath = PathFinding.TrimPath(visualPath);
+
+                    lineRenderer.enabled = true;
+                    lineRenderer.positionCount = visualPath.Count;
+                    int i = 0;
+
+                    foreach (int point in visualPath)
+                    {
+                        lineRenderer.SetPosition(i, new Vector3(GridSystem.points[point].x, 0.1f, GridSystem.points[point].y));
+                        i++;
+                    }
                 }
+
+                prevGoalIndex = goalIndex;
 
                 break;
 
             case InputState.Confirming:
-
-                lineRenderer.enabled = true;
-                lineRenderer.positionCount = visualPath.Count;
-                int i = 0;
-
-                foreach(int point in visualPath)
-                {
-                    lineRenderer.SetPosition(i, new Vector3(GridSystem.points[point].x, 0.1f, GridSystem.points[point].y));
-                    i++;
-                }
 
                 if (!confirmButtonHit)
                     return;
@@ -144,9 +162,6 @@ public class PlayerInputManager : MonoBehaviour
 
     bool SelectingGoal()
     {
-        if (!Input.GetMouseButtonDown(0))
-            return false;
-
         if (!Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
             return false;
 
