@@ -20,7 +20,7 @@ public class PlayerInputManager : MonoBehaviour
 
     // Current Input State
 
-    public enum InputState { SelectingPartyMember, SelectingGoal, Confirming, Inactive };
+    public enum InputState { SelectingPartyMember, SelectingGoal, Confirming, Inactive, Battling };
     public InputState state = InputState.SelectingPartyMember;
 
     // Current Actor and Goal Index
@@ -79,12 +79,15 @@ public class PlayerInputManager : MonoBehaviour
             case InputState.SelectingGoal:
 
                 if(SelectingGoal())
-                {
-                    display.SetSelectedGoalPositionText(goalIndex.ToString());
-
-
+                { 
                     if (Input.GetMouseButtonDown(0))
                         state = InputState.Confirming;
+
+                    foreach(Actor actor in allActors)
+                    {
+                        if (actor.agent.currentIndex == goalIndex)
+                            Debug.Log("Actor here!");
+                    }
 
                     if (debugTick < 0.1f)
                     {
@@ -96,8 +99,11 @@ public class PlayerInputManager : MonoBehaviour
                         return;
 
                     debugTick = 0;
+
                     visualPath = PathFinding.AStarPath(currentSelectedActor.agent.currentIndex, goalIndex);
                     visualPath = PathFinding.TrimPath(visualPath);
+
+                    display.SetSelectedGoalPositionText(goalIndex.ToString());
 
                     lineRenderer.enabled = true;
                     lineRenderer.positionCount = visualPath.Count;
