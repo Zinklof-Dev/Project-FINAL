@@ -19,6 +19,8 @@ public class Agent : MonoBehaviour
     private List<int> path = new List<int>();
     private int step = 1;
 
+    private Actor actor;
+
     private void OnDrawGizmos()
     {
         if (currentState != State.Moving)
@@ -32,7 +34,7 @@ public class Agent : MonoBehaviour
 
     private void Start()
     {
-
+        actor = GetComponent<Actor>();
     }
   
     private void Update()
@@ -93,6 +95,8 @@ public class Agent : MonoBehaviour
                 transform.rotation = goalRotation;
                 currentIndex = goalIndex;
                 currentState = State.Idle;
+                actor.playerInputManager.state = PlayerInputManager.InputState.SelectingPartyMember;
+                actor.playerInputManager.display.Clear();
             }
         }
     }

@@ -14,7 +14,7 @@ public class Actor : MonoBehaviour
 
 
     public Agent agent;
-    [SerializeField] private PlayerInputManager playerInputManager;
+    [SerializeField] public PlayerInputManager playerInputManager;
 
 
     private void Start()
