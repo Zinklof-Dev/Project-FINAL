@@ -32,7 +32,7 @@ public class PlayerInputManager : MonoBehaviour
 
     public bool confirmButtonHit = false;
 
-    float debugTick = 0f;
+    float debugTick = 1f;
 
     private void Start()
     {
@@ -78,21 +78,28 @@ public class PlayerInputManager : MonoBehaviour
 
             case InputState.SelectingGoal:
 
-                if(SelectingGoal())
-                { 
-                    if (Input.GetMouseButtonDown(0))
-                        state = InputState.Confirming;
+                if (Input.GetMouseButtonDown(0))
+                {
+                    state = InputState.Confirming;
+                    debugTick = 1f;
+                }
 
+                if (debugTick < 0.1f)
+                {
+                    debugTick += Time.deltaTime;
+                    return;
+                }
+
+                if (SelectingGoal())
+                {
                     foreach(Actor actor in allActors)
                     {
-                        if (actor.agent.currentIndex == goalIndex)
-                            Debug.Log("Actor here!");
-                    }
+                        visualPath = PathFinding.AStarPath(currentSelectedActor.agent.currentIndex, goalIndex);
 
-                    if (debugTick < 0.1f)
-                    {
-                        debugTick += Time.deltaTime;
-                        return;
+                        if (actor.agent.currentIndex == goalIndex)
+                        {
+                            goalIndex = visualPath[Mathf.Clamp(visualPath.Count - 2, 0, visualPath.Count)];
+                        }
                     }
 
                     if (goalIndex == prevGoalIndex)
@@ -101,6 +108,12 @@ public class PlayerInputManager : MonoBehaviour
                     debugTick = 0;
 
                     visualPath = PathFinding.AStarPath(currentSelectedActor.agent.currentIndex, goalIndex);
+                    if (visualPath == null)
+                    {
+                        goalIndex = prevGoalIndex;
+                        return;
+                    }
+
                     visualPath = PathFinding.TrimPath(visualPath);
 
                     display.SetSelectedGoalPositionText(goalIndex.ToString());

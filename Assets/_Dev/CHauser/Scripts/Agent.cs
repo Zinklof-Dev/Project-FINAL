@@ -87,7 +87,6 @@ public class Agent : MonoBehaviour
 
         if(Mathf.Sqrt(Vectors.SqrDist3f(transform.position, next)) < 0.01f)
         {
-            transform.position = next;
             step++;
 
             if (step == path.Count)
@@ -98,6 +97,8 @@ public class Agent : MonoBehaviour
                 actor.playerInputManager.state = PlayerInputManager.InputState.SelectingPartyMember;
                 actor.playerInputManager.display.Clear();
             }
+
+            transform.position = next;
         }
     }
 }
