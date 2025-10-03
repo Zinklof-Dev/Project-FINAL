@@ -34,6 +34,8 @@ public class PlayerInputManager : MonoBehaviour
 
     float debugTick = 1f;
 
+    bool goingToAttack = false;
+
     private void Start()
     {
         lineRenderer.enabled = false;
@@ -92,14 +94,25 @@ public class PlayerInputManager : MonoBehaviour
 
                 if (SelectingGoal())
                 {
-                    foreach(Actor actor in allActors)
-                    {
-                        visualPath = PathFinding.AStarPath(currentSelectedActor.agent.currentIndex, goalIndex);
+                    goingToAttack = false;
 
+                    foreach (Actor actor in allActors)
+                    {
                         if (actor.agent.currentIndex == goalIndex)
                         {
-                            goalIndex = visualPath[Mathf.Clamp(visualPath.Count - 2, 0, visualPath.Count)];
+                            if (actor.type == Actor.ActorType.Enemy)
+                            {
+                                lineRenderer.startColor = Color.red;
+                                lineRenderer.endColor = Color.red;
+                                goingToAttack = true;
+                            }
                         }
+                    }
+
+                    if(!goingToAttack)
+                    {
+                        lineRenderer.startColor = Color.green;
+                        lineRenderer.endColor = Color.green;
                     }
 
                     if (goalIndex == prevGoalIndex)

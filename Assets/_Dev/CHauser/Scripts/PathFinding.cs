@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using ZinklofDev.Utils.MathZ;
 
@@ -25,7 +26,7 @@ public class Node
 
 public class PathFinding
 {
-    private static Vector3[] directions = { new Vector3(0, 0, -1), new Vector3(0, 0, 1), new Vector3(-1, 0, 0), new Vector3(1, 0, 0), new Vector3(1, 0, 1), new Vector3(-1, 0, 1), new Vector3(1, 0, -1), new Vector3(-1, 0, -1) };
+    /*private*/ public static Vector3[] directions = { new Vector3(0, 0, -1), new Vector3(0, 0, 1), new Vector3(-1, 0, 0), new Vector3(1, 0, 0), new Vector3(1, 0, 1), new Vector3(-1, 0, 1), new Vector3(1, 0, -1), new Vector3(-1, 0, -1) };
 
     public static List<int> AStarPath(int startIndex, int goalIndex)
     {
@@ -55,7 +56,7 @@ public class PathFinding
             foreach (Vector3 direction in directions)
             {
                 //await Task.Delay(delay);
-                if (Physics.Raycast(new Vector3(q.position.x, 1, q.position.y), direction, out RaycastHit hit, GridSystem.staticTileSize))
+                if (Physics.Raycast(new Vector3(q.position.x, 1, q.position.y), direction, out RaycastHit hit, GridSystem.staticTileSize * Mathf.Sqrt(2)))
                     continue;
 
                 Vector2 successorPosition = q.position + (new Vector2(direction.x, direction.z) * GridSystem.staticTileSize);

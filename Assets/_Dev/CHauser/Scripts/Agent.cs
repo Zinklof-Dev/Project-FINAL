@@ -45,11 +45,16 @@ public class Agent : MonoBehaviour
         switch (currentState)
         {
             case State.Idle:
+
             transform.position = new Vector3(GridSystem.points[currentIndex].x, transform.position.y, GridSystem.points[currentIndex].y);
+
             break;
         
             case State.Moving:
-            Move();
+                nextIndex = path[step];
+                Rotate();
+                Move();
+
             break;
         }
         }
@@ -72,18 +77,8 @@ public class Agent : MonoBehaviour
 
     public void Move()
     {
-        nextIndex = path[step];
-
         Vector3 next = new Vector3(GridSystem.points[nextIndex].x, transform.position.y, GridSystem.points[nextIndex].y);
         transform.position = Vector3.MoveTowards(transform.position, next, moveSpeed * Time.deltaTime);
-
-        Vector3 nextLookPosition = new Vector3(GridSystem.points[nextIndex].x, transform.position.y, GridSystem.points[nextIndex].y);
-        Vector3 directionToTarget = nextLookPosition - transform.position;
-        Quaternion goalRotation = Quaternion.LookRotation(directionToTarget, Vector3.up);
-        if (Quaternion.Angle(transform.rotation, goalRotation) < 0.1f)
-            transform.rotation = goalRotation;
-        else
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, goalRotation, rotationSpeed * Time.deltaTime);
 
         if(Mathf.Sqrt(Vectors.SqrDist3f(transform.position, next)) < 0.01f)
         {
@@ -91,7 +86,6 @@ public class Agent : MonoBehaviour
 
             if (step == path.Count)
             {
-                transform.rotation = goalRotation;
                 currentIndex = goalIndex;
                 currentState = State.Idle;
                 actor.playerInputManager.state = PlayerInputManager.InputState.SelectingPartyMember;
@@ -100,5 +94,17 @@ public class Agent : MonoBehaviour
 
             transform.position = next;
         }
+    }
+
+    public void Rotate()
+    {
+        Vector3 nextLookPosition = new Vector3(GridSystem.points[nextIndex].x, transform.position.y, GridSystem.points[nextIndex].y);
+        Vector3 directionToTarget = nextLookPosition - transform.position;
+        Quaternion goalRotation = Quaternion.LookRotation(directionToTarget, Vector3.up);
+
+        if (Quaternion.Angle(transform.rotation, goalRotation) < 0.1f)
+            transform.rotation = goalRotation;
+        else
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, goalRotation, rotationSpeed * Time.deltaTime);
     }
 }
