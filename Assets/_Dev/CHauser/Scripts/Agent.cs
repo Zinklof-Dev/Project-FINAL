@@ -64,7 +64,7 @@ public class Agent : MonoBehaviour
         if (startIndex == goalIndex)
             return;
 
-        path = PathFinding.AStarPath(startIndex, goalIndex);
+        path = PathFinding.AStarPath(startIndex, goalIndex, 1);
         if(path == null)
         {
             Debug.Log("Can't Move! No path found.");
@@ -89,7 +89,7 @@ public class Agent : MonoBehaviour
                 currentIndex = goalIndex;
                 currentState = State.Idle;
                 actor.playerInputManager.state = PlayerInputManager.InputState.SelectingPartyMember;
-                actor.playerInputManager.display.Clear();
+                actor.playerInputManager.display.Clear(true);
             }
 
             transform.position = next;

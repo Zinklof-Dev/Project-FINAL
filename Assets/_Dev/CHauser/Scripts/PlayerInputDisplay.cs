@@ -31,14 +31,17 @@ public class PlayerInputDisplay : MonoBehaviour
         }
     }
 
-    public void Clear()
+    public void Clear(bool isAfterNavigation)
     {
         if (playerInputManager.state == PlayerInputManager.InputState.Inactive)
             return;
 
         playerInputManager.currentSelectedActor = null;
         playerInputManager.lineRenderer.enabled = false;
-        playerInputManager.state = PlayerInputManager.InputState.SelectingPartyMember;
+        if(playerInputManager.goingToAttack && isAfterNavigation)
+            playerInputManager.state = PlayerInputManager.InputState.Battling;
+        else
+            playerInputManager.state = PlayerInputManager.InputState.SelectingPartyMember;
         selectedActorText.text = "None";
         selectedGoalPositionText.text = "None";
     }

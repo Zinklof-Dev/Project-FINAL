@@ -28,7 +28,7 @@ public class PathFinding
 {
     /*private*/ public static Vector3[] directions = { new Vector3(0, 0, -1), new Vector3(0, 0, 1), new Vector3(-1, 0, 0), new Vector3(1, 0, 0), new Vector3(1, 0, 1), new Vector3(-1, 0, 1), new Vector3(1, 0, -1), new Vector3(-1, 0, -1) };
 
-    public static List<int> AStarPath(int startIndex, int goalIndex)
+    public static List<int> AStarPath(int startIndex, int goalIndex, float yPositionToCheck)
     {
         List<int> path = new List<int>();
         bool pathFound = false;
@@ -56,7 +56,7 @@ public class PathFinding
             foreach (Vector3 direction in directions)
             {
                 //await Task.Delay(delay);
-                if (Physics.Raycast(new Vector3(q.position.x, 1, q.position.y), direction, out RaycastHit hit, GridSystem.staticTileSize * Mathf.Sqrt(2)))
+                if (Physics.Raycast(new Vector3(q.position.x, yPositionToCheck, q.position.y), direction, out RaycastHit hit, GridSystem.staticTileSize * Mathf.Sqrt(2)))
                     continue;
 
                 Vector2 successorPosition = q.position + (new Vector2(direction.x, direction.z) * GridSystem.staticTileSize);

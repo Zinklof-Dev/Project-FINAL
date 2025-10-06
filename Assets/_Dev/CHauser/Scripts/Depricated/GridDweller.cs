@@ -85,7 +85,7 @@ public class GridDweller : MonoBehaviour
         if(navigating)
         {
             //AStarPath(positionIndex, positionGoalIndex);
-            path = PathFinding.AStarPath(positionIndex, positionGoalIndex);
+            path = PathFinding.AStarPath(positionIndex, positionGoalIndex, 1);
             navigating = false;
         }
         if (snapToGrid)

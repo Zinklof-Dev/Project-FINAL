@@ -17,6 +17,7 @@ public class PlayerInputManager : MonoBehaviour
     // Path Visaulizer Refrence
 
     [SerializeField] public LineRenderer lineRenderer;
+    [SerializeField] public Material lineRenedererMaterial;
 
     // Current Input State
 
@@ -34,7 +35,7 @@ public class PlayerInputManager : MonoBehaviour
 
     float debugTick = 1f;
 
-    bool goingToAttack = false;
+    public bool goingToAttack = false;
 
     private void Start()
     {
@@ -102,25 +103,26 @@ public class PlayerInputManager : MonoBehaviour
                         {
                             if (actor.type == Actor.ActorType.Enemy)
                             {
-                                lineRenderer.startColor = Color.red;
-                                lineRenderer.endColor = Color.red;
+                                visualPath = PathFinding.AStarPath(currentSelectedActor.agent.currentIndex, actor.agent.currentIndex, 2);
+                                if (visualPath == null || visualPath.Count <= 2)
+                                    continue;
                                 goingToAttack = true;
+                                goalIndex = visualPath[visualPath.Count - 2];
                             }
                         }
                     }
 
                     if(!goingToAttack)
-                    {
-                        lineRenderer.startColor = Color.green;
-                        lineRenderer.endColor = Color.green;
-                    }
+                        lineRenedererMaterial.color = Color.green;
+                    else
+                        lineRenedererMaterial.color = Color.red;
 
                     if (goalIndex == prevGoalIndex)
                         return;
 
                     debugTick = 0;
 
-                    visualPath = PathFinding.AStarPath(currentSelectedActor.agent.currentIndex, goalIndex);
+                    visualPath = PathFinding.AStarPath(currentSelectedActor.agent.currentIndex, goalIndex, 1);
                     if (visualPath == null)
                     {
                         goalIndex = prevGoalIndex;
