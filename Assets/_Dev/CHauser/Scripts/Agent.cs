@@ -88,7 +88,6 @@ public class Agent : MonoBehaviour
             {
                 currentIndex = goalIndex;
                 currentState = State.Idle;
-                actor.playerInputManager.state = PlayerInputManager.InputState.SelectingPartyMember;
                 actor.playerInputManager.display.Clear(true);
             }
 

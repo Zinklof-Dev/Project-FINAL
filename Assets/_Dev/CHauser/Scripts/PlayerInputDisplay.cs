@@ -8,6 +8,10 @@ public class PlayerInputDisplay : MonoBehaviour
     [SerializeField] TMP_Text selectedActorText;
     [SerializeField] TMP_Text selectedGoalPositionText;
 
+    [SerializeField] GameObject attackOrNavigatePrompt;
+
+    [SerializeField] GameObject confirmNavigationPrompt;
+
     private void Start()
     {
         playerInputManager = FindFirstObjectByType<PlayerInputManager>();
@@ -31,18 +35,45 @@ public class PlayerInputDisplay : MonoBehaviour
         }
     }
 
-    public void Clear(bool isAfterNavigation)
+    public void Clear(bool resetWhileInactive)
     {
-        if (playerInputManager.state == PlayerInputManager.InputState.Inactive)
+        if (playerInputManager.state == PlayerInputManager.InputState.Inactive && !resetWhileInactive)
             return;
 
         playerInputManager.currentSelectedActor = null;
         playerInputManager.lineRenderer.enabled = false;
-        if(playerInputManager.goingToAttack && isAfterNavigation)
-            playerInputManager.state = PlayerInputManager.InputState.Battling;
-        else
-            playerInputManager.state = PlayerInputManager.InputState.SelectingPartyMember;
+        playerInputManager.state = PlayerInputManager.InputState.SelectingPartyMember;
         selectedActorText.text = "None";
         selectedGoalPositionText.text = "None";
+    }
+
+    public void PromtIfAttackingOrNavigating()
+    {
+        attackOrNavigatePrompt.SetActive(true);
+    }
+
+    public void PromtIfAttackingOrNavigatingResponse(bool isAttacking)
+    {
+        attackOrNavigatePrompt.SetActive(false);
+
+        if (isAttacking)
+        {
+            playerInputManager.state = PlayerInputManager.InputState.SelectingEnemyToAttack;
+            return;
+        }
+
+        playerInputManager.state = PlayerInputManager.InputState.SelectingGoal;
+    }
+
+
+    public void ConfirmPathPrompt()
+    {
+        confirmNavigationPrompt.SetActive(true);
+    }
+
+    public void ConfirmPath()
+    {
+        playerInputManager.confirmButtonHit = true;
+        confirmNavigationPrompt.SetActive(false);
     }
 }

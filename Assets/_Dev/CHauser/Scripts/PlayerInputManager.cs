@@ -21,7 +21,7 @@ public class PlayerInputManager : MonoBehaviour
 
     // Current Input State
 
-    public enum InputState { SelectingPartyMember, SelectingGoal, Confirming, Inactive, Battling };
+    public enum InputState { SelectingPartyMember, SelectingGoal, Confirming, Inactive, SelectingEnemyToAttack };
     public InputState state = InputState.SelectingPartyMember;
 
     // Current Actor and Goal Index
@@ -34,8 +34,6 @@ public class PlayerInputManager : MonoBehaviour
     public bool confirmButtonHit = false;
 
     float debugTick = 1f;
-
-    public bool goingToAttack = false;
 
     private void Start()
     {
@@ -74,16 +72,25 @@ public class PlayerInputManager : MonoBehaviour
                 if(SelectPartyMemberActor())
                 {
                     display.SetSelectedNameText(currentSelectedActor.actorName);
-                    state = InputState.SelectingGoal;
+                    display.PromtIfAttackingOrNavigating();
+                    state = InputState.Inactive;
                 }
 
                 break;
 
             case InputState.SelectingGoal:
 
+                bool goalSelected = SelectingGoal();
+
+                if (goalIndex == currentSelectedActor.agent.currentIndex)
+                {
+                    return;
+                }
+
                 if (Input.GetMouseButtonDown(0))
                 {
                     state = InputState.Confirming;
+                    display.ConfirmPathPrompt();
                     debugTick = 1f;
                 }
 
@@ -93,10 +100,8 @@ public class PlayerInputManager : MonoBehaviour
                     return;
                 }
 
-                if (SelectingGoal())
+                if (goalSelected)
                 {
-                    goingToAttack = false;
-
                     foreach (Actor actor in allActors)
                     {
                         if (actor.agent.currentIndex == goalIndex)
@@ -106,16 +111,10 @@ public class PlayerInputManager : MonoBehaviour
                                 visualPath = PathFinding.AStarPath(currentSelectedActor.agent.currentIndex, actor.agent.currentIndex, 2);
                                 if (visualPath == null || visualPath.Count <= 2)
                                     continue;
-                                goingToAttack = true;
                                 goalIndex = visualPath[visualPath.Count - 2];
                             }
                         }
                     }
-
-                    if(!goingToAttack)
-                        lineRenedererMaterial.color = Color.green;
-                    else
-                        lineRenedererMaterial.color = Color.red;
 
                     if (goalIndex == prevGoalIndex)
                         return;
@@ -161,7 +160,12 @@ public class PlayerInputManager : MonoBehaviour
 
                 break;
 
+            case InputState.SelectingEnemyToAttack:
+
+                break;
+
             case InputState.Inactive:
+
                 break;
         }
     }
@@ -217,6 +221,7 @@ public class PlayerInputManager : MonoBehaviour
 
         return indexFound;
     }
+
 
 
 
