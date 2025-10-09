@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using ZinklofDev.Utils.MathZ;
 // using ZinklofDev.Utils.MathZ;
 
 public class PlayerInputManager : MonoBehaviour
@@ -26,6 +27,7 @@ public class PlayerInputManager : MonoBehaviour
 
     // Current Actor and Goal Index
     public Actor currentSelectedActor = null;
+    public Actor currentEnemySelectedActor = null;
     int goalIndex = 0;
     int prevGoalIndex = 0; // for debgging, just to make sure that the line path doesn't change and recalculate if the path is already the same.
 
@@ -102,7 +104,7 @@ public class PlayerInputManager : MonoBehaviour
 
                 if (goalSelected)
                 {
-                    foreach (Actor actor in allActors)
+                    /*foreach (Actor actor in allActors)
                     {
                         if (actor.agent.currentIndex == goalIndex)
                         {
@@ -114,7 +116,7 @@ public class PlayerInputManager : MonoBehaviour
                                 goalIndex = visualPath[visualPath.Count - 2];
                             }
                         }
-                    }
+                    }*/
 
                     if (goalIndex == prevGoalIndex)
                         return;
@@ -162,6 +164,29 @@ public class PlayerInputManager : MonoBehaviour
 
             case InputState.SelectingEnemyToAttack:
 
+                if(SelectEnemyActor())
+                {
+                    float distance = Vectors.SqrDist2f(GridSystem.points[currentEnemySelectedActor.agent.currentIndex], GridSystem.points[currentSelectedActor.agent.currentIndex]);
+                    Debug.Log(distance / (GridSystem.staticTileSize * GridSystem.staticTileSize)); 
+
+                    // The grid square is adjacent
+                    if(distance % GridSystem.staticTileSize == 0)
+                    {
+                        if(distance /  (GridSystem.staticTileSize * GridSystem.staticTileSize) > currentSelectedActor.range * currentSelectedActor.range)
+                            return;
+                    }
+                    /*
+                    // It's not
+                    else
+                    {
+                        if (distance / (GridSystem.staticTileSize * GridSystem.staticTileSize * 1.41421356237f) /*Square root of 2 /**//* > currentSelectedActor.range * currentSelectedActor.range * 1.41421356237f)
+                            return;
+                    }
+                    */
+
+                    Debug.Log("Valid Enemy!");
+                }
+
                 break;
 
             case InputState.Inactive:
@@ -190,6 +215,34 @@ public class PlayerInputManager : MonoBehaviour
             if(actor.agent.currentIndex == GridSystem.points.IndexOf(selectedPosition))
             {
                 currentSelectedActor = actor;
+                actorFound = true;
+                break;
+            }
+        }
+
+        return actorFound;
+    }
+
+    bool SelectEnemyActor()
+    {
+        if (!Input.GetMouseButtonDown(0))
+            return false;
+
+        if (!Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
+            return false;
+
+        float x = /*Numbers.*/RoundToMultiple(hit.point.x, GridSystem.staticTileSize, GridSystem.staticOffsetX);
+        float y = /*Numbers.*/RoundToMultiple(hit.point.z, GridSystem.staticTileSize, GridSystem.staticOffsetY);
+
+        Vector2 selectedPosition = new Vector2(x, y);
+
+        bool actorFound = false;
+
+        foreach (Actor actor in enemyActors)
+        {
+            if (actor.agent.currentIndex == GridSystem.points.IndexOf(selectedPosition))
+            {
+                currentEnemySelectedActor = actor;
                 actorFound = true;
                 break;
             }

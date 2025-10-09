@@ -64,11 +64,14 @@ public class GridSystem : MonoBehaviour
             x1 += tileSize;
         }
     }
+
+    /*
     [Command("Moves Grid Dwellers")]
     public static void MoveDweller(int dwellerIndex, int gridIndex)
     {
         dwellers[dwellerIndex].positionIndex = gridIndex;
     }
+    */
 
     private void OnApplicationQuit()
     {

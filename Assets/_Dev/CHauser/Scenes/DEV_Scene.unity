@@ -898,6 +898,7 @@ MonoBehaviour:
   lineRenedererMaterial: {fileID: 2100000, guid: 615b80c6ea18c474394ebb6fad805c66, type: 2}
   state: 0
   currentSelectedActor: {fileID: 0}
+  currentEnemySelectedActor: {fileID: 0}
   confirmButtonHit: 0
 --- !u!4 &281391414
 Transform:
@@ -1088,6 +1089,7 @@ MonoBehaviour:
   health: 0
   maxHealth: 0
   speed: 0
+  range: 1
   agent: {fileID: 341110260}
   playerInputManager: {fileID: 281391413}
 --- !u!114 &341110260
@@ -1616,6 +1618,7 @@ MonoBehaviour:
   health: 0
   maxHealth: 0
   speed: 0
+  range: 0
   agent: {fileID: 435536108}
   playerInputManager: {fileID: 281391413}
 --- !u!114 &435536108
@@ -3726,6 +3729,7 @@ MonoBehaviour:
   health: 0
   maxHealth: 0
   speed: 0
+  range: 0
   agent: {fileID: 1334878763}
   playerInputManager: {fileID: 281391413}
 --- !u!114 &1334878763
@@ -5158,6 +5162,7 @@ MonoBehaviour:
   health: 0
   maxHealth: 0
   speed: 0
+  range: 1
   agent: {fileID: 1793388874}
   playerInputManager: {fileID: 281391413}
 --- !u!1 &1814133776
@@ -5773,6 +5778,7 @@ MonoBehaviour:
   health: 0
   maxHealth: 0
   speed: 0
+  range: 0
   agent: {fileID: 1877019308}
   playerInputManager: {fileID: 281391413}
 --- !u!114 &1877019308
@@ -5921,6 +5927,7 @@ MonoBehaviour:
   health: 0
   maxHealth: 0
   speed: 0
+  range: 0
   agent: {fileID: 1916047595}
   playerInputManager: {fileID: 281391413}
 --- !u!114 &1916047595
@@ -6479,6 +6486,7 @@ MonoBehaviour:
   health: 0
   maxHealth: 0
   speed: 0
+  range: 0
   agent: {fileID: 2090396471}
   playerInputManager: {fileID: 281391413}
 --- !u!114 &2090396471
@@ -6627,6 +6635,7 @@ MonoBehaviour:
   health: 0
   maxHealth: 0
   speed: 0
+  range: 1
   agent: {fileID: 2115874535}
   playerInputManager: {fileID: 281391413}
 --- !u!114 &2115874535
@@ -6775,6 +6784,7 @@ MonoBehaviour:
   health: 0
   maxHealth: 0
   speed: 0
+  range: 0
   agent: {fileID: 2116435238}
   playerInputManager: {fileID: 281391413}
 --- !u!114 &2116435238
