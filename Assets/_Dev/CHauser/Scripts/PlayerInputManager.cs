@@ -1,35 +1,51 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using ZinklofDev.Utils.MathZ;
-// using ZinklofDev.Utils.MathZ;
+//using ZinklofDev.Utils.MathZ;
 
 public class PlayerInputManager : MonoBehaviour
 {
+    #region Actor Refrences
     // Actor Refrences
     [SerializeField] List<Actor> allActors = new List<Actor>();
     [SerializeField] List<Actor> partyMemberActors = new List<Actor>();
     [SerializeField] List<Actor> enemyActors = new List<Actor>();
+    #endregion
 
+    #region Display Manager Refrence
     // Display Manager Refrence
 
     [SerializeField] public PlayerInputDisplay display;
 
-    // Path Visaulizer Refrence
+    #endregion
+
+    #region Path Visualizer Refrences
+
+    // Path Visualizer Refrence
 
     [SerializeField] public LineRenderer lineRenderer;
     [SerializeField] public Material lineRenedererMaterial;
+
+    #endregion
+
+    #region Input State
 
     // Current Input State
 
     public enum InputState { SelectingPartyMember, SelectingGoal, Confirming, Inactive, SelectingEnemyToAttack };
     public InputState state = InputState.SelectingPartyMember;
 
+    #endregion
+
+    #region Current Selections
+
     // Current Actor and Goal Index
     public Actor currentSelectedActor = null;
     public Actor currentEnemySelectedActor = null;
     int goalIndex = 0;
     int prevGoalIndex = 0; // for debgging, just to make sure that the line path doesn't change and recalculate if the path is already the same.
+
+    #endregion
 
     List<int> visualPath = new List<int>();
 
@@ -39,16 +55,14 @@ public class PlayerInputManager : MonoBehaviour
 
     private void Start()
     {
+        // Ensure that there is only one in the scene
+        PlayerInputManager manager = FindFirstObjectByType<PlayerInputManager>();
+        if (manager != this)
+            Destroy(gameObject);
+
         lineRenderer.enabled = false;
 
         allActors = FindObjectsByType<Actor>(FindObjectsSortMode.None).ToList();
-
-        // Ensure that there is only one in the scene
-
-        PlayerInputManager manager = FindFirstObjectByType<PlayerInputManager>();
-
-        if (manager != this)
-            Destroy(gameObject);
 
         foreach (Actor actor in allActors)
         {
@@ -104,20 +118,6 @@ public class PlayerInputManager : MonoBehaviour
 
                 if (goalSelected)
                 {
-                    /*foreach (Actor actor in allActors)
-                    {
-                        if (actor.agent.currentIndex == goalIndex)
-                        {
-                            if (actor.type == Actor.ActorType.Enemy)
-                            {
-                                visualPath = PathFinding.AStarPath(currentSelectedActor.agent.currentIndex, actor.agent.currentIndex, 2);
-                                if (visualPath == null || visualPath.Count <= 2)
-                                    continue;
-                                goalIndex = visualPath[visualPath.Count - 2];
-                            }
-                        }
-                    }*/
-
                     if (goalIndex == prevGoalIndex)
                         return;
 
@@ -166,25 +166,19 @@ public class PlayerInputManager : MonoBehaviour
 
                 if(SelectEnemyActor())
                 {
-                    float distance = Vectors.SqrDist2f(GridSystem.points[currentEnemySelectedActor.agent.currentIndex], GridSystem.points[currentSelectedActor.agent.currentIndex]);
-                    Debug.Log(distance / (GridSystem.staticTileSize * GridSystem.staticTileSize)); 
-
-                    // The grid square is adjacent
-                    if(distance % GridSystem.staticTileSize == 0)
+                    for (int i = currentSelectedActor.range; i > 0; i--)
                     {
-                        if(distance /  (GridSystem.staticTileSize * GridSystem.staticTileSize) > currentSelectedActor.range * currentSelectedActor.range)
-                            return;
+                        foreach (Vector3 direction in PathFinding.directions)
+                        {
+                            int index = GridSystem.points.IndexOf(GridSystem.points[currentSelectedActor.agent.currentIndex] + (new Vector2(direction.x, direction.z) * GridSystem.staticTileSize * i));
+                            if (index == currentEnemySelectedActor.agent.currentIndex)
+                            {
+                                display.SetSelectedEnemyText(currentEnemySelectedActor.name);
+                                return;
+                            }
+                        }
                     }
-                    /*
-                    // It's not
-                    else
-                    {
-                        if (distance / (GridSystem.staticTileSize * GridSystem.staticTileSize * 1.41421356237f) /*Square root of 2 /**//* > currentSelectedActor.range * currentSelectedActor.range * 1.41421356237f)
-                            return;
-                    }
-                    */
-
-                    Debug.Log("Valid Enemy!");
+                        currentEnemySelectedActor = null;
                 }
 
                 break;
@@ -247,7 +241,6 @@ public class PlayerInputManager : MonoBehaviour
                 break;
             }
         }
-
         return actorFound;
     }
 
@@ -276,9 +269,9 @@ public class PlayerInputManager : MonoBehaviour
     }
 
 
+    #region TEMP DLL FUNCTIONS
 
-
-    // Cameron pushed an old dll to the project, so I am temp copy / pasting the functions 
+    // Cameron pushed an old dll to the project, so I am temp copy / pasting the functions - Cole
 
 
     /// <summary>
@@ -304,4 +297,5 @@ public class PlayerInputManager : MonoBehaviour
     {
         return Mathf.Round((inputValue - tOffset) / baseNumberOfMultiple) * baseNumberOfMultiple + tOffset;
     }
+    #endregion
 }

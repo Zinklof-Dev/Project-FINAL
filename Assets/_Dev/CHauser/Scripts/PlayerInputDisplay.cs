@@ -7,6 +7,7 @@ public class PlayerInputDisplay : MonoBehaviour
 
     [SerializeField] TMP_Text selectedActorText;
     [SerializeField] TMP_Text selectedGoalPositionText;
+    [SerializeField] TMP_Text selectedEnemyText;
 
     [SerializeField] GameObject attackOrNavigatePrompt;
 
@@ -20,6 +21,11 @@ public class PlayerInputDisplay : MonoBehaviour
     public void SetSelectedNameText(string name)
     {
         selectedActorText.text = name;
+    }
+
+    public void SetSelectedEnemyText(string name)
+    {
+        selectedEnemyText.text = name;
     }
 
     public void SetSelectedGoalPositionText(string position)
@@ -41,10 +47,12 @@ public class PlayerInputDisplay : MonoBehaviour
             return;
 
         playerInputManager.currentSelectedActor = null;
+        playerInputManager.currentEnemySelectedActor = null;
         playerInputManager.lineRenderer.enabled = false;
         playerInputManager.state = PlayerInputManager.InputState.SelectingPartyMember;
         selectedActorText.text = "None";
         selectedGoalPositionText.text = "None";
+        selectedEnemyText.text = "None";
     }
 
     public void PromtIfAttackingOrNavigating()
