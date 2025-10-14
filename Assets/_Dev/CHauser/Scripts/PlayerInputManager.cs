@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-//using ZinklofDev.Utils.MathZ;
+using ZinklofDev.Utils.MathZ;
 
 public class PlayerInputManager : MonoBehaviour
 {
@@ -166,19 +166,14 @@ public class PlayerInputManager : MonoBehaviour
 
                 if(SelectEnemyActor())
                 {
-                    for (int i = currentSelectedActor.range; i > 0; i--)
+                    if (Vectors.SqrDist2f(GridSystem.points[currentEnemySelectedActor.agent.currentIndex], GridSystem.points[currentSelectedActor.agent.currentIndex]) <= currentSelectedActor.range * currentSelectedActor.range * GridSystem.staticTileSize * GridSystem.staticTileSize)
                     {
-                        foreach (Vector3 direction in PathFinding.directions)
-                        {
-                            int index = GridSystem.points.IndexOf(GridSystem.points[currentSelectedActor.agent.currentIndex] + (new Vector2(direction.x, direction.z) * GridSystem.staticTileSize * i));
-                            if (index == currentEnemySelectedActor.agent.currentIndex)
-                            {
-                                display.SetSelectedEnemyText(currentEnemySelectedActor.name);
-                                return;
-                            }
-                        }
+                        display.SetSelectedEnemyText(currentEnemySelectedActor.name);
+                        Debug.Log("Valid");
+                        return;
                     }
-                        currentEnemySelectedActor = null;
+                    currentEnemySelectedActor = null;
+                    Debug.Log("Invalid");
                 }
 
                 break;
