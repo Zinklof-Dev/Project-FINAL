@@ -13,6 +13,8 @@ public class PlayerInputDisplay : MonoBehaviour
 
     [SerializeField] GameObject confirmNavigationPrompt;
 
+    [SerializeField] GameObject confirmEnemyPrompt;
+
     private void Start()
     {
         playerInputManager = FindFirstObjectByType<PlayerInputManager>();
@@ -33,9 +35,9 @@ public class PlayerInputDisplay : MonoBehaviour
         selectedGoalPositionText.text = position;
     }
 
-    public void Confirm()
+    public void ConfirmNavigation()
     {
-        if (playerInputManager.state == PlayerInputManager.InputState.Confirming)
+        if (playerInputManager.state == PlayerInputManager.InputState.ConfirmingNavigation)
         {
             playerInputManager.confirmButtonHit = true;
         }
@@ -83,5 +85,15 @@ public class PlayerInputDisplay : MonoBehaviour
     {
         playerInputManager.confirmButtonHit = true;
         confirmNavigationPrompt.SetActive(false);
+    }
+
+    public void ConfirmEnemyPrompt()
+    {
+        confirmEnemyPrompt.SetActive(true);
+    }
+    public void ConfirmEnemy()
+    {
+        playerInputManager.enemyConfirmButtonHit = true;
+        confirmEnemyPrompt.SetActive(false);
     }
 }

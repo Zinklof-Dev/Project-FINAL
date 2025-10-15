@@ -32,7 +32,7 @@ public class PlayerInputManager : MonoBehaviour
 
     // Current Input State
 
-    public enum InputState { SelectingPartyMember, SelectingGoal, Confirming, Inactive, SelectingEnemyToAttack };
+    public enum InputState { SelectingPartyMember, SelectingGoal, ConfirmingNavigation, Inactive, SelectingEnemyToAttack, ConfirmEnemy };
     public InputState state = InputState.SelectingPartyMember;
 
     #endregion
@@ -50,6 +50,7 @@ public class PlayerInputManager : MonoBehaviour
     List<int> visualPath = new List<int>();
 
     public bool confirmButtonHit = false;
+    public bool enemyConfirmButtonHit = false;
 
     float debugTick = 1f;
 
@@ -105,7 +106,7 @@ public class PlayerInputManager : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    state = InputState.Confirming;
+                    state = InputState.ConfirmingNavigation;
                     display.ConfirmPathPrompt();
                     debugTick = 1f;
                 }
@@ -149,7 +150,7 @@ public class PlayerInputManager : MonoBehaviour
 
                 break;
 
-            case InputState.Confirming:
+            case InputState.ConfirmingNavigation:
 
                 if (!confirmButtonHit)
                     return;
@@ -163,18 +164,45 @@ public class PlayerInputManager : MonoBehaviour
                 break;
 
             case InputState.SelectingEnemyToAttack:
+                
+                // need to activate a button to cancel selection of an enemy once the enemy selection phase is triggered.
 
                 if(SelectEnemyActor())
                 {
+                    // Need to change all of this to use pathfinding insted to see if enemy is reachable lol
+       
                     if (Vectors.SqrDist2f(GridSystem.points[currentEnemySelectedActor.agent.currentIndex], GridSystem.points[currentSelectedActor.agent.currentIndex]) <= currentSelectedActor.range * currentSelectedActor.range * GridSystem.staticTileSize * GridSystem.staticTileSize)
                     {
                         display.SetSelectedEnemyText(currentEnemySelectedActor.name);
-                        Debug.Log("Valid");
+                        enemyConfirmButtonHit = false;
+                        state = InputState.ConfirmEnemy;
+                        display.ConfirmEnemyPrompt();
+                        //Debug.Log("Valid");
+                        return;
+                    }
+                    else if((Vectors.SqrDist2f(GridSystem.points[currentEnemySelectedActor.agent.currentIndex], GridSystem.points[currentSelectedActor.agent.currentIndex]) / 2) <= currentSelectedActor.range * currentSelectedActor.range * GridSystem.staticTileSize * GridSystem.staticTileSize)
+                    {
+                        display.SetSelectedEnemyText(currentEnemySelectedActor.name);
+                        enemyConfirmButtonHit = false;
+                        state = InputState.ConfirmEnemy;
+                        display.ConfirmEnemyPrompt();
+                        //Debug.Log("Valid");
                         return;
                     }
                     currentEnemySelectedActor = null;
-                    Debug.Log("Invalid");
+                    //Debug.Log("Invalid");
                 }
+
+                break;
+
+            case InputState.ConfirmEnemy:
+                
+                if(!enemyConfirmButtonHit)
+                    return;
+                
+                // Temp, currently just clears and resets system. Will eventually add another set of states for battle here
+                state = InputState.SelectingPartyMember;
+                display.Clear(false);
 
                 break;
 
