@@ -15,6 +15,8 @@ public class PlayerInputDisplay : MonoBehaviour
 
     [SerializeField] GameObject confirmEnemyPrompt;
 
+    [SerializeField] GameObject cancelEnemySelectionPrompt;
+
     private void Start()
     {
         playerInputManager = FindFirstObjectByType<PlayerInputManager>();
@@ -69,6 +71,7 @@ public class PlayerInputDisplay : MonoBehaviour
         if (isAttacking)
         {
             playerInputManager.state = PlayerInputManager.InputState.SelectingEnemyToAttack;
+            cancelEnemySelectionPrompt.SetActive(true);
             return;
         }
 
@@ -90,6 +93,7 @@ public class PlayerInputDisplay : MonoBehaviour
     public void ConfirmEnemyPrompt()
     {
         confirmEnemyPrompt.SetActive(true);
+        cancelEnemySelectionPrompt.SetActive(false);
     }
     public void ConfirmEnemy()
     {

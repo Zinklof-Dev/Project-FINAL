@@ -164,33 +164,21 @@ public class PlayerInputManager : MonoBehaviour
                 break;
 
             case InputState.SelectingEnemyToAttack:
-                
-                // need to activate a button to cancel selection of an enemy once the enemy selection phase is triggered.
 
                 if(SelectEnemyActor())
                 {
-                    // Need to change all of this to use pathfinding insted to see if enemy is reachable lol
-       
-                    if (Vectors.SqrDist2f(GridSystem.points[currentEnemySelectedActor.agent.currentIndex], GridSystem.points[currentSelectedActor.agent.currentIndex]) <= currentSelectedActor.range * currentSelectedActor.range * GridSystem.staticTileSize * GridSystem.staticTileSize)
+                    List<int> pathToEnemy = PathFinding.AStarPath(currentSelectedActor.agent.currentIndex, currentEnemySelectedActor.agent.currentIndex, 2);
+
+                    if(pathToEnemy.Count - 1 <= currentSelectedActor.range)
                     {
                         display.SetSelectedEnemyText(currentEnemySelectedActor.name);
                         enemyConfirmButtonHit = false;
                         state = InputState.ConfirmEnemy;
                         display.ConfirmEnemyPrompt();
-                        //Debug.Log("Valid");
                         return;
                     }
-                    else if((Vectors.SqrDist2f(GridSystem.points[currentEnemySelectedActor.agent.currentIndex], GridSystem.points[currentSelectedActor.agent.currentIndex]) / 2) <= currentSelectedActor.range * currentSelectedActor.range * GridSystem.staticTileSize * GridSystem.staticTileSize)
-                    {
-                        display.SetSelectedEnemyText(currentEnemySelectedActor.name);
-                        enemyConfirmButtonHit = false;
-                        state = InputState.ConfirmEnemy;
-                        display.ConfirmEnemyPrompt();
-                        //Debug.Log("Valid");
-                        return;
-                    }
+
                     currentEnemySelectedActor = null;
-                    //Debug.Log("Invalid");
                 }
 
                 break;
