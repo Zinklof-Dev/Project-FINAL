@@ -2,41 +2,50 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-  public enum Turn = { EnemyTurn, PlayerTurn };
-  Turn currentTurn = Turn.PlayerTurn;
+    [SerializeField] private PlayerInputDisplay playerInputDisplay;
+    [SerializeField] private PlayerInputManager playerInputManager;
 
-  public int maxEnemyActionsCount = 1;
-  public int enemyActionsCount = 1;
-  public int maxPlayerActionsCount = 1;
-  public int playerActionsCount = 1;
+    public enum Turn { EnemyTurn, PlayerTurn };
+    public Turn currentTurn = Turn.PlayerTurn;
 
-  public void TakeAction()
-  {
-    switch(currentTurn)
+    public int maxEnemyActionsCount = 1;
+    public int enemyActionsCount = 1;
+    public int maxPlayerActionsCount = 1;
+    public int playerActionsCount = 1;
+
+    public void TakeAction()
     {
-      case Turn.PlayerTurn:
-      
-        playerActionsCount--;
-        if(playerActionsCount == 0)
+        switch(currentTurn)
         {
-          currentTurn = Turn.EnemyTurn;
-          playerActionsCount = maxPlayerActionsCount;
-          enemyActionsCount = maxEnemyActionsCount;
-        }
-        
-        break;
-        
-      case Turn.EnemyTurn:
+            case Turn.PlayerTurn:
       
-        enemyActionsCount--;
-        if(enemyActionsCount == 0)
-        {
-          currentTurn = Turn.PlayerTurn;
-          playerActionsCount = maxPlayerActionsCount;
-          enemyActionsCount = maxEnemyActionsCount;
-        }
+                playerActionsCount--;
+                if(playerActionsCount == 0)
+                {
+                    currentTurn = Turn.EnemyTurn;
+                    playerActionsCount = maxPlayerActionsCount;
+                    enemyActionsCount = maxEnemyActionsCount;
+                    playerInputManager.state = PlayerInputManager.InputState.EnemyTurn;
+                }
+                playerInputDisplay.SetCurrentTurnText();
+                playerInputDisplay.SetActionsRemainingText();
+
+                break;
         
-        break;
+            case Turn.EnemyTurn:
+      
+                enemyActionsCount--;
+                if(enemyActionsCount == 0)
+                {
+                    currentTurn = Turn.PlayerTurn;
+                    playerActionsCount = maxPlayerActionsCount;
+                    enemyActionsCount = maxEnemyActionsCount;
+                    playerInputManager.state = PlayerInputManager.InputState.SelectingPartyMember;
+                }
+                playerInputDisplay.SetCurrentTurnText();
+                playerInputDisplay.SetActionsRemainingText();
+
+                break;
+        }
     }
-  }
 }

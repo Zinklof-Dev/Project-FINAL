@@ -4,10 +4,13 @@ using UnityEngine;
 public class PlayerInputDisplay : MonoBehaviour
 {
     PlayerInputManager playerInputManager;
+    [SerializeField] TurnManager turnManager;
 
     [SerializeField] TMP_Text selectedActorText;
     [SerializeField] TMP_Text selectedGoalPositionText;
     [SerializeField] TMP_Text selectedEnemyText;
+    [SerializeField] TMP_Text currentTurnText;
+    [SerializeField] TMP_Text actionsRemainingText;
 
     [SerializeField] GameObject attackOrNavigatePrompt;
 
@@ -20,6 +23,10 @@ public class PlayerInputDisplay : MonoBehaviour
     private void Start()
     {
         playerInputManager = FindFirstObjectByType<PlayerInputManager>();
+        turnManager = FindFirstObjectByType<TurnManager>();
+
+        SetActionsRemainingText();
+        SetCurrentTurnText();
     }
 
     public void SetSelectedNameText(string name)
@@ -53,7 +60,10 @@ public class PlayerInputDisplay : MonoBehaviour
         playerInputManager.currentSelectedActor = null;
         playerInputManager.currentEnemySelectedActor = null;
         playerInputManager.lineRenderer.enabled = false;
-        playerInputManager.state = PlayerInputManager.InputState.SelectingPartyMember;
+
+        if(turnManager.currentTurn == TurnManager.Turn.PlayerTurn) 
+            playerInputManager.state = PlayerInputManager.InputState.SelectingPartyMember;
+
         selectedActorText.text = "None";
         selectedGoalPositionText.text = "None";
         selectedEnemyText.text = "None";
@@ -99,5 +109,23 @@ public class PlayerInputDisplay : MonoBehaviour
     {
         playerInputManager.enemyConfirmButtonHit = true;
         confirmEnemyPrompt.SetActive(false);
+    }
+
+    public void SetCurrentTurnText()
+    {
+        if (turnManager.currentTurn == TurnManager.Turn.PlayerTurn)
+            currentTurnText.text = "Player";
+
+        else if (turnManager.currentTurn == TurnManager.Turn.EnemyTurn)
+            currentTurnText.text = "Enemy";
+    }
+
+    public void SetActionsRemainingText()
+    {
+        if (turnManager.currentTurn == TurnManager.Turn.PlayerTurn)
+            actionsRemainingText.text = turnManager.playerActionsCount.ToString();
+
+        else if (turnManager.currentTurn == TurnManager.Turn.EnemyTurn)
+            actionsRemainingText.text = turnManager.enemyActionsCount.ToString();
     }
 }

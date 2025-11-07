@@ -32,7 +32,7 @@ public class PlayerInputManager : MonoBehaviour
 
     // Current Input State
 
-    public enum InputState { SelectingPartyMember, SelectingGoal, ConfirmingNavigation, Inactive, SelectingEnemyToAttack, ConfirmEnemy };
+    public enum InputState { SelectingPartyMember, SelectingGoal, ConfirmingNavigation, Inactive, SelectingEnemyToAttack, ConfirmEnemy, EnemyTurn };
     public InputState state = InputState.SelectingPartyMember;
 
     #endregion
@@ -44,6 +44,12 @@ public class PlayerInputManager : MonoBehaviour
     public Actor currentEnemySelectedActor = null;
     int goalIndex = 0;
     int prevGoalIndex = 0; // for debgging, just to make sure that the line path doesn't change and recalculate if the path is already the same.
+
+    #endregion
+
+    #region Turn Manager Refrence
+
+    TurnManager turnManager;
 
     #endregion
 
@@ -78,6 +84,8 @@ public class PlayerInputManager : MonoBehaviour
                     break;
             }
         }
+
+        turnManager = FindFirstObjectByType<TurnManager>();
     }
 
     private void Update()
@@ -160,6 +168,7 @@ public class PlayerInputManager : MonoBehaviour
                 currentSelectedActor.agent.StartNavigation();
                 state = InputState.Inactive;
                 lineRenderer.enabled = false;
+                turnManager.TakeAction();
 
                 break;
 
@@ -190,6 +199,7 @@ public class PlayerInputManager : MonoBehaviour
                 
                 // Temp, currently just clears and resets system. Will eventually add another set of states for battle here
                 state = InputState.SelectingPartyMember;
+                turnManager.TakeAction();
                 display.Clear(false);
 
                 break;
