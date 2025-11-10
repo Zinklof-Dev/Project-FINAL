@@ -168,7 +168,6 @@ public class PlayerInputManager : MonoBehaviour
                 currentSelectedActor.agent.StartNavigation();
                 state = InputState.Inactive;
                 lineRenderer.enabled = false;
-                turnManager.TakeAction();
 
                 break;
 
@@ -199,7 +198,7 @@ public class PlayerInputManager : MonoBehaviour
                 
                 // Temp, currently just clears and resets system. Will eventually add another set of states for battle here
                 state = InputState.SelectingPartyMember;
-                turnManager.TakeAction();
+                turnManager.TakeAction(1);
                 display.Clear(false);
 
                 break;

@@ -8,23 +8,23 @@ public class TurnManager : MonoBehaviour
     public enum Turn { EnemyTurn, PlayerTurn };
     public Turn currentTurn = Turn.PlayerTurn;
 
-    public int maxEnemyActionsCount = 1;
-    public int enemyActionsCount = 1;
-    public int maxPlayerActionsCount = 1;
-    public int playerActionsCount = 1;
+    public int maxEnemyActionPoints = 1;
+    public int enemyActionPoints = 1;
+    public int maxPlayerActionPoints = 1;
+    public int playerActionPoints = 1;
 
-    public void TakeAction()
+    public void TakeAction(int pointsToDeduct)
     {
         switch(currentTurn)
         {
             case Turn.PlayerTurn:
-      
-                playerActionsCount--;
-                if(playerActionsCount == 0)
+
+                playerActionPoints -= pointsToDeduct;
+                if(playerActionPoints == 0)
                 {
                     currentTurn = Turn.EnemyTurn;
-                    playerActionsCount = maxPlayerActionsCount;
-                    enemyActionsCount = maxEnemyActionsCount;
+                    playerActionPoints = maxPlayerActionPoints;
+                    enemyActionPoints = maxEnemyActionPoints;
                     playerInputManager.state = PlayerInputManager.InputState.EnemyTurn;
                 }
                 playerInputDisplay.SetCurrentTurnText();
@@ -33,13 +33,13 @@ public class TurnManager : MonoBehaviour
                 break;
         
             case Turn.EnemyTurn:
-      
-                enemyActionsCount--;
-                if(enemyActionsCount == 0)
+
+                enemyActionPoints -= pointsToDeduct;
+                if(enemyActionPoints == 0)
                 {
                     currentTurn = Turn.PlayerTurn;
-                    playerActionsCount = maxPlayerActionsCount;
-                    enemyActionsCount = maxEnemyActionsCount;
+                    playerActionPoints = maxPlayerActionPoints;
+                    enemyActionPoints = maxEnemyActionPoints;
                     playerInputManager.state = PlayerInputManager.InputState.SelectingPartyMember;
                 }
                 playerInputDisplay.SetCurrentTurnText();

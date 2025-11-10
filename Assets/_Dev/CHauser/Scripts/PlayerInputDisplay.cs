@@ -123,9 +123,9 @@ public class PlayerInputDisplay : MonoBehaviour
     public void SetActionsRemainingText()
     {
         if (turnManager.currentTurn == TurnManager.Turn.PlayerTurn)
-            actionsRemainingText.text = turnManager.playerActionsCount.ToString();
+            actionsRemainingText.text = turnManager.playerActionPoints.ToString();
 
         else if (turnManager.currentTurn == TurnManager.Turn.EnemyTurn)
-            actionsRemainingText.text = turnManager.enemyActionsCount.ToString();
+            actionsRemainingText.text = turnManager.enemyActionPoints.ToString();
     }
 }

@@ -20,6 +20,7 @@ public class Agent : MonoBehaviour
     private int step = 1;
 
     private Actor actor;
+    private TurnManager turnManager;
 
     private void OnDrawGizmos()
     {
@@ -35,6 +36,7 @@ public class Agent : MonoBehaviour
     private void Start()
     {
         actor = GetComponent<Actor>();
+        turnManager = FindFirstObjectByType<TurnManager>();
     }
   
     private void Update()
@@ -89,6 +91,7 @@ public class Agent : MonoBehaviour
                 currentIndex = goalIndex;
                 currentState = State.Idle;
                 actor.playerInputManager.display.Clear(true);
+                turnManager.TakeAction(1);
             }
 
             transform.position = next;

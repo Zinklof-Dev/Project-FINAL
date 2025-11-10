@@ -3409,10 +3409,10 @@ MonoBehaviour:
   playerInputDisplay: {fileID: 768159482}
   playerInputManager: {fileID: 281391413}
   currentTurn: 1
-  maxEnemyActionsCount: 1
-  enemyActionsCount: 1
-  maxPlayerActionsCount: 1
-  playerActionsCount: 1
+  maxEnemyActionsCount: 3
+  enemyActionsCount: 3
+  maxPlayerActionsCount: 3
+  playerActionsCount: 3
 --- !u!4 &2074793820
 Transform:
   m_ObjectHideFlags: 0
