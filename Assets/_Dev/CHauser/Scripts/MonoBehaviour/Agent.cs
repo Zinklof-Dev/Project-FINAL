@@ -91,7 +91,8 @@ public class Agent : MonoBehaviour
                 currentIndex = goalIndex;
                 currentState = State.Idle;
                 actor.playerInputManager.display.Clear(true);
-                turnManager.TakeAction(1);
+                turnManager.TakeAction(actor.playerInputManager.actionPointCost);
+                actor.playerInputManager.display.SetAPCostText(0);
             }
 
             transform.position = next;

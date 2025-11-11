@@ -60,6 +60,8 @@ public class PlayerInputManager : MonoBehaviour
 
     float debugTick = 1f;
 
+    public int actionPointCost = 0;
+
     private void Start()
     {
         // Ensure that there is only one in the scene
@@ -138,6 +140,9 @@ public class PlayerInputManager : MonoBehaviour
                         goalIndex = prevGoalIndex;
                         return;
                     }
+
+                    actionPointCost = visualPath.Count - 1;
+                    display.SetAPCostText(visualPath.Count - 1);
 
                     visualPath = PathFinding.TrimPath(visualPath);
 

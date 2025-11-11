@@ -11,6 +11,7 @@ public class PlayerInputDisplay : MonoBehaviour
     [SerializeField] TMP_Text selectedEnemyText;
     [SerializeField] TMP_Text currentTurnText;
     [SerializeField] TMP_Text actionsRemainingText;
+    [SerializeField] TMP_Text apCostText;
 
     [SerializeField] GameObject attackOrNavigatePrompt;
 
@@ -127,5 +128,9 @@ public class PlayerInputDisplay : MonoBehaviour
 
         else if (turnManager.currentTurn == TurnManager.Turn.EnemyTurn)
             actionsRemainingText.text = turnManager.enemyActionPoints.ToString();
+    }
+    public void SetAPCostText(int cost)
+    {
+        apCostText.text = cost.ToString();
     }
 }

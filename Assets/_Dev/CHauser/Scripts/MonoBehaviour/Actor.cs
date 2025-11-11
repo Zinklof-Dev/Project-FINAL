@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Actor : MonoBehaviour
@@ -7,6 +8,9 @@ public class Actor : MonoBehaviour
     [SerializeField] public ActorType type = ActorType.PartyMember;
 
     [SerializeField] public string actorName = "Default Actor Name";
+
+    [SerializeField] public List<Item> equippedItems = new List<Item>();
+    [SerializeField] public List<Item> actorInventory = new List<Item>();
 
     [SerializeField] public float health;
     [SerializeField] public float maxHealth;
