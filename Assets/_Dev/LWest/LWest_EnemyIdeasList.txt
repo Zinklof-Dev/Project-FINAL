@@ -63,6 +63,11 @@ Just some brain vomit that I came up with in the span of a few minutes. Let me k
 			+ An important figure of the kingdom's religion. They excel with holy sourcery exclusively.
 			+ When other holy magic users are nearby, the preacher becomes stronger.
 			+ Unholy magic is extremely effective against them, as long as it is powerful enough.
+		- The King
+			+ The most important man in the royal halls. While he doesn't excel in combat, he's still a threat no matter your distance.
+			+ Will occasionally summon royal guardians to fight by his side.
+				+ Guardians will enter the fight from a distance, perfering to move towards The King to defend him.
+			+ Melee attacks are done with a great sword, dealing damage across a large area in front of The King.
 
 	- Rare Encounters (Harder to locate, harder to fight, much more rewarding. Consists of more supernatural encounters)
 		- "The Fool" 
@@ -78,3 +83,15 @@ Just some brain vomit that I came up with in the span of a few minutes. Let me k
 			+ Much less likely to attack characters in groups.
 			+ Will target only one enemy at a time, only switching targets if they are slain or prove themselves to be too dangerous for it to handle.
 			+ "Little Billy was always afraid of his own shadow. Nobody believed him when he said he had two. If only they knew who snapped his spine in two. ~ Unknown, Allegedly warning the oblivious about The Shade's arrival"
+		- "The Magician"
+			+ A combination of delinquints, hunters, and priests, The Magician is seen wielding a wide arsenal of anything related to trickery.
+			+ Attacks are mainly done as a form of deflection.
+			+ Extreme lack of endurance, which is compensated through evasion.
+			+ The Magician's real name is Oliver.
+			+ "Wanna see a magic trick? ...No? Well that's too bad... ~ The Magician"
+		- "The Old King"
+			+ A combination of The King and Preachers, The Old King expands on his arsenal with dark magics.
+			+ Can occasionally summon soldiers that will enter the scene from a distance.
+			+ Melee attacks are either high-damage-one-target, or low-damage-many-targets.
+			+ Dark sourcery involves both offense and defense abilities.
+			+ "I used to rule the world." ~ The Old King
