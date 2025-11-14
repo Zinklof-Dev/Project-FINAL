@@ -20,7 +20,7 @@ public class TurnManager : MonoBehaviour
             case Turn.PlayerTurn:
 
                 playerActionPoints -= pointsToDeduct;
-                if(playerActionPoints == 0)
+                if(playerActionPoints <= 0)
                 {
                     currentTurn = Turn.EnemyTurn;
                     playerActionPoints = maxPlayerActionPoints;
@@ -35,7 +35,7 @@ public class TurnManager : MonoBehaviour
             case Turn.EnemyTurn:
 
                 enemyActionPoints -= pointsToDeduct;
-                if(enemyActionPoints == 0)
+                if(enemyActionPoints <= 0)
                 {
                     currentTurn = Turn.PlayerTurn;
                     playerActionPoints = maxPlayerActionPoints;

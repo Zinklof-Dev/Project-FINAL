@@ -135,6 +135,7 @@ public class PlayerInputManager : MonoBehaviour
                     debugTick = 0;
 
                     visualPath = PathFinding.AStarPath(currentSelectedActor.agent.currentIndex, goalIndex, 1);
+
                     if (visualPath == null)
                     {
                         goalIndex = prevGoalIndex;
@@ -142,6 +143,13 @@ public class PlayerInputManager : MonoBehaviour
                     }
 
                     actionPointCost = visualPath.Count - 1;
+
+                    if (actionPointCost > turnManager.playerActionPoints)
+                    {
+                        goalIndex = prevGoalIndex;
+                        return;
+                    }
+
                     display.SetAPCostText(visualPath.Count - 1);
 
                     visualPath = PathFinding.TrimPath(visualPath);

@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Item
 {
-    enum Type { Consumable, Weapon }
-    Type type;
-    int id;
+    public enum Type { Consumable, Weapon }
+    public Type type;
+    public int id;
     public string name;
     public string description;
 }

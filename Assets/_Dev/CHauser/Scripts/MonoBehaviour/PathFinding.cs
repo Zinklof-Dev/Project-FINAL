@@ -104,7 +104,7 @@ public class PathFinding
 
             if (!pathFound)
             {
-                Debug.Log("No path found.");
+                //Debug.Log("No path found.");
                 return null;
             }
 
