@@ -5,7 +5,7 @@ using ZinklofDev.Utils.MathZ;
 
 public class Agent : MonoBehaviour
 {
-    private enum State { Idle, Moving, Battle }
+    public enum State { Idle, Moving, Battle }
 
     [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private float rotationSpeed = 1f;
