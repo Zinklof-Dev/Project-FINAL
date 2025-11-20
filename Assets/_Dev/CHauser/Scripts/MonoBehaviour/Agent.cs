@@ -90,7 +90,8 @@ public class Agent : MonoBehaviour
             {
                 currentIndex = goalIndex;
                 currentState = State.Idle;
-                actor.playerInputManager.display.Clear(true);
+                if(turnManager.currentTurn == Turn.PlayerTurn)
+                    actor.playerInputManager.display.Clear(true);
                 turnManager.TakeAction(actor.playerInputManager.actionPointCost);
                 actor.playerInputManager.display.SetAPCostText(0);
             }
