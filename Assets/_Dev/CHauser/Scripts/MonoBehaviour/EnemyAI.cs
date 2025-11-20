@@ -78,4 +78,10 @@ public class EnemyAI : MonoBehaviour
         currentSelectedEnemyActor.agent.StartNavigation();
         currentState = State.Moving;
     }
+
+    private void Attack()
+    {
+        // Placeholder, need to add health system
+        turnManager.TakeAction(1);
+    }
 }
