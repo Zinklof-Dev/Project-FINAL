@@ -10,7 +10,7 @@ public class Agent : MonoBehaviour
     [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private float rotationSpeed = 1f;
     [Header("Agent State")]
-    [SerializeField] private State currentState = State.Idle;
+    [SerializeField] public State currentState = State.Idle;
     [Header("Indicies Of The Grid")]
     [SerializeField] private int startIndex;
     [SerializeField] public int goalIndex;
