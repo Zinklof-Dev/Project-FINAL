@@ -49,7 +49,7 @@ public class PlayerInputManager : MonoBehaviour
 
     #region Turn Manager Refrence
 
-    TurnManager turnManager;
+    public TurnManager turnManager;
 
     #endregion
 
