@@ -108,6 +108,8 @@ public class EnemyAI : MonoBehaviour
         if (usedListsCleared && (currentSelectedEnemy == null || currentSelectedPlayer == null))
         {
             usedListsCleared = false;
+            enemyActorsUsed  = new List<Actor>();
+            partyMemberActorsAtacked = new List<Actor>();
             // Nothing is availible to move, so end turn
             turnManager.TakeAction(enemyActionPoints);
         }
@@ -121,6 +123,8 @@ public class EnemyAI : MonoBehaviour
         }
          
         usedListsCleared = false;
+        enemyActorsUsed.Add(currentSelectedEnemy);
+        partyMemberActorsAtacked.Add(currentSelectedPlayer);
         currentState = State.Navigating;
     }
 
