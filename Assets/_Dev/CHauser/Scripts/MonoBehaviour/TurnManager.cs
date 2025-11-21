@@ -4,6 +4,7 @@ public class TurnManager : MonoBehaviour
 {
     [SerializeField] private PlayerInputDisplay playerInputDisplay;
     [SerializeField] private PlayerInputManager playerInputManager;
+    [SerializeField] private EnemyAI enemyAI;
 
     public enum Turn { EnemyTurn, PlayerTurn };
     public Turn currentTurn = Turn.PlayerTurn;
@@ -26,6 +27,7 @@ public class TurnManager : MonoBehaviour
                     playerActionPoints = maxPlayerActionPoints;
                     enemyActionPoints = maxEnemyActionPoints;
                     playerInputManager.state = PlayerInputManager.InputState.EnemyTurn;
+                    enemyAI.state = EnemyAI.State.SelectingEnemyAndPlayer;
                 }
                 playerInputDisplay.SetCurrentTurnText();
                 playerInputDisplay.SetActionsRemainingText();
@@ -41,6 +43,7 @@ public class TurnManager : MonoBehaviour
                     playerActionPoints = maxPlayerActionPoints;
                     enemyActionPoints = maxEnemyActionPoints;
                     playerInputManager.state = PlayerInputManager.InputState.SelectingPartyMember;
+                    enemyAI.state = EnemyAI.State.PlayerTurn;
                 }
                 playerInputDisplay.SetCurrentTurnText();
                 playerInputDisplay.SetActionsRemainingText();
