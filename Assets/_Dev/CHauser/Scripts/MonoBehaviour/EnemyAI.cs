@@ -1,4 +1,3 @@
-/*
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -21,7 +20,7 @@ public class EnemyAI : MonoBehaviour
     Actor currentSelectedPlayerActor = null;
 
     public enum State { SelectingEnemyAndPlayer, Navigating, Moving, Attacking, PlayerTurn };
-    State currentState = State.SelectingEnemyAndPlayer;
+    public State currentState = State.SelectingEnemyAndPlayer;
 
     bool usedListsCleared = false;
 
@@ -83,17 +82,17 @@ public class EnemyAI : MonoBehaviour
         
         foreach (Actor enemyActor in enemyActors)
         {
-            if (enemyActorsUsed.Count(x => x == enemyActor) >= 3 /*Arbitraity number for how many times one enemy will be used per turn, will tweak later)
+            if (enemyActorsUsed.Count(x => x == enemyActor) >= 3 /*Arbitraity number for how many times one enemy will be used per turn, will tweak later*/)
                 continue;
             
             foreach (Actor playerActor in partyMemberActors)
             {
-                if (partyMemberActorsAtacked.Count(x => x == playerActor) >= 3 /*Arbitraity number for how many times one player will be targeted per turn, will tweak later)
+                if (partyMemberActorsAtacked.Count(x => x == playerActor) >= 3 /*Arbitraity number for how many times one player will be targeted per turn, will tweak later*/)
                     continue;
                 
                 List<int> path = PathFinding.AStarPath(enemyActor.agent.currentIndex, playerActor.agent.currentIndex, 2);
 
-                if((path.Count - 1) /*AP needed to move + attackCost /*AP needed to attack > turnManager.enemyActionPoints)
+                if((path.Count - 1) /*AP needed to move + attackCost /*AP needed to attack*/ > turnManager.enemyActionPoints)
                     continue;
                 
                 if (path.Count < closestDistance)
@@ -145,4 +144,3 @@ public class EnemyAI : MonoBehaviour
         currentState = State.SelectingEnemyAndPlayer;
     }
 }
-*/
