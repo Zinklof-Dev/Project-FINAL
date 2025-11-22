@@ -24,7 +24,7 @@ using System.Threading.Tasks;
     }
 }
 */
-
+/*
 public class GridDweller : MonoBehaviour
 {
     [SerializeField] GridSystem grid;
@@ -205,4 +205,4 @@ public class GridDweller : MonoBehaviour
         return D * (dx + dy) + (D2 - 2 * D) * Mathf.Min(dx, dy);
     }
     */
-}
+//}
