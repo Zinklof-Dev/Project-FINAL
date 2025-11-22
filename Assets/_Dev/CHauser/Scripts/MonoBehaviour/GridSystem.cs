@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using ZinklofDev.ConsoleV2;
 using UnityEngine;
-
+/*
 public class GridSystem : MonoBehaviour
 {
     [Header("Settings")]
@@ -71,11 +71,11 @@ public class GridSystem : MonoBehaviour
     {
         dwellers[dwellerIndex].positionIndex = gridIndex;
     }
-    */
+    *//*
 
     private void OnApplicationQuit()
     {
         points = new List<Vector2>();
         dwellers = new List<GridDweller>();
     }
-}
+}*/
