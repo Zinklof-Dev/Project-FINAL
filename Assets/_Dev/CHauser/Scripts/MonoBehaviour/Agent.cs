@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using ZinklofDev.Utils.MathZ;
 
-
+/*
 public class Agent : MonoBehaviour
 {
     public enum State { Idle, Moving, Battle }
@@ -61,7 +61,7 @@ public class Agent : MonoBehaviour
         }
         }
 
-    /*private*/ public void StartNavigation()
+    /*private*/ /*public void StartNavigation()
     {
         if (startIndex == goalIndex)
             return;
@@ -116,4 +116,4 @@ public class Agent : MonoBehaviour
     {
         
     }
-}
+}*/
