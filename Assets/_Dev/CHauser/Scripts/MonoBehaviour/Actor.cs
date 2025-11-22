@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
 public class Actor : MonoBehaviour
 {
     public enum ActorType { PartyMember, Enemy }
@@ -34,4 +34,4 @@ public class Actor : MonoBehaviour
 
         playerInputManager = FindFirstObjectByType<PlayerInputManager>();
     }
-}
+}*/
