@@ -34,4 +34,16 @@ public class Actor : MonoBehaviour
 
         playerInputManager = FindFirstObjectByType<PlayerInputManager>();
     }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        if(health <= 0)
+            Death();
+    }
+
+    private void Death()
+    {
+        
+    }
 }*/
