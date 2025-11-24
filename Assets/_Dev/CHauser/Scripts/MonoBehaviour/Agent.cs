@@ -111,9 +111,4 @@ public class Agent : MonoBehaviour
         else
             transform.rotation = Quaternion.RotateTowards(transform.rotation, goalRotation, rotationSpeed * Time.deltaTime);
     }
-
-    public void Die()
-    {
-        
-    }
 }*/
