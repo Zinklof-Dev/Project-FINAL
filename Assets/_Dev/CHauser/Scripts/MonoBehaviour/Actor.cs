@@ -44,6 +44,9 @@ public class Actor : MonoBehaviour
 
     private void Death()
     {
-        
+        ActorManager.allActors.Remove(this);
+        ActorManager.partyMemberActors.Remove(this);
+        ActorManager.enemyActors.Remove(this);
+        Destroy(this.gameObject);
     }
 }*/
