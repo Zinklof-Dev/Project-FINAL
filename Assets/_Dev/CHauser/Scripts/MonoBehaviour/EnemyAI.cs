@@ -138,6 +138,7 @@ public class EnemyAI : MonoBehaviour
     {
         // Placeholder, need to add health system
         turnManager.TakeAction(attackCost);
+        currentSelectedPlayerActor.TakeDamage(5 /*temp for now*//*)
         currentState = State.SelectingEnemyAndPlayer;
     }
 }*/
