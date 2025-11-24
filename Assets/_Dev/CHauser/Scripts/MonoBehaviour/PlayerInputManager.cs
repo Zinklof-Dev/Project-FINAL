@@ -2,16 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using ZinklofDev.Utils.MathZ;
-
+/*
 public class PlayerInputManager : MonoBehaviour
 {
-    #region Actor Refrences
-    // Actor Refrences
-    [SerializeField] List<Actor> allActors = new List<Actor>();
-    [SerializeField] List<Actor> partyMemberActors = new List<Actor>();
-    [SerializeField] List<Actor> enemyActors = new List<Actor>();
-    #endregion
-
     #region Display Manager Refrence
     // Display Manager Refrence
 
@@ -70,22 +63,6 @@ public class PlayerInputManager : MonoBehaviour
             Destroy(gameObject);
 
         lineRenderer.enabled = false;
-
-        allActors = FindObjectsByType<Actor>(FindObjectsSortMode.None).ToList();
-
-        foreach (Actor actor in allActors)
-        {
-            switch (actor.type)
-            {
-                case Actor.ActorType.Enemy:
-                    enemyActors.Add(actor);
-                    break;
-
-                case Actor.ActorType.PartyMember:
-                    partyMemberActors.Add(actor);
-                    break;
-            }
-        }
 
         turnManager = FindFirstObjectByType<TurnManager>();
     }
@@ -230,8 +207,8 @@ public class PlayerInputManager : MonoBehaviour
         if (!Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
             return false;
 
-        float x = /*Numbers.*/RoundToMultiple(hit.point.x, GridSystem.staticTileSize, GridSystem.staticOffsetX);
-        float y = /*Numbers.*/RoundToMultiple(hit.point.z, GridSystem.staticTileSize, GridSystem.staticOffsetY);
+        float x = /*Numbers.*//*RoundToMultiple(hit.point.x, GridSystem.staticTileSize, GridSystem.staticOffsetX);
+        float y = /*Numbers.*//*RoundToMultiple(hit.point.z, GridSystem.staticTileSize, GridSystem.staticOffsetY);
 
         Vector2 selectedPosition = new Vector2(x, y);
 
@@ -258,8 +235,8 @@ public class PlayerInputManager : MonoBehaviour
         if (!Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
             return false;
 
-        float x = /*Numbers.*/RoundToMultiple(hit.point.x, GridSystem.staticTileSize, GridSystem.staticOffsetX);
-        float y = /*Numbers.*/RoundToMultiple(hit.point.z, GridSystem.staticTileSize, GridSystem.staticOffsetY);
+        float x = /*Numbers.*//*RoundToMultiple(hit.point.x, GridSystem.staticTileSize, GridSystem.staticOffsetX);
+        float y = /*Numbers.*//*RoundToMultiple(hit.point.z, GridSystem.staticTileSize, GridSystem.staticOffsetY);
 
         Vector2 selectedPosition = new Vector2(x, y);
 
@@ -282,8 +259,8 @@ public class PlayerInputManager : MonoBehaviour
         if (!Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
             return false;
 
-        float x = /*Numbers.*/RoundToMultiple(hit.point.x, GridSystem.staticTileSize, GridSystem.staticOffsetX);
-        float y = /*Numbers.*/RoundToMultiple(hit.point.z, GridSystem.staticTileSize, GridSystem.staticOffsetY);
+        float x = /*Numbers.*//*RoundToMultiple(hit.point.x, GridSystem.staticTileSize, GridSystem.staticOffsetX);
+        float y = /*Numbers.*//*RoundToMultiple(hit.point.z, GridSystem.staticTileSize, GridSystem.staticOffsetY);
 
         Vector2 selectedPosition = new Vector2(x, y);
 
@@ -331,4 +308,4 @@ public class PlayerInputManager : MonoBehaviour
         return Mathf.Round((inputValue - tOffset) / baseNumberOfMultiple) * baseNumberOfMultiple + tOffset;
     }
     #endregion
-}
+}*/
