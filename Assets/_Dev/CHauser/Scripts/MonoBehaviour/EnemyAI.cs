@@ -10,9 +10,6 @@ public class EnemyAI : MonoBehaviour
 
     [SerializeField] int attackCost = 1;
 
-    [SerializeField] List<Actor> allActors = new List<Actor>();
-    [SerializeField] List<Actor> partyMemberActors = new List<Actor>();
-    [SerializeField] List<Actor> enemyActors = new List<Actor>();
     [SerializeField] List<Actor> enemyActorsUsed  = new List<Actor>();
     [SerializeField] List<Actor> partyMemberActorsAtacked = new List<Actor>()
     
