@@ -1,5 +1,5 @@
 using UnityEngine;
-/*
+
 public class TurnManager : MonoBehaviour
 {
     [SerializeField] private PlayerInputDisplay playerInputDisplay;
@@ -27,7 +27,7 @@ public class TurnManager : MonoBehaviour
                     playerActionPoints = maxPlayerActionPoints;
                     enemyActionPoints = maxEnemyActionPoints;
                     playerInputManager.state = PlayerInputManager.InputState.EnemyTurn;
-                    enemyAI.state = EnemyAI.State.SelectingEnemyAndPlayer;
+                    enemyAI.currentState = EnemyAI.State.SelectingEnemyAndPlayer;
                 }
                 playerInputDisplay.SetCurrentTurnText();
                 playerInputDisplay.SetActionsRemainingText();
@@ -43,7 +43,7 @@ public class TurnManager : MonoBehaviour
                     playerActionPoints = maxPlayerActionPoints;
                     enemyActionPoints = maxEnemyActionPoints;
                     playerInputManager.state = PlayerInputManager.InputState.SelectingPartyMember;
-                    enemyAI.state = EnemyAI.State.PlayerTurn;
+                    enemyAI.currentState = EnemyAI.State.PlayerTurn;
                 }
                 playerInputDisplay.SetCurrentTurnText();
                 playerInputDisplay.SetActionsRemainingText();
@@ -51,4 +51,4 @@ public class TurnManager : MonoBehaviour
                 break;
         }
     }
-}*/
+}

@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using ZinklofDev.Utils.MathZ;
 
-/*
+
 public class Agent : MonoBehaviour
 {
     public enum State { Idle, Moving, Battle }
@@ -61,7 +61,7 @@ public class Agent : MonoBehaviour
         }
         }
 
-    /*private*/ /*public void StartNavigation()
+    /*private*/ public void StartNavigation()
     {
         if (startIndex == goalIndex)
             return;
@@ -90,7 +90,7 @@ public class Agent : MonoBehaviour
             {
                 currentIndex = goalIndex;
                 currentState = State.Idle;
-                if(turnManager.currentTurn == Turn.PlayerTurn)
+                if(turnManager.currentTurn == TurnManager.Turn.PlayerTurn)
                     actor.playerInputManager.display.Clear(true);
                 turnManager.TakeAction(actor.playerInputManager.actionPointCost);
                 actor.playerInputManager.display.SetAPCostText(0);
@@ -111,4 +111,4 @@ public class Agent : MonoBehaviour
         else
             transform.rotation = Quaternion.RotateTowards(transform.rotation, goalRotation, rotationSpeed * Time.deltaTime);
     }
-}*/
+}

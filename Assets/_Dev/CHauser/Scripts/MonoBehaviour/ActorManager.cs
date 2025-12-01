@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-/*
+
 public class ActorManager : MonoBehaviour
 {
   public static List<Actor> allActors = new List<Actor>();
@@ -25,4 +26,4 @@ public class ActorManager : MonoBehaviour
         }
     }
   }
-}*/
+}
