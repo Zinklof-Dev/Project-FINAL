@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using ZinklofDev.Utils.MathZ;
-/*
 public class EnemyAI : MonoBehaviour
 {
     PlayerInputManager playerInputManager;
@@ -11,7 +10,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] int attackCost = 1;
 
     [SerializeField] List<Actor> enemyActorsUsed  = new List<Actor>();
-    [SerializeField] List<Actor> partyMemberActorsAtacked = new List<Actor>()
+    [SerializeField] List<Actor> partyMemberActorsAtacked = new List<Actor>();
     
     Actor currentSelectedEnemyActor = null;
     Actor currentSelectedPlayerActor = null;
@@ -26,18 +25,18 @@ public class EnemyAI : MonoBehaviour
         playerInputManager = FindFirstObjectByType<PlayerInputManager>();
         turnManager = FindFirstObjectByType<TurnManager>();
 
-        allActors = FindObjectsByType<Actor>(FindObjectsSortMode.None).ToList();
+        ActorManager.allActors = FindObjectsByType<Actor>(FindObjectsSortMode.None).ToList();
 
-        foreach (Actor actor in allActors)
+        foreach (Actor actor in ActorManager.allActors)
         {
             switch (actor.type)
             {
                 case Actor.ActorType.Enemy:
-                    enemyActors.Add(actor);
+                    ActorManager.enemyActors.Add(actor);
                     break;
 
                 case Actor.ActorType.PartyMember:
-                    partyMemberActors.Add(actor);
+                    ActorManager.partyMemberActors.Add(actor);
                     break;
             }
         }
@@ -54,7 +53,7 @@ public class EnemyAI : MonoBehaviour
                 break;
                 
             case State.Navigating:
-                NavigateToActor()
+                NavigateToActor();
                 break;
                 
             case State.Moving:
@@ -70,26 +69,24 @@ public class EnemyAI : MonoBehaviour
 
     private void ChooseEnemyAndPlayer()
     {
-        currentSelectedEnemy = null;
-        currentSelectedPlayer = null;
-
-        bool usedListsCleared = false;
+        currentSelectedEnemyActor = null;
+        currentSelectedPlayerActor = null;
         
         float closestDistance = Mathf.Infinity;
         
-        foreach (Actor enemyActor in enemyActors)
+        foreach (Actor enemyActor in ActorManager.enemyActors)
         {
-            if (enemyActorsUsed.Count(x => x == enemyActor) >= 3 /*Arbitraity number for how many times one enemy will be used per turn, will tweak later*//*)
+            if (enemyActorsUsed.Count(x => x == enemyActor) >= 3 /*Arbitraity number for how many times one enemy will be used per turn, will tweak later*/)
                 continue;
             
-            foreach (Actor playerActor in partyMemberActors)
+            foreach (Actor playerActor in ActorManager.partyMemberActors)
             {
-                if (partyMemberActorsAtacked.Count(x => x == playerActor) >= 3 /*Arbitraity number for how many times one player will be targeted per turn, will tweak later*//*)
+                if (partyMemberActorsAtacked.Count(x => x == playerActor) >= 3 /*Arbitraity number for how many times one player will be targeted per turn, will tweak later*/)
                     continue;
                 
                 List<int> path = PathFinding.AStarPath(enemyActor.agent.currentIndex, playerActor.agent.currentIndex, 2);
 
-                if((path.Count - 1) /*AP needed to move + attackCost /*AP needed to attack*//* > turnManager.enemyActionPoints)
+                if((path.Count - 1) /*AP needed to move + attackCost /*AP needed to attack*/ > turnManager.enemyActionPoints)
                     continue;
                 
                 if (path.Count < closestDistance)
@@ -101,16 +98,16 @@ public class EnemyAI : MonoBehaviour
             }
         }
         
-        if (usedListsCleared && (currentSelectedEnemy == null || currentSelectedPlayer == null))
+        if (usedListsCleared && (currentSelectedEnemyActor == null || currentSelectedPlayerActor == null))
         {
             usedListsCleared = false;
             enemyActorsUsed  = new List<Actor>();
             partyMemberActorsAtacked = new List<Actor>();
             // Nothing is availible to move, so end turn
-            turnManager.TakeAction(enemyActionPoints);
+            turnManager.TakeAction(turnManager.enemyActionPoints);
         }
         
-        if (currentSelectedEnemy == null || currentSelectedPlayer == null)
+        if (currentSelectedEnemyActor == null || currentSelectedPlayerActor == null)
         {
             enemyActorsUsed  = new List<Actor>();
             partyMemberActorsAtacked = new List<Actor>();
@@ -119,14 +116,14 @@ public class EnemyAI : MonoBehaviour
         }
          
         usedListsCleared = false;
-        enemyActorsUsed.Add(currentSelectedEnemy);
-        partyMemberActorsAtacked.Add(currentSelectedPlayer);
+        enemyActorsUsed.Add(currentSelectedEnemyActor);
+        partyMemberActorsAtacked.Add(currentSelectedPlayerActor);
         currentState = State.Navigating;
     }
 
     private void NavigateToActor()
     {
-        List<int> path = List<int> path = PathFinding.AStarPath(currentSelectedEnemyActor.agent.currentIndex, currentSelectedPlayerActor.agent.currentIndex, 2);
+        List<int> path = PathFinding.AStarPath(currentSelectedEnemyActor.agent.currentIndex, currentSelectedPlayerActor.agent.currentIndex, 2);
         path.RemoveAt(path.Count - 1);
         
         currentSelectedEnemyActor.agent.goalIndex = path[path.Count - 1];
@@ -138,7 +135,7 @@ public class EnemyAI : MonoBehaviour
     {
         // Placeholder, need to add health system
         turnManager.TakeAction(attackCost);
-        currentSelectedPlayerActor.TakeDamage(5 /*temp for now*//*)
+        currentSelectedPlayerActor.TakeDamage(5 /*temp for now*/);
         currentState = State.SelectingEnemyAndPlayer;
     }
-}*/
+}

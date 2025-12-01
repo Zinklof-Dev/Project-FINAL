@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using ZinklofDev.Utils.MathZ;
-/*
+
 public class PlayerInputManager : MonoBehaviour
 {
     #region Display Manager Refrence
@@ -207,14 +207,14 @@ public class PlayerInputManager : MonoBehaviour
         if (!Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
             return false;
 
-        float x = /*Numbers.*//*RoundToMultiple(hit.point.x, GridSystem.staticTileSize, GridSystem.staticOffsetX);
-        float y = /*Numbers.*//*RoundToMultiple(hit.point.z, GridSystem.staticTileSize, GridSystem.staticOffsetY);
+        float x = /*Numbers.*/RoundToMultiple(hit.point.x, GridSystem.staticTileSize, GridSystem.staticOffsetX);
+        float y = /*Numbers.*/RoundToMultiple(hit.point.z, GridSystem.staticTileSize, GridSystem.staticOffsetY);
 
         Vector2 selectedPosition = new Vector2(x, y);
 
         bool actorFound = false;
 
-        foreach(Actor actor in partyMemberActors)
+        foreach(Actor actor in ActorManager.partyMemberActors)
         {
             if(actor.agent.currentIndex == GridSystem.points.IndexOf(selectedPosition))
             {
@@ -235,14 +235,14 @@ public class PlayerInputManager : MonoBehaviour
         if (!Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
             return false;
 
-        float x = /*Numbers.*//*RoundToMultiple(hit.point.x, GridSystem.staticTileSize, GridSystem.staticOffsetX);
-        float y = /*Numbers.*//*RoundToMultiple(hit.point.z, GridSystem.staticTileSize, GridSystem.staticOffsetY);
+        float x = /*Numbers.*/RoundToMultiple(hit.point.x, GridSystem.staticTileSize, GridSystem.staticOffsetX);
+        float y = /*Numbers.*/RoundToMultiple(hit.point.z, GridSystem.staticTileSize, GridSystem.staticOffsetY);
 
         Vector2 selectedPosition = new Vector2(x, y);
 
         bool actorFound = false;
 
-        foreach (Actor actor in enemyActors)
+        foreach (Actor actor in ActorManager.enemyActors)
         {
             if (actor.agent.currentIndex == GridSystem.points.IndexOf(selectedPosition))
             {
@@ -259,8 +259,8 @@ public class PlayerInputManager : MonoBehaviour
         if (!Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
             return false;
 
-        float x = /*Numbers.*//*RoundToMultiple(hit.point.x, GridSystem.staticTileSize, GridSystem.staticOffsetX);
-        float y = /*Numbers.*//*RoundToMultiple(hit.point.z, GridSystem.staticTileSize, GridSystem.staticOffsetY);
+        float x = /*Numbers.*/RoundToMultiple(hit.point.x, GridSystem.staticTileSize, GridSystem.staticOffsetX);
+        float y = /*Numbers.*/RoundToMultiple(hit.point.z, GridSystem.staticTileSize, GridSystem.staticOffsetY);
 
         Vector2 selectedPosition = new Vector2(x, y);
 
@@ -308,4 +308,4 @@ public class PlayerInputManager : MonoBehaviour
         return Mathf.Round((inputValue - tOffset) / baseNumberOfMultiple) * baseNumberOfMultiple + tOffset;
     }
     #endregion
-}*/
+}

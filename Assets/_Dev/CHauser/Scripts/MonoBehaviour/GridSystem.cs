@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using ZinklofDev.ConsoleV2;
 using UnityEngine;
-/*
+
 public class GridSystem : MonoBehaviour
 {
     [Header("Settings")]
@@ -17,8 +17,8 @@ public class GridSystem : MonoBehaviour
     public static float staticTileSize;
     [SerializeField] public static List<Vector2> points = new List<Vector2>();
 
-    [Header("Grid Dwellers (Currently for Debugging)")]
-    [SerializeField] public static List<GridDweller> dwellers = new List<GridDweller>();
+    //[Header("Grid Dwellers (Currently for Debugging)")]
+    //[SerializeField] public static List<GridDweller> dwellers = new List<GridDweller>();
 
     private void Start()
     {
@@ -71,11 +71,11 @@ public class GridSystem : MonoBehaviour
     {
         dwellers[dwellerIndex].positionIndex = gridIndex;
     }
-    *//*
+    */
 
     private void OnApplicationQuit()
     {
         points = new List<Vector2>();
-        dwellers = new List<GridDweller>();
+        //dwellers = new List<GridDweller>();
     }
-}*/
+}
