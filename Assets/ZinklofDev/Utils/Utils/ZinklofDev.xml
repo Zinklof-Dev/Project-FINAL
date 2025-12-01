@@ -330,7 +330,7 @@
             <param name="baseNumberOfMultiple">Multiple to round to</param>
             <returns>InputValue rounded to the nearest occurance of the Multiple as a float.</returns>
         </member>
-        <member name="M:ZinklofDev.Utils.MathZ.Numbers.RoundToMultipule(System.Single,System.Single,System.Single)">
+        <member name="M:ZinklofDev.Utils.MathZ.Numbers.RoundToMultiple(System.Single,System.Single,System.Single)">
             <summary>
             Authored: Bunny83, Dgoyette, Cole Hauser
             Override made by Bunny83 that allows use of tOffset when rounding.
