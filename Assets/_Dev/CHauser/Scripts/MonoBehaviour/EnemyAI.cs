@@ -24,22 +24,6 @@ public class EnemyAI : MonoBehaviour
     {
         playerInputManager = FindFirstObjectByType<PlayerInputManager>();
         turnManager = FindFirstObjectByType<TurnManager>();
-
-        ActorManager.allActors = FindObjectsByType<Actor>(FindObjectsSortMode.None).ToList();
-
-        foreach (Actor actor in ActorManager.allActors)
-        {
-            switch (actor.type)
-            {
-                case Actor.ActorType.Enemy:
-                    ActorManager.enemyActors.Add(actor);
-                    break;
-
-                case Actor.ActorType.PartyMember:
-                    ActorManager.partyMemberActors.Add(actor);
-                    break;
-            }
-        }
     }
 
     private void Update()
@@ -85,6 +69,9 @@ public class EnemyAI : MonoBehaviour
                     continue;
                 
                 List<int> path = PathFinding.AStarPath(enemyActor.agent.currentIndex, playerActor.agent.currentIndex, 2);
+                
+                if (path == null)
+                    continue;
 
                 if((path.Count - 1) /*AP needed to move*/ + attackCost /*AP needed to attack*/ > turnManager.enemyActionPoints)
                     continue;
