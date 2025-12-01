@@ -139,7 +139,7 @@
             <param name="offset">the offset by pixels that the perlin noise has, used to shift the map if you want to make multiple chunks</param>
             <returns>A PerlinMap class</returns>
         </member>
-        <member name="M:ZinklofDev.Utils.Mapping.Noise.GenPerlinMapAsnyc(System.Int32,System.Int32,System.Int32,System.Single,System.Int32,System.Single,System.Single,UnityEngine.Vector2)">
+        <member name="M:ZinklofDev.Utils.Mapping.Noise.GenPerlinMapAsync(System.Int32,System.Int32,System.Int32,System.Single,System.Int32,System.Single,System.Single,UnityEngine.Vector2)">
             <summary>
             (THREADED ASYNC VERS) A function to provide a PerlinMap class that has more infromation returned than the old perlin generation function, it operates much the same, just returns new info that could be useful.
             the width and height will directly translate to pixels if used to create a 2D texture, or roughly to the vert ID if used for a uniform plane
@@ -187,6 +187,7 @@
             <param name="b">changes when the falloff begins, higher = later</param>
             <returns>float[,] that you can subtract from an existing float[,] heightmap</returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:ZinklofDev.Utils.Mapping.Noise.GenerateStaticNoiseMap(System.Single,System.Single,System.Int64)" -->
         <member name="T:ZinklofDev.Utils.MathZ.Numbers">
             <summary>
             Doing math with El Numeros
@@ -320,6 +321,25 @@
             <param name="y">power to raise X to</param>
             <returns>X^Y / X to the Y power</returns>
         </member>
+        <member name="M:ZinklofDev.Utils.MathZ.Numbers.RoundToMultiple(System.Single,System.Single)">
+            <summary>
+            Authored: Dgoyette, Cole Hauser
+            Rounds to the nearest multiple
+            </summary>
+            <param name="inputValue">The Number to round</param>
+            <param name="baseNumberOfMultiple">Multiple to round to</param>
+            <returns>InputValue rounded to the nearest occurance of the Multiple as a float.</returns>
+        </member>
+        <member name="M:ZinklofDev.Utils.MathZ.Numbers.RoundToMultipule(System.Single,System.Single,System.Single)">
+            <summary>
+            Authored: Bunny83, Dgoyette, Cole Hauser
+            Override made by Bunny83 that allows use of tOffset when rounding.
+            </summary>
+            <param name="inputValue">The Number to round</param>
+            <param name="baseNumberOfMultiple">Multiple to round to</param>
+            <param name="tOffset">I dunno... its an offset? but how does it apply what does it do!? Cole doesn't even remember</param>
+            <returns>InputValue rounded to the nearest occurance of the Multiple as a float. Using tOffset to offset the result.</returns>
+        </member>
         <member name="T:ZinklofDev.Utils.MathZ.Vectors">
             <summary>
             Vectors? VECTOR MATH BABY!
@@ -409,7 +429,7 @@
         </member>
         <member name="T:ZinklofDev.Utils.Testing.TestBasics">
             <summary>
-            Base Class for tests, the main test class inherits from this, helps obscure some things you shouldn't touch
+            BACKWARDS COMPATABILITY PURPOSES! (test manager is considered no longer supported) Base Class for tests, the main test class inherits from this, helps obscure some things you shouldn't touch.
             </summary>
         </member>
         <member name="F:ZinklofDev.Utils.Testing.TestBasics._name">
@@ -481,7 +501,7 @@
         </member>
         <member name="T:ZinklofDev.Utils.Testing.Test">
             <summary>
-            A test, used to ensure code works without too much manual testing, good practice to use these. visit zinklof.dev/testing for documentation (maybe)
+            BACKWARDS COMPATABILITY PURPOSES! (test manager is considered no longer supported) A test, used to ensure code works without too much manual testing, good practice to use these. visit zinklof.dev/testing for documentation (maybe)
             </summary>
         </member>
         <member name="M:ZinklofDev.Utils.Testing.Test.#ctor(System.String,System.Action)">
@@ -498,7 +518,7 @@
         </member>
         <member name="T:ZinklofDev.Utils.Testing.TestManager">
             <summary>
-            This class manages everything in the backend, from logging, handling settings, verbose logging, etc. etc. Runs after awake runs on every script in your FIRST scene
+            BACKWARDS COMPATABILITY PURPOSES! (test manager is considered no longer supported) This class manages everything in the backend, from logging, handling settings, verbose logging, etc. etc. Runs after awake runs on every script in your FIRST scene
             </summary>
         </member>
         <member name="F:ZinklofDev.Utils.Testing.TestManager.verbose">
