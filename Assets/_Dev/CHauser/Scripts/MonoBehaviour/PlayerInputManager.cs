@@ -207,8 +207,8 @@ public class PlayerInputManager : MonoBehaviour
         if (!Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
             return false;
 
-        float x = /*Numbers.*/RoundToMultiple(hit.point.x, GridSystem.staticTileSize, GridSystem.staticOffsetX);
-        float y = /*Numbers.*/RoundToMultiple(hit.point.z, GridSystem.staticTileSize, GridSystem.staticOffsetY);
+        float x = Numbers.RoundToMultiple(hit.point.x, GridSystem.staticTileSize, GridSystem.staticOffsetX);
+        float y = Numbers.RoundToMultiple(hit.point.z, GridSystem.staticTileSize, GridSystem.staticOffsetY);
 
         Vector2 selectedPosition = new Vector2(x, y);
 
@@ -235,8 +235,8 @@ public class PlayerInputManager : MonoBehaviour
         if (!Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
             return false;
 
-        float x = /*Numbers.*/RoundToMultiple(hit.point.x, GridSystem.staticTileSize, GridSystem.staticOffsetX);
-        float y = /*Numbers.*/RoundToMultiple(hit.point.z, GridSystem.staticTileSize, GridSystem.staticOffsetY);
+        float x = Numbers.RoundToMultiple(hit.point.x, GridSystem.staticTileSize, GridSystem.staticOffsetX);
+        float y = Numbers.RoundToMultiple(hit.point.z, GridSystem.staticTileSize, GridSystem.staticOffsetY);
 
         Vector2 selectedPosition = new Vector2(x, y);
 
@@ -259,8 +259,8 @@ public class PlayerInputManager : MonoBehaviour
         if (!Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
             return false;
 
-        float x = /*Numbers.*/RoundToMultiple(hit.point.x, GridSystem.staticTileSize, GridSystem.staticOffsetX);
-        float y = /*Numbers.*/RoundToMultiple(hit.point.z, GridSystem.staticTileSize, GridSystem.staticOffsetY);
+        float x = Numbers.RoundToMultiple(hit.point.x, GridSystem.staticTileSize, GridSystem.staticOffsetX);
+        float y = Numbers.RoundToMultiple(hit.point.z, GridSystem.staticTileSize, GridSystem.staticOffsetY);
 
         Vector2 selectedPosition = new Vector2(x, y);
 
@@ -278,7 +278,7 @@ public class PlayerInputManager : MonoBehaviour
         return indexFound;
     }
 
-
+    /*
     #region TEMP DLL FUNCTIONS
 
     // Cameron pushed an old dll to the project, so I am temp copy / pasting the functions - Cole
@@ -307,5 +307,5 @@ public class PlayerInputManager : MonoBehaviour
     {
         return Mathf.Round((inputValue - tOffset) / baseNumberOfMultiple) * baseNumberOfMultiple + tOffset;
     }
-    #endregion
+    #endregion*/
 }

@@ -86,7 +86,7 @@ public class EnemyAI : MonoBehaviour
                 
                 List<int> path = PathFinding.AStarPath(enemyActor.agent.currentIndex, playerActor.agent.currentIndex, 2);
 
-                if((path.Count - 1) /*AP needed to move + attackCost /*AP needed to attack*/ > turnManager.enemyActionPoints)
+                if((path.Count - 1) /*AP needed to move*/ + attackCost /*AP needed to attack*/ > turnManager.enemyActionPoints)
                     continue;
                 
                 if (path.Count < closestDistance)
@@ -107,7 +107,7 @@ public class EnemyAI : MonoBehaviour
             turnManager.TakeAction(turnManager.enemyActionPoints);
         }
         
-        if (currentSelectedEnemyActor == null || currentSelectedPlayerActor == null)
+        else if (currentSelectedEnemyActor == null || currentSelectedPlayerActor == null)
         {
             enemyActorsUsed  = new List<Actor>();
             partyMemberActorsAtacked = new List<Actor>();
