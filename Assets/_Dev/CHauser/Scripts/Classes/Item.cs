@@ -14,7 +14,7 @@ public class Item // Tool // Tool is new name for this class and file
     private string description;
     // These will be needed essential variables
     private float attackPower; 
-    private float reach
+    private float reach;
 
     public Item(Type type, float attackPower, float reach)
     {
