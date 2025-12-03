@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Linq;
 using System.Collections.Generic;
 using ZinklofDev.Utils.MathZ;
 
@@ -9,12 +10,12 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
     [SerializeField] public ItemType itemType;
 
     // Used if a tool / weapon, reach also used if reach potion
-    [SerializeField] private float attackPower;
-    [SerializeField] private float reach;
+    [SerializeField] private int attackPower;
+    [SerializeField] private int reach;
 
     // Used if potions
-    [SerializeField] private float health;
-    [SerializeField] private float actionPoints;
+    [SerializeField] private int health;
+    [SerializeField] private int actionPoints;
 
     [SerializeField] private GameObject actionPointBoostPotionPrompt;
 
@@ -68,7 +69,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
     }
     public void OnDrag(PointerEventData eventData)
     {
-        if(playerInputManager.state  != PlayerInputManager.State.SelectingPartyMember)
+        if(playerInputManager.state  != PlayerInputManager.InputState.SelectingPartyMember)
             return;
 
         rectTransform.anchoredPosition += eventData.delta;
@@ -206,7 +207,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
             CardManager.SnapAllBack();
             Destroy(this.gameObject);
         }
-    }
     }
 
     public void SwordAction()

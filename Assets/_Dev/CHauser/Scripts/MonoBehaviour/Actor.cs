@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Actor : MonoBehaviour
@@ -52,13 +53,16 @@ public class Actor : MonoBehaviour
         ActorManager.allActors.Remove(this);
         ActorManager.partyMemberActors.Remove(this);
         ActorManager.enemyActors.Remove(this);
-        
+
         if (ActorManager.enemyActors.Count == 0)
-            // winLossManager.Win();
-            
-        else if(ActorManager.partyMemberActors.Count == 0)
-            // winLossManager.Loss();
-            
+            return; // TEMP
+        // winLossManager.Win();
+
+        else if (ActorManager.partyMemberActors.Count == 0)
+            return; // TEMP
+
+        // winLossManager.Loss();
+
         Destroy(this.gameObject);
     }
 }

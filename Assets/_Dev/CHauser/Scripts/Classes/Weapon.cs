@@ -1,5 +1,5 @@
 using UnityEngine;
-
+/*
 public class Weapon : Item
 {
     Weapon()
@@ -7,3 +7,4 @@ public class Weapon : Item
         type = Type.Weapon;
     }
 }
+*/
