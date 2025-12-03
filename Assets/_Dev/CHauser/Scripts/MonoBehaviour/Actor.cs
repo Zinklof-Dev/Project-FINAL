@@ -8,7 +8,7 @@ public class Actor : MonoBehaviour
     [SerializeField] public ActorType type = ActorType.PartyMember;
 
     [SerializeField] public string actorName = "Default Actor Name";
-
+    // Probably gonna replace this 
     [SerializeField] public List<Item> equippedItems = new List<Item>();
     [SerializeField] public List<Item> actorInventory = new List<Item>();
 
@@ -20,6 +20,8 @@ public class Actor : MonoBehaviour
 
     public Agent agent;
     [SerializeField] public PlayerInputManager playerInputManager;
+
+    public Item equippedTool = null;
 
     // TempWinLossManagerEP winLossManager;
 
