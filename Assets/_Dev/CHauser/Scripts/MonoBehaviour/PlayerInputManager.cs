@@ -175,8 +175,6 @@ public class PlayerInputManager : MonoBehaviour
                         display.ConfirmEnemyPrompt();
                         return;
                     }
-
-                    currentEnemySelectedActor = null;
                 }
 
                 break;
@@ -190,11 +188,11 @@ public class PlayerInputManager : MonoBehaviour
                 state = InputState.SelectingPartyMember;
                 turnManager.TakeAction(1);
                 display.Clear(false);
-
+                currentEnemySelectedActor.TakeDamage(currentSelectedActor.attackPower);
+                currentEnemySelectedActor = null;
                 break;
 
             case InputState.Inactive:
-
                 break;
         }
     }
