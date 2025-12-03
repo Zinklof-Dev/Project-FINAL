@@ -29,5 +29,13 @@ public class CardManager : MonoBehaviour
         RectTransform rect = card.GetComponent<RectTransform>();
         rect.position = positions[Cards.IndexOf(card)];
     }
-
+    
+    public static void SnapAllBack()
+    {
+        foreach (Card card in Cards)
+        {
+            RectTransform rect = card.GetComponent<RectTransform>();
+            rect.position = positions[Cards.IndexOf(card)];
+        }
+    }
 }
