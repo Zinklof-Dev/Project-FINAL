@@ -192,6 +192,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
         else
         {
             currentSelectedActor.equippedTool = new Item(Item.Type.Axe, attackPower, reach);
+            currentSelectedActor.attackPower += attackPower; // Temp for now, only works if we can equip one weapon
             Destroy(this.gameObject);
         }
     }
