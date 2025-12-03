@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CardManager : MonoBehaviour
 {
-    static List<Card> Cards = new List<Card>();
+    public static List<Card> Cards = new List<Card>();
     static List<Vector2> positions = new List<Vector2>();
     private void Start()
     {
