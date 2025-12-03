@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 using ZinklofDev.Utils.MathZ;
 
 public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
@@ -103,6 +104,8 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
         else
         {
             currentSelectedActor.range += reach;
+            CardManager.Cards.Remove(this);
+            CardManager.SnapAllBack();
             Destroy(this.gameObject);
         }
     }
@@ -138,6 +141,8 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
         else
         {
             currentSelectedActor.health += health;
+            CardManager.Cards.Remove(this);
+            CardManager.SnapAllBack();
             Destroy(this.gameObject);
         }
     }
@@ -152,6 +157,9 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
         if (use)
         {
             turnManager.TakeAction(-actionPoints);
+            CardManager.Cards.Remove(this);
+            CardManager.SnapAllBack();
+            Destroy(this.gameObject);
             return;
         }
         
@@ -194,6 +202,8 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
             currentSelectedActor.equippedTool = new Item(Item.Type.Axe, attackPower, reach);
             currentSelectedActor.attackPower += attackPower; // Temp for now, only works if we can equip one weapon
             currentSelectedActor.range = reach; // Temp for now, only works if we can equip one weapon
+            CardManager.Cards.Remove(this);
+            CardManager.SnapAllBack();
             Destroy(this.gameObject);
         }
     }
@@ -235,6 +245,8 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
             currentSelectedActor.equippedTool = new Item(Item.Type.Sword, attackPower, reach);
             currentSelectedActor.attackPower += attackPower; // Temp for now, only works if we can equip one weapon
             currentSelectedActor.range = reach; // Temp for now, only works if we can equip one weapon
+            CardManager.Cards.Remove(this);
+            CardManager.SnapAllBack();
             Destroy(this.gameObject);
         }
     }
