@@ -193,6 +193,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
         {
             currentSelectedActor.equippedTool = new Item(Item.Type.Axe, attackPower, reach);
             currentSelectedActor.attackPower += attackPower; // Temp for now, only works if we can equip one weapon
+            currentSelectedActor.range = reach; // Temp for now, only works if we can equip one weapon
             Destroy(this.gameObject);
         }
     }
@@ -233,6 +234,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
         {
             currentSelectedActor.equippedTool = new Item(Item.Type.Sword, attackPower, reach);
             currentSelectedActor.attackPower += attackPower; // Temp for now, only works if we can equip one weapon
+            currentSelectedActor.range = reach; // Temp for now, only works if we can equip one weapon
             Destroy(this.gameObject);
         }
     }
