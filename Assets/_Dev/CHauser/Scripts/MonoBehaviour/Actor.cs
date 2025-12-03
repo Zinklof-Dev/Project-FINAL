@@ -16,6 +16,7 @@ public class Actor : MonoBehaviour
     [SerializeField] public float maxHealth;
     [SerializeField] public float speed;
     [SerializeField] public int range; // Range is the number of gird squares away an actor can attack.
+    [SerializeField] public float attackPower;
 
 
     public Agent agent;
