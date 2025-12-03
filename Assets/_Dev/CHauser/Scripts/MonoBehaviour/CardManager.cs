@@ -8,17 +8,17 @@ public class CardManager : MonoBehaviour
     static List<Vector2> positions = new List<Vector2>();
     private void Start()
     {
-        Cards = FindObjectsByType<Card>(FindObjectsSortMode.None).ToList();
-
-        float x = 0;
+        float x = 100;
         float y = 0;
         int i = 0;
 
+        Cards = Cards.OrderBy(x=>x.cardNumberInHand).ToList();
+
         foreach (Card card in Cards)
         {
-            y = card.transform.lossyScale.y / 100 * 2 + 10;
+            y = card.transform.lossyScale.y / 100 * 2 + 60;
             positions.Add(new Vector2(x, y));
-            x += card.transform.lossyScale.x / 100 * 2 + 10; // Card distance
+            x += card.transform.lossyScale.x / 100 * 2 + 20; // Card distance
             RectTransform rect = card.GetComponent<RectTransform>();
             rect.position = positions[i]; i++;
         }
