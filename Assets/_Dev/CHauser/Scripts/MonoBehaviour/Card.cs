@@ -110,7 +110,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
             CardManager.Cards.Remove(this);
             CardManager.SnapAllBack();
             InfoManager.UpdateInfos();
-            Destroy(this.gameObject);
+            gameObject.SetActive(false);
         }
     }
 
@@ -148,7 +148,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
             CardManager.Cards.Remove(this);
             CardManager.SnapAllBack();
             InfoManager.UpdateInfos();
-            Destroy(this.gameObject);
+            gameObject.SetActive(false);
         }
     }
 
@@ -164,7 +164,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
             turnManager.TakeAction(-actionPoints);
             CardManager.Cards.Remove(this);
             CardManager.SnapAllBack();
-            Destroy(this.gameObject);
+            gameObject.SetActive(false);
             InfoManager.UpdateInfos();
             return;
         }
@@ -211,7 +211,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
             CardManager.Cards.Remove(this);
             CardManager.SnapAllBack();
             InfoManager.UpdateInfos();
-            Destroy(this.gameObject);
+            gameObject.SetActive(false);
         }
     }
 
@@ -254,7 +254,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
             CardManager.Cards.Remove(this);
             CardManager.SnapAllBack();
             InfoManager.UpdateInfos();
-            Destroy(this.gameObject);
+            gameObject.SetActive(false);
         }
     }
 }
