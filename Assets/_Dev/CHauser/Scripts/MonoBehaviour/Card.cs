@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using System.Linq;
-using System.Collections.Generic;
 using ZinklofDev.Utils.MathZ;
 
 public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
@@ -19,6 +17,8 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
 
     [SerializeField] private GameObject actionPointBoostPotionPrompt;
 
+    [SerializeField] public int cardNumberInHand;
+
     RectTransform rectTransform;
     TurnManager turnManager;
     PlayerInputManager playerInputManager;
@@ -30,7 +30,9 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
         rectTransform = GetComponent<RectTransform>();
         turnManager = FindFirstObjectByType<TurnManager>();
         playerInputManager = FindFirstObjectByType<PlayerInputManager>();
+        CardManager.Cards.Add(this);
     }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         

@@ -186,10 +186,10 @@ public class PlayerInputManager : MonoBehaviour
                 
                 // Temp, currently just clears and resets system. Will eventually add another set of states for battle here
                 state = InputState.SelectingPartyMember;
-                turnManager.TakeAction(1);
-                display.Clear(false);
+                turnManager.TakeAction(5);
                 currentEnemySelectedActor.TakeDamage(currentSelectedActor.attackPower);
                 currentEnemySelectedActor = null;
+                display.Clear(false);
                 break;
 
             case InputState.Inactive:
