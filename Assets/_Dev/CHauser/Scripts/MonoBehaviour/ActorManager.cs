@@ -8,7 +8,7 @@ public class ActorManager : MonoBehaviour
   public static List<Actor> partyMemberActors = new List<Actor>();
   public static List<Actor> enemyActors = new List<Actor>();
 
-  private void Start()
+  private void Awake()
   {
     allActors = FindObjectsByType<Actor>(FindObjectsSortMode.None).ToList();
     

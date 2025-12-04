@@ -109,6 +109,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
             currentSelectedActor.range += reach;
             CardManager.Cards.Remove(this);
             CardManager.SnapAllBack();
+            InfoManager.UpdateInfos();
             Destroy(this.gameObject);
         }
     }
@@ -146,6 +147,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
             currentSelectedActor.health += health;
             CardManager.Cards.Remove(this);
             CardManager.SnapAllBack();
+            InfoManager.UpdateInfos();
             Destroy(this.gameObject);
         }
     }
@@ -163,6 +165,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
             CardManager.Cards.Remove(this);
             CardManager.SnapAllBack();
             Destroy(this.gameObject);
+            InfoManager.UpdateInfos();
             return;
         }
         
@@ -207,6 +210,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
             currentSelectedActor.range = reach; // Temp for now, only works if we can equip one weapon
             CardManager.Cards.Remove(this);
             CardManager.SnapAllBack();
+            InfoManager.UpdateInfos();
             Destroy(this.gameObject);
         }
     }
@@ -249,6 +253,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
             currentSelectedActor.range = reach; // Temp for now, only works if we can equip one weapon
             CardManager.Cards.Remove(this);
             CardManager.SnapAllBack();
+            InfoManager.UpdateInfos();
             Destroy(this.gameObject);
         }
     }
