@@ -19,6 +19,9 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
 
     [SerializeField] public int cardNumberInHand;
 
+    [SerializeField] public GameObject swordPrefab;
+    [SerializeField] public GameObject axePrefab;
+
     RectTransform rectTransform;
     TurnManager turnManager;
     PlayerInputManager playerInputManager;
@@ -109,7 +112,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
             currentSelectedActor.range += reach;
             CardManager.Cards.Remove(this);
             CardManager.SnapAllBack();
-            InfoManager.UpdateInfos();
             gameObject.SetActive(false);
         }
     }
@@ -147,7 +149,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
             currentSelectedActor.health += health;
             CardManager.Cards.Remove(this);
             CardManager.SnapAllBack();
-            InfoManager.UpdateInfos();
             gameObject.SetActive(false);
         }
     }
@@ -165,7 +166,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
             CardManager.Cards.Remove(this);
             CardManager.SnapAllBack();
             gameObject.SetActive(false);
-            InfoManager.UpdateInfos();
             return;
         }
         
@@ -210,7 +210,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
             currentSelectedActor.range = reach; // Temp for now, only works if we can equip one weapon
             CardManager.Cards.Remove(this);
             CardManager.SnapAllBack();
-            InfoManager.UpdateInfos();
+            Instantiate(axePrefab, currentSelectedActor.weaponSlot);
             gameObject.SetActive(false);
         }
     }
@@ -251,9 +251,9 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
             currentSelectedActor.equippedTool = new Item(Item.Type.Sword, attackPower, reach);
             currentSelectedActor.attackPower += attackPower; // Temp for now, only works if we can equip one weapon
             currentSelectedActor.range = reach; // Temp for now, only works if we can equip one weapon
+            Instantiate(swordPrefab, currentSelectedActor.weaponSlot);
             CardManager.Cards.Remove(this);
             CardManager.SnapAllBack();
-            InfoManager.UpdateInfos();
             gameObject.SetActive(false);
         }
     }
