@@ -4,6 +4,8 @@ using ZinklofDev.Utils.MathZ;
 
 public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
+    [SerializeField] private Canvas canvas;
+
     public enum ItemType { Null, ReachPotion, HealthPotion, ActionPointBoostPotion, Axe, Sword };
     [SerializeField] public ItemType itemType;
 
@@ -77,7 +79,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
         if(playerInputManager.state  != PlayerInputManager.InputState.SelectingPartyMember)
             return;
 
-        rectTransform.anchoredPosition += eventData.delta;
+        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 
     public void ReachPotionAction()
