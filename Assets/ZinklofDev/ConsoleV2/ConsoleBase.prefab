@@ -554,6 +554,7 @@ MonoBehaviour:
   minLogContainerY: -600
   logLerp: 0.5
   changeAmmount: -35000
+  lockCursor: 0
 --- !u!1 &5137241300207956719
 GameObject:
   m_ObjectHideFlags: 0

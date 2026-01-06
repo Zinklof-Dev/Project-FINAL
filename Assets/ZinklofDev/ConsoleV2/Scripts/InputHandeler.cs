@@ -22,6 +22,7 @@ public class InputHandeler : MonoBehaviour
     [SerializeField] float minLogContainerY;
     [SerializeField] float logLerp;
     [SerializeField] float changeAmmount;
+    [SerializeField] bool lockCursor;
 
     private float targetLogContainerY;
 
@@ -68,7 +69,9 @@ public class InputHandeler : MonoBehaviour
             }
             else
             {
-                Cursor.lockState = CursorLockMode.Locked;
+                if(lockCursor)
+                    Cursor.lockState = CursorLockMode.Locked;
+
                 inputField.DeactivateInputField();
                 inputField.text = "";
                 possibleCommandsGUI.text = "";
