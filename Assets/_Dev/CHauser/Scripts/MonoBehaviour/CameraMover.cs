@@ -18,7 +18,7 @@ public class CameraMover : MonoBehaviour
     }
 
     [Command("Moves the Camera to desired location and rotation smoothly over time.")]
-    public static void MoveCamera(float targetPositionX, float targetPositionY, float targetPositionZ, Vector3 eulerTargetRotation)
+    public static void MoveCamera(float targetPositionX, float targetPositionY, float targetPositionZ, float eulerTargetRotationX, float eulerTargetRotationY, float eulerTargetRotationZ)
     {
         if (instance.inMotion)
         {
@@ -26,11 +26,11 @@ public class CameraMover : MonoBehaviour
             return;
         }
         Vector3 targetPosition = new Vector3(targetPositionX, targetPositionY, targetPositionZ);
-        // add same for rot, outta time
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(eulerTargetRotationX, eulerTargetRotationY, eulerTargetRotationZ));
 
         instance.inMotion = true;
         instance.targetPosition = targetPosition;
-        instance.targetRotation = Quaternion.Euler(eulerTargetRotation);
+        instance.targetRotation = targetRotation;
     }
 
     public void Update()
