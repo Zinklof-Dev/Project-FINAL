@@ -25,9 +25,9 @@ public class CampScenePlayerInputManager : MonoBehaviour
 
             Vector3 directionToTarget = hit.transform.position - cameraMapTablePosition;
             Quaternion goalRotation = Quaternion.LookRotation(directionToTarget, Vector3.up);
-            Vector3 eulerGoalRotation = Quaternion.Euler(goalRotation);
+            Vector3 eulerGoalRotation = goalRotation.eulerAngles;
 
-            CameraMover.MoveCamera(cameraMapTablePosition.x, cameraMapTablePosition.y, cameraMapTablePosition.z, hit.transform.position.x, hit.transform.position.y, hit.transform.position.z);
+            CameraMover.MoveCamera(cameraMapTablePosition.x, cameraMapTablePosition.y, cameraMapTablePosition.z, eulerGoalRotation.x, eulerGoalRotation.y, eulerGoalRotation.z);
         }
     }
 }

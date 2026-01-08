@@ -5,12 +5,13 @@ using ZinklofDev.ConsoleV2;
 public class CameraMover : MonoBehaviour
 {
     private bool inMotion = false;
+    private float moveSpeed;
     private Vector3 targetPosition;
+    private float rotateSpeed;
     private Quaternion targetRotation;
     private static CameraMover instance;
 
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float rotationSpeed;
+    [SerializeField] private float moveRate;
 
     private void Start()
     {
@@ -31,6 +32,8 @@ public class CameraMover : MonoBehaviour
         instance.inMotion = true;
         instance.targetPosition = targetPosition;
         instance.targetRotation = targetRotation;
+        instance.moveSpeed = Vector3.Distance(instance.transform.position, targetPosition) / instance.moveRate;
+        instance.rotateSpeed = Quaternion.Angle(instance.transform.rotation, targetRotation) / instance.moveRate;
     }
 
     public void Update()
@@ -38,26 +41,25 @@ public class CameraMover : MonoBehaviour
         if(!inMotion)
             return;
 
-        bool rotDone = false;
         bool moveDone = false;
 
-        if (Vectors.SqrDist3f(transform.position, targetPosition) < 0.1f)
+        if (Vectors.SqrDist3f(transform.position, targetPosition) < 0.01f)
         {
             transform.position = targetPosition;
+            transform.rotation = targetRotation;
             moveDone = true;
         }
         else
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
 
-        if (Quaternion.Angle(transform.rotation, targetRotation) < 0.1f)
+        if (Quaternion.Angle(transform.rotation, targetRotation) < 0.01f)
         {
             transform.rotation = targetRotation;
-            rotDone = true;
         }
         else
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
 
-        if (rotDone && moveDone)
+        if (moveDone)
             inMotion = false;
     }
 }
