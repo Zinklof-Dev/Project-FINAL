@@ -5,13 +5,13 @@ using ZinklofDev.ConsoleV2;
 public class CameraMover : MonoBehaviour
 {
     private bool inMotion = false;
-    private float moveSpeed;
     private Vector3 targetPosition;
-    private float rotateSpeed;
     private Quaternion targetRotation;
+    private float t;
+
     private static CameraMover instance;
 
-    [SerializeField] private float moveRate;
+    [SerializeField] private float moveDuration;
 
     private void Start()
     {
@@ -32,8 +32,6 @@ public class CameraMover : MonoBehaviour
         instance.inMotion = true;
         instance.targetPosition = targetPosition;
         instance.targetRotation = targetRotation;
-        instance.moveSpeed = Vector3.Distance(instance.transform.position, targetPosition) / instance.moveRate;
-        instance.rotateSpeed = Quaternion.Angle(instance.transform.rotation, targetRotation) / instance.moveRate;
     }
 
     public void Update()
@@ -42,24 +40,29 @@ public class CameraMover : MonoBehaviour
             return;
 
         bool moveDone = false;
+        t += Time.deltaTime / moveDuration;
+        float smoothedT = Mathf.SmoothStep(0, 1, t);
 
-        if (Vectors.SqrDist3f(transform.position, targetPosition) < 0.01f)
+        if (Vectors.SqrDist3f(transform.position, targetPosition) <= 0.01f * 0.01f)
         {
             transform.position = targetPosition;
             transform.rotation = targetRotation;
             moveDone = true;
         }
         else
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, targetPosition, smoothedT);
 
-        if (Quaternion.Angle(transform.rotation, targetRotation) < 0.01f)
+        if (Quaternion.Angle(transform.rotation, targetRotation) == 0.01f)
         {
             transform.rotation = targetRotation;
         }
         else
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, smoothedT);
 
         if (moveDone)
+        {
             inMotion = false;
+            t = 0;
+        }
     }
 }
