@@ -152,7 +152,7 @@ namespace ZinklofDev.ConsoleV2
                 case 11:
                     return Char.Parse(value);
                 default:
-                    throw new ArgumentException("ZinklofDev.ConsoleV2.GenericCommandVariable.ParseAsObject(), Arguement falls out of range exception");
+                    throw new ArgumentException("ZinklofDev.ConsoleV2.GenericCommandVariable.ParseAsObject(), Arguement falls out of range exception (Unsupported value type for command)");
             }
         }
 
@@ -185,7 +185,7 @@ namespace ZinklofDev.ConsoleV2
                 case 11:
                     return "Char";
                 default:
-                    throw new ArgumentException("ZinklofDev.ConsoleV2.GenericCommandVariable.ParseAsObject(), Arguement falls out of range exception");
+                    throw new ArgumentException("ZinklofDev.ConsoleV2.GenericCommandVariable.ToString(), Arguement falls out of range exception (Unsupported value type for command)");
             }
         }
     }
