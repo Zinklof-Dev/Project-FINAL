@@ -5,7 +5,9 @@ using ZinklofDev.ConsoleV2;
 public class CameraMover : MonoBehaviour
 {
     private bool inMotion = false;
+    private Vector3 startPosition;
     private Vector3 targetPosition;
+    private Quaternion startRotation;
     private Quaternion targetRotation;
     private float t;
 
@@ -26,12 +28,16 @@ public class CameraMover : MonoBehaviour
             Debug.LogWarning("Camera already in motion!");
             return;
         }
+
         Vector3 targetPosition = new Vector3(targetPositionX, targetPositionY, targetPositionZ);
         Quaternion targetRotation = Quaternion.Euler(new Vector3(eulerTargetRotationX, eulerTargetRotationY, eulerTargetRotationZ));
 
         instance.inMotion = true;
         instance.targetPosition = targetPosition;
         instance.targetRotation = targetRotation;
+        instance.startPosition = instance.transform.position;
+        instance.startRotation = instance.transform.rotation;
+        instance.t = 0;
     }
 
     public void Update()
@@ -39,30 +45,20 @@ public class CameraMover : MonoBehaviour
         if(!inMotion)
             return;
 
-        bool moveDone = false;
         t += Time.deltaTime / moveDuration;
-        float smoothedT = Mathf.SmoothStep(0, 1, t);
 
-        if (Vectors.SqrDist3f(transform.position, targetPosition) <= 0.01f * 0.01f)
+        if (t >= 1)
         {
             transform.position = targetPosition;
             transform.rotation = targetRotation;
-            moveDone = true;
-        }
-        else
-            transform.position = Vector3.Lerp(transform.position, targetPosition, smoothedT);
-
-        if (Quaternion.Angle(transform.rotation, targetRotation) == 0.01f)
-        {
-            transform.rotation = targetRotation;
-        }
-        else
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, smoothedT);
-
-        if (moveDone)
-        {
-            inMotion = false;
             t = 0;
+            inMotion = false;
+            return;
         }
+
+        float smoothedT = Mathf.SmoothStep(0, 1, t);
+
+        transform.position = Vector3.Lerp(startPosition, targetPosition, smoothedT);
+        transform.rotation = Quaternion.Slerp(startRotation, targetRotation, smoothedT);
     }
 }

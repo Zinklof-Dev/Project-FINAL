@@ -25,6 +25,9 @@ public class CampScenePlayerInputManager : MonoBehaviour
 
     private void Update()
     {
+        if (state != State.Default)
+            return;
+
         if (!Input.GetMouseButtonDown(0))
             return;
 
