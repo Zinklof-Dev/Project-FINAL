@@ -14,6 +14,7 @@ public class CameraMover : MonoBehaviour
     private static CameraMover instance;
 
     [SerializeField] private float moveDuration;
+    //[SerializeField] private AnimationCurve moveCurve;
 
     private void Start()
     {
@@ -57,6 +58,7 @@ public class CameraMover : MonoBehaviour
         }
 
         float smoothedT = Mathf.SmoothStep(0, 1, t);
+        // smoothedT = moveCurve.Evaluate(t);
 
         transform.position = Vector3.Lerp(startPosition, targetPosition, smoothedT);
         transform.rotation = Quaternion.Slerp(startRotation, targetRotation, smoothedT);
