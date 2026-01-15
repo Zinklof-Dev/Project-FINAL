@@ -17,7 +17,7 @@ public class PlayableCharacter
     public List<Item> equippedItems;
     public Item equippedTool = null;
 
-    public PlayableCharacter(string name, string background, float maxHealth, float speed, float range, float attackPower)
+    public PlayableCharacter(string name, string background, float maxHealth, float speed, float range, float attackPower, bool addToParty)
     {
         this.name = name;
         this.background = background;
@@ -28,8 +28,10 @@ public class PlayableCharacter
         this.attackPower = attackPower;
         actorInventory = new List<Item>();
         equippedItems = new List<Item>();
-        
-        partyMembers.Add(this);
+        equippedTool = null;
+
+        if (addToParty)
+            partyMembers.Add(this);
     }
 
     public void UpdateData(string name, string background, float maxHealth, float health, float speed, float range, float attackPower, List<Item> actorInventory, List<Item> equippedItems, Item equippedTool)
