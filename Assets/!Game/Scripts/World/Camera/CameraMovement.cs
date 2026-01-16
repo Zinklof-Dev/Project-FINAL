@@ -21,13 +21,20 @@ public class CameraMovement : MonoBehaviour
 
         rotation = Input.GetAxis("Lean");
 
+        Debug.Log(rotation);
+
         scroll = Input.GetAxis ("Mouse ScrollWheel");
 
         inputs.Normalize();
 
         transform.position += ((inputs.y * speed * Time.deltaTime) * transform.right) + ((inputs.x * speed * Time.deltaTime) * transform.forward);
-        transform.rotation *= Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, rotation * rotSpeed * Time.deltaTime, 0));
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, rotation * rotSpeed * Time.deltaTime, 0));
 
-        //cameraTransform.localPosition.z
+        cameraTransform.position = cameraTransform.position + ((scroll * scrollSpeed * Time.deltaTime) * cameraTransform.forward);
+    }
+
+    private void Update()
+    {
+        DoMovement();
     }
 }

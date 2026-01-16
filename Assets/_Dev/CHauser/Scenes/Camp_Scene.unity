@@ -458,6 +458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PartyManager
   partyDisplayContent: {fileID: 1608303650}
+  recruitDisplayContent: {fileID: 0}
   partyMemberDisplayPrefab: {fileID: 3016039683564481974, guid: 2e157d36c55f71644846addcae479fe6, type: 3}
 --- !u!4 &183312592
 Transform:
@@ -1956,7 +1957,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
