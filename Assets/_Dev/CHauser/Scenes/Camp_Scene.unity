@@ -460,6 +460,7 @@ MonoBehaviour:
   partyDisplayContent: {fileID: 1608303650}
   recruitDisplayContent: {fileID: 0}
   partyMemberDisplayPrefab: {fileID: 3016039683564481974, guid: 2e157d36c55f71644846addcae479fe6, type: 3}
+  recruitDisplayPrefab: {fileID: 0}
 --- !u!4 &183312592
 Transform:
   m_ObjectHideFlags: 0
@@ -2375,9 +2376,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.VerticalLayoutGroup
   m_Padding:
-    m_Left: 0
+    m_Left: 10
     m_Right: 0
-    m_Top: 0
+    m_Top: 10
     m_Bottom: 0
   m_ChildAlignment: 0
   m_Spacing: 0

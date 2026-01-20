@@ -7,6 +7,7 @@ public class PartyManager : MonoBehaviour
     [SerializeField] RectTransform partyDisplayContent;
     [SerializeField] RectTransform recruitDisplayContent;
     [SerializeField] GameObject partyMemberDisplayPrefab;
+    [SerializeField] GameObject recruitDisplayPrefab;
 
     List<PlayableCharacter> recruits = new List<PlayableCharacter>();
 
@@ -23,7 +24,12 @@ public class PartyManager : MonoBehaviour
         recruits.Add(new PlayableCharacter("Rick", "Ur MOMMMMMM", 100, 1, 1, 1, false));
         recruits.Add(new PlayableCharacter("Morty", "Ur MOMMMMMM", 100, 1, 1, 1, false));
         recruits.Add(new PlayableCharacter("Beth", "Ur MOMMMMMM", 100, 1, 1, 1, false));
-        recruits.Add(new PlayableCharacter("Sanchez", "Ur MOMMMMMM", 100, 1, 1, 1, false));
+
+        UpdatePartyDisplayContent();
+    }
+
+    private void UpdatePartyDisplayContent()
+    {
 
         foreach (PlayableCharacter character in PlayableCharacter.partyMembers)
         {
