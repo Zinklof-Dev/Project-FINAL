@@ -20,7 +20,7 @@ public class CameraMovement : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool drawGizmos;
     [SerializeField] private bool verbose;
-    
+
     private float distFromCenter;
 
     private void Start()
@@ -34,7 +34,7 @@ public class CameraMovement : MonoBehaviour
     {
         if (!drawGizmos)
             return;
-            
+
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(objObjective.position, 0.25f);
         Gizmos.color = Color.red;
@@ -56,7 +56,7 @@ public class CameraMovement : MonoBehaviour
 
         rotation = Input.GetAxis("Lean");
 
-        scroll = Input.GetAxis ("Mouse ScrollWheel");
+        scroll = Input.GetAxis("Mouse ScrollWheel");
 
         inputs.Normalize();
 
@@ -68,15 +68,15 @@ public class CameraMovement : MonoBehaviour
 
         distFromCenter = distFromCenter + (-scroll * scrollSpeed * Time.deltaTime);
 
-        if (distFromCenter < minMaxDistance[0]/2)
-            distFromCenter = minMaxDistance[0]/2;
-        else if (distFromCenter > minMaxDistance[2]/2)
-            distFromCenter = minMaxDistance[2]/2;
+        if (distFromCenter < minMaxDistance[0] / 2)
+            distFromCenter = minMaxDistance[0] / 2;
+        else if (distFromCenter > minMaxDistance[2] / 2)
+            distFromCenter = minMaxDistance[2] / 2;
 
         cameraObjective.position = objObjective.position + (cameraObjective.forward * -distFromCenter);
         cameraObjective2.position = objObjective.position + (cameraObjective2.forward * -distFromCenter);
 
-        if (distFromCenter < minMaxDistance[1]/2)
+        if (distFromCenter < minMaxDistance[1] / 2)
         {
             cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraObjective.position, zoomLerp);
             cameraTransform.rotation = Quaternion.Slerp(cameraTransform.rotation, cameraObjective.rotation, zoomLerp);
@@ -88,7 +88,7 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
-    private void Verbose(string log);
+    private void Verbose(string log)
     {
         if(verbose)
             Debug.Log("[CameraMovement.cs] " + log);
