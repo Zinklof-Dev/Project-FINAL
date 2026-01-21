@@ -16,7 +16,11 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private Transform cameraObjective;
     [SerializeField] private Transform cameraObjective2;
     [SerializeField] private Transform objObjective;
-
+    [Space(10)]
+    [Header("Debug")]
+    [SerializeField] private bool drawGizmos;
+    [SerializeField] private bool verbose;
+    
     private float distFromCenter;
 
     private void Start()
@@ -28,6 +32,9 @@ public class CameraMovement : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (!drawGizmos)
+            return;
+            
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(objObjective.position, 0.25f);
         Gizmos.color = Color.red;
@@ -79,6 +86,12 @@ public class CameraMovement : MonoBehaviour
             cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraObjective2.position, zoomLerp);
             cameraTransform.rotation = Quaternion.Slerp(cameraTransform.rotation, cameraObjective2.rotation, zoomLerp);
         }
+    }
+
+    private void Verbose(string log);
+    {
+        if(verbose)
+            Debug.Log("[CameraMovement.cs] " + log);
     }
 
     private void Update()
