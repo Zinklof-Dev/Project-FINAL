@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField] private Transform cameraObjective;
+    [SerializeField] private Transform cameraObjective2;
+    [SerializeField] private Transform objObjective;
+    [Space(10)]
+    [Header("Movement Variables")]
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private float speed;
     [SerializeField] private float rotSpeed;
@@ -10,42 +16,61 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private float ctrlMult;
     [SerializeField] private float[] minMaxDistance = new float[2];
     [SerializeField] private AnimationCurve scrollCurve;
+    [Space(5)]
+    [Header("Zoom To Object Variables")]
+    [SerializeField] private float zoomDist;
+    [SerializeField] private bool copyRotation;
     [Space(10)]
-    [Header("Lerps")]
+    [Header("Lerp Variables")]
     [SerializeField] private float movementLerp;
     [SerializeField] private float rotLerp;
     [SerializeField] private float zoomLerp;
-    [Header("Objective Transforms")]
-    [SerializeField] private Transform cameraObjective;
-    [SerializeField] private Transform cameraObjective2;
-    [SerializeField] private Transform objObjective;
     [Space(10)]
     [Header("Debug")]
-    [SerializeField] private bool drawGizmos;
+    [SerializeField] private bool drawLerps;
     [SerializeField] private bool verbose;
+    [SerializeField] private bool drawHits;
 
     private float distFromCenter;
+
+    private list<Vector3> hits = new list<Vector3>();
+    private Vector3 ?latestHit = null;
 
     private void Start()
     {
         cameraObjective.position = cameraTransform.position;
         cameraObjective.rotation = cameraTransform.rotation;
         cameraObjective.parent = objObjective;
+
+        latestHit = null;
     }
 
     private void OnDrawGizmos()
     {
-        if (!drawGizmos)
-            return;
+        if (drawLerps)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(objObjective.position, 0.25f);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(cameraObjective.position, 0.25f);
+            Gizmos.DrawLine(cameraObjective.position, cameraObjective.position + (1 * cameraObjective.forward));
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(cameraObjective2.position, 0.25f);
+            Gizmos.DrawLine(cameraObjective2.position, cameraObjective2.position + (1 * cameraObjective2.forward));
+        }
 
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(objObjective.position, 0.25f);
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(cameraObjective.position, 0.25f);
-        Gizmos.DrawLine(cameraObjective.position, cameraObjective.position + (1 * cameraObjective.forward));
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(cameraObjective2.position, 0.25f);
-        Gizmos.DrawLine(cameraObjective2.position, cameraObjective2.position + (1 * cameraObjective2.forward));
+        if (drawHits)
+        {
+            Gizmos.color = Color.red;
+            foreach (Vector3 pos in hits)
+            {
+                Gizmos.drawSphere(pos, 0.25f)
+            }
+
+            Gizmos.color = Color.blue;
+            if (latestHit != null)
+                Gizmos.drawSphere(latestHit, 0.3f);
+        }
     }
 
     private void DoMovement()
@@ -95,6 +120,51 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
+    private void HandleMouseInput()
+    {
+        gameobject hitObject = null;
+    
+        if (Input.GetAxis("Fire") > 0)
+        {
+            hitobject = FireRay();
+        }
+
+        if (hitObject == null)
+            return;
+
+        AttributeSystem objAttributes = hitObject.GetComponent<AttributeSystem>();
+            
+        if (objAttributes.GetAttribute("Map_Zoomable"))
+        {
+            objObjective.position = hitObject.transform.position;
+            distFromCenter = zoomDist;
+
+            if (copyRotation)
+                objObjective.rotation = hitObject.transform.rotation;
+        }
+        if (objAttributes.GetAttribute("Map_Party"))
+        {
+        
+        }
+    }
+
+    private gameobject FireRay()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out hit, 250f)
+        {   
+            if (!drawHits)
+                return hit.collider.gameobject;
+            
+            if (latestHit != null)
+                hits.add(latestHit);
+            latestHit = hit.point;
+
+            return hit.collider.gameobject;
+        }
+    }
+
     private void Verbose(string log)
     {
         if(verbose)
@@ -104,5 +174,6 @@ public class CameraMovement : MonoBehaviour
     private void Update()
     {
         DoMovement();
+        HandleMouseInput();
     }
 }
