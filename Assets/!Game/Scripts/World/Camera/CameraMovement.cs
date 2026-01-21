@@ -6,7 +6,10 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float rotSpeed;
     [SerializeField] private float scrollSpeed;
+    [SerializeField] private float shiftMult;
+    [SerializeField] private float ctrlMult;
     [SerializeField] private float[] minMaxDistance = new float[2];
+    [SerializeField] private AnimationCurve scrollCurve;
     [Space(10)]
     [Header("Lerps")]
     [SerializeField] private float movementLerp;
@@ -47,6 +50,10 @@ public class CameraMovement : MonoBehaviour
 
     private void DoMovement()
     {
+        float mult = (shiftMult * Input.GetAxis("Sprint") + (ctrlMult * Input.GetAxis("Crouch")));
+        if (mult == 0)
+            mult = 1;   
+
         Vector2 inputs = Vector2.zero;
         float rotation = 0f;
         float scroll = 0f;
@@ -60,13 +67,13 @@ public class CameraMovement : MonoBehaviour
 
         inputs.Normalize();
 
-        objObjective.position += ((inputs.y * speed * Time.deltaTime) * objObjective.right) + ((inputs.x * speed * Time.deltaTime) * objObjective.forward);
-        objObjective.rotation = Quaternion.Euler(objObjective.rotation.eulerAngles + new Vector3(0, rotation * rotSpeed * Time.deltaTime, 0));
+        objObjective.position += ((inputs.y * speed * mult * Time.deltaTime) * objObjective.right) + ((inputs.x * speed * Time.deltaTime) * objObjective.forward);
+        objObjective.rotation = Quaternion.Euler(objObjective.rotation.eulerAngles + new Vector3(0, rotation * rotSpeed * mult * Time.deltaTime, 0));
 
         transform.position = Vector3.Lerp(transform.position, objObjective.position, movementLerp);
         transform.rotation = Quaternion.Slerp(transform.rotation, objObjective.rotation, rotLerp);
 
-        distFromCenter = distFromCenter + (-scroll * scrollSpeed * Time.deltaTime);
+        distFromCenter = distFromCenter + (-scroll * scrollSpeed * mult * scrollCurve.Evaluate(distFromCenter / minMaxDistance[2]) * Time.deltaTime);
 
         if (distFromCenter < minMaxDistance[0] / 2)
             distFromCenter = minMaxDistance[0] / 2;

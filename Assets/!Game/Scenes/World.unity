@@ -543,16 +543,44 @@ MonoBehaviour:
   speed: 10
   rotSpeed: 100
   scrollSpeed: 1000
+  shiftMult: 2.5
+  ctrlMult: 0.4
   minMaxDistance:
   - 12.5
-  - 75
-  - 200
+  - 125
+  - 250
+  scrollCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 4
+      inSlope: 8.287082
+      outSlope: 8.287082
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.033297718
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   movementLerp: 0.05
   rotLerp: 0.05
   zoomLerp: 0.05
   cameraObjective: {fileID: 1865483322}
   cameraObjective2: {fileID: 649226035}
   objObjective: {fileID: 1167006278}
+  drawGizmos: 0
+  verbose: 0
 --- !u!1 &1167006277
 GameObject:
   m_ObjectHideFlags: 0
