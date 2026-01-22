@@ -13,6 +13,9 @@ public class PartyManager : MonoBehaviour
     public static List<PlayableCharacter> recruits = new List<PlayableCharacter>();
     public static PartyManager instance;
 
+    private List<GameObject> partyMemberDisplays = new List<GameObject>();
+    private List<GameObject> recruitDisplays = new List<GameObject>();
+
     private void Start()
     {
         instance = this;
@@ -36,6 +39,13 @@ public class PartyManager : MonoBehaviour
 
     public void UpdatePartyDisplayContent()
     {
+        for (int i = 0; i < 100000; i++)
+        {
+            if (partyMemberDisplays.Count == 0) break;
+            GameObject display = partyMemberDisplays[0];
+            partyMemberDisplays.Remove(display);
+            Destroy(display);
+        }
 
         foreach (PlayableCharacter character in PlayableCharacter.partyMembers)
         {
@@ -43,6 +53,7 @@ public class PartyManager : MonoBehaviour
             display.GetComponent<PartyMemberDisplay>().character = character;
             TMP_Text text = display.GetComponent<PartyMemberDisplay>().characterTxt;
             text.text = character.name;
+            partyMemberDisplays.Add(display);
         }
 
         partyDisplayContent.GetComponent<RectTransform>().sizeDelta = new Vector2(partyDisplayContent.GetComponent<RectTransform>().sizeDelta.x, partyMemberDisplayPrefab.GetComponent<RectTransform>().sizeDelta.y * PlayableCharacter.partyMembers.Count);
@@ -50,12 +61,21 @@ public class PartyManager : MonoBehaviour
 
     public void UpdateRecruitDisplayContent()
     {
+        for (int i = 0; i < 100000; i++)
+        {
+            if (recruitDisplays.Count == 0) break;
+            GameObject display = recruitDisplays[0];
+            recruitDisplays.Remove(display);
+            Destroy(display);
+        }
+
         foreach (PlayableCharacter recruit in recruits)
         {
             GameObject display = Instantiate(recruitDisplayPrefab, recruitDisplayContent);
             display.GetComponent<PartyMemberDisplay>().character = recruit;
             TMP_Text text = display.GetComponent<PartyMemberDisplay>().characterTxt;
             text.text = recruit.name;
+            recruitDisplays.Add(display);
         }
         recruitDisplayContent.GetComponent<RectTransform>().sizeDelta = new Vector2(recruitDisplayContent.GetComponent<RectTransform>().sizeDelta.x, recruitDisplayPrefab.GetComponent<RectTransform>().sizeDelta.y * recruits.Count);
     }
