@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
@@ -33,7 +34,7 @@ public class CameraMovement : MonoBehaviour
 
     private float distFromCenter;
 
-    private list<Vector3> hits = new list<Vector3>();
+    private List<Vector3> hits = new List<Vector3>();
     private Vector3 ?latestHit = null;
 
     private void Start()
@@ -64,12 +65,12 @@ public class CameraMovement : MonoBehaviour
             Gizmos.color = Color.red;
             foreach (Vector3 pos in hits)
             {
-                Gizmos.drawSphere(pos, 0.25f)
+                Gizmos.DrawSphere(pos, 0.25f);
             }
 
             Gizmos.color = Color.blue;
             if (latestHit != null)
-                Gizmos.drawSphere(latestHit, 0.3f);
+                Gizmos.DrawSphere((Vector3)latestHit, 0.3f);
         }
     }
 
@@ -122,18 +123,21 @@ public class CameraMovement : MonoBehaviour
 
     private void HandleMouseInput()
     {
-        gameobject hitObject = null;
+        GameObject hitObject = null;
     
         if (Input.GetAxis("Fire") > 0)
         {
-            hitobject = FireRay();
+            hitObject = FireRay();
         }
 
         if (hitObject == null)
             return;
 
         AttributeSystem objAttributes = hitObject.GetComponent<AttributeSystem>();
-            
+
+        if (objAttributes == null)
+            return;
+
         if (objAttributes.GetAttribute("Map_Zoomable"))
         {
             objObjective.position = hitObject.transform.position;
@@ -148,21 +152,24 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
-    private gameobject FireRay()
+    private GameObject FireRay()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, 250f)
+        if (Physics.Raycast(ray, out hit, 250f))
         {   
             if (!drawHits)
-                return hit.collider.gameobject;
+                return hit.collider.gameObject;
             
             if (latestHit != null)
-                hits.add(latestHit);
+                hits.Add((Vector3)latestHit);
             latestHit = hit.point;
 
-            return hit.collider.gameobject;
+            return hit.collider.gameObject;
         }
+        else
+            return null;
     }
 
     private void Verbose(string log)
