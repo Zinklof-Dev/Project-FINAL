@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 
@@ -78,5 +79,10 @@ public class PartyManager : MonoBehaviour
             recruitDisplays.Add(display);
         }
         recruitDisplayContent.GetComponent<RectTransform>().sizeDelta = new Vector2(recruitDisplayContent.GetComponent<RectTransform>().sizeDelta.x, recruitDisplayPrefab.GetComponent<RectTransform>().sizeDelta.y * recruits.Count);
+    }
+
+    private void GenerateRecruits()
+    {
+
     }
 }

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System;
 using static Actor;
 
+[Serializable]
 public class PlayableCharacter
 {
     public static List<PlayableCharacter> partyMembers = new List<PlayableCharacter>();
