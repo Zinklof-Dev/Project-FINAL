@@ -4,19 +4,9 @@ using System;
 
 public class FileDataHandler
 {
-    private string dataDirPath = "";
-    private string dataFileName = "";
-    bool useEncryption = false;
-    private readonly string encryptionCodeWord = "ZinklofDevSuperSecretEncrpytionCodeWordForXOREncryption";
+    private readonly string encryptionCodeWord = "EreATrhONESKUZcsW-0XvALthtuIF7MkqGPQm4pCiBIA8G8K_yZOK0yXD7puA6JhtQAc0lU-yvOk2MgMv_bDy9-weBO0C_Zy9UGQ7lhkt90kPgtIzex2r3CkqfKvpzn88E-gArsf-ze-aEaAySV8GmWLLApy0yGI4SEU6yRKB8o8fVYQ9Gu7_ncbEEuOo7Gn5ii32QiSyYXNncpE2aKH4YVWenIw";
 
-    public FileDataHandler(string dataDirPath, string dataFileName, bool useEncryption)
-    {
-        this.dataDirPath = dataDirPath;
-        this.dataFileName = dataFileName;
-        this.useEncryption = useEncryption;
-    }
-
-    public void DeleteSaveData()
+    public void DeleteSaveData(string dataDirPath, string dataFileName, bool useEncryption)
     {
         string fullPath = Path.Combine(dataDirPath, dataFileName);
         try
@@ -33,7 +23,7 @@ public class FileDataHandler
     }
 
 
-    public GameData Load()
+    public GameData Load(string dataDirPath, string dataFileName, bool useEncryption)
     {
         string fullPath = Path.Combine(dataDirPath, dataFileName);
         GameData loadedData = null;
@@ -64,7 +54,7 @@ public class FileDataHandler
         return loadedData;
     }
 
-    public void Save(GameData data)
+    public void Save(GameData data, string dataDirPath, string dataFileName, bool useEncryption)
     {
         string fullPath = Path.Combine(dataDirPath, dataFileName);
 

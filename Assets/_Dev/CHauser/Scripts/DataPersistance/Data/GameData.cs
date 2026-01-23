@@ -8,6 +8,6 @@ public class GameData
 
     public GameData()
     {
-        partyMembers = new List<PlayableCharacter>(PlayableCharacter.partyMembers);
+        partyMembers = new List<PlayableCharacter>();
     }
 }

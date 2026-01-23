@@ -1387,8 +1387,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DataPersistanceManager
   fileName: BOTDsavedata.zink
   useEncryption: 1
-  autoLoadOnStart: 0
-  autoSaveOnQuit: 0
+  autoLoadOnStart: 1
+  autoSaveOnQuit: 1
 --- !u!4 &381453051
 Transform:
   m_ObjectHideFlags: 0
@@ -5466,7 +5466,6 @@ MonoBehaviour:
   cameraMapTablePosition: {x: 2, y: 3, z: 2}
   cameraPlayerEditorPosition: {x: -3, y: 3, z: 2}
   cameraDefaultEulerRotation: {x: 15, y: 0, z: 0}
-  state: 0
 --- !u!4 &2106041111
 Transform:
   m_ObjectHideFlags: 0

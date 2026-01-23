@@ -8,8 +8,9 @@ public class DataPersistanceManager : MonoBehaviour
     GameData gameData = new GameData();
     static DataPersistanceManager instance;
     List<IDataPersistance> dataPersistanceObjects;
-    private FileDataHandler dataHandler;
+    private FileDataHandler dataHandler = new FileDataHandler();
 
+    [Header("Data Persistance (Game Data) Settings")]
     [SerializeField] string fileName = "gameData.json";
     [SerializeField] bool useEncryption = false;
     [SerializeField] bool autoLoadOnStart = false;
@@ -19,6 +20,8 @@ public class DataPersistanceManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Debug.Log(Application.dataPath);
+
         // Ensures that there is only one instance of the DataPersistanceManager
         instance = FindFirstObjectByType<DataPersistanceManager>();
         if (instance != this)
@@ -27,7 +30,6 @@ public class DataPersistanceManager : MonoBehaviour
             return;
         }
 
-        dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
         dataPersistanceObjects = FindAllDataPersistanceObjects();
 
         if(autoLoadOnStart)
@@ -48,7 +50,7 @@ public class DataPersistanceManager : MonoBehaviour
     public static void Load()
     {
         // Loads saved data into the gameData variable
-        instance.gameData = instance.dataHandler.Load();
+        instance.gameData = instance.dataHandler.Load(Application.persistentDataPath, instance.fileName, instance.useEncryption);
 
         // If no saved data exists, initializes a new gameData object
         if (instance.gameData == null)
@@ -70,24 +72,39 @@ public class DataPersistanceManager : MonoBehaviour
             dataPersistanceObj.SaveData(ref instance.gameData);
         }
 
-        instance.dataHandler.Save(instance.gameData);
+        instance.dataHandler.Save(instance.gameData, Application.persistentDataPath, instance.fileName, instance.useEncryption);
     }
     [Command("loads new game data")]
     public static void NewGame()
     {
         instance.gameData = new GameData();
+
+        // Push game data to all other scripts that need it
+        foreach (IDataPersistance dataPersistanceObj in instance.dataPersistanceObjects)
+        {
+            dataPersistanceObj.LoadData(instance.gameData);
+        }
     }
 
     [Command("deletes the saved game data file")]
     public static void DeleteSaveData()
     {
-        instance.dataHandler.DeleteSaveData();
+        instance.dataHandler.DeleteSaveData(Application.persistentDataPath, instance.fileName, instance.useEncryption);
     }
 
     private List<IDataPersistance> FindAllDataPersistanceObjects()
     {
         IEnumerable<IDataPersistance> dataPersistanceObjects = GameObject.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IDataPersistance>();
         return new List<IDataPersistance>(dataPersistanceObjects);
+    }
+
+
+    // For Writing and Reading from editable JSON file
+
+    [Command("loads the names list")]
+    public static void LoadNamesList()
+    {
+
     }
 }
 
