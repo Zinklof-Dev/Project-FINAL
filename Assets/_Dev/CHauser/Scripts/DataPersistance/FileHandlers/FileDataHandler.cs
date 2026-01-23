@@ -23,10 +23,10 @@ public class FileDataHandler
     }
 
 
-    public GameData Load(string dataDirPath, string dataFileName, bool useEncryption)
+    public T Load<T>(string dataDirPath, string dataFileName, bool useEncryption) where T : class
     {
         string fullPath = Path.Combine(dataDirPath, dataFileName);
-        GameData loadedData = null;
+        T loadedData = null;
         if (File.Exists(fullPath))
         {
             string dataToLoad = "";
@@ -44,7 +44,7 @@ public class FileDataHandler
                 {
                     dataToLoad = EncryptDecrypt(ref dataToLoad);
                 }
-                loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
+                loadedData = JsonUtility.FromJson<T>(dataToLoad);
             }
             catch (Exception e)
             {
@@ -54,7 +54,7 @@ public class FileDataHandler
         return loadedData;
     }
 
-    public void Save(GameData data, string dataDirPath, string dataFileName, bool useEncryption)
+    public void Save<T>(T data, string dataDirPath, string dataFileName, bool useEncryption) where T : class
     {
         string fullPath = Path.Combine(dataDirPath, dataFileName);
 
@@ -90,3 +90,4 @@ public class FileDataHandler
         return modifiedData;
     }
 }
+

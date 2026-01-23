@@ -1386,9 +1386,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DataPersistanceManager
   fileName: BOTDsavedata.zink
-  useEncryption: 1
-  autoLoadOnStart: 1
-  autoSaveOnQuit: 1
+  useEncryption: 0
+  autoLoadOnStart: 0
+  autoSaveOnQuit: 0
+  editableJSONDataFolderName: JSON
+  namesListFileName: namesList.json
+  namesListUseEncryption: 0
+  autoLoadNamesListOnStart: 0
 --- !u!4 &381453051
 Transform:
   m_ObjectHideFlags: 0

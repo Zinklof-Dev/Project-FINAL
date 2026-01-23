@@ -16,6 +16,7 @@ public class PartyManager : MonoBehaviour, IDataPersistance
 
     private List<GameObject> partyMemberDisplays = new List<GameObject>();
     private List<GameObject> recruitDisplays = new List<GameObject>();
+    private bool generateRecriuts = false;
 
     private void Start()
     {
@@ -26,12 +27,6 @@ public class PartyManager : MonoBehaviour, IDataPersistance
         PlayableCharacter character2 = new PlayableCharacter("Mary", "Ur MOMMMMMM", 100, 1, 1, 1, true);
         PlayableCharacter character3 = new PlayableCharacter("Bob", "Ur MOMMMMMM", 100, 1, 1, 1, true);
         PlayableCharacter character4 = new PlayableCharacter("Johnny", "Ur MOMMMMMM", 100, 1, 1, 1, true);*/
-
-        // TEMP
-        recruits.Add(new PlayableCharacter("Jerry", "Ur MOMMMMMM", 100, 1, 1, 1, false));
-        recruits.Add(new PlayableCharacter("Rick", "Ur MOMMMMMM", 100, 1, 1, 1, false));
-        recruits.Add(new PlayableCharacter("Morty", "Ur MOMMMMMM", 100, 1, 1, 1, false));
-        recruits.Add(new PlayableCharacter("Beth", "Ur MOMMMMMM", 100, 1, 1, 1, false));
 
         InfoDisplayer.instance = infoDisplayer;
         UpdatePartyDisplayContent();
@@ -83,16 +78,32 @@ public class PartyManager : MonoBehaviour, IDataPersistance
 
     private void GenerateRecruits()
     {
-
+        // TEMP
+        recruits.Add(new PlayableCharacter("Jerry", "Ur MOMMMMMM", 100, 1, 1, 1, false));
+        recruits.Add(new PlayableCharacter("Rick", "Ur MOMMMMMM", 100, 1, 1, 1, false));
+        recruits.Add(new PlayableCharacter("Morty", "Ur MOMMMMMM", 100, 1, 1, 1, false));
+        recruits.Add(new PlayableCharacter("Beth", "Ur MOMMMMMM", 100, 1, 1, 1, false));
     }
 
     public void LoadData(GameData data)
     {
         PlayableCharacter.partyMembers = data.partyMembers;
+        recruits = data.recruits;
+        generateRecriuts = data.generateRecruits;
+
+        if (generateRecriuts && recruits.Count == 0)
+        {
+            GenerateRecruits();
+            generateRecriuts = false;
+        }
+
         UpdatePartyDisplayContent();
+        UpdateRecruitDisplayContent();
     }
     public void SaveData(ref GameData data)
     {
         data.partyMembers = PlayableCharacter.partyMembers;
+        data.recruits = recruits;
+        data.generateRecruits = generateRecriuts;
     }
 }

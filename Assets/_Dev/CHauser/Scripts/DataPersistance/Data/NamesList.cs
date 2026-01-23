@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class NamesList
 {
-    List<string> firstNames = new List<string>();
-    List<string> lastNames = new List<string>();
-    List<string> comboNames = new List<string>();
+    public List<string> firstNames = new List<string>();
+    public List<string> lastNames = new List<string>();
+    public List<string> comboNames = new List<string>();
 
     public NamesList() 
     {
