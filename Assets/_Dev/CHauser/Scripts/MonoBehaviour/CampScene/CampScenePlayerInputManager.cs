@@ -20,21 +20,40 @@ public class CampScenePlayerInputManager : MonoBehaviour
 
     public enum State { Default, MapTable, PlayerEditor }
 
-    [Header("Player States")]
-    [SerializeField] private State state = State.Default;
+    private State state = State.Default;
 
     private void Update()
     {
-        if (state != State.Default)
+        switch(state)
+        {
+            case(State.Default):
+                HandleDefaultStateInput();
+                break;
+            case State.MapTable:
+                if(CameraMover.inMotion || mapTableUI.activeInHierarchy)
+                    return;
+                mapTableUI.SetActive(true);
+                break;
+            case State.PlayerEditor:
+                if (CameraMover.inMotion || playerEditorUI.activeInHierarchy)
+                    return;
+                playerEditorUI.SetActive(true);
+                break;
+        }
+    }
+
+    private void HandleDefaultStateInput()
+    {
+        if (CameraMover.inMotion)
             return;
 
         if (!Input.GetMouseButtonDown(0))
             return;
 
-        if(!Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
+        if (!Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
             return;
 
-        if(hit.collider.gameObject == mapTable)
+        if (hit.collider.gameObject == mapTable)
         {
 
             Vector3 directionToTarget = hit.transform.position - cameraMapTablePosition;
@@ -44,7 +63,6 @@ public class CampScenePlayerInputManager : MonoBehaviour
             CameraMover.MoveCamera(cameraMapTablePosition.x, cameraMapTablePosition.y, cameraMapTablePosition.z, eulerGoalRotation.x, eulerGoalRotation.y, eulerGoalRotation.z);
 
             state = State.MapTable;
-            mapTableUI.SetActive(true);
         }
         else if (hit.collider.gameObject == playerEditor)
         {
@@ -56,7 +74,6 @@ public class CampScenePlayerInputManager : MonoBehaviour
             CameraMover.MoveCamera(cameraPlayerEditorPosition.x, cameraPlayerEditorPosition.y, cameraPlayerEditorPosition.z, eulerGoalRotation.x, eulerGoalRotation.y, eulerGoalRotation.z);
 
             state = State.PlayerEditor;
-            playerEditorUI.SetActive(true);
         }
     }
 

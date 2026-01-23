@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
+using ZinklofDev.ConsoleV2;
 
-public class PartyManager : MonoBehaviour
+public class PartyManager : MonoBehaviour, IDataPersistance
 {
     [SerializeField] RectTransform partyDisplayContent;
     [SerializeField] RectTransform recruitDisplayContent;
@@ -22,10 +22,10 @@ public class PartyManager : MonoBehaviour
         instance = this;
 
         // TEMP
-        PlayableCharacter character1 = new PlayableCharacter("Tom", "Ur MOMMMMMM", 100, 1, 1, 1, true);
+        /*PlayableCharacter character1 = new PlayableCharacter("Tom", "Ur MOMMMMMM", 100, 1, 1, 1, true);
         PlayableCharacter character2 = new PlayableCharacter("Mary", "Ur MOMMMMMM", 100, 1, 1, 1, true);
         PlayableCharacter character3 = new PlayableCharacter("Bob", "Ur MOMMMMMM", 100, 1, 1, 1, true);
-        PlayableCharacter character4 = new PlayableCharacter("Johnny", "Ur MOMMMMMM", 100, 1, 1, 1, true);
+        PlayableCharacter character4 = new PlayableCharacter("Johnny", "Ur MOMMMMMM", 100, 1, 1, 1, true);*/
 
         // TEMP
         recruits.Add(new PlayableCharacter("Jerry", "Ur MOMMMMMM", 100, 1, 1, 1, false));
@@ -84,5 +84,15 @@ public class PartyManager : MonoBehaviour
     private void GenerateRecruits()
     {
 
+    }
+
+    public void LoadData(GameData data)
+    {
+        PlayableCharacter.partyMembers = data.partyMembers;
+        UpdatePartyDisplayContent();
+    }
+    public void SaveData(ref GameData data)
+    {
+        data.partyMembers = PlayableCharacter.partyMembers;
     }
 }
