@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 
-public class DataPersistanceManager : MonoBehaviour
+public class DataPersistenceManager : MonoBehaviour
 {
     GameData gameData = new GameData();
-    NamesList namesList = new NamesList();
+    NamesList namesList = null;
 
-    static DataPersistanceManager instance;
+    static DataPersistenceManager instance;
     List<IDataPersistance> dataPersistanceObjects;
     private FileDataHandler dataHandler = new FileDataHandler();
 
@@ -29,10 +29,10 @@ public class DataPersistanceManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Debug.Log(Application.dataPath);
+         //Debug.Log(Application.dataPath);
 
         // Ensures that there is only one instance of the DataPersistanceManager
-        instance = FindFirstObjectByType<DataPersistanceManager>();
+        instance = FindFirstObjectByType<DataPersistenceManager>();
         if (instance != this)
         {
             Destroy(gameObject);
@@ -72,6 +72,7 @@ public class DataPersistanceManager : MonoBehaviour
         {
             dataPersistanceObj.LoadData(instance.gameData);
         }
+        Console.Log("Game data loaded.", "DataPersistenceManager");
     }
     [Command("saves the game data")]
     public static void Save()
@@ -82,6 +83,7 @@ public class DataPersistanceManager : MonoBehaviour
         }
 
         instance.dataHandler.Save<GameData>(instance.gameData, Application.persistentDataPath, instance.fileName, instance.useEncryption);
+        Console.Log("Game data saved.", "DataPersistenceManager");
     }
     [Command("loads new game data")]
     public static void NewGame()
@@ -93,12 +95,15 @@ public class DataPersistanceManager : MonoBehaviour
         {
             dataPersistanceObj.LoadData(instance.gameData);
         }
+        Console.Log("New game data initialized.", "DataPersistenceManager");
     }
 
     [Command("deletes the saved game data file")]
     public static void DeleteSaveData()
     {
         instance.dataHandler.DeleteSaveData(Application.persistentDataPath, instance.fileName, instance.useEncryption);
+
+        Console.Log("Saved game data file deleted.", "DataPersistenceManager");
     }
 
     private List<IDataPersistance> FindAllDataPersistanceObjects()
@@ -118,61 +123,78 @@ public class DataPersistanceManager : MonoBehaviour
         if(instance.namesList == null)
         {
             instance.namesList = new NamesList();
+            Console.Log("Names list file not found, initialized new names list.", "DataPersistenceManager");
+            return;
         }
+
+        Console.Log("Names list loaded.");
     }
 
     [Command("saves the names list")]
     public static void SaveNamesList()
     {
+        if(instance.namesList == null)
+        {
+            Console.Log("Names list is null, cannot save.", "DataPersistenceManager");
+            return;
+        }
+
         instance.dataHandler.Save<NamesList>(instance.namesList, Path.Combine(Application.dataPath, instance.editableJSONDataFolderName), instance.namesListFileName, instance.namesListUseEncryption);
+        Console.Log("Names list saved.", "DataPersistenceManager");
     }
     [Command("Add a name to the first names list")]
     public static void AddFirstNameToNamesList(string name, bool pushToSave)
     {
         instance.namesList.firstNames.Add(name);
-        if(pushToSave)
+        Console.Log("Added first name: " + name, "DataPersistenceManager");
+        if (pushToSave)
         {
             SaveNamesList();
+            Console.Log("Names list saved after adding first name.", "DataPersistenceManager");
         }
     }
     [Command("Add a name to the last names list")]
     public static void AddLastNameToNamesList(string name, bool pushToSave)
     {
         instance.namesList.lastNames.Add(name);
+        Console.Log("Added last name: " + name, "DataPersistenceManager");
         if (pushToSave)
         {
             SaveNamesList();
+            Console.Log("Names list saved after adding last name.", "DataPersistenceManager");
         }
     }
     [Command("Add a combined name to the last names list")]
     public static void AddCombinedNameToNamesList(string name, bool pushToSave)
     {
         instance.namesList.comboNames.Add(name);
+        Console.Log("Added combo name: " + name, "DataPersistenceManager");
         if (pushToSave)
         {
             SaveNamesList();
+            Console.Log("Names list saved after adding combo name.", "DataPersistenceManager");
         }
     }
     [Command("Prints the names lists to console")]
     public static void PrintNamesLists()
     {
-        Debug.Log("First Names:");
+        Console.Log("First Names:", "DataPersistenceManager");
 
         foreach(string name in instance.namesList.firstNames)
         {
-            Debug.Log(name);
+            Console.Log(name, "DataPersistenceManager");
         }
-        Debug.Log("Last Names:");
+        Console.Log("Last Names:", "DataPersistenceManager");
 
         foreach (string name in instance.namesList.lastNames)
         {
-            Debug.Log(name);
+            Console.Log(name, "DataPersistenceManager");
         }
 
-        Debug.Log("Combined Names:");
+        Console.Log("Combined Names:", "DataPersistenceManager");
         foreach (string name in instance.namesList.comboNames)
         {
-            Debug.Log(name);
+            Console.Log(name, "DataPersistenceManager");
         }
     }
 }
