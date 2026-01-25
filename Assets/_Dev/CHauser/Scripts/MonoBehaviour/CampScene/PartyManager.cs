@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 using TMPro;
 using UnityEngine;
 using ZinklofDev.ConsoleV2;
@@ -76,13 +77,45 @@ public class PartyManager : MonoBehaviour, IDatapersistence
         recruitDisplayContent.GetComponent<RectTransform>().sizeDelta = new Vector2(recruitDisplayContent.GetComponent<RectTransform>().sizeDelta.x, recruitDisplayPrefab.GetComponent<RectTransform>().sizeDelta.y * recruits.Count);
     }
 
-    private void GenerateRecruits()
+    private void GenerateRecruits(int numberToGenerate)
     {
-        // TEMP
-        recruits.Add(new PlayableCharacter("Jerry", "Ur MOMMMMMM", 100, 1, 1, 1, false));
-        recruits.Add(new PlayableCharacter("Rick", "Ur MOMMMMMM", 100, 1, 1, 1, false));
-        recruits.Add(new PlayableCharacter("Morty", "Ur MOMMMMMM", 100, 1, 1, 1, false));
-        recruits.Add(new PlayableCharacter("Beth", "Ur MOMMMMMM", 100, 1, 1, 1, false));
+        DataPersistenceManager.LoadNamesList();
+        System.Random random = new System.Random();
+
+        for(int i = 0; i < numberToGenerate; i++)
+        {
+            if(random.Next(0, 100) <= 25) // 25% chance to generate a combo name recruit
+            {
+                string comboName = DataPersistenceManager.instance.namesList.comboNames[random.Next(0, DataPersistenceManager.instance.namesList.comboNames.Count)];
+                foreach(PlayableCharacter existingRecruit in recruits)
+                {
+                    if(existingRecruit.name == comboName)
+                    {
+                        comboName += " Jr."; // simple way to avoid duplicates for now
+                        break;
+                    }
+                }
+                PlayableCharacter recruit = new PlayableCharacter(comboName, "A special recruit.", 150, 1, 1, 1, false); // placeholder stats other than name
+                recruits.Add(recruit);
+                continue;
+            }
+
+            string firstName = DataPersistenceManager.instance.namesList.firstNames[random.Next(0, DataPersistenceManager.instance.namesList.firstNames.Count)];
+            string lastName = DataPersistenceManager.instance.namesList.lastNames[random.Next(0, DataPersistenceManager.instance.namesList.lastNames.Count)];
+            string fullName = firstName + " " + lastName;
+
+            foreach (PlayableCharacter existingRecruit in recruits)
+            {
+                if (existingRecruit.name == fullName)
+                {
+                    fullName += " Jr."; // simple way to avoid duplicates for now
+                    break;
+                }
+            }
+
+            PlayableCharacter newRecruit = new PlayableCharacter(fullName, "A new recruit.", 100, 1, 1, 1, false); // placeholder stats other than name
+            recruits.Add(newRecruit);
+        }
     }
 
     public void LoadData(GameData data)
@@ -93,7 +126,7 @@ public class PartyManager : MonoBehaviour, IDatapersistence
 
         if (generateRecriuts && recruits.Count == 0)
         {
-            GenerateRecruits();
+            GenerateRecruits(4); // TEMP number
             generateRecriuts = false;
         }
 

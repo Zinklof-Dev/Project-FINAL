@@ -7,9 +7,9 @@ using System.IO;
 public class DataPersistenceManager : MonoBehaviour
 {
     GameData gameData = new GameData();
-    NamesList namesList = null;
+    public NamesList namesList = null;
 
-    static DataPersistenceManager instance;
+    public static DataPersistenceManager instance;
     List<IDatapersistence> datapersistenceObjects;
     private FileDataHandler dataHandler = new FileDataHandler();
 
@@ -24,7 +24,6 @@ public class DataPersistenceManager : MonoBehaviour
     [SerializeField] string namesListFileName = "namesList.json";
     [SerializeField] bool namesListUseEncryption = false;
     [SerializeField] bool autoLoadNamesListOnStart = false;
-
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -114,6 +113,8 @@ public class DataPersistenceManager : MonoBehaviour
 
 
     // For Writing and Reading from editable JSON file
+
+    // NAMES LIST
 
     [Command("loads the names list")]
     public static void LoadNamesList()
