@@ -10,16 +10,16 @@ public class DataPersistenceManager : MonoBehaviour
     NamesList namesList = null;
 
     static DataPersistenceManager instance;
-    List<IDataPersistance> dataPersistanceObjects;
+    List<IDatapersistence> datapersistenceObjects;
     private FileDataHandler dataHandler = new FileDataHandler();
 
-    [Header("Data Persistance (Game Data) Settings")]
+    [Header("Data persistence (Game Data) Settings")]
     [SerializeField] string fileName = "gameData.json";
     [SerializeField] bool useEncryption = false;
     [SerializeField] bool autoLoadOnStart = false;
     [SerializeField] bool autoSaveOnQuit = false;
 
-    [Header("Data Persistance (Editable JSON) Settings")]
+    [Header("Data persistence (Editable JSON) Settings")]
     [SerializeField] string editableJSONDataFolderName = "JSON";
     [SerializeField] string namesListFileName = "namesList.json";
     [SerializeField] bool namesListUseEncryption = false;
@@ -31,7 +31,7 @@ public class DataPersistenceManager : MonoBehaviour
     {
          //Debug.Log(Application.dataPath);
 
-        // Ensures that there is only one instance of the DataPersistanceManager
+        // Ensures that there is only one instance of the DatapersistenceManager
         instance = FindFirstObjectByType<DataPersistenceManager>();
         if (instance != this)
         {
@@ -39,7 +39,7 @@ public class DataPersistenceManager : MonoBehaviour
             return;
         }
 
-        dataPersistanceObjects = FindAllDataPersistanceObjects();
+        datapersistenceObjects = FindAllDatapersistenceObjects();
 
         if(autoLoadOnStart)
         {
@@ -68,18 +68,18 @@ public class DataPersistenceManager : MonoBehaviour
             return;
         }
         // Push game data to all other scripts that need it
-        foreach (IDataPersistance dataPersistanceObj in instance.dataPersistanceObjects)
+        foreach (IDatapersistence datapersistenceObj in instance.datapersistenceObjects)
         {
-            dataPersistanceObj.LoadData(instance.gameData);
+            datapersistenceObj.LoadData(instance.gameData);
         }
         Console.Log("Game data loaded.", "DataPersistenceManager");
     }
     [Command("saves the game data")]
     public static void Save()
     {
-        foreach (IDataPersistance dataPersistanceObj in instance.dataPersistanceObjects)
+        foreach (IDatapersistence datapersistenceObj in instance.datapersistenceObjects)
         {
-            dataPersistanceObj.SaveData(ref instance.gameData);
+            datapersistenceObj.SaveData(ref instance.gameData);
         }
 
         instance.dataHandler.Save<GameData>(instance.gameData, Application.persistentDataPath, instance.fileName, instance.useEncryption);
@@ -91,9 +91,9 @@ public class DataPersistenceManager : MonoBehaviour
         instance.gameData = new GameData();
 
         // Push game data to all other scripts that need it
-        foreach (IDataPersistance dataPersistanceObj in instance.dataPersistanceObjects)
+        foreach (IDatapersistence datapersistenceObj in instance.datapersistenceObjects)
         {
-            dataPersistanceObj.LoadData(instance.gameData);
+            datapersistenceObj.LoadData(instance.gameData);
         }
         Console.Log("New game data initialized.", "DataPersistenceManager");
     }
@@ -106,10 +106,10 @@ public class DataPersistenceManager : MonoBehaviour
         Console.Log("Saved game data file deleted.", "DataPersistenceManager");
     }
 
-    private List<IDataPersistance> FindAllDataPersistanceObjects()
+    private List<IDatapersistence> FindAllDatapersistenceObjects()
     {
-        IEnumerable<IDataPersistance> dataPersistanceObjects = GameObject.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IDataPersistance>();
-        return new List<IDataPersistance>(dataPersistanceObjects);
+        IEnumerable<IDatapersistence> datapersistenceObjects = GameObject.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IDatapersistence>();
+        return new List<IDatapersistence>(datapersistenceObjects);
     }
 
 
@@ -200,7 +200,7 @@ public class DataPersistenceManager : MonoBehaviour
 }
 
 
-public interface IDataPersistance
+public interface IDatapersistence
 {
     void LoadData(GameData data);
     void SaveData(ref GameData data);
