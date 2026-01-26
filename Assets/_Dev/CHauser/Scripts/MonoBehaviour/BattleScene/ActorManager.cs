@@ -10,6 +10,10 @@ public class ActorManager : MonoBehaviour
 
   private void Awake()
   {
+    allActors = new List<Actor>();
+    partyMemberActors = new List<Actor>();
+    enemyActors = new List<Actor>();
+
     allActors = FindObjectsByType<Actor>(FindObjectsSortMode.None).ToList();
     
     foreach (Actor actor in allActors)
