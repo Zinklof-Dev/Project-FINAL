@@ -12,6 +12,9 @@ public class InfoManager : MonoBehaviour
 
     private void Start()
     {
+        infosPlayer = new List<GameObject>();
+        infosEnemy = new List<GameObject>();
+
         foreach (Actor playerActor in ActorManager.partyMemberActors)
         {
             GameObject info = Instantiate(infoPrefab, playerInfoParent.transform);
