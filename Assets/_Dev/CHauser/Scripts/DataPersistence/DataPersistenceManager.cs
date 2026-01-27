@@ -8,6 +8,7 @@ public class DataPersistenceManager : MonoBehaviour
 {
     GameData gameData = new GameData();
     public NamesList namesList = null;
+    public BackgroundsList backgroundsList = null;
 
     public static DataPersistenceManager instance;
     List<IDatapersistence> datapersistenceObjects;
@@ -22,6 +23,7 @@ public class DataPersistenceManager : MonoBehaviour
     [Header("Data persistence (Editable JSON) Settings")]
     [SerializeField] string editableJSONDataFolderName = "JSON";
     [SerializeField] string namesListFileName = "namesList.json";
+    [SerializeField] string backgroundsListFileName = "backgroundsList.json";
     [SerializeField] bool namesListUseEncryption = false;
     [SerializeField] bool autoLoadNamesListOnStart = false;
 
@@ -197,6 +199,14 @@ public class DataPersistenceManager : MonoBehaviour
         {
             Console.Log(name, "DataPersistenceManager");
         }
+    }
+
+    // Backgrounds List
+
+    [Command("loads the backgrounds list")]
+    public static void LoadBackgroundsList()
+    {
+
     }
 }
 

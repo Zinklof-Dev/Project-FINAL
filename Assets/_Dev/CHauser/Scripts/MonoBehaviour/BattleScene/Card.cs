@@ -35,7 +35,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
         rectTransform = GetComponent<RectTransform>();
         turnManager = FindFirstObjectByType<TurnManager>();
         playerInputManager = FindFirstObjectByType<PlayerInputManager>();
-        CardManager.Cards.Add(this);
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -112,7 +111,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
         else
         {
             currentSelectedActor.range += reach;
-            CardManager.Cards.Remove(this);
+            CardManager.instance.Cards.Remove(this);
             CardManager.SnapAllBack();
             gameObject.SetActive(false);
         }
@@ -149,7 +148,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
         else
         {
             currentSelectedActor.health += health;
-            CardManager.Cards.Remove(this);
+            CardManager.instance.Cards.Remove(this);
             CardManager.SnapAllBack();
             gameObject.SetActive(false);
         }
@@ -165,7 +164,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
         if (use)
         {
             turnManager.TakeAction(-actionPoints);
-            CardManager.Cards.Remove(this);
+            CardManager.instance.Cards.Remove(this);
             CardManager.SnapAllBack();
             gameObject.SetActive(false);
             return;
@@ -210,7 +209,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
             currentSelectedActor.equippedTool = new Item(Item.Type.Axe, attackPower, reach);
             currentSelectedActor.attackPower += attackPower; // Temp for now, only works if we can equip one weapon
             currentSelectedActor.range = reach; // Temp for now, only works if we can equip one weapon
-            CardManager.Cards.Remove(this);
+            CardManager.instance.Cards.Remove(this);
             CardManager.SnapAllBack();
             Instantiate(axePrefab, currentSelectedActor.weaponSlot);
             gameObject.SetActive(false);
@@ -254,7 +253,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndD
             currentSelectedActor.attackPower += attackPower; // Temp for now, only works if we can equip one weapon
             currentSelectedActor.range = reach; // Temp for now, only works if we can equip one weapon
             Instantiate(swordPrefab, currentSelectedActor.weaponSlot);
-            CardManager.Cards.Remove(this);
+            CardManager.instance.Cards.Remove(this);
             CardManager.SnapAllBack();
             gameObject.SetActive(false);
         }

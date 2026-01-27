@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class CardManager : MonoBehaviour
 {
-    public static List<Card> Cards = new List<Card>();
+    public List<Card> Cards = new List<Card>();
     static List<Vector2> positions = new List<Vector2>();
+    public static CardManager instance;
     [SerializeField] private float xSpacing;
+
     private void Start()
     {
+        instance = this;
+
+        Cards = FindObjectsByType<Card>(FindObjectsSortMode.None).ToList();
         float x = 100;
         float y = 0;
         int i = 0;
@@ -28,15 +33,15 @@ public class CardManager : MonoBehaviour
     public static void SnapCardBack(Card card)
     {
         RectTransform rect = card.GetComponent<RectTransform>();
-        rect.position = positions[Cards.IndexOf(card)];
+        rect.position = positions[instance.Cards.IndexOf(card)];
     }
     
     public static void SnapAllBack()
     {
-        foreach (Card card in Cards)
+        foreach (Card card in instance.Cards)
         {
             RectTransform rect = card.GetComponent<RectTransform>();
-            rect.position = positions[Cards.IndexOf(card)];
+            rect.position = positions[instance.Cards.IndexOf(card)];
         }
     }
 }
