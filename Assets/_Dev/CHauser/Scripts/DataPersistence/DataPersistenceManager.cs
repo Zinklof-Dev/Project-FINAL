@@ -15,7 +15,7 @@ public class DataPersistenceManager : MonoBehaviour
     private FileDataHandler dataHandler = new FileDataHandler();
 
     [Header("Data persistence (Game Data) Settings")]
-    [SerializeField] string fileName = "gameData.json";
+    [SerializeField] string fileName = "BOTDsavedata.zink";
     [SerializeField] bool useEncryption = false;
     [SerializeField] bool autoLoadOnStart = false;
     [SerializeField] bool autoSaveOnQuit = false;
@@ -25,7 +25,7 @@ public class DataPersistenceManager : MonoBehaviour
     [SerializeField] string namesListFileName = "namesList.json";
     [SerializeField] string backgroundsListFileName = "backgroundsList.json";
     [SerializeField] bool namesListUseEncryption = false;
-    [SerializeField] bool autoLoadNamesListOnStart = false;
+   // [SerializeField] bool autoLoadNamesListOnStart = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

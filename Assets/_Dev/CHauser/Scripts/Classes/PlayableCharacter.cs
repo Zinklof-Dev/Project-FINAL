@@ -7,7 +7,7 @@ public class PlayableCharacter
 {
     public static List<PlayableCharacter> partyMembers = new List<PlayableCharacter>();
     
-    ActorType type = ActorType.PartyMember;
+    //ActorType type = ActorType.PartyMember;
     public string name;
     public string background;
     public float health;
