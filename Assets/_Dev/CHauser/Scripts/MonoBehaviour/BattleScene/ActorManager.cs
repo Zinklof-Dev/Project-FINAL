@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ActorManager : MonoBehaviour
+public class ActorManager : MonoBehaviour, IDatapersistence
 {
   public static List<Actor> allActors = new List<Actor>();
   public static List<Actor> partyMemberActors = new List<Actor>();
@@ -30,4 +30,14 @@ public class ActorManager : MonoBehaviour
         }
     }
   }
+
+    public void LoadData(GameData data)
+    {
+        
+    }
+
+    public void SaveData(ref GameData data) 
+    {
+
+    }
 }
