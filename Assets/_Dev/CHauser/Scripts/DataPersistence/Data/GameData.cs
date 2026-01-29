@@ -13,7 +13,9 @@ public class GameData
     {
         partyMembers = new List<PlayableCharacter>();
         recruits = new List<PlayableCharacter>();
-        cards = new List<Card>();
+
+        cards = new List<Card>(); cards.Add(new Card(Card.ItemType.Sword)); // Temop starter card hand
+
         generateRecruits = true;
     }
 }

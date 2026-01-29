@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1756623813848850293}
   - component: {fileID: 3539612971296462475}
   - component: {fileID: 8845943407729310451}
-  - component: {fileID: 3135224655086118117}
+  - component: {fileID: 3122326729213856663}
   m_Layer: 5
   m_Name: Card_Sword
   m_TagString: Untagged
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3135224655086118117
+--- !u!114 &3122326729213856663
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,7 +85,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 3762540641328028826}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f12530fd030b5814e98ee9a9c119d741, type: 3}
+  m_Script: {fileID: 11500000, guid: f4a42aa167cc02143948ab8f37714379, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Card
-  itemType: 0
+  m_EditorClassIdentifier: Assembly-CSharp::CardMonoBehaviour
