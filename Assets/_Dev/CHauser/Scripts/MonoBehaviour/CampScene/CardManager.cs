@@ -15,6 +15,11 @@ public class CardManager : MonoBehaviour, IDatapersistence
     {
         cards = data.cards;
 
+        foreach (Card card in cards)
+        {
+            Debug.Log(card);
+        }
+
         PushCardsToScene();
     }
 
