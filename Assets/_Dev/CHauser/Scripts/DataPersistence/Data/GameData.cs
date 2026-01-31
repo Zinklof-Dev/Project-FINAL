@@ -18,7 +18,9 @@ public class GameData
 
         // Temop starter card hand
         Card card1 = new Card(Card.ItemType.Sword);
+        Card card2 = new Card(Card.ItemType.Axe);
         cards.Add(card1);
+        cards.Add(card2);
 
         generateRecruits = true;
     }

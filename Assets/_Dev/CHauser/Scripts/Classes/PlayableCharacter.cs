@@ -15,8 +15,7 @@ public class PlayableCharacter
     public float speed;
     public float range;
     public float attackPower;
-    public List<Item> actorInventory;
-    public List<Item> equippedItems;
+    public List<Card> equippedItems;
     public Item equippedTool = null;
 
     public PlayableCharacter(string name, string background, float maxHealth, float speed, float range, float attackPower, bool addToParty)
@@ -28,15 +27,14 @@ public class PlayableCharacter
         this.speed = speed;
         this.range = range;
         this.attackPower = attackPower;
-        actorInventory = new List<Item>();
-        equippedItems = new List<Item>();
+        equippedItems = new List<Card>();
         equippedTool = null;
 
         if (addToParty)
             partyMembers.Add(this);
     }
 
-    public void UpdateData(string name, string background, float maxHealth, float health, float speed, float range, float attackPower, List<Item> actorInventory, List<Item> equippedItems, Item equippedTool)
+    public void UpdateData(string name, string background, float maxHealth, float health, float speed, float range, float attackPower, List<Card> equippedItems, Item equippedTool)
     {
         this.name = name;
         this.background = background;
@@ -45,7 +43,6 @@ public class PlayableCharacter
         this.speed = speed;
         this.range = range;
         this.attackPower = attackPower;
-        this.actorInventory = actorInventory;
         this.equippedItems = equippedItems;
         this.equippedTool = equippedTool;
     }

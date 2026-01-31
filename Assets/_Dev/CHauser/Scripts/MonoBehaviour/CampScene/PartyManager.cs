@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using ZinklofDev.ConsoleV2;
 
-public class PartyManager : MonoBehaviour, IDatapersistence
+public class PartyManager : MonoBehaviour, IDataPersistence
 {
     [SerializeField] RectTransform partyDisplayContent;
     [SerializeField] RectTransform recruitDisplayContent;

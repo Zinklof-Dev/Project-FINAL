@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ActorManager : MonoBehaviour, IDatapersistence
+public class ActorManager : MonoBehaviour, IDataPersistence
 {
   public static List<Actor> allActors = new List<Actor>();
   public static List<Actor> partyMemberActors = new List<Actor>();
