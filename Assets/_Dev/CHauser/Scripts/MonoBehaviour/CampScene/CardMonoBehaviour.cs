@@ -9,17 +9,20 @@ public class CardMonoBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler,
     [HideInInspector] public GameObject baseCanvas;
     [HideInInspector] public Card.ItemType itemType;
     RectTransform rt;
+    CanvasGroup canvasGroup;
 
     [SerializeField] public Image cardImageObject;
 
     private void Start()
     {
         rt = GetComponent<RectTransform>();
+        canvasGroup = GetComponent<CanvasGroup>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         gameObject.transform.SetParent(baseCanvas.transform);
+        canvasGroup.blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -30,11 +33,12 @@ public class CardMonoBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler,
     public void OnEndDrag(PointerEventData eventData)
     {
         gameObject.transform.SetParent(contentParent.transform);
+        canvasGroup.blocksRaycasts = true;
     }
 
     public void DisplayInfo()
-    { 
-
+    {
+        CardInfoDisplayer.instance.gameObject.SetActive(true);
         CardInfoDisplayer.DisplayCardInfo(card);
     }
 }

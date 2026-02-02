@@ -9,6 +9,7 @@ public class InfoDisplayer : MonoBehaviour
     [SerializeField] public TMP_Text speedTxt = null;
     [SerializeField] public TMP_Text rangeTxt = null;
     [SerializeField] public TMP_Text attackPowerTxt = null;
+    [SerializeField] private InventoryDisplay inventoryDisplay = null;
 
 
     public static InfoDisplayer instance;
@@ -21,5 +22,8 @@ public class InfoDisplayer : MonoBehaviour
         instance.speedTxt.text = "Speed: " + character.speed;
         instance.rangeTxt.text = "Range: " + character.range;
         instance.attackPowerTxt.text = "Attack Power: " + character.attackPower;
+
+        if(character.inventory != null)
+            instance.inventoryDisplay.DisplayInventory(character);
     }
 }

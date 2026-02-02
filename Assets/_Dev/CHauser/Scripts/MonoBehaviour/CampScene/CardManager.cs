@@ -7,17 +7,25 @@ public class CardManager : MonoBehaviour, IDataPersistence
     [SerializeField] private GameObject content;
     [SerializeField] private GameObject baseCanvas;
 
-    [SerializeField] private Sprite axeSprite; // TEMP
-    [SerializeField] private Sprite swordSprite; // TEMP
+    [SerializeField] public Sprite axeSprite; // TEMP
+    [SerializeField] public Sprite swordSprite; // TEMP
 
-    private List<Card> cards = new List<Card>();
-    private List<GameObject> cardsInScene = new List<GameObject>();
+    public List<Card> cards = new List<Card>();
+    public List<GameObject> cardsInScene = new List<GameObject>();
+
+    public static CardManager instance;
 
     private void Start()
     {
+        instance = this;
+
         if (CardInfoDisplayer.instance == null)
         {
             CardInfoDisplayer.instance = FindFirstObjectByType<CardInfoDisplayer>(FindObjectsInactive.Include);
+        }
+        if(InventoryDisplay.instance == null)
+        {
+            InventoryDisplay.instance = FindFirstObjectByType<InventoryDisplay>(FindObjectsInactive.Include);
         }
     }
 
@@ -38,8 +46,13 @@ public class CardManager : MonoBehaviour, IDataPersistence
         data.cards = cards;
     }
     
-    private void PushCardsToScene()
+    public void PushCardsToScene()
     {
+        foreach (GameObject card in cardsInScene)
+        {
+            Destroy(card);
+        }
+
         cardsInScene = new List<GameObject>();
 
         foreach (Card card in cards)
