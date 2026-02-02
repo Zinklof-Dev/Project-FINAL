@@ -3,14 +3,23 @@ using UnityEngine;
 
 public class CardManager : MonoBehaviour, IDataPersistence
 {
-    [SerializeField] private GameObject cardPrefabSword;
-    [SerializeField] private GameObject cardPrefabAxe;
-
+    [SerializeField] private GameObject cardPrefab;
     [SerializeField] private GameObject content;
     [SerializeField] private GameObject baseCanvas;
 
+    [SerializeField] private Sprite axeSprite; // TEMP
+    [SerializeField] private Sprite swordSprite; // TEMP
+
     private List<Card> cards = new List<Card>();
     private List<GameObject> cardsInScene = new List<GameObject>();
+
+    private void Start()
+    {
+        if (CardInfoDisplayer.instance == null)
+        {
+            CardInfoDisplayer.instance = FindFirstObjectByType<CardInfoDisplayer>(FindObjectsInactive.Include);
+        }
+    }
 
     public void LoadData(GameData data)
     {
@@ -35,34 +44,29 @@ public class CardManager : MonoBehaviour, IDataPersistence
 
         foreach (Card card in cards)
         {
-            GameObject cardGameObject;
-            
-            switch (card.itemType)
-            {
-                case Card.ItemType.Sword:
-                    cardGameObject = Instantiate(cardPrefabSword, content.transform);
-                    SetCardMonoBehaviourVariables(cardGameObject, card);
-                    cardsInScene.Add(cardGameObject);
-                    break;
-
-                case Card.ItemType.Axe:
-                    cardGameObject = Instantiate(cardPrefabAxe, content.transform);
-                    SetCardMonoBehaviourVariables(cardPrefabAxe, card);
-                    cardsInScene.Add(cardGameObject);
-                    break;
-
-                case Card.ItemType.Null:
-                    Debug.Log("Card Type is Null!");
-                    break;
-            }
+            InstantiateCard(card);
         }
     }
 
-    private void SetCardMonoBehaviourVariables(GameObject cardGameObject, Card card)
+    private void InstantiateCard(Card card)
     {
+        GameObject cardGameObject = Instantiate(cardPrefab, content.transform);
+        cardsInScene.Add(cardGameObject);
+
         CardMonoBehaviour cardMonoBehaviour = cardGameObject.GetComponent<CardMonoBehaviour>();
         cardMonoBehaviour.contentParent = content;
         cardMonoBehaviour.card = card;
         cardMonoBehaviour.baseCanvas = baseCanvas;
+        cardMonoBehaviour.itemType = card.itemType;
+
+        switch(card.itemType)
+        {
+            case Card.ItemType.Axe:
+                cardMonoBehaviour.cardImageObject.sprite = axeSprite;
+                break;
+            case Card.ItemType.Sword:
+                cardMonoBehaviour.cardImageObject.sprite = swordSprite;
+                break;
+        }
     }
 }

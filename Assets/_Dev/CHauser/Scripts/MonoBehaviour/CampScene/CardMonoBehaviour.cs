@@ -1,12 +1,16 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class CardMonoBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [HideInInspector] public Card card;
     [HideInInspector] public GameObject contentParent;
     [HideInInspector] public GameObject baseCanvas;
+    [HideInInspector] public Card.ItemType itemType;
     RectTransform rt;
+
+    [SerializeField] public Image cardImageObject;
 
     private void Start()
     {
@@ -26,5 +30,11 @@ public class CardMonoBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler,
     public void OnEndDrag(PointerEventData eventData)
     {
         gameObject.transform.SetParent(contentParent.transform);
+    }
+
+    public void DisplayInfo()
+    { 
+
+        CardInfoDisplayer.DisplayCardInfo(card);
     }
 }
