@@ -25,15 +25,15 @@ public class DataPersistenceManager : MonoBehaviour
     [SerializeField] string namesListFileName = "namesList.json";
     [SerializeField] string backgroundsListFileName = "backgroundsList.json";
     [SerializeField] bool namesListUseEncryption = false;
-   // [SerializeField] bool autoLoadNamesListOnStart = false;
+    // [SerializeField] bool autoLoadNamesListOnStart = false;
+
+    public static bool newGameOnStart = false;
+    public static bool loadGameOnStart = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-         //Debug.Log(Application.dataPath);
-
-        // Ensures that there is only one instance of the Data
-        // Manager
+        // Ensures that there is only one instance of the Data Persistence Manager
         instance = FindFirstObjectByType<DataPersistenceManager>();
         if (instance != this)
         {
@@ -46,6 +46,18 @@ public class DataPersistenceManager : MonoBehaviour
         foreach (IDataPersistence dataPersistence in dataPersistenceObjects)
         {
             Debug.Log(dataPersistence.ToString());
+        }
+
+        if (loadGameOnStart)
+        {
+            loadGameOnStart = false;
+            Load();
+        }
+
+        if (newGameOnStart)
+        {
+            newGameOnStart = false;
+            NewGame();
         }
 
         if(autoLoadOnStart)

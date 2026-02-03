@@ -10,5 +10,6 @@ public class InventoryCardPrefabMonoBehaviour : MonoBehaviour
         InventoryDisplay.instance.DisplayInventory(InventoryDisplay.instance.currentDisplayedCharacter);
         CardManager.instance.cards.Add(card);
         CardManager.instance.PushCardsToScene();
+        InfoDisplayer.UpdateDisplay(InventoryDisplay.instance.currentDisplayedCharacter);
     }
 }
