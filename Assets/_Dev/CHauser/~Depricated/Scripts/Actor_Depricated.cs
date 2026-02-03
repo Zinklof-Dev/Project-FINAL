@@ -1,8 +1,11 @@
-using System.Collections.Generic;
+/*using System.Collections.Generic;
 using UnityEngine;
 
 public class Actor : MonoBehaviour
 {
+    public PlayableCharacter playableCharacter;
+    Card weapon;
+
     public enum ActorType { PartyMember, Enemy }
 
     [SerializeField] public ActorType type = ActorType.PartyMember;
@@ -39,6 +42,9 @@ public class Actor : MonoBehaviour
 
         playerInputManager = FindFirstObjectByType<PlayerInputManager>();
         winLossManager = FindFirstObjectByType<TempWinLossManagerEP>();
+
+        weapon = GetEnemyWeapon();
+        SetData();
     }
 
     public void TakeDamage(float damage)
@@ -62,5 +68,26 @@ public class Actor : MonoBehaviour
 
         Destroy(this.gameObject);
     }
-}
 
+    private void SetData()
+    {
+        health = playableCharacter.health;
+        maxHealth = playableCharacter.maxHealth;
+        speed = playableCharacter.speed;
+        attackPower = playableCharacter.attackPower + weapon.attackPower;
+    }
+
+    Card GetEnemyWeapon()
+    {
+        foreach (Card card in playableCharacter.inventory)
+        {
+            if (card.cardClass == Card.CardClass.Weapon)
+            {
+                return card;
+            }
+        }
+
+        return null;
+    }
+}
+*/

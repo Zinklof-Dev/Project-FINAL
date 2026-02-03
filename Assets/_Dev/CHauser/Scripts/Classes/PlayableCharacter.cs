@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System;
-using static Actor;
 
 [Serializable]
 public class PlayableCharacter

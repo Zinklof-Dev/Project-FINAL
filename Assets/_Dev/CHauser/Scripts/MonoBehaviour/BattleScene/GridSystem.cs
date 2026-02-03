@@ -12,19 +12,15 @@ public class GridSystem : MonoBehaviour
     [SerializeField] public int mapSize = 10;
     [SerializeField] private float offsetX = 0;
     [SerializeField] private float offsetY = 0;
-    public static float staticOffsetX;
-    public static float staticOffsetY;
-    public static float staticTileSize;
-    [SerializeField] public static List<Vector2> points = new List<Vector2>();
+    [SerializeField] public List<Vector3> points = new List<Vector3>();
 
-    //[Header("Grid Dwellers (Currently for Debugging)")]
-    //[SerializeField] public static List<GridDweller> dwellers = new List<GridDweller>();
+    public static GridSystem instance;
 
     private void Start()
     {
-        staticTileSize = tileSize;
-        staticOffsetX = offsetX - (mapSize);
-        staticOffsetY = offsetY - (mapSize);
+        instance = this;
+        offsetX -= (mapSize / 2) * tileSize;
+        offsetY -= (mapSize / 2) * tileSize;
         GenerateGrid(tileSize, mapSize);
     }
 
@@ -34,48 +30,34 @@ public class GridSystem : MonoBehaviour
 
         Gizmos.color = Color.green;
 
-        foreach (Vector2 point in points)
+        foreach (Vector3 point in points)
         {
-            Gizmos.DrawSphere(new Vector3(point.x, 0, point.y), 0.5f);
+            Gizmos.DrawSphere(point, 0.5f);
         }
     }
 
     [Command("Generates Grid")]
     public static void GenerateGrid(float tileSize, int mapSize)
     {
-        points = new List<Vector2>();
+        instance.points = new List<Vector3>();
         float x = 0;
         float y = 0;
-        float x1 = staticOffsetX;
-        float y1 = staticOffsetY;
+        float x1 = instance.offsetX;
+        float y1 = instance.offsetY;
 
         // Logic for creating grid points
 
         for(x = 0; x < mapSize; x++)
         {
-            y1 = staticOffsetY;
+            y1 = instance.offsetY;
 
             for(y = 0; y < mapSize; y++)
             {
-                points.Add(new Vector2(x1, y1));
+                instance.points.Add(new Vector3(x1, 0, y1));
                 y1 += tileSize;
             }
 
             x1 += tileSize;
         }
-    }
-
-    /*
-    [Command("Moves Grid Dwellers")]
-    public static void MoveDweller(int dwellerIndex, int gridIndex)
-    {
-        dwellers[dwellerIndex].positionIndex = gridIndex;
-    }
-    */
-
-    private void OnApplicationQuit()
-    {
-        points = new List<Vector2>();
-        //dwellers = new List<GridDweller>();
     }
 }

@@ -1,4 +1,4 @@
-using TMPro;
+/*using TMPro;
 using UnityEngine;
 
 public class PlayerInputDisplay : MonoBehaviour
@@ -134,3 +134,4 @@ public class PlayerInputDisplay : MonoBehaviour
         apCostText.text = cost.ToString();
     }
 }
+*/
