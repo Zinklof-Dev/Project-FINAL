@@ -13,5 +13,16 @@ public class CardInfoDisplayer : MonoBehaviour
     public static void DisplayCardInfo(Card card)
     {
         instance.cardNameTxt.text = card.itemType.ToString();
+        instance.cardDescriptionTxt.text = card.description;
+        
+        switch (card.itemType)
+        {
+            case Card.ItemType.Sword:
+                instance.image.sprite = CardManager.instance.swordSprite;
+                break;
+            case Card.ItemType.Axe:
+                instance.image.sprite = CardManager.instance.axeSprite;
+                break;
+        }
     }
 }
