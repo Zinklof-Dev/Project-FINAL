@@ -75,6 +75,7 @@ public class InventoryDisplay : MonoBehaviour, IDropHandler
         DisplayInventory(currentDisplayedCharacter);
         CardManager.instance.cards.Remove(droppedCard.GetComponent<CardMonoBehaviour>().card);
         CardManager.instance.cardsInScene.Remove(droppedCard);
+        InfoDisplayer.UpdateDisplay(currentDisplayedCharacter);
         Destroy(droppedCard);
     }
 }

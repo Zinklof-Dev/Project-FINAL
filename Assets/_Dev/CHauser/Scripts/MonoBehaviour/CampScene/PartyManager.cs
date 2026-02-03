@@ -94,7 +94,7 @@ public class PartyManager : MonoBehaviour, IDataPersistence
 
             name = AvoidDuplicateNames(name);
 
-            PlayableCharacter newRecruit = new PlayableCharacter(name, background, 100, 1, 1, 1, false); // placeholder stats other than name + description
+            PlayableCharacter newRecruit = new PlayableCharacter(name, background, 100, 1, 1, false); // placeholder stats other than name + description
             recruits.Add(newRecruit);
         }
     }

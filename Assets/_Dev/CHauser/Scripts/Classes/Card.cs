@@ -14,6 +14,7 @@ public class Card
         /*CROSSBOWS*/ Arbalest, Early_Crossbow,
         /*SPECIAL*/ Halberd
     }; 
+
     public enum Rarity { Common, Uncommon, Rare, Epic, Legendary };
     public enum CardClass { Weapon, SupporterItem };
     public enum CardSubClass { Two_Handed, Polearm, One_Handed, Bow, Crossbow, Special };
@@ -22,7 +23,10 @@ public class Card
     public Rarity rarity;
     public CardClass cardClass;
     public CardSubClass cardSubClass;
+
     public string description;
+    public float attackPower;
+    public float bestRange;
 
     public Card(ItemType itemType)
     {
@@ -34,14 +38,18 @@ public class Card
                 rarity = Rarity.Common;
                 cardClass = CardClass.Weapon;
                 cardSubClass = CardSubClass.One_Handed;
-                description = "A standard sword, reliable and well-balanced.";
+                description = "A standard sword, reliable and well-balanced. \n+5 attack \nMost Efficent 2 Units Away";
+                attackPower = 5;
+                bestRange = 2;
                 break;
 
             case ItemType.Axe:
                 rarity = Rarity.Uncommon;
                 cardClass = CardClass.Weapon;
                 cardSubClass = CardSubClass.One_Handed;
-                description = "A sturdy axe, capable of dealing heavy damage.";
+                description = "A sturdy axe, capable of dealing heavy damage. \n+5 attack \nMost Efficent 2 Units Away";
+                attackPower = 5;
+                bestRange = 2;
                 break;
                 //////////////////////////////////////////////////////////////////
             case ItemType.Zweihander:

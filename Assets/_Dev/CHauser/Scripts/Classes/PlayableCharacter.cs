@@ -13,18 +13,16 @@ public class PlayableCharacter
     public float health;
     public float maxHealth;
     public float speed;
-    public float range;
     public float attackPower;
     public List<Card> inventory;
 
-    public PlayableCharacter(string name, string background, float maxHealth, float speed, float range, float attackPower, bool addToParty)
+    public PlayableCharacter(string name, string background, float maxHealth, float speed, float attackPower, bool addToParty)
     {
         this.name = name;
         this.background = background;
         this.maxHealth = maxHealth;
         health = maxHealth;
         this.speed = speed;
-        this.range = range;
         this.attackPower = attackPower;
         inventory = new List<Card>();
 
@@ -32,14 +30,13 @@ public class PlayableCharacter
             partyMembers.Add(this);
     }
 
-    public void UpdateData(string name, string background, float maxHealth, float health, float speed, float range, float attackPower, List<Card> inventory)
+    public void UpdateData(string name, string background, float maxHealth, float health, float speed, float attackPower, List<Card> inventory)
     {
         this.name = name;
         this.background = background;
         this.maxHealth = maxHealth;
         this.health = health;
         this.speed = speed;
-        this.range = range;
         this.attackPower = attackPower;
         this.inventory = inventory;
     }
