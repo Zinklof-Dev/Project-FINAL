@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 using System.Collections.Generic;
 
 public class InfoManager : MonoBehaviour
@@ -15,14 +15,14 @@ public class InfoManager : MonoBehaviour
         infosPlayer = new List<GameObject>();
         infosEnemy = new List<GameObject>();
 
-        foreach (Actor playerActor in ActorManager.partyMemberActors)
+        foreach (Actor playerActor in ActorManager.instance.partyMemberActors)
         {
             GameObject info = Instantiate(infoPrefab, playerInfoParent.transform);
             Info information = info.GetComponent<Info>();
             information.assignedActor = playerActor;
             infosPlayer.Add(info);
         }
-        foreach (Actor enemyActor in ActorManager.enemyActors)
+        foreach (Actor enemyActor in ActorManager.instance.partyMemberActors)
         {
             GameObject info = Instantiate(infoPrefab, enemyInfoParent.transform);
             Info information = info.GetComponent<Info>();
@@ -67,3 +67,4 @@ public class InfoManager : MonoBehaviour
         UpdateInfos();
     }
 }
+*/

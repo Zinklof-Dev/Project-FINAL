@@ -1,4 +1,4 @@
-using TMPro;
+/*using TMPro;
 using UnityEngine;
 
 public class Info : MonoBehaviour
@@ -9,3 +9,4 @@ public class Info : MonoBehaviour
     [SerializeField] public TMP_Text range = null;
     [SerializeField] public TMP_Text health = null;
 }
+*/

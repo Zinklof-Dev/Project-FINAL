@@ -40,4 +40,17 @@ public class PlayableCharacter
         this.attackPower = attackPower;
         this.inventory = inventory;
     }
+
+    public Card GetWeapon()
+    {
+        foreach (Card card in inventory)
+        {
+            if (card.cardClass == Card.CardClass.Weapon)
+            {
+                return card;
+            }
+        }
+
+        return null;
+    }
 }

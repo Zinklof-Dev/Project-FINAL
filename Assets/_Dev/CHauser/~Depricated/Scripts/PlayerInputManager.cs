@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+/*using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using ZinklofDev.Utils.MathZ;
@@ -216,7 +216,7 @@ public class PlayerInputManager : MonoBehaviour
 
         bool actorFound = false;
 
-        foreach(Actor actor in ActorManager.partyMemberActors)
+        foreach(Actor actor in ActorManager.instance.partyMemberActors)
         {
             if(actor.agent.currentIndex == GridSystem.points.IndexOf(selectedPosition))
             {
@@ -244,7 +244,7 @@ public class PlayerInputManager : MonoBehaviour
 
         bool actorFound = false;
 
-        foreach (Actor actor in ActorManager.enemyActors)
+        foreach (Actor actor in ActorManager.instance.enemyActors)
         {
             if (actor.agent.currentIndex == GridSystem.points.IndexOf(selectedPosition))
             {
@@ -309,5 +309,5 @@ public class PlayerInputManager : MonoBehaviour
     {
         return Mathf.Round((inputValue - tOffset) / baseNumberOfMultiple) * baseNumberOfMultiple + tOffset;
     }
-    #endregion*/
-}
+    #endregion
+}*/

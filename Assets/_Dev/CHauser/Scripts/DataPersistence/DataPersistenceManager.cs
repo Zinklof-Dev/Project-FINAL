@@ -6,7 +6,7 @@ using System.IO;
 
 public class DataPersistenceManager : MonoBehaviour
 {
-    GameData gameData = new GameData();
+    public GameData gameData = new GameData();
     public NamesList namesList = null;
     public BackgroundsList backgroundsList = null;
 
@@ -30,8 +30,7 @@ public class DataPersistenceManager : MonoBehaviour
     public static bool newGameOnStart = false;
     public static bool loadGameOnStart = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         // Ensures that there is only one instance of the Data Persistence Manager
         instance = FindFirstObjectByType<DataPersistenceManager>();

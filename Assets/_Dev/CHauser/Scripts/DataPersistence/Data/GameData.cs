@@ -8,6 +8,7 @@ public class GameData
     public List<PlayableCharacter> recruits;
     public List<PlayableCharacter> deadPartyMembers;
     public List<Card> cards;
+    public List<PlayableCharacter> squad;
     public bool generateRecruits;
 
     public GameData()
@@ -15,6 +16,7 @@ public class GameData
         partyMembers = new List<PlayableCharacter>();
         recruits = new List<PlayableCharacter>();
         deadPartyMembers = new List<PlayableCharacter>();
+        squad = new List<PlayableCharacter>();
 
         cards = new List<Card>();
 

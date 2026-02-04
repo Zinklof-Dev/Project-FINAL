@@ -20,7 +20,6 @@ public class Agent : MonoBehaviour
     private int step = 1;
 
     private Actor actor;
-    private TurnManager turnManager;
 
     private void OnDrawGizmos()
     {
@@ -29,26 +28,25 @@ public class Agent : MonoBehaviour
         foreach (int i in path)
         { 
             Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(new Vector3(GridSystem.points[i].x,1, GridSystem.points[i].y), 0.25f);
+            Gizmos.DrawSphere(new Vector3(GridSystem.instance.points[i].x,1, GridSystem.instance.points[i].y), 0.25f);
         }
     }
 
     private void Start()
     {
         actor = GetComponent<Actor>();
-        turnManager = FindFirstObjectByType<TurnManager>();
     }
   
     private void Update()
     {
-        currentIndex = Mathf.Clamp(currentIndex, 0, GridSystem.points.Count - 1);
+        currentIndex = Mathf.Clamp(currentIndex, 0, GridSystem.instance.points.Count - 1);
         startIndex = currentIndex;
 
         switch (currentState)
         {
             case State.Idle:
 
-            transform.position = new Vector3(GridSystem.points[currentIndex].x, transform.position.y, GridSystem.points[currentIndex].y);
+            transform.position = new Vector3(GridSystem.instance.points[currentIndex].x, transform.position.y, GridSystem.instance.points[currentIndex].y);
 
             break;
         
@@ -79,7 +77,9 @@ public class Agent : MonoBehaviour
 
     public void Move()
     {
-        Vector3 next = new Vector3(GridSystem.points[nextIndex].x, transform.position.y, GridSystem.points[nextIndex].y);
+        Vector3 next = new Vector3(GridSystem.instance.points[nextIndex].x, transform.position.y, GridSystem.instance.points[nextIndex].y);
+        
+
         transform.position = Vector3.MoveTowards(transform.position, next, moveSpeed * Time.deltaTime);
 
         if(Mathf.Sqrt(Vectors.SqrDist3f(transform.position, next)) < 0.01f)
@@ -90,10 +90,6 @@ public class Agent : MonoBehaviour
             {
                 currentIndex = goalIndex;
                 currentState = State.Idle;
-                if(turnManager.currentTurn == TurnManager.Turn.PlayerTurn)
-                    actor.playerInputManager.display.Clear(true);
-                turnManager.TakeAction(actor.playerInputManager.actionPointCost);
-                actor.playerInputManager.display.SetAPCostText(0);
             }
 
             transform.position = next;
@@ -102,7 +98,7 @@ public class Agent : MonoBehaviour
 
     public void Rotate()
     {
-        Vector3 nextLookPosition = new Vector3(GridSystem.points[nextIndex].x, transform.position.y, GridSystem.points[nextIndex].y);
+        Vector3 nextLookPosition = new Vector3(GridSystem.instance.points[nextIndex].x, transform.position.y, GridSystem.instance.points[nextIndex].y);
         Vector3 directionToTarget = nextLookPosition - transform.position;
         Quaternion goalRotation = Quaternion.LookRotation(directionToTarget, Vector3.up);
 

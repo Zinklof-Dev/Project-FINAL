@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
@@ -26,4 +26,4 @@ public class TempWinLossManagerEP : MonoBehaviour // EP stands for Experience Pi
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-}
+}*/
