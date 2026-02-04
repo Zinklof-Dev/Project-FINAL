@@ -42,6 +42,6 @@ public class Agent : MonoBehaviour
 
     private void IdleBehavior()
     {
-        transform.position = GridSystem.instance.points[currentIndex];
+        transform.position = new Vector3(GridSystem.instance.points[currentIndex].x, 0, GridSystem.instance.points[currentIndex].y);
     }
 }

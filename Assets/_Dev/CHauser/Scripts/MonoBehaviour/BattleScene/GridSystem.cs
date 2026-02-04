@@ -10,8 +10,8 @@ public class GridSystem : MonoBehaviour
     [Header("Map Attributes")]
     [SerializeField] public float tileSize = 2f;
     [SerializeField] public int mapSize = 10;
-    [SerializeField] private float offsetX = 0;
-    [SerializeField] private float offsetY = 0;
+    [SerializeField] public float offsetX = 0;
+    [SerializeField] public float offsetY = 0;
     [SerializeField] public List<Vector3> points = new List<Vector3>();
 
     public static GridSystem instance;

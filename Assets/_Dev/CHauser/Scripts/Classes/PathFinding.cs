@@ -75,7 +75,7 @@ public class PathFinding
 
                 foreach (Node checkOpenNode in openList)
                 {
-                    if (checkOpenNode.gridIndex == sucessorIndex && checkOpenNode.f < successor.f)
+                    if (checkOpenNode.gridIndex == sucessorIndex && checkOpenNode.g < successor.g)
                         skip = true;
                 }
 
@@ -84,7 +84,7 @@ public class PathFinding
 
                 foreach (Node checkClosedNode in closedList)
                 {
-                    if (checkClosedNode.gridIndex == sucessorIndex && checkClosedNode.f < successor.f)
+                    if (checkClosedNode.gridIndex == sucessorIndex)
                         skip = true;
                 }
 

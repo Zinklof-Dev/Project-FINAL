@@ -120,7 +120,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 338032338314090454}
-  - component: {fileID: 7250779749222257598}
+  - component: {fileID: 5053343714405356056}
   m_Layer: 0
   m_Name: Agent
   m_TagString: Untagged
@@ -144,7 +144,7 @@ Transform:
   - {fileID: 960828825566776910}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7250779749222257598
+--- !u!114 &5053343714405356056
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -153,7 +153,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1500525525620420753}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 608cba7591fb67b48ac297ef6c77f7d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 662f2a91ef1f98743a0be79f44af9674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Agent
   playableCharacter:

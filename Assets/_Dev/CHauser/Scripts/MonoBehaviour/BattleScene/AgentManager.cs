@@ -11,6 +11,12 @@ public class AgentManager : MonoBehaviour, IDataPersistence
     [SerializeField] private List<int> playerStartIndicies;
 
 
+    private void Start()
+    {
+        DataPersistenceManager.NewGame(); // TEMP
+    }
+
+
     private void SpawnAgents()
     {
         foreach (PlayableCharacter character in squad)
@@ -21,6 +27,8 @@ public class AgentManager : MonoBehaviour, IDataPersistence
             agent.currentIndex = playerStartIndicies[squad.IndexOf(character)];
             agents.Add(agent);
         }
+
+        TurnManager.instance.currentTurnAgent = agents[0];
     }
     public void LoadData(GameData data)
     {
