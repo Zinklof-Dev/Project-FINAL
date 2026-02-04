@@ -11,28 +11,29 @@ public class DataPersistenceManager : MonoBehaviour
     public BackgroundsList backgroundsList = null;
 
     public static DataPersistenceManager instance;
-    List<IDatapersistence> datapersistenceObjects;
+    List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler dataHandler = new FileDataHandler();
 
-    [Header("Data persistence (Game Data) Settings")]
+    [Header("Data Persistence (Game Data) Settings")]
     [SerializeField] string fileName = "BOTDsavedata.zink";
     [SerializeField] bool useEncryption = false;
     [SerializeField] bool autoLoadOnStart = false;
     [SerializeField] bool autoSaveOnQuit = false;
 
-    [Header("Data persistence (Editable JSON) Settings")]
+    [Header("Data Persistence (Editable JSON) Settings")]
     [SerializeField] string editableJSONDataFolderName = "JSON";
     [SerializeField] string namesListFileName = "namesList.json";
     [SerializeField] string backgroundsListFileName = "backgroundsList.json";
     [SerializeField] bool namesListUseEncryption = false;
-   // [SerializeField] bool autoLoadNamesListOnStart = false;
+    // [SerializeField] bool autoLoadNamesListOnStart = false;
+
+    public static bool newGameOnStart = false;
+    public static bool loadGameOnStart = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-         //Debug.Log(Application.dataPath);
-
-        // Ensures that there is only one instance of the DatapersistenceManager
+        // Ensures that there is only one instance of the Data Persistence Manager
         instance = FindFirstObjectByType<DataPersistenceManager>();
         if (instance != this)
         {
@@ -40,7 +41,24 @@ public class DataPersistenceManager : MonoBehaviour
             return;
         }
 
-        datapersistenceObjects = FindAllDatapersistenceObjects();
+        dataPersistenceObjects = FindAllDataPersistenceObjects();
+
+        foreach (IDataPersistence dataPersistence in dataPersistenceObjects)
+        {
+            Debug.Log(dataPersistence.ToString());
+        }
+
+        if (loadGameOnStart)
+        {
+            loadGameOnStart = false;
+            Load();
+        }
+
+        if (newGameOnStart)
+        {
+            newGameOnStart = false;
+            NewGame();
+        }
 
         if(autoLoadOnStart)
         {
@@ -69,18 +87,18 @@ public class DataPersistenceManager : MonoBehaviour
             return;
         }
         // Push game data to all other scripts that need it
-        foreach (IDatapersistence datapersistenceObj in instance.datapersistenceObjects)
+        foreach (IDataPersistence dataPersistenceObj in instance.dataPersistenceObjects)
         {
-            datapersistenceObj.LoadData(instance.gameData);
+            dataPersistenceObj.LoadData(instance.gameData);
         }
         Console.Log("Game data loaded.", "DataPersistenceManager");
     }
     [Command("saves the game data")]
     public static void Save()
     {
-        foreach (IDatapersistence datapersistenceObj in instance.datapersistenceObjects)
+        foreach (IDataPersistence dataPersistenceObj in instance.dataPersistenceObjects)
         {
-            datapersistenceObj.SaveData(ref instance.gameData);
+            dataPersistenceObj.SaveData(ref instance.gameData);
         }
 
         instance.dataHandler.Save<GameData>(instance.gameData, Application.persistentDataPath, instance.fileName, instance.useEncryption);
@@ -92,9 +110,9 @@ public class DataPersistenceManager : MonoBehaviour
         instance.gameData = new GameData();
 
         // Push game data to all other scripts that need it
-        foreach (IDatapersistence datapersistenceObj in instance.datapersistenceObjects)
+        foreach (IDataPersistence dataPersistenceObj in instance.dataPersistenceObjects)
         {
-            datapersistenceObj.LoadData(instance.gameData);
+            dataPersistenceObj.LoadData(instance.gameData);
         }
         Console.Log("New game data initialized.", "DataPersistenceManager");
     }
@@ -107,10 +125,10 @@ public class DataPersistenceManager : MonoBehaviour
         Console.Log("Saved game data file deleted.", "DataPersistenceManager");
     }
 
-    private List<IDatapersistence> FindAllDatapersistenceObjects()
+    private List<IDataPersistence> FindAllDataPersistenceObjects()
     {
-        IEnumerable<IDatapersistence> datapersistenceObjects = GameObject.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IDatapersistence>();
-        return new List<IDatapersistence>(datapersistenceObjects);
+        List<IDataPersistence> dataPersistenceObjects = FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None).OfType<IDataPersistence>().ToList();
+        return dataPersistenceObjects;
     }
 
 
@@ -206,12 +224,33 @@ public class DataPersistenceManager : MonoBehaviour
     [Command("loads the backgrounds list")]
     public static void LoadBackgroundsList()
     {
+        instance.backgroundsList = instance.dataHandler.Load<BackgroundsList>(Path.Combine(Application.dataPath, instance.editableJSONDataFolderName), instance.backgroundsListFileName, false);
+        if (instance.backgroundsList == null)
+        {
+            instance.backgroundsList = new BackgroundsList();
+            Console.Log("Backgrounds list file not found, initialized new backgrounds list.", "DataPersistenceManager");
+            return;
+        }
 
+        Console.Log("Backgrounds list loaded.");
+    }
+
+    [Command("saves the backgrounds list")]
+    public static void SaveBackgroundsList()
+    {
+        if (instance.backgroundsList == null)
+        {
+            Console.Log("Backgrounds list is null, cannot save.", "DataPersistenceManager");
+            return;
+        }
+
+        instance.dataHandler.Save<BackgroundsList>(instance.backgroundsList, Path.Combine(Application.dataPath, instance.editableJSONDataFolderName), instance.backgroundsListFileName, false);
+        Console.Log("Backgrounds list saved.", "DataPersistenceManager");
     }
 }
 
 
-public interface IDatapersistence
+public interface IDataPersistence
 {
     void LoadData(GameData data);
     void SaveData(ref GameData data);
