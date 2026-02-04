@@ -1,4 +1,4 @@
-/*using UnityEngine;
+using UnityEngine;
 
 // Going to rename class and file, goingto do so tomorrow in Flower's though bc of compiler and .meta errors.
 // Going to delete "Weapon" class or maybe scrap "Tool" and move it to there, still need to decide though.
@@ -26,4 +26,4 @@ public class Item // Tool // Tool is new name for this class and file
         //name = "Pizza Maker";
         //description = "KIKI ZIZI KINKY ZINKY";
     }
-}*/
+}

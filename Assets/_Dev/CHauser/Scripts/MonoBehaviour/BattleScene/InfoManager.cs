@@ -1,4 +1,4 @@
-/*using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 
 public class InfoManager : MonoBehaviour
@@ -67,4 +67,3 @@ public class InfoManager : MonoBehaviour
         UpdateInfos();
     }
 }
-*/

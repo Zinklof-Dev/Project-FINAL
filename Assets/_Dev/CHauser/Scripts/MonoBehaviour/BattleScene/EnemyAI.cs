@@ -1,4 +1,4 @@
-/*using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using ZinklofDev.Utils.MathZ;
@@ -60,12 +60,12 @@ public class EnemyAI : MonoBehaviour
         
         foreach (Actor enemyActor in ActorManager.enemyActors)
         {
-            if (enemyActorsUsed.Count(x => x == enemyActor) >= 3 /*Arbitraity number for how many times one enemy will be used per turn, will tweak later)
+            if (enemyActorsUsed.Count(x => x == enemyActor) >= 3 /*Arbitraity number for how many times one enemy will be used per turn, will tweak later*/)
                 continue;
             
             foreach (Actor playerActor in ActorManager.partyMemberActors)
             {
-                if (partyMemberActorsAtacked.Count(x => x == playerActor) >= 3 /*Arbitraity number for how many times one player will be targeted per turn, will tweak later*)
+                if (partyMemberActorsAtacked.Count(x => x == playerActor) >= 3 /*Arbitraity number for how many times one player will be targeted per turn, will tweak later*/)
                     continue;
                 
                 List<int> path = PathFinding.AStarPath(enemyActor.agent.currentIndex, playerActor.agent.currentIndex, 2);
@@ -73,7 +73,7 @@ public class EnemyAI : MonoBehaviour
                 if (path == null)
                     continue;
 
-                if((path.Count - 1) /*AP needed to move* + attackCost /*AP needed to attack* > turnManager.enemyActionPoints)
+                if((path.Count - 1) /*AP needed to move*/ + attackCost /*AP needed to attack*/ > turnManager.enemyActionPoints)
                     continue;
                 
                 if (path.Count < closestDistance)
@@ -125,4 +125,4 @@ public class EnemyAI : MonoBehaviour
         currentSelectedPlayerActor.TakeDamage(currentSelectedEnemyActor.attackPower);
         currentState = State.SelectingEnemyAndPlayer;
     }
-}*/
+}

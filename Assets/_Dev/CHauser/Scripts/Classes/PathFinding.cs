@@ -18,7 +18,7 @@ public class Node
         this.gridIndex = gridIndex;
         f = g + h;
         this.parent = parent;
-        position = GridSystem.instance.points[gridIndex];
+        position = GridSystem.points[gridIndex];
     }
 }
 
@@ -33,7 +33,7 @@ public class PathFinding
 
         //DateTime startTime = DateTime.Now;
 
-        Vector2 goalPosition = GridSystem.instance.points[goalIndex];
+        Vector2 goalPosition = GridSystem.points[goalIndex];
 
         List<Node> openList = new List<Node>();
         List<Node> closedList = new List<Node>();
@@ -54,11 +54,11 @@ public class PathFinding
             foreach (Vector3 direction in directions)
             {
                 //await Task.Delay(delay);
-                if (Physics.Raycast(new Vector3(q.position.x, yPositionToCheck, q.position.y), direction, out RaycastHit hit, GridSystem.instance.tileSize * Mathf.Sqrt(2)))
+                if (Physics.Raycast(new Vector3(q.position.x, yPositionToCheck, q.position.y), direction, out RaycastHit hit, GridSystem.staticTileSize * Mathf.Sqrt(2)))
                     continue;
 
-                Vector2 successorPosition = q.position + (new Vector2(direction.x, direction.z) * GridSystem.instance.tileSize);
-                int sucessorIndex = GridSystem.instance.points.IndexOf(successorPosition);
+                Vector2 successorPosition = q.position + (new Vector2(direction.x, direction.z) * GridSystem.staticTileSize);
+                int sucessorIndex = GridSystem.points.IndexOf(successorPosition);
                 if (sucessorIndex == -1)
                     continue;
 
@@ -133,7 +133,7 @@ public class PathFinding
     {
         float dx = Mathf.Abs(successorPosition.x - goalPosition.x);
         float dy = Mathf.Abs(successorPosition.y - goalPosition.y);
-        float D = GridSystem.instance.tileSize;
+        float D = GridSystem.staticTileSize;
         float D2 = Mathf.Sqrt(2) * D;
         return D * (dx + dy) + (D2 - 2 * D) * Mathf.Min(dx, dy);
     }
@@ -146,7 +146,7 @@ public class PathFinding
 
         for(int i = 1; i < path.Count; i++)
         {
-            Vector3 direction = GridSystem.instance.points[path[i]] - GridSystem.instance.points[path[i - 1]];
+            Vector3 direction = GridSystem.points[path[i]] - GridSystem.points[path[i - 1]];
 
             if (direction == previousDirection)
             {
