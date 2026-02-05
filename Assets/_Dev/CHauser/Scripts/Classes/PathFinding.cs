@@ -24,14 +24,14 @@ public class Node
 
 public class PathFinding
 {
-    /*private*/ public static Vector3[] directions = { new Vector3(0, 0, -1), new Vector3(0, 0, 1), new Vector3(-1, 0, 0), new Vector3(1, 0, 0), new Vector3(1, 0, 1), new Vector3(-1, 0, 1), new Vector3(1, 0, -1), new Vector3(-1, 0, -1) };
+    /*private*/ public static Vector3[] directions = { new Vector3(-1, 0, 1), new Vector3(1, 0, -1), new Vector3(-1, 0, -1), new Vector3(1, 0, 1), new Vector3(1, 0, 0),  new Vector3(0, 0, -1), new Vector3(0, 0, 1), new Vector3(-1, 0, 0) };
 
     public static List<int> AStarPath(int startIndex, int goalIndex, float yPositionToCheck)
     {
         List<int> path = new List<int>();
         bool pathFound = false;
 
-        //DateTime startTime = DateTime.Now;
+        //DateTime startTime = DateTime.Now;s
 
         Vector2 goalPosition = GridSystem.instance.points[goalIndex];
 
