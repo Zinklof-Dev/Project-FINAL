@@ -53,6 +53,7 @@ public class ActorManager : MonoBehaviour, IDataPersistence
 
         TurnManager.instance.currentTurnAgent = partyMemberActors[0].agent;
         TurnManager.instance.turnState = TurnManager.TurnState.PlayerTurn;
+        FindFirstObjectByType<PlayerInputUIManager>(FindObjectsInactive.Include).gameObject.SetActive(true);
     }
 
     public void SaveData(ref GameData data) 

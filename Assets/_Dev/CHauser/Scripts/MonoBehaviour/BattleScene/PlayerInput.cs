@@ -7,6 +7,17 @@ public class PlayerInput : MonoBehaviour
 {
     public static PlayerInput instance;
 
+    public bool moveConfirmed = false;
+
+    public Actor targetEnemyActor;
+
+    [SerializeField] public LineRenderer pathVisualizer;
+
+    public int attackAPCost = 5;
+
+    int tentativeGoalIndex = -1;
+    int prevTentativeGoalIndex;
+
     public enum InputState
     {
         Move,
@@ -25,7 +36,14 @@ public class PlayerInput : MonoBehaviour
 
     public MoveInput moveInput = MoveInput.SelectingGoal;
 
-    [SerializeField] LineRenderer pathVisualizer;
+    public enum AttackInput
+    {
+        Selecting,
+        Attacking
+    }
+
+    public AttackInput attackInput = AttackInput.Selecting;
+
 
     private void Start()
     {
@@ -40,6 +58,8 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    int currentActionPointCost = 0;
+
     public void PlayerTurn()
     {
         switch (inputState)
@@ -49,7 +69,7 @@ public class PlayerInput : MonoBehaviour
                 break;
 
             case InputState.Attack:
-                // Handle player attack input
+                HandleAttackInput();
                 break;
 
             case InputState.EnemyTurn:
@@ -73,9 +93,6 @@ public class PlayerInput : MonoBehaviour
                 break;
         }
     }
-
-    int tentativeGoalIndex = -1;
-    int prevTentativeGoalIndex;
 
     public void SelectingGoal()
     {
@@ -105,9 +122,10 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             moveInput = MoveInput.ConfirmingMove;
+            PlayerInputUIManager.instance.ConfirmMovePrompt();
         }
 
-        if (prevTentativeGoalIndex == tentativeGoalIndex)
+        if (prevTentativeGoalIndex == tentativeGoalIndex && moveInput != MoveInput.ConfirmingMove)
             return;
 
         prevTentativeGoalIndex = tentativeGoalIndex;
@@ -117,7 +135,22 @@ public class PlayerInput : MonoBehaviour
         if (visualPath == null)
         {
             pathVisualizer.positionCount = 0;
-            Debug.Log("No Path Found");
+            moveInput = MoveInput.SelectingGoal;
+            PlayerInputUIManager.instance.CancelMove();
+            PlayerInputUIManager.instance.UpdateActionPointsDisplayCost(0);
+            return;
+        }
+
+        int speed = Mathf.RoundToInt(TurnManager.instance.currentTurnAgent.GetComponent<Actor>().speed);
+        currentActionPointCost = (visualPath.Count - 1) / speed;
+        PlayerInputUIManager.instance.UpdateActionPointsDisplayCost(currentActionPointCost);
+
+        if (currentActionPointCost > TurnManager.instance.actionPoints)
+        {
+            pathVisualizer.positionCount = 0;
+            moveInput = MoveInput.SelectingGoal;
+            PlayerInputUIManager.instance.UpdateActionPointsDisplayCost(0);
+            PlayerInputUIManager.instance.CancelMove();
             return;
         }
 
@@ -127,19 +160,21 @@ public class PlayerInput : MonoBehaviour
 
         foreach (int index in visualPath)
         {
-            pathVisualizer.SetPosition(visualPath.IndexOf(index), new Vector3(GridSystem.instance.points[index].x, 0.1f, GridSystem.instance.points[index].y));
+            pathVisualizer.SetPosition(visualPath.IndexOf(index), new Vector3(GridSystem.instance.points[index].x, 0.2f, GridSystem.instance.points[index].y));
         }
     }
 
     public void ConfirmingMove()
-    {
-        // Temp input for testing, will replace with a button probably later
-
-        if (Input.GetMouseButtonDown(0))
+    { 
+        if (moveConfirmed)
         {
+            moveConfirmed = false;
             TurnManager.instance.currentTurnAgent.goalIndex = tentativeGoalIndex;
             TurnManager.instance.currentTurnAgent.StartNavigation();
             moveInput = MoveInput.Moving;
+            TurnManager.instance.actionPoints -= currentActionPointCost;
+            PlayerInputUIManager.instance.UpdateActionPointsDisplay(TurnManager.instance.actionPoints);
+            PlayerInputUIManager.instance.UpdateActionPointsDisplayCost(0);
             pathVisualizer.gameObject.SetActive(false);
         }
     }
@@ -152,4 +187,28 @@ public class PlayerInput : MonoBehaviour
         moveInput = MoveInput.SelectingGoal;
     }
 
+    void HandleAttackInput()
+    {
+        switch(attackInput)
+        {
+            case AttackInput.Selecting:
+                AttackSelecting();
+                break;
+            
+            case AttackInput.Attacking:
+                break;
+        }
+    }
+
+    void AttackSelecting()
+    {
+        if (attackAPCost > TurnManager.instance.actionPoints)
+        {
+            inputState = InputState.Move;
+            moveInput = MoveInput.SelectingGoal;
+            PlayerInputUIManager.instance.MoveMode();
+        }
+
+        PlayerInputUIManager.instance.selectedEnemyTargetTxt.text = targetEnemyActor.actorName;
+    }
 }
