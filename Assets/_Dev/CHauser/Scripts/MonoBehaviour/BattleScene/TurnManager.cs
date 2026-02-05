@@ -2,53 +2,72 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-    [SerializeField] private PlayerInputDisplay playerInputDisplay;
-    [SerializeField] private PlayerInputManager playerInputManager;
-    [SerializeField] private EnemyAI enemyAI;
+    public static TurnManager instance;
+    public Agent currentTurnAgent;
+    public int actionPoints = 10;
+    public int maxActionPoints = 10;
+    private int index = 0;
 
-    public enum Turn { EnemyTurn, PlayerTurn };
-    public Turn currentTurn = Turn.PlayerTurn;
 
-    public int maxEnemyActionPoints = 1;
-    public int enemyActionPoints = 1;
-    public int maxPlayerActionPoints = 1;
-    public int playerActionPoints = 1;
-
-    public void TakeAction(int pointsToDeduct)
+    public enum TurnState
     {
-        switch(currentTurn)
-        {
-            case Turn.PlayerTurn:
+        Setup,
+        PlayerTurn,
+        EnemyTurn,
+        Victory,
+        Defeat
+    }
 
-                playerActionPoints -= pointsToDeduct;
-                if(playerActionPoints <= 0)
-                {
-                    currentTurn = Turn.EnemyTurn;
-                    playerActionPoints = maxPlayerActionPoints;
-                    enemyActionPoints = maxEnemyActionPoints;
-                    playerInputManager.state = PlayerInputManager.InputState.EnemyTurn;
-                    enemyAI.currentState = EnemyAI.State.SelectingEnemyAndPlayer;
-                }
-                playerInputDisplay.SetCurrentTurnText();
-                playerInputDisplay.SetActionsRemainingText();
+    public TurnState turnState = TurnState.Setup;
+
+    private void Start()
+    {
+        instance = this;
+    }
+
+    private void Update()
+    {
+        switch (turnState)
+        {
+            case TurnState.PlayerTurn:
+
+                if (actionPoints <= 0 && ((PlayerInput.instance.inputState == PlayerInput.InputState.Move && PlayerInput.instance.moveInput == PlayerInput.MoveInput.SelectingGoal) || (PlayerInput.instance.inputState == PlayerInput.InputState.Attack && PlayerInput.instance.attackInput == PlayerInput.AttackInput.Selecting)))
+                    UpdateActorTurn();
+
+                PlayerInput.instance.PlayerTurn();
 
                 break;
-        
-            case Turn.EnemyTurn:
 
-                enemyActionPoints -= pointsToDeduct;
-                if(enemyActionPoints <= 0)
-                {
-                    currentTurn = Turn.PlayerTurn;
-                    playerActionPoints = maxPlayerActionPoints;
-                    enemyActionPoints = maxEnemyActionPoints;
-                    playerInputManager.state = PlayerInputManager.InputState.SelectingPartyMember;
-                    enemyAI.currentState = EnemyAI.State.PlayerTurn;
-                }
-                playerInputDisplay.SetCurrentTurnText();
-                playerInputDisplay.SetActionsRemainingText();
+            case TurnState.EnemyTurn:
+                // Handle enemy turn logic
+                break;
 
+            case TurnState.Victory:
+                // Handle victory logic
+                break;
+
+            case TurnState.Defeat:
+                // Handle defeat logic
                 break;
         }
+    }
+
+    void UpdateActorTurn()
+    {
+        index++;
+
+        if(index > ActorManager.instance.partyMemberActors.Count - 1)
+        {
+            index = 0;
+            // Add logic here to change to enemy turn
+        }
+
+        currentTurnAgent = ActorManager.instance.partyMemberActors[index].agent;
+
+        actionPoints = maxActionPoints;
+
+        PlayerInputUIManager.instance.UpdateActionPointsDisplay(actionPoints);
+        PlayerInputUIManager.instance.UpdateActionPointsDisplayCost(0);
+        PlayerInput.instance.pathVisualizer.positionCount = 0;
     }
 }

@@ -1,10 +1,9 @@
 using UnityEngine;
-using ZinklofDev.Utils.MathZ;
 using ZinklofDev.ConsoleV2;
 
 public class CameraMover : MonoBehaviour
 {
-    private bool inMotion = false;
+    public static bool inMotion = false;
     private Vector3 startPosition;
     private Vector3 targetPosition;
     private Quaternion startRotation;
@@ -24,7 +23,7 @@ public class CameraMover : MonoBehaviour
     [Command("Moves the Camera to desired location and rotation smoothly over time.")]
     public static void MoveCamera(float targetPositionX, float targetPositionY, float targetPositionZ, float eulerTargetRotationX, float eulerTargetRotationY, float eulerTargetRotationZ)
     {
-        if (instance.inMotion)
+        if (inMotion)
         {
             Debug.LogWarning("Camera already in motion!");
             return;
@@ -33,7 +32,7 @@ public class CameraMover : MonoBehaviour
         Vector3 targetPosition = new Vector3(targetPositionX, targetPositionY, targetPositionZ);
         Quaternion targetRotation = Quaternion.Euler(new Vector3(eulerTargetRotationX, eulerTargetRotationY, eulerTargetRotationZ));
 
-        instance.inMotion = true;
+        inMotion = true;
         instance.targetPosition = targetPosition;
         instance.targetRotation = targetRotation;
         instance.startPosition = instance.transform.position;

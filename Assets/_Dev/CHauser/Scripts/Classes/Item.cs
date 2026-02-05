@@ -9,9 +9,9 @@ public class Item // Tool // Tool is new name for this class and file
     public enum Type { Axe, Sword, Default }
     private Type type;
     // Following going to stay unused probably for EP
-    private int id;
-    private string name;
-    private string description;
+   // private int id;
+    //private string name;
+    //private string description;
     // These will be needed essential variables
     private float attackPower; 
     private float reach;
@@ -22,8 +22,8 @@ public class Item // Tool // Tool is new name for this class and file
         this.attackPower = attackPower;
         this.reach = reach;
         // TEMP
-        id = 69420;
-        name = "Pizza Maker";
-        description = "KIKI ZIZI KINKY ZINKY";
+        //id = 69420;
+        //name = "Pizza Maker";
+        //description = "KIKI ZIZI KINKY ZINKY";
     }
 }

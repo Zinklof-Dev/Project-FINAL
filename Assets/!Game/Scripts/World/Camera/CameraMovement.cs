@@ -1,17 +1,85 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField] private Transform cameraObjective;
+    [SerializeField] private Transform cameraObjective2;
+    [SerializeField] private Transform objObjective;
+    [Space(10)]
+    [Header("Movement Variables")]
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private float speed;
     [SerializeField] private float rotSpeed;
     [SerializeField] private float scrollSpeed;
+    [SerializeField] private float shiftMult;
+    [SerializeField] private float ctrlMult;
     [SerializeField] private float[] minMaxDistance = new float[2];
+    [SerializeField] private AnimationCurve scrollCurve;
+    [Space(5)]
+    [Header("Zoom To Object Variables")]
+    [SerializeField] private float zoomDist;
+    [SerializeField] private bool copyRotation;
+    [Space(10)]
+    [Header("Lerp Variables")]
+    [SerializeField] private float movementLerp;
+    [SerializeField] private float rotLerp;
+    [SerializeField] private float zoomLerp;
+    [Space(10)]
+    [Header("Debug")]
+    [SerializeField] private bool drawLerps;
+    [SerializeField] private bool verbose;
+    [SerializeField] private bool drawHits;
 
-    private float distanceFromCenter;
+    private float distFromCenter;
+
+    private List<Vector3> hits = new List<Vector3>();
+    private Vector3 ?latestHit = null;
+
+    private void Start()
+    {
+        cameraObjective.position = cameraTransform.position;
+        cameraObjective.rotation = cameraTransform.rotation;
+        cameraObjective.parent = objObjective;
+
+        latestHit = null;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (drawLerps)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(objObjective.position, 0.25f);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(cameraObjective.position, 0.25f);
+            Gizmos.DrawLine(cameraObjective.position, cameraObjective.position + (1 * cameraObjective.forward));
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(cameraObjective2.position, 0.25f);
+            Gizmos.DrawLine(cameraObjective2.position, cameraObjective2.position + (1 * cameraObjective2.forward));
+        }
+
+        if (drawHits)
+        {
+            Gizmos.color = Color.red;
+            foreach (Vector3 pos in hits)
+            {
+                Gizmos.DrawSphere(pos, 0.25f);
+            }
+
+            Gizmos.color = Color.blue;
+            if (latestHit != null)
+                Gizmos.DrawSphere((Vector3)latestHit, 0.3f);
+        }
+    }
 
     private void DoMovement()
     {
+        float mult = (shiftMult * Input.GetAxis("Sprint") + (ctrlMult * Input.GetAxis("Crouch")));
+        if (mult == 0)
+            mult = 1;   
+
         Vector2 inputs = Vector2.zero;
         float rotation = 0f;
         float scroll = 0f;
@@ -21,20 +89,98 @@ public class CameraMovement : MonoBehaviour
 
         rotation = Input.GetAxis("Lean");
 
-        Debug.Log(rotation);
-
-        scroll = Input.GetAxis ("Mouse ScrollWheel");
+        scroll = Input.GetAxis("Mouse ScrollWheel");
 
         inputs.Normalize();
 
-        transform.position += ((inputs.y * speed * Time.deltaTime) * transform.right) + ((inputs.x * speed * Time.deltaTime) * transform.forward);
-        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, rotation * rotSpeed * Time.deltaTime, 0));
+        objObjective.position += ((inputs.y * speed * mult * Time.deltaTime) * objObjective.right) + ((inputs.x * speed * Time.deltaTime) * objObjective.forward);
+        objObjective.rotation = Quaternion.Euler(objObjective.rotation.eulerAngles + new Vector3(0, rotation * rotSpeed * mult * Time.deltaTime, 0));
 
-        cameraTransform.position = cameraTransform.position + ((scroll * scrollSpeed * Time.deltaTime) * cameraTransform.forward);
+        transform.position = Vector3.Lerp(transform.position, objObjective.position, movementLerp);
+        transform.rotation = Quaternion.Slerp(transform.rotation, objObjective.rotation, rotLerp);
+
+        distFromCenter = distFromCenter + (-scroll * scrollSpeed * mult * scrollCurve.Evaluate(distFromCenter / minMaxDistance[2]) * Time.deltaTime);
+
+        if (distFromCenter < minMaxDistance[0] / 2)
+            distFromCenter = minMaxDistance[0] / 2;
+        else if (distFromCenter > minMaxDistance[2] / 2)
+            distFromCenter = minMaxDistance[2] / 2;
+
+        cameraObjective.position = objObjective.position + (cameraObjective.forward * -distFromCenter);
+        cameraObjective2.position = objObjective.position + (cameraObjective2.forward * -distFromCenter);
+
+        if (distFromCenter < minMaxDistance[1] / 2)
+        {
+            cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraObjective.position, zoomLerp);
+            cameraTransform.rotation = Quaternion.Slerp(cameraTransform.rotation, cameraObjective.rotation, zoomLerp);
+        }
+        else
+        {
+            cameraTransform.position = Vector3.Lerp(cameraTransform.position, cameraObjective2.position, zoomLerp);
+            cameraTransform.rotation = Quaternion.Slerp(cameraTransform.rotation, cameraObjective2.rotation, zoomLerp);
+        }
+    }
+
+    private void HandleMouseInput()
+    {
+        GameObject hitObject = null;
+    
+        if (Input.GetAxis("Fire") > 0)
+        {
+            hitObject = FireRay();
+        }
+
+        if (hitObject == null)
+            return;
+
+        AttributeSystem objAttributes = hitObject.GetComponent<AttributeSystem>();
+
+        if (objAttributes == null)
+            return;
+
+        if (objAttributes.GetAttribute("Map_Zoomable"))
+        {
+            objObjective.position = hitObject.transform.position;
+            distFromCenter = zoomDist;
+
+            if (copyRotation)
+                objObjective.rotation = hitObject.transform.rotation;
+        }
+        if (objAttributes.GetAttribute("Map_Party"))
+        {
+        
+        }
+    }
+
+    private GameObject FireRay()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 250f))
+        {   
+            if (!drawHits)
+                return hit.collider.gameObject;
+            
+            if (latestHit != null)
+                hits.Add((Vector3)latestHit);
+            latestHit = hit.point;
+
+            return hit.collider.gameObject;
+        }
+        else
+            return null;
+    }
+
+    private void Verbose(string log)
+    {
+        if(verbose)
+            Debug.Log("[CameraMovement.cs] " + log);
     }
 
     private void Update()
     {
         DoMovement();
+        HandleMouseInput();
     }
 }

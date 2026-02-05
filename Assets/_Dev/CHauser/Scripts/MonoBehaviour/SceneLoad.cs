@@ -5,6 +5,23 @@ public class SceneLoad : MonoBehaviour
 {
     public void LoadScene(int id)
     {
-        Application.LoadLevel(id);
+        SceneManager.LoadScene(id);
+    }
+
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+
+    public void StartNewGame()
+    {
+        DataPersistenceManager.newGameOnStart = true;
+        LoadScene("Camp_Scene");
+    }
+
+    public void StartLoadedGame()
+    {
+        DataPersistenceManager.loadGameOnStart = true;
+        LoadScene("Camp_Scene");
     }
 }
