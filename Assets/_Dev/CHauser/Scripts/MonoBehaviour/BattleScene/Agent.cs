@@ -78,7 +78,6 @@ public class Agent : MonoBehaviour
     public void Move()
     {
         Vector3 next = new Vector3(GridSystem.instance.points[nextIndex].x, transform.position.y, GridSystem.instance.points[nextIndex].y);
-        
 
         transform.position = Vector3.MoveTowards(transform.position, next, moveSpeed * Time.deltaTime);
 

@@ -15,7 +15,7 @@ public class PlayerInputUIManager : MonoBehaviour
 
     public static PlayerInputUIManager instance;
 
-    private void Start()
+    private void Awake()
     {
         instance = this;
         UpdateActionPointsDisplay(TurnManager.instance.actionPoints);

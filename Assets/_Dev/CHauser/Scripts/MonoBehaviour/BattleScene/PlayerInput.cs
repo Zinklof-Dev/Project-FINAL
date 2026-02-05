@@ -39,7 +39,8 @@ public class PlayerInput : MonoBehaviour
     public enum AttackInput
     {
         Selecting,
-        Attacking
+        Attacking,
+        AttackAnimation
     }
 
     public AttackInput attackInput = AttackInput.Selecting;
@@ -78,6 +79,8 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////
+
     public void HandleMoveInput()
     {
         switch (moveInput)
@@ -112,7 +115,11 @@ public class PlayerInput : MonoBehaviour
             }
 
             else
+            {
+                PlayerInputUIManager.instance.UpdateActionPointsDisplayCost(0);
+                pathVisualizer.positionCount = 0;
                 return;
+            }
         }
 
         pathVisualizer.gameObject.SetActive(true);
@@ -187,6 +194,8 @@ public class PlayerInput : MonoBehaviour
         moveInput = MoveInput.SelectingGoal;
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////
+
     void HandleAttackInput()
     {
         switch(attackInput)
@@ -196,6 +205,7 @@ public class PlayerInput : MonoBehaviour
                 break;
             
             case AttackInput.Attacking:
+                AttackWithWeapon(TurnManager.instance.currentTurnAgent.GetComponent<Actor>().character.GetWeapon());
                 break;
         }
     }
@@ -211,4 +221,65 @@ public class PlayerInput : MonoBehaviour
 
         PlayerInputUIManager.instance.selectedEnemyTargetTxt.text = targetEnemyActor.actorName;
     }
+
+    void AttackWithWeapon(Card card)
+    {
+        switch (card.cardSubClass)
+        {
+            case Card.CardSubClass.Two_Handed:
+                AttackTwoHanded();
+                break;
+
+            case Card.CardSubClass.Polearm:
+                AttackPolearm();
+                break;
+
+            case Card.CardSubClass.One_Handed:
+                AttackOneHanded();
+                break;
+
+            case Card.CardSubClass.Bow:
+                AttackBow();
+                break;
+
+            case Card.CardSubClass.Crossbow:
+                AttackCrossbow();
+                break;
+
+            case Card.CardSubClass.Special:
+                AttackSpecial();
+                break;
+        }
+    }
+
+    void AttackTwoHanded()
+    {
+
+    }
+
+    void AttackPolearm()
+    {
+
+    }
+
+    void AttackOneHanded()
+    {
+
+    }
+
+    void AttackBow()
+    {
+
+    }
+
+    void AttackCrossbow()
+    {
+
+    }
+
+    void AttackSpecial()
+    {
+
+    }
+
 }
