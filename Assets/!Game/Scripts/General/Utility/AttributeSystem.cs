@@ -17,5 +17,5 @@ public class AttributeSystem : MonoBehaviour
         return false;
     }
 
-    // was gonna make a get attribute func but thats redundant since you can just fetch the string variable
+    // was gonna make a get attributes func but thats redundant since you can just fetch the string[] variable
 }
