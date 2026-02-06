@@ -224,6 +224,15 @@ public class PlayerInput : MonoBehaviour
 
     void AttackWithWeapon(Card card)
     {
+        if (card == null)
+        {
+            PlayerInputUIManager.instance.UpdateActionPointsDisplay(TurnManager.instance.actionPoints);
+            PlayerInputUIManager.instance.UpdateActionPointsDisplayCost(0);
+            Debug.Log("No weapon!");
+            attackInput = AttackInput.Selecting;
+            return;
+        }
+
         switch (card.cardSubClass)
         {
             case Card.CardSubClass.Two_Handed:
@@ -271,9 +280,15 @@ public class PlayerInput : MonoBehaviour
             return;
         }
 
-        List<int> pathToEnemy = PathFinding.AStarPath(TurnManager.instance.currentTurnAgent.currentIndex, targetEnemyActor.agent.currentIndex, 1);
+        List<int> pathToEnemy = PathFinding.AStarPath(TurnManager.instance.currentTurnAgent.currentIndex, targetEnemyActor.agent.currentIndex, 100);
 
-        if (pathToEnemy.Count > TurnManager.instance.currentTurnAgent.GetComponent<Actor>().range)
+        if (pathToEnemy == null)
+        {
+            Debug.Log("Path is null, something went wrong");
+            return;
+        }
+
+        if (pathToEnemy.Count - 1 > TurnManager.instance.currentTurnAgent.GetComponent<Actor>().range)
         {
             Miss();
             Debug.Log("Too far!");
@@ -325,11 +340,11 @@ public class PlayerInput : MonoBehaviour
     {
         RaycastHit hit;
         Vector3 currentTurnAgentPosition = TurnManager.instance.currentTurnAgent.gameObject.transform.position;
-        Vector3 lineOfSightDirection = currentTurnAgentPosition - targetEnemyActor.transform.position;
+        Vector3 lineOfSightDirection =  targetEnemyActor.transform.position - currentTurnAgentPosition;
 
         if(Physics.Raycast(currentTurnAgentPosition, lineOfSightDirection.normalized, out hit))
         {
-            if(hit.collider.gameObject.GetComponentInParent<Actor>() != targetEnemyActor)
+            if(hit.collider.gameObject.GetComponent<Actor>() != targetEnemyActor)
             {
                 return false;
             }

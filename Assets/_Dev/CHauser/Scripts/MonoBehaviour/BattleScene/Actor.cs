@@ -15,7 +15,7 @@ public class Actor : MonoBehaviour
     [SerializeField] public float health;
     [SerializeField] public float maxHealth;
     [SerializeField] public float speed;
-    [SerializeField] public int range; // Range is the number of gird squares away an actor can attack. // GOING TO CHANGE
+    [SerializeField] public float range; // Range is the number of gird squares away an actor can attack. // GOING TO CHANGE
     [SerializeField] public float attackPower;
     [SerializeField] public Transform weaponSlot;
 
@@ -61,6 +61,7 @@ public class Actor : MonoBehaviour
             return;
 
         attackPower += weapon.attackPower;
+        range = weapon.bestRange;
 
         VisualWeaponEquip();
     }
@@ -89,7 +90,11 @@ public class Actor : MonoBehaviour
     {
         ActorManager.instance.allActors.Remove(this);
         ActorManager.instance.partyMemberActors.Remove(this);
-        ActorManager.instance.partyMemberActors.Remove(this);
+        ActorManager.instance.enemyActors.Remove(this);
+
+        if (ActorManager.instance.enemyActors.Count != 0)
+            PlayerInput.instance.targetEnemyActor = ActorManager.instance.enemyActors[0];
+
         Destroy(this.gameObject);
         /*
         if (ActorManager.instance.enemyActors.Count == 0)
