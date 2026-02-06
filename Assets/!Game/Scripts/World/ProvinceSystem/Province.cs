@@ -12,6 +12,8 @@ public class Province : MonoBehaviour
 
     [SerializeField] bool drawGizmos;
 
+    private byte[] neighboringProvinces;
+
     private Renderer renderer;
     private bool selected;
     private ProvinceManager pm;
