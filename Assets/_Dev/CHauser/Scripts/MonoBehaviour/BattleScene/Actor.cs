@@ -90,6 +90,7 @@ public class Actor : MonoBehaviour
         ActorManager.instance.allActors.Remove(this);
         ActorManager.instance.partyMemberActors.Remove(this);
         ActorManager.instance.partyMemberActors.Remove(this);
+        Destroy(this.gameObject);
         /*
         if (ActorManager.instance.enemyActors.Count == 0)
             

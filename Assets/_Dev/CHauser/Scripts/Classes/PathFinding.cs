@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using ZinklofDev.Utils.MathZ;
 
@@ -24,14 +25,14 @@ public class Node
 
 public class PathFinding
 {
-    /*private*/ public static Vector3[] directions = { new Vector3(-1, 0, 1), new Vector3(1, 0, -1), new Vector3(-1, 0, -1), new Vector3(1, 0, 1), new Vector3(1, 0, 0),  new Vector3(0, 0, -1), new Vector3(0, 0, 1), new Vector3(-1, 0, 0) };
+    public static Vector3[] directions = { new Vector3(-1, 0, 1), new Vector3(1, 0, -1), new Vector3(-1, 0, -1), new Vector3(1, 0, 1), new Vector3(1, 0, 0),  new Vector3(0, 0, -1), new Vector3(0, 0, 1), new Vector3(-1, 0, 0) };
 
     public static List<int> AStarPath(int startIndex, int goalIndex, float yPositionToCheck)
     {
+        //DateTime startTime = DateTime.Now;
+
         List<int> path = new List<int>();
         bool pathFound = false;
-
-        //DateTime startTime = DateTime.Now;s
 
         Vector2 goalPosition = GridSystem.instance.points[goalIndex];
 
@@ -41,7 +42,6 @@ public class PathFinding
 
         for (int i = 0; openList.Count != 0 && i < 1000000; i++)
         {
-            //await Task.Delay(delay);
             Node q = openList[0];
             foreach (Node n in openList)
             {
@@ -53,7 +53,6 @@ public class PathFinding
 
             foreach (Vector3 direction in directions)
             {
-                //await Task.Delay(delay);
                 if (Physics.Raycast(new Vector3(q.position.x, yPositionToCheck, q.position.y), direction, out RaycastHit hit, GridSystem.instance.tileSize * Mathf.Sqrt(2)))
                     continue;
 
@@ -63,6 +62,7 @@ public class PathFinding
                     continue;
 
                 Node successor = new Node(q.g + Mathf.Sqrt(Vectors.SqrDist2f(q.position, successorPosition)), DiagonalHeuristic(successorPosition, goalPosition), sucessorIndex, q);
+                //Node successor = new Node(q.g + Vectors.SqrDist2f(q.position, successorPosition), EuclidianHeuristic(successorPosition, goalPosition), sucessorIndex, q);
 
                 if (sucessorIndex == goalIndex)
                 {
@@ -97,14 +97,11 @@ public class PathFinding
             if (pathFound)
                 break;
 
-            //await Task.Delay(delay);
-
             closedList.Add(q);
         }
 
             if (!pathFound)
             {
-                //Debug.Log("No path found.");
                 return null;
             }
 
@@ -112,7 +109,6 @@ public class PathFinding
 
             for (int i = 0; i < closedList.Count && current != null; i++)
             {
-                //await Task.Delay(delay);
                 path.Add(current.gridIndex);
                 current = current.parent;
             }
@@ -136,6 +132,12 @@ public class PathFinding
         float D = GridSystem.instance.tileSize;
         float D2 = Mathf.Sqrt(2) * D;
         return D * (dx + dy) + (D2 - 2 * D) * Mathf.Min(dx, dy);
+    }
+
+    private static float EuclidianHeuristic(Vector2 successorPosition, Vector2 goalPosition)
+    {
+        // I know I don't really need a functiom for this, function is just here to keep it organized.
+        return Vectors.SqrDist2f(successorPosition, goalPosition);
     }
 
     public static List<int> TrimPath(List<int> path)

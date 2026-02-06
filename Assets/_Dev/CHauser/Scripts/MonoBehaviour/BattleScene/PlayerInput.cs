@@ -264,7 +264,23 @@ public class PlayerInput : MonoBehaviour
 
     void AttackOneHanded()
     {
+        if (!InLineOfSight())
+        {
+            Miss();
+            Debug.Log("Not in line of sight!");
+            return;
+        }
 
+        List<int> pathToEnemy = PathFinding.AStarPath(TurnManager.instance.currentTurnAgent.currentIndex, targetEnemyActor.agent.currentIndex, 1);
+
+        if (pathToEnemy.Count > TurnManager.instance.currentTurnAgent.GetComponent<Actor>().range)
+        {
+            Miss();
+            Debug.Log("Too far!");
+            return;
+        }
+
+        Hit(TurnManager.instance.currentTurnAgent.GetComponent<Actor>().attackPower);
     }
 
     void AttackBow()
@@ -282,4 +298,45 @@ public class PlayerInput : MonoBehaviour
 
     }
 
+    private void Hit(float damage)
+    {
+        targetEnemyActor.TakeDamage(damage);
+        TurnManager.instance.actionPoints -= attackAPCost;
+        PlayerInputUIManager.instance.UpdateActionPointsDisplay(TurnManager.instance.actionPoints);
+        PlayerInputUIManager.instance.UpdateActionPointsDisplayCost(0);
+        Debug.Log("Hit!");
+
+        // Temp, going to send to an animation of the attack state later
+        attackInput = AttackInput.Selecting;
+    }
+
+    private void Miss()
+    {
+        TurnManager.instance.actionPoints -= attackAPCost;
+        PlayerInputUIManager.instance.UpdateActionPointsDisplay(TurnManager.instance.actionPoints);
+        PlayerInputUIManager.instance.UpdateActionPointsDisplayCost(0);
+        Debug.Log("Miss!");
+
+        // Temp, going to send to an animation of the attack state later
+        attackInput = AttackInput.Selecting;
+    }
+
+    bool InLineOfSight()
+    {
+        RaycastHit hit;
+        Vector3 currentTurnAgentPosition = TurnManager.instance.currentTurnAgent.gameObject.transform.position;
+        Vector3 lineOfSightDirection = currentTurnAgentPosition - targetEnemyActor.transform.position;
+
+        if(Physics.Raycast(currentTurnAgentPosition, lineOfSightDirection.normalized, out hit))
+        {
+            if(hit.collider.gameObject.GetComponentInParent<Actor>() != targetEnemyActor)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
 }

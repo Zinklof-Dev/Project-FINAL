@@ -110,4 +110,9 @@ public class PlayerInputUIManager : MonoBehaviour
         PlayerInput.instance.attackInput = PlayerInput.AttackInput.Selecting;
         TurnManager.instance.actionPoints = 0;
     }
+
+    public void AttackButtonHit()
+    {
+        PlayerInput.instance.attackInput = PlayerInput.AttackInput.Attacking;
+    }
 }
