@@ -18,6 +18,8 @@ public class PlayerInput : MonoBehaviour
     int tentativeGoalIndex = -1;
     int prevTentativeGoalIndex;
 
+    public Actor currentTurnActor;
+
     public enum InputState
     {
         Move,
@@ -137,7 +139,7 @@ public class PlayerInput : MonoBehaviour
 
         prevTentativeGoalIndex = tentativeGoalIndex;
 
-        List<int> visualPath = PathFinding.AStarPath(TurnManager.instance.currentTurnAgent.currentIndex, tentativeGoalIndex, 1);
+        List<int> visualPath = PathFinding.AStarPath(currentTurnActor.agent.currentIndex, tentativeGoalIndex, 1);
 
         if (visualPath == null)
         {
@@ -148,7 +150,7 @@ public class PlayerInput : MonoBehaviour
             return;
         }
 
-        int speed = Mathf.RoundToInt(TurnManager.instance.currentTurnAgent.GetComponent<Actor>().speed);
+        int speed = Mathf.RoundToInt(currentTurnActor.speed);
         currentActionPointCost = (visualPath.Count - 1) / speed;
         PlayerInputUIManager.instance.UpdateActionPointsDisplayCost(currentActionPointCost);
 
@@ -176,8 +178,8 @@ public class PlayerInput : MonoBehaviour
         if (moveConfirmed)
         {
             moveConfirmed = false;
-            TurnManager.instance.currentTurnAgent.goalIndex = tentativeGoalIndex;
-            TurnManager.instance.currentTurnAgent.StartNavigation();
+            currentTurnActor.agent.goalIndex = tentativeGoalIndex;
+            currentTurnActor.agent.StartNavigation();
             moveInput = MoveInput.Moving;
             TurnManager.instance.actionPoints -= currentActionPointCost;
             PlayerInputUIManager.instance.UpdateActionPointsDisplay(TurnManager.instance.actionPoints);
@@ -188,7 +190,7 @@ public class PlayerInput : MonoBehaviour
 
     public void MovingGoal()
     {
-        if (TurnManager.instance.currentTurnAgent.currentState == Agent.State.Moving)
+        if (currentTurnActor.agent.currentState == Agent.State.Moving)
             return;
 
         moveInput = MoveInput.SelectingGoal;
@@ -205,7 +207,7 @@ public class PlayerInput : MonoBehaviour
                 break;
             
             case AttackInput.Attacking:
-                AttackWithWeapon(TurnManager.instance.currentTurnAgent.GetComponent<Actor>().character.GetWeapon());
+                AttackWithWeapon(currentTurnActor.character.GetWeapon());
                 break;
         }
     }
@@ -280,7 +282,7 @@ public class PlayerInput : MonoBehaviour
             return;
         }
 
-        List<int> pathToEnemy = PathFinding.AStarPath(TurnManager.instance.currentTurnAgent.currentIndex, targetEnemyActor.agent.currentIndex, 100);
+        List<int> pathToEnemy = PathFinding.AStarPath(currentTurnActor.agent.currentIndex, targetEnemyActor.agent.currentIndex, 100);
 
         if (pathToEnemy == null)
         {
@@ -288,14 +290,14 @@ public class PlayerInput : MonoBehaviour
             return;
         }
 
-        if (pathToEnemy.Count - 1 > TurnManager.instance.currentTurnAgent.GetComponent<Actor>().range)
+        if (pathToEnemy.Count - 1 > currentTurnActor.agent.GetComponent<Actor>().range)
         {
             Miss();
             Debug.Log("Too far!");
             return;
         }
 
-        Hit(TurnManager.instance.currentTurnAgent.GetComponent<Actor>().attackPower);
+        Hit(currentTurnActor.agent.GetComponent<Actor>().attackPower);
     }
 
     void AttackBow()
@@ -339,7 +341,7 @@ public class PlayerInput : MonoBehaviour
     bool InLineOfSight()
     {
         RaycastHit hit;
-        Vector3 currentTurnAgentPosition = TurnManager.instance.currentTurnAgent.gameObject.transform.position;
+        Vector3 currentTurnAgentPosition = currentTurnActor.gameObject.transform.position;
         Vector3 lineOfSightDirection =  targetEnemyActor.transform.position - currentTurnAgentPosition;
 
         if(Physics.Raycast(currentTurnAgentPosition, lineOfSightDirection.normalized, out hit))

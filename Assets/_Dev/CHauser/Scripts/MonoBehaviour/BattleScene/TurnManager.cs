@@ -3,10 +3,10 @@ using UnityEngine;
 public class TurnManager : MonoBehaviour
 {
     public static TurnManager instance;
-    public Agent currentTurnAgent;
     public int actionPoints = 10;
     public int maxActionPoints = 10;
-    private int index = 0;
+    private int currentPlayerIndex = 0;
+    private int currentEnemyTurnIndex = 0;
 
 
     public enum TurnState
@@ -32,14 +32,20 @@ public class TurnManager : MonoBehaviour
             case TurnState.PlayerTurn:
 
                 if (actionPoints <= 0 && ((PlayerInput.instance.inputState == PlayerInput.InputState.Move && PlayerInput.instance.moveInput == PlayerInput.MoveInput.SelectingGoal) || (PlayerInput.instance.inputState == PlayerInput.InputState.Attack && PlayerInput.instance.attackInput == PlayerInput.AttackInput.Selecting)))
-                    UpdateActorTurn();
+                    UpdatePlayerActorTurn();
 
                 PlayerInput.instance.PlayerTurn();
+
+                PlayerInputUIManager.instance.gameObject.SetActive(true);
 
                 break;
 
             case TurnState.EnemyTurn:
-                // Handle enemy turn logic
+
+                EnemyAI.instance.EnemyTurn();
+
+                PlayerInputUIManager.instance.gameObject.SetActive(false);
+
                 break;
 
             case TurnState.Victory:
@@ -52,22 +58,36 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    void UpdateActorTurn()
+    void UpdatePlayerActorTurn()
     {
-        index++;
+        currentPlayerIndex++;
 
-        if(index > ActorManager.instance.partyMemberActors.Count - 1)
+        if(currentPlayerIndex > ActorManager.instance.partyMemberActors.Count - 1)
         {
-            index = 0;
-            // Add logic here to change to enemy turn
+            currentPlayerIndex = 0;
+            turnState = TurnState.EnemyTurn;
         }
 
-        currentTurnAgent = ActorManager.instance.partyMemberActors[index].agent;
+        PlayerInput.instance.currentTurnActor = ActorManager.instance.partyMemberActors[currentPlayerIndex];
 
         actionPoints = maxActionPoints;
 
         PlayerInputUIManager.instance.UpdateActionPointsDisplay(actionPoints);
         PlayerInputUIManager.instance.UpdateActionPointsDisplayCost(0);
         PlayerInput.instance.pathVisualizer.positionCount = 0;
+    }
+
+    public void UpdateEnemyActorTurn()
+    {
+        currentEnemyTurnIndex++;
+
+        if (currentEnemyTurnIndex > ActorManager.instance.enemyActors.Count - 1)
+        {
+            currentEnemyTurnIndex = 0;
+            turnState = TurnState.PlayerTurn;
+        }
+
+        actionPoints = maxActionPoints;
+        EnemyAI.instance.currentTurnActor = ActorManager.instance.enemyActors[currentEnemyTurnIndex];
     }
 }

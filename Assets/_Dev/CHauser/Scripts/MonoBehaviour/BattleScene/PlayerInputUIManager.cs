@@ -38,7 +38,7 @@ public class PlayerInputUIManager : MonoBehaviour
         else
             attackModeButton.interactable = false;
 
-        currentSquadMemberTxt.text = "Current Squad Member: " + TurnManager.instance.currentTurnAgent.GetComponent<Actor>().actorName;
+        currentSquadMemberTxt.text = "Current Squad Member: " + PlayerInput.instance.currentTurnActor.actorName; 
     }
 
 

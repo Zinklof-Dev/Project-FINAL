@@ -51,7 +51,8 @@ public class ActorManager : MonoBehaviour, IDataPersistence
             actor.InitializeActor();
         }
 
-        TurnManager.instance.currentTurnAgent = partyMemberActors[0].agent;
+        PlayerInput.instance.currentTurnActor = partyMemberActors[0];
+        EnemyAI.instance.currentTurnActor = enemyActors[0];
         TurnManager.instance.turnState = TurnManager.TurnState.PlayerTurn;
         FindFirstObjectByType<PlayerInputUIManager>(FindObjectsInactive.Include).gameObject.SetActive(true);
     }
