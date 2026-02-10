@@ -14,7 +14,7 @@ public class EnemyAI : MonoBehaviour
     bool targetFound = false;
 
     public Actor currentTurnActor;
-    List<Actor> evaluatedTargets = new List<Actor>();
+    [SerializeField] List<Actor> evaluatedTargets = new List<Actor>();
 
 
     private void Start()
@@ -93,7 +93,6 @@ public class EnemyAI : MonoBehaviour
                 {
                     playerTarget = player;
                     targetFound = true;
-                    Debug.Log("First Actor Selected");
                 }
 
                 continue;
