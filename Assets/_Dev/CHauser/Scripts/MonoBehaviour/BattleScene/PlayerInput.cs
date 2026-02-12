@@ -194,6 +194,7 @@ public class PlayerInput : MonoBehaviour
             return;
 
         moveInput = MoveInput.SelectingGoal;
+        BattleCameraMover.instance.MoveCameraToMoveSelectionPosition();
     }
 
     ///////////////////////////////////////////////////////////////////////////////////

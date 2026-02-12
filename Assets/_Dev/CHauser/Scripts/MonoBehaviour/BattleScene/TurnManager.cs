@@ -61,12 +61,15 @@ public class TurnManager : MonoBehaviour
     void UpdatePlayerActorTurn()
     {
         currentPlayerIndex++;
+        PlayerInput.instance.currentTurnActor.healthBar.SetActive(true);
 
-        if(currentPlayerIndex > ActorManager.instance.partyMemberActors.Count - 1)
+        if (currentPlayerIndex > ActorManager.instance.partyMemberActors.Count - 1)
         {
             currentPlayerIndex = 0;
             turnState = TurnState.EnemyTurn;
         }
+        else
+            PlayerInputUIManager.instance.MoveMode();
 
         PlayerInput.instance.currentTurnActor = ActorManager.instance.partyMemberActors[currentPlayerIndex];
 
@@ -85,6 +88,7 @@ public class TurnManager : MonoBehaviour
         {
             currentEnemyTurnIndex = 0;
             turnState = TurnState.PlayerTurn;
+            PlayerInputUIManager.instance.MoveMode();
         }
 
         actionPoints = maxActionPoints;

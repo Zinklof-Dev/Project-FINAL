@@ -12,16 +12,16 @@ public class GridSystem : MonoBehaviour
     [SerializeField] public int mapSize = 10;
     [SerializeField] public float offsetX = 0;
     [SerializeField] public float offsetY = 0;
-    private float internalcOffsetX;
-    private float internalOffsetY;
+    [HideInInspector] public float internalOffsetX;
+    [HideInInspector] public float internalOffsetY;
     [SerializeField] public List<Vector2> points = new List<Vector2>();
 
     public static GridSystem instance;
 
-    private void Start()
+    private void Awake()
     {
         instance = this;
-        internalcOffsetX = offsetX - (mapSize / 2 * tileSize);
+        internalOffsetX = offsetX - (mapSize / 2 * tileSize);
         internalOffsetY = offsetY - (mapSize / 2 * tileSize);
         GenerateGrid(tileSize, mapSize);
     }
@@ -44,7 +44,7 @@ public class GridSystem : MonoBehaviour
         instance.points = new List<Vector2>();
         float x = 0;
         float y = 0;
-        float x1 = instance.internalcOffsetX;
+        float x1 = instance.internalOffsetX;
         float y1 = instance.internalOffsetY;
 
         // Logic for creating grid points

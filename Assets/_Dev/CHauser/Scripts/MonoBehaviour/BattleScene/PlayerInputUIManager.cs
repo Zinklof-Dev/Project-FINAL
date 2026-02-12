@@ -12,6 +12,9 @@ public class PlayerInputUIManager : MonoBehaviour
     [SerializeField] Button moveModeButton;
     [SerializeField] Button endTurnButton;
     [SerializeField] GameObject confirmMovePrompt;
+    [SerializeField] GameObject moveInfoObject;
+    [SerializeField] GameObject attackInfoObject;
+
 
     public static PlayerInputUIManager instance;
 
@@ -23,7 +26,7 @@ public class PlayerInputUIManager : MonoBehaviour
 
     private void Update()
     {
-        if(PlayerInput.instance.moveInput == PlayerInput.MoveInput.SelectingGoal)
+        if(PlayerInput.instance.moveInput == PlayerInput.MoveInput.SelectingGoal && PlayerInput.instance.attackAPCost <= TurnManager.instance.actionPoints)
             attackModeButton.interactable = true;
         else
             attackModeButton.interactable = false;
@@ -32,11 +35,6 @@ public class PlayerInputUIManager : MonoBehaviour
             endTurnButton.interactable = true;
         else
             endTurnButton.interactable = false;
-
-        if (PlayerInput.instance.attackAPCost <= TurnManager.instance.actionPoints)
-            attackModeButton.interactable = true;
-        else
-            attackModeButton.interactable = false;
 
         currentSquadMemberTxt.text = "Current Squad Member: " + PlayerInput.instance.currentTurnActor.actorName; 
     }
@@ -57,8 +55,13 @@ public class PlayerInputUIManager : MonoBehaviour
         if(TurnManager.instance.turnState != TurnManager.TurnState.PlayerTurn || PlayerInput.instance.moveInput != PlayerInput.MoveInput.SelectingGoal)
             return;
 
+        moveInfoObject.SetActive(false);
+        attackInfoObject.SetActive(true);
         PlayerInput.instance.inputState = PlayerInput.InputState.Attack;
         PlayerInput.instance.targetEnemyActor = ActorManager.instance.enemyActors[0];
+        PlayerInput.instance.currentTurnActor.agent.LookAtEnemy(PlayerInput.instance.targetEnemyActor);
+        BattleCameraMover.instance.MoveCameraTo(PlayerInput.instance.currentTurnActor.cameraSlot);
+        PlayerInput.instance.currentTurnActor.healthBar.SetActive(false);
     }
 
     public void MoveMode()
@@ -66,7 +69,11 @@ public class PlayerInputUIManager : MonoBehaviour
         if (TurnManager.instance.turnState != TurnManager.TurnState.PlayerTurn)
             return;
 
+        moveInfoObject.SetActive(true);
+        attackInfoObject.SetActive(false);
         PlayerInput.instance.inputState = PlayerInput.InputState.Move;
+        BattleCameraMover.instance.MoveCameraToMoveSelectionPosition();
+        PlayerInput.instance.currentTurnActor.healthBar.SetActive(true);
     }
 
     public void ConfirmMovePrompt()
@@ -102,6 +109,7 @@ public class PlayerInputUIManager : MonoBehaviour
         }
 
         PlayerInput.instance.targetEnemyActor = ActorManager.instance.enemyActors[index];
+        PlayerInput.instance.currentTurnActor.agent.LookAtEnemy(PlayerInput.instance.targetEnemyActor);
     }
 
     public void EndTurn()

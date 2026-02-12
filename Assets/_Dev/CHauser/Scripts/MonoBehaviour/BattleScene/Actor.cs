@@ -18,6 +18,9 @@ public class Actor : MonoBehaviour
     [SerializeField] public float range; // Range is the number of gird squares away an actor can attack. // GOING TO CHANGE
     [SerializeField] public float attackPower;
     [SerializeField] public Transform weaponSlot;
+    [SerializeField] public Transform cameraSlot;
+    [SerializeField] public GameObject healthBar;
+    [SerializeField] public GameObject attackIndicator;
 
 
     public Agent agent;
