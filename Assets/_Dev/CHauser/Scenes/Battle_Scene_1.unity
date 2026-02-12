@@ -2235,6 +2235,7 @@ MonoBehaviour:
   moveSelectionPositn: {fileID: 748727114}
   cameraGameObject: {fileID: 1865652038}
   moveDuration: 1
+  moving: 0
 --- !u!4 &198818947
 Transform:
   m_ObjectHideFlags: 0
@@ -3495,6 +3496,8 @@ MonoBehaviour:
   mapSize: 10
   offsetX: 1
   offsetY: 1
+  internalOffsetX: 0
+  internalOffsetY: 0
   points: []
 --- !u!4 &409886133
 Transform:

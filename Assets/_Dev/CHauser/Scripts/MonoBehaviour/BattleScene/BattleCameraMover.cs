@@ -13,11 +13,6 @@ public class BattleCameraMover : MonoBehaviour
 
     public static BattleCameraMover instance;
 
-    private float clampedXMin = 0;
-    private float clampedZMin = 0;
-    private float clampedXMax = 0;
-    private float clampedZMax = 0;
-
     private void Start()
     {
         instance = this; 
