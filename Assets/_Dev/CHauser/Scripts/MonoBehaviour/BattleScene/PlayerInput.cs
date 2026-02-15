@@ -139,7 +139,7 @@ public class PlayerInput : MonoBehaviour
 
         prevTentativeGoalIndex = tentativeGoalIndex;
 
-        List<int> visualPath = PathFinding.AStarPath(currentTurnActor.agent.currentIndex, tentativeGoalIndex, 1);
+        List<int> visualPath = PathFinding.AStarPath(currentTurnActor.agent.currentIndex, tentativeGoalIndex, 0.5f);
 
         if (visualPath == null)
         {

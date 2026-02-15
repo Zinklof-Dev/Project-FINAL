@@ -11,10 +11,12 @@ public class EnemyAI : MonoBehaviour
 
     private Actor playerTarget;
     bool targetFound = false;
-
     public Actor currentTurnActor;
-    [SerializeField] List<Actor> evaluatedTargets = new List<Actor>();
+   // [SerializeField] List<Actor> evaluatedTargets = new List<Actor>();
     List<Actor> attackedTargets = new List<Actor>();
+    List<int> currentBestPath = null;
+    float currentBestDistance = Mathf.Infinity;
+    List<Actor> evaluatedTargets = new List<Actor>();
 
 
     private void Start()
@@ -50,79 +52,94 @@ public class EnemyAI : MonoBehaviour
     {
         FindTarget();
 
-        if (!targetFound)
+        if (targetFound)
         {
+            //Debug.Log("[EnemyAI] " + currentTurnActor.actorName + " Selected Target Actor: " + playerTarget.actorName);
+        }
+        else
+        {
+            Debug.Log("[EnemyAI] " + currentTurnActor.actorName + " Selected No Target Actor");
+            evaluatedTargets.Clear();
             TurnManager.instance.UpdateEnemyActorTurn();
-            evaluatedTargets = new List<Actor>();
             return;
         }
 
-        int? goalIndex = FindGoalIndex();
+        int? goalIndex = FindIfGoalIndexHasView();
 
         if (goalIndex == null)
         {
             evaluatedTargets.Add(playerTarget);
-            playerTarget = null;
             return;
         }
-
-        // TODO - logic to attack
-
-        evaluatedTargets = new List<Actor>();
+        
+        state = EnemyState.Moving;
         currentTurnActor.agent.goalIndex = (int) goalIndex;
         currentTurnActor.agent.StartNavigation();
-        state = EnemyState.Moving;
+        evaluatedTargets.Clear();
+        Debug.Log("[EnemyAI] " + currentTurnActor.actorName + " Selected Target Actor: " + playerTarget.actorName);
     }
 
     private void FindTarget()
     {
         playerTarget = null;
         targetFound = false;
+        currentBestPath = null;
+        currentBestDistance = Mathf.Infinity;
 
-        foreach (Actor player in ActorManager.instance.partyMemberActors)
+        foreach (Actor actor in ActorManager.instance.partyMemberActors)
         {
-            if (evaluatedTargets.Contains(player))
-                continue;
-
-
-            if (playerTarget == null)
+            if(evaluatedTargets.Contains(actor))
             {
-                List<int> path = PathFinding.AStarPath(currentTurnActor.agent.currentIndex, player.agent.currentIndex, 1);
-
-                if (path != null)
-                {
-                    playerTarget = player;
-                    targetFound = true;
-                }
-
                 continue;
             }
 
-            List<int> pathToCurrent = PathFinding.AStarPath(currentTurnActor.agent.currentIndex, playerTarget.agent.currentIndex, 1);
-            List<int> pathToNext = PathFinding.AStarPath(currentTurnActor.agent.currentIndex, player.agent.currentIndex, 1);
+            List<int> pathToActor = PathFinding.AStarPath(currentTurnActor.agent.currentIndex, actor.agent.currentIndex, 0.5f);
 
-            if (pathToNext == null)
-                continue;
-
-            if (Mathf.Abs(pathToNext.Count - 1 - currentTurnActor.range) < Mathf.Abs(pathToCurrent.Count - 1 - currentTurnActor.range))
+            if (pathToActor == null)
             {
-                playerTarget = player;
+                evaluatedTargets.Add(actor);
+                continue; 
+            }
+            
+            if (currentBestPath == null)
+            {
                 targetFound = true;
+                currentBestPath = pathToActor;
+                playerTarget = actor;
+                currentBestDistance = pathToActor.Count - (int)currentTurnActor.range;
+                currentBestDistance = Mathf.Clamp(currentBestDistance, 0, pathToActor.Count);
+                continue;
             }
-        }
+
+            int distanceToIdealRange = pathToActor.Count - (int) currentTurnActor.range;
+            distanceToIdealRange = Mathf.Clamp(distanceToIdealRange, 0, pathToActor.Count);
+
+            if (distanceToIdealRange < currentBestDistance)
+            {
+                targetFound = true;
+                currentBestPath = pathToActor;
+                playerTarget = actor;
+                currentBestDistance = distanceToIdealRange;
+                continue;
+            }
+       }
     }
 
-    private int? FindGoalIndex()
+    private int? FindIfGoalIndexHasView()
     {
-        List<int> path = PathFinding.AStarPath(currentTurnActor.agent.currentIndex, playerTarget.agent.currentIndex, 1);
+        int goalIndex = currentBestPath[(int) Mathf.Clamp((currentBestPath.Count - 1) - currentTurnActor.range, 0, (currentBestPath.Count - 1))];
+        Vector3 goalPosition = new Vector3(GridSystem.instance.points[goalIndex].x, 0.5f, GridSystem.instance.points[goalIndex].y);
+        Vector3 playerPosition = new Vector3(GridSystem.instance.points[playerTarget.agent.currentIndex].x, 0.5f, GridSystem.instance.points[playerTarget.agent.currentIndex].y);
+        Vector3 directionToPlayerFromGoal = (playerPosition - goalPosition).normalized;
 
-        if (path == null)
-            return null;
+        RaycastHit hit;
+        if (Physics.Raycast(goalPosition, directionToPlayerFromGoal, out hit))
+        {
+            if(hit.transform.gameObject != playerTarget.gameObject) 
+                return null;
+        }
 
-        if (path.Count - 1 > TurnManager.instance.actionPoints)
-            return null;
-
-        return path[Mathf.Clamp(path.Count - 1 - (int) currentTurnActor.range, 0, path.Count - 1)];
+        return goalIndex;
     }
 
     private void Moving()
