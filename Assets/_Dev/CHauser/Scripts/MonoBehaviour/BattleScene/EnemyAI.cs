@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using ZinklofDev.Utils.MathZ;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -15,6 +14,7 @@ public class EnemyAI : MonoBehaviour
 
     public Actor currentTurnActor;
     [SerializeField] List<Actor> evaluatedTargets = new List<Actor>();
+    List<Actor> attackedTargets = new List<Actor>();
 
 
     private void Start()
@@ -129,7 +129,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (currentTurnActor.agent.currentState == Agent.State.Idle)
         {   
-            // TODO- chage it to attacking instead, I just have it think again because the attacking locig isn't set up yet
+            // TODO- chage it to attacking instead, I just have it think again because the attacking logic isn't set up yet
             state = EnemyState.Thinking; // EnemyState.Attacking
             TurnManager.instance.UpdateEnemyActorTurn();
         }
