@@ -5,7 +5,7 @@ public class TurnManager : MonoBehaviour
     public static TurnManager instance;
     public int actionPoints = 10;
     public int maxActionPoints = 10;
-    private int currentPlayerIndex = 0;
+    public int currentPlayerIndex = 0;
     private int currentEnemyTurnIndex = 0;
 
 
@@ -58,10 +58,16 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    void UpdatePlayerActorTurn()
+    public void UpdatePlayerActorTurn()
     {
+        if (ActorManager.instance.partyMemberActors.Count == 0)
+        {
+            turnState = TurnState.Defeat;
+        }
+
         currentPlayerIndex++;
-        PlayerInput.instance.currentTurnActor.healthBar.SetActive(true);
+        if (PlayerInput.instance.currentTurnActor != null)
+            PlayerInput.instance.currentTurnActor.healthBar.SetActive(true);
 
         if (currentPlayerIndex > ActorManager.instance.partyMemberActors.Count - 1)
         {
@@ -82,6 +88,11 @@ public class TurnManager : MonoBehaviour
 
     public void UpdateEnemyActorTurn()
     {
+        if (ActorManager.instance.enemyActors.Count == 0)
+        {
+            turnState = TurnState.Victory;
+        }
+
         currentEnemyTurnIndex++;
 
         if (currentEnemyTurnIndex > ActorManager.instance.enemyActors.Count - 1)
@@ -93,5 +104,6 @@ public class TurnManager : MonoBehaviour
 
         actionPoints = maxActionPoints;
         EnemyAI.instance.currentTurnActor = ActorManager.instance.enemyActors[currentEnemyTurnIndex];
+
     }
 }

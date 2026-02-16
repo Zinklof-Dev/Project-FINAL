@@ -83,7 +83,7 @@ public class Agent : MonoBehaviour
         if (startIndex == goalIndex)
             return;
 
-        path = PathFinding.AStarPath(startIndex, goalIndex, 0.5f);
+        path = PathFinding.AStarPath(startIndex, goalIndex, 1);
 
         if(path == null)
         {

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using ZinklofDev.Utils.MathZ;
+using Unity.VisualScripting;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -8,15 +9,14 @@ public class EnemyAI : MonoBehaviour
 
     public enum EnemyState { Thinking, Moving, Attacking }
     public EnemyState state = EnemyState.Thinking;
+    public int attackAPCost = 5;
 
     private Actor playerTarget;
     bool targetFound = false;
     public Actor currentTurnActor;
-   // [SerializeField] List<Actor> evaluatedTargets = new List<Actor>();
-    List<Actor> attackedTargets = new List<Actor>();
     List<int> currentBestPath = null;
-    float currentBestDistance = Mathf.Infinity;
-    List<Actor> evaluatedTargets = new List<Actor>();
+    int currentBestIndex;
+    bool adjacentFound = false;
 
 
     private void Start()
@@ -42,6 +42,8 @@ public class EnemyAI : MonoBehaviour
 
             case EnemyState.Attacking:
 
+                Attacking();
+
                 break;
 
         }
@@ -52,30 +54,23 @@ public class EnemyAI : MonoBehaviour
     {
         FindTarget();
 
-        if (targetFound)
+        if(adjacentFound)
         {
-            //Debug.Log("[EnemyAI] " + currentTurnActor.actorName + " Selected Target Actor: " + playerTarget.actorName);
-        }
-        else
-        {
-            Debug.Log("[EnemyAI] " + currentTurnActor.actorName + " Selected No Target Actor");
-            evaluatedTargets.Clear();
-            TurnManager.instance.UpdateEnemyActorTurn();
+            adjacentFound = false;
             return;
         }
 
-        int? goalIndex = FindIfGoalIndexHasView();
-
-        if (goalIndex == null)
+        if (!targetFound)
         {
-            evaluatedTargets.Add(playerTarget);
+            Debug.Log("[EnemyAI] " + currentTurnActor.actorName + " Selected No Target Actor");
+            TurnManager.instance.UpdateEnemyActorTurn();
+
             return;
         }
         
         state = EnemyState.Moving;
-        currentTurnActor.agent.goalIndex = (int) goalIndex;
+        currentTurnActor.agent.goalIndex = currentBestIndex;
         currentTurnActor.agent.StartNavigation();
-        evaluatedTargets.Clear();
         Debug.Log("[EnemyAI] " + currentTurnActor.actorName + " Selected Target Actor: " + playerTarget.actorName);
     }
 
@@ -84,71 +79,111 @@ public class EnemyAI : MonoBehaviour
         playerTarget = null;
         targetFound = false;
         currentBestPath = null;
-        currentBestDistance = Mathf.Infinity;
 
         foreach (Actor actor in ActorManager.instance.partyMemberActors)
         {
-            if(evaluatedTargets.Contains(actor))
-            {
-                continue;
-            }
+            Debug.Log("New Actor");
 
-            List<int> pathToActor = PathFinding.AStarPath(currentTurnActor.agent.currentIndex, actor.agent.currentIndex, 0.5f);
+
+            List<int> pathToActor = PathFinding.AStarPath(currentTurnActor.agent.currentIndex, actor.agent.currentIndex, 2.25f);
 
             if (pathToActor == null)
             {
-                evaluatedTargets.Add(actor);
                 continue; 
             }
-            
-            if (currentBestPath == null)
+
+            int newGoalPathIndex = pathToActor.Count - 2;
+
+            if (newGoalPathIndex <= 0)
             {
-                targetFound = true;
-                currentBestPath = pathToActor;
+                newGoalPathIndex = 0;
+
+                // THIS MEANS THAT THEY ARE ADJACENT, GO INTO ATTACK MODE BYPASS MOVMENT
+
                 playerTarget = actor;
-                currentBestDistance = pathToActor.Count - (int)currentTurnActor.range;
-                currentBestDistance = Mathf.Clamp(currentBestDistance, 0, pathToActor.Count);
+                Debug.Log("[EnemyAI] " + currentTurnActor.actorName + " Selected Target Actor: " + playerTarget.actorName);
+
+                currentTurnActor.agent.LookAtEnemy(playerTarget);
+
+                state = EnemyState.Attacking;
+
+                adjacentFound = true;
+
+                return;
+            }
+
+            pathToActor = PathFinding.AStarPath(currentTurnActor.agent.currentIndex, pathToActor[newGoalPathIndex], 2.25f);
+
+            if (pathToActor == null)
+            {
                 continue;
             }
 
-            int distanceToIdealRange = pathToActor.Count - (int) currentTurnActor.range;
-            distanceToIdealRange = Mathf.Clamp(distanceToIdealRange, 0, pathToActor.Count);
+            newGoalPathIndex = pathToActor.Count - 1 - ((int)currentTurnActor.range - 1);
 
-            if (distanceToIdealRange < currentBestDistance)
+            if (newGoalPathIndex <= 0)
+            { 
+                newGoalPathIndex = 0;
+
+                // THIS MEANS THAT THEY ARE ADJACENT, GO INTO ATTACK MODE BYPASS MOVMENT
+
+                playerTarget = actor;
+                Debug.Log("[EnemyAI] " + currentTurnActor.actorName + " Selected Target Actor: " + playerTarget.actorName);
+
+                currentTurnActor.agent.LookAtEnemy(playerTarget);
+
+                state = EnemyState.Attacking;
+
+                adjacentFound = true;
+
+                return;
+            }
+
+            int newGoalIndex = pathToActor[newGoalPathIndex];
+            List<int> pathToBestIndex = PathFinding.AStarPath(currentTurnActor.agent.currentIndex, newGoalIndex, 1);
+
+            if (pathToBestIndex == null)
+                continue;
+
+            if (pathToBestIndex.Count - 1 + attackAPCost > TurnManager.instance.maxActionPoints)
+                continue;
+
+            Vector3 goalPosition = new Vector3(GridSystem.instance.points[newGoalIndex].x, 0.5f, GridSystem.instance.points[newGoalIndex].y);
+            Vector3 playerPosition = new Vector3(GridSystem.instance.points[actor.agent.currentIndex].x, 0.5f, GridSystem.instance.points[actor.agent.currentIndex].y);
+            Vector3 directionToPlayerFromGoal = (playerPosition - goalPosition).normalized;
+
+            RaycastHit hit;
+            if (Physics.Raycast(goalPosition, directionToPlayerFromGoal, out hit))
+            {
+                if (hit.transform.gameObject != actor.gameObject)
+                    continue;
+            }
+
+            if (currentBestPath == null || pathToBestIndex.Count < currentBestPath.Count)
             {
                 targetFound = true;
-                currentBestPath = pathToActor;
+                currentBestPath = pathToBestIndex;
                 playerTarget = actor;
-                currentBestDistance = distanceToIdealRange;
+                currentBestIndex = newGoalIndex;
                 continue;
             }
-       }
-    }
-
-    private int? FindIfGoalIndexHasView()
-    {
-        int goalIndex = currentBestPath[(int) Mathf.Clamp((currentBestPath.Count - 1) - currentTurnActor.range, 0, (currentBestPath.Count - 1))];
-        Vector3 goalPosition = new Vector3(GridSystem.instance.points[goalIndex].x, 0.5f, GridSystem.instance.points[goalIndex].y);
-        Vector3 playerPosition = new Vector3(GridSystem.instance.points[playerTarget.agent.currentIndex].x, 0.5f, GridSystem.instance.points[playerTarget.agent.currentIndex].y);
-        Vector3 directionToPlayerFromGoal = (playerPosition - goalPosition).normalized;
-
-        RaycastHit hit;
-        if (Physics.Raycast(goalPosition, directionToPlayerFromGoal, out hit))
-        {
-            if(hit.transform.gameObject != playerTarget.gameObject) 
-                return null;
         }
-
-        return goalIndex;
     }
 
     private void Moving()
     {
         if (currentTurnActor.agent.currentState == Agent.State.Idle)
-        {   
-            // TODO- chage it to attacking instead, I just have it think again because the attacking logic isn't set up yet
-            state = EnemyState.Thinking; // EnemyState.Attacking
-            TurnManager.instance.UpdateEnemyActorTurn();
+        {
+            currentTurnActor.agent.LookAtEnemy(playerTarget);
+            state = EnemyState.Attacking;
         }
+    }
+
+    private void Attacking()
+    {
+        // TODO- wait until the attack anim is done
+        playerTarget.TakeDamage(currentTurnActor.attackPower);
+        state = EnemyState.Thinking;
+        TurnManager.instance.UpdateEnemyActorTurn();
     }
 }

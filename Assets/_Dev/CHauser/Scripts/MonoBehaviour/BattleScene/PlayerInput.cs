@@ -59,6 +59,12 @@ public class PlayerInput : MonoBehaviour
         {
             pathVisualizer.gameObject.SetActive(false);
         }
+
+        if (currentTurnActor == null && TurnManager.instance.turnState != TurnManager.TurnState.Setup)
+        {
+            TurnManager.instance.currentPlayerIndex = -1;
+            TurnManager.instance.UpdatePlayerActorTurn();
+        }
     }
 
     int currentActionPointCost = 0;

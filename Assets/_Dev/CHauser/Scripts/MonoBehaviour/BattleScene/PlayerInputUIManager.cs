@@ -73,7 +73,8 @@ public class PlayerInputUIManager : MonoBehaviour
         attackInfoObject.SetActive(false);
         PlayerInput.instance.inputState = PlayerInput.InputState.Move;
         BattleCameraMover.instance.MoveCameraToMoveSelectionPosition();
-        PlayerInput.instance.currentTurnActor.healthBar.SetActive(true);
+        if(PlayerInput.instance.currentTurnActor != null)
+            PlayerInput.instance.currentTurnActor.healthBar.SetActive(true);
     }
 
     public void ConfirmMovePrompt()
