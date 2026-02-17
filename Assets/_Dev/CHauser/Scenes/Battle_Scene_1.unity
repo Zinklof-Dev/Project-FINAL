@@ -1388,7 +1388,7 @@ Transform:
   m_GameObject: {fileID: 78543610}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.837, y: 1.548, z: 0}
+  m_LocalPosition: {x: 0.837, y: 0.584, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7408,7 +7408,7 @@ MonoBehaviour:
   maxHealth: 10
   speed: 1
   range: 2
-  attackPower: 1
+  attackPower: 33.4
   weaponSlot: {fileID: 0}
   cameraSlot: {fileID: 0}
   healthBar: {fileID: 2006242171}
@@ -8228,7 +8228,7 @@ MonoBehaviour:
   maxHealth: 10
   speed: 1
   range: 2
-  attackPower: 1
+  attackPower: 33.4
   weaponSlot: {fileID: 0}
   cameraSlot: {fileID: 0}
   healthBar: {fileID: 105574461}
@@ -9339,7 +9339,7 @@ MonoBehaviour:
   maxHealth: 10
   speed: 1
   range: 2
-  attackPower: 1
+  attackPower: 33.4
   weaponSlot: {fileID: 0}
   cameraSlot: {fileID: 0}
   healthBar: {fileID: 1093036827}
@@ -11105,7 +11105,7 @@ MonoBehaviour:
   maxHealth: 10
   speed: 1
   range: 2
-  attackPower: 1
+  attackPower: 33.4
   weaponSlot: {fileID: 0}
   cameraSlot: {fileID: 0}
   healthBar: {fileID: 775518771}
@@ -13431,7 +13431,7 @@ MonoBehaviour:
   maxHealth: 10
   speed: 1
   range: 2
-  attackPower: 1
+  attackPower: 33.4
   weaponSlot: {fileID: 0}
   cameraSlot: {fileID: 0}
   healthBar: {fileID: 1772071280}
@@ -18372,7 +18372,7 @@ MonoBehaviour:
   maxHealth: 10
   speed: 1
   range: 2
-  attackPower: 1
+  attackPower: 33.4
   weaponSlot: {fileID: 0}
   cameraSlot: {fileID: 0}
   healthBar: {fileID: 374731861}
