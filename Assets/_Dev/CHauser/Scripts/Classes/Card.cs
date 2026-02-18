@@ -6,18 +6,30 @@ public class Card
    public enum ItemType 
     {
         // WEAPONS
-        Sword, Axe, /* <--- TEMP PLACEHOLDERS*/ 
-        /*TWO HANDED*/ Zweihander, Dane_Axe, Great_Sword, Two_Handed_Mace, Two_Handed_Hammer,
-        /*POLEARM*/ Spear, Bardiche, Voulge, Glave,
-        /*ONE HANDED*/ Bastard_Sword, Arming_Sword, Noble_Arming_Sword, Nord_Axe, Battle_Axe, Spiked_Mace, Cav_Mace, Battle_Hammer, Knife,
-        /*BOWS*/ Longbow, Shortbow, Curved_Bow, Hunting_Bow,
-        /*CROSSBOWS*/ Arbalest, Early_Crossbow,
-        /*SPECIAL*/ Halberd
+
+        Sword, Axe, // <--- TEMP PLACEHOLDERS
+        // TWO HANDED
+        Zweihander, Dane_Axe, Great_Sword, Two_Handed_Mace, Two_Handed_Hammer,
+        // POLEARM
+        Spear, Bardiche, Voulge, Glave,
+        // ONE HANDED
+        Bastard_Sword, Arming_Sword, Noble_Arming_Sword, Nord_Axe, Battle_Axe, Spiked_Mace, Cav_Mace, Battle_Hammer, Knife,
+        // BOWS
+        Longbow, Shortbow, Curved_Bow, Hunting_Bow,
+        // CROSSBOWS
+        Arbalest, Early_Crossbow,
+        // SPECIAL
+        Halberd,
+
+        //////////////////////////////////////////////////////////////////////
+
+        // SUPPORTER ITEMS
+        Health_Supporter, Range_Supporter, Action_Points_Supporter
     }; 
 
     public enum Rarity { Common, Uncommon, Rare, Epic, Legendary };
     public enum CardClass { Weapon, SupporterItem };
-    public enum CardSubClass { Two_Handed, Polearm, One_Handed, Bow, Crossbow, Special };
+    public enum CardSubClass { Two_Handed, Polearm, One_Handed, Bow, Crossbow, Special, None };
 
     public ItemType itemType;
     public Rarity rarity;
@@ -25,8 +37,16 @@ public class Card
     public CardSubClass cardSubClass;
 
     public string description;
+
+    // For weapons
     public float attackPower;
     public float bestRange;
+
+    // For supporter items
+    public float healthBonus;
+    public float rangeBonus;
+    public float actionPointBonus;
+
 
     public Card(ItemType itemType)
     {
@@ -34,6 +54,7 @@ public class Card
 
         switch (itemType)
         {
+            // TEMP
             case ItemType.Sword:
                 rarity = Rarity.Common;
                 cardClass = CardClass.Weapon;
@@ -51,7 +72,9 @@ public class Card
                 attackPower = 5;
                 bestRange = 2;
                 break;
-                //////////////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////////
+
+            // TWO HANDED
             case ItemType.Zweihander:
                 rarity = Rarity.Legendary;
                 cardClass = CardClass.Weapon;
@@ -84,6 +107,7 @@ public class Card
                 cardSubClass = CardSubClass.Two_Handed;
                 break;
 
+            // POLEARM
             case ItemType.Spear:
                 rarity = Rarity.Common;
                 cardClass = CardClass.Weapon;
@@ -108,6 +132,7 @@ public class Card
                 cardSubClass = CardSubClass.Polearm;
                 break;
 
+            // ONE HANDED
             case ItemType.Bastard_Sword:
                 rarity = Rarity.Uncommon;
                 cardClass = CardClass.Weapon;
@@ -162,6 +187,7 @@ public class Card
                 cardSubClass = CardSubClass.One_Handed;
                 break;
 
+            // BOWS
             case ItemType.Longbow:
                 rarity = Rarity.Uncommon;
                 cardClass = CardClass.Weapon;
@@ -186,6 +212,7 @@ public class Card
                 cardSubClass = CardSubClass.Bow;
                 break;
 
+            // CROSSBOWS
             case ItemType.Arbalest:
                 rarity = Rarity.Rare;
                 cardClass = CardClass.Weapon;
@@ -197,11 +224,37 @@ public class Card
                 cardClass = CardClass.Weapon;
                 cardSubClass = CardSubClass.Crossbow;
                 break;
-            
+
+            // SPECIAL            
             case ItemType.Halberd:
                 rarity = Rarity.Legendary;
                 cardClass = CardClass.Weapon;
                 cardSubClass = CardSubClass.Special;
+                break;
+
+            // Supporter Items
+            case ItemType.Health_Supporter:
+                rarity = Rarity.Common;
+                cardClass = CardClass.SupporterItem;
+                cardSubClass = CardSubClass.None;
+                healthBonus = 25;
+                description = $"Gives character {healthBonus} extra health.";
+                break;
+
+
+            case ItemType.Range_Supporter:
+                rarity = Rarity.Common;
+                cardClass = CardClass.SupporterItem;
+                cardSubClass = CardSubClass.None;
+                rangeBonus = 1;
+                break;
+
+            case ItemType.Action_Points_Supporter:
+                rarity = Rarity.Rare;
+                cardClass = CardClass.SupporterItem;
+                cardSubClass = CardSubClass.None;
+                actionPointBonus = 5;
+                description = $"Gives character {actionPointBonus} extra Action Points.";
                 break;
         }
     }

@@ -1,2 +1,41 @@
 fileFormatVersion: 2
 guid: 572ecaad185d8b440bfc1f5f461daef8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - cardPrefab: {instanceID: 0}
+  - content: {instanceID: 0}
+  - baseCanvas: {instanceID: 0}
+  - axeSprite: {fileID: 21300000, guid: ee50367d172d1c043982fa7d75d0ced9, type: 3}
+  - swordSprite: {fileID: 21300000, guid: 4c80c98053a114a46be413f09bd16a58, type: 3}
+  - zweihanderSprite: {instanceID: 0}
+  - daneAxeSprite: {instanceID: 0}
+  - greatSwordSprite: {instanceID: 0}
+  - twoHandedMaceSprite: {instanceID: 0}
+  - twoHandedHammerSprite: {instanceID: 0}
+  - spearSprite: {instanceID: 0}
+  - bardicheSprite: {instanceID: 0}
+  - voulgeSprite: {instanceID: 0}
+  - glaveSprite: {instanceID: 0}
+  - bastardSwordSprite: {instanceID: 0}
+  - armingSwordSprite: {instanceID: 0}
+  - nobleArmingSwordSprite: {instanceID: 0}
+  - nordAxeSprite: {instanceID: 0}
+  - battleAxeSprite: {instanceID: 0}
+  - spikedMaceSprite: {instanceID: 0}
+  - cavMaceSprite: {instanceID: 0}
+  - battleHammerSprite: {instanceID: 0}
+  - knifeSprite: {instanceID: 0}
+  - longbowSprite: {instanceID: 0}
+  - shortbowSprite: {instanceID: 0}
+  - curvedBowSprite: {instanceID: 0}
+  - huntingBowSprite: {instanceID: 0}
+  - arbalestSprite: {instanceID: 0}
+  - earlyCrossbowSprite: {instanceID: 0}
+  - halberdSprite: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
