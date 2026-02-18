@@ -17,6 +17,7 @@ public class Actor : MonoBehaviour
     [SerializeField] public float speed;
     [SerializeField] public float range; // Range is the number of gird squares away an actor can attack. // GOING TO CHANGE
     [SerializeField] public float attackPower;
+    [SerializeField] public float bonusAP;
     [SerializeField] public Transform weaponSlot;
     [SerializeField] public Transform cameraSlot;
     [SerializeField] public GameObject healthBar;
@@ -57,6 +58,26 @@ public class Actor : MonoBehaviour
         health = maxHealth;
         speed = character.speed;
         attackPower = character.attackPower;
+
+        float bonusHealth = 0;
+        foreach (Card card in character.inventory)
+        {
+            if (card.cardClass == Card.CardClass.SupporterItem && card.itemType == Card.ItemType.Health_Supporter)
+            {
+                bonusHealth += card.healthBonus;
+            }
+        }
+
+        health += bonusHealth;
+        maxHealth += bonusHealth;
+
+        foreach (Card card in character.inventory)
+        {
+            if (card.cardClass == Card.CardClass.SupporterItem && card.itemType == Card.ItemType.Action_Points_Supporter)
+            {
+                bonusAP += card.actionPointBonus;
+            }
+        }
 
         weapon = character.GetWeapon();
 

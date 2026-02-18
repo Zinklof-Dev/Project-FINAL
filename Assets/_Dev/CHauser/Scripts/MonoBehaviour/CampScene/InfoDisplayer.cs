@@ -18,7 +18,7 @@ public class InfoDisplayer : MonoBehaviour
     {
         instance.nameTxt.text = "Name: " + character.name;
         instance.backgroundTxt.text = character.background;
-        instance.healthTxt.text = "Health: " + character.health;
+        instance.healthTxt.text = "Health: " + (character.health + instance.GetHealthSupporterHealth(character));
         instance.speedTxt.text = "Speed: " + character.speed;
         instance.rangeTxt.text = "Best Range: " + instance.GetEquippedWeaponBestRange(character);
         instance.attackPowerTxt.text = "Attack Power: " + character.attackPower + " + " + instance.GetEquippedWeaponAttackPower(character).ToString();
@@ -47,5 +47,18 @@ public class InfoDisplayer : MonoBehaviour
         }
 
         return 0;
+    }
+
+    private float GetHealthSupporterHealth(PlayableCharacter character)
+    {
+        float extraHealth = 0;
+
+        foreach (Card card in character.inventory)
+        {
+            if (card.cardClass == Card.CardClass.SupporterItem && card.itemType == Card.ItemType.Health_Supporter)
+                extraHealth += card.healthBonus;
+        }
+
+        return extraHealth;
     }
 }

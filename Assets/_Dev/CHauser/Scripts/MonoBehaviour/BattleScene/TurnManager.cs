@@ -80,6 +80,7 @@ public class TurnManager : MonoBehaviour
         PlayerInput.instance.currentTurnActor = ActorManager.instance.partyMemberActors[currentPlayerIndex];
 
         actionPoints = maxActionPoints;
+        actionPoints += (int) PlayerInput.instance.currentTurnActor.bonusAP;
 
         PlayerInputUIManager.instance.UpdateActionPointsDisplay(actionPoints);
         PlayerInputUIManager.instance.UpdateActionPointsDisplayCost(0);

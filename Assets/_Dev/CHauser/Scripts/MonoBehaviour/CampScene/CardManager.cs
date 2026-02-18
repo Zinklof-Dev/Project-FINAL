@@ -237,9 +237,15 @@ public class CardManager : MonoBehaviour, IDataPersistence
                 break;
 
             // SUPPORTER
+
             case Card.ItemType.Health_Supporter:
+                cardMonoBehaviour.cardImageObject.sprite = healthSupporterSprite;
+                break;
+
+            case Card.ItemType.Range_Supporter:
                 cardMonoBehaviour.cardImageObject.sprite = rangeSupporterSprite;
                 break;
+
             case Card.ItemType.Action_Points_Supporter:
                 cardMonoBehaviour.cardImageObject.sprite = actionPointsSupporterSprite;
                 break;

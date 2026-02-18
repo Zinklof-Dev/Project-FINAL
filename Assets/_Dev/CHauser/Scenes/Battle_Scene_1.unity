@@ -2938,6 +2938,7 @@ MonoBehaviour:
   speed: 1
   range: 1
   attackPower: 1
+  bonusAP: 0
   weaponSlot: {fileID: 1095101698}
   cameraSlot: {fileID: 2118827135}
   healthBar: {fileID: 1833426182}
@@ -7409,6 +7410,7 @@ MonoBehaviour:
   speed: 1
   range: 2
   attackPower: 33.4
+  bonusAP: 0
   weaponSlot: {fileID: 0}
   cameraSlot: {fileID: 0}
   healthBar: {fileID: 2006242171}
@@ -8229,6 +8231,7 @@ MonoBehaviour:
   speed: 1
   range: 2
   attackPower: 33.4
+  bonusAP: 0
   weaponSlot: {fileID: 0}
   cameraSlot: {fileID: 0}
   healthBar: {fileID: 105574461}
@@ -9340,6 +9343,7 @@ MonoBehaviour:
   speed: 1
   range: 2
   attackPower: 33.4
+  bonusAP: 0
   weaponSlot: {fileID: 0}
   cameraSlot: {fileID: 0}
   healthBar: {fileID: 1093036827}
@@ -10372,6 +10376,9 @@ MonoBehaviour:
         Efficent 2 Units Away"
       attackPower: 5
       bestRange: 2
+      healthBonus: 0
+      rangeBonus: 0
+      actionPointBonus: 0
     - itemType: 1
       rarity: 1
       cardClass: 0
@@ -10380,6 +10387,9 @@ MonoBehaviour:
         Efficent 2 Units Away"
       attackPower: 5
       bestRange: 2
+      healthBonus: 0
+      rangeBonus: 0
+      actionPointBonus: 0
     squad: []
     generateRecruits: 1
   namesList:
@@ -11106,6 +11116,7 @@ MonoBehaviour:
   speed: 1
   range: 2
   attackPower: 33.4
+  bonusAP: 0
   weaponSlot: {fileID: 0}
   cameraSlot: {fileID: 0}
   healthBar: {fileID: 775518771}
@@ -13432,6 +13443,7 @@ MonoBehaviour:
   speed: 1
   range: 2
   attackPower: 33.4
+  bonusAP: 0
   weaponSlot: {fileID: 0}
   cameraSlot: {fileID: 0}
   healthBar: {fileID: 1772071280}
@@ -14078,6 +14090,7 @@ MonoBehaviour:
   speed: 1
   range: 1
   attackPower: 1
+  bonusAP: 0
   weaponSlot: {fileID: 1424974965}
   cameraSlot: {fileID: 571835647}
   healthBar: {fileID: 589661405}
@@ -15053,6 +15066,7 @@ MonoBehaviour:
   speed: 1
   range: 1
   attackPower: 1
+  bonusAP: 0
   weaponSlot: {fileID: 78543611}
   cameraSlot: {fileID: 537926431}
   healthBar: {fileID: 8270723756561926125}
@@ -18205,6 +18219,7 @@ MonoBehaviour:
   speed: 1
   range: 1
   attackPower: 1
+  bonusAP: 0
   weaponSlot: {fileID: 1014902653}
   cameraSlot: {fileID: 301304884}
   healthBar: {fileID: 2098060641}
@@ -18373,6 +18388,7 @@ MonoBehaviour:
   speed: 1
   range: 2
   attackPower: 33.4
+  bonusAP: 0
   weaponSlot: {fileID: 0}
   cameraSlot: {fileID: 0}
   healthBar: {fileID: 374731861}

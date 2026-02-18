@@ -131,6 +131,18 @@ public class CardInfoDisplayer : MonoBehaviour
             case Card.ItemType.Halberd:
                 instance.image.sprite = CardManager.instance.halberdSprite;
                 break;
+
+            case Card.ItemType.Health_Supporter:
+                instance.image.sprite = CardManager.instance.healthSupporterSprite;
+                break;
+
+            case Card.ItemType.Range_Supporter:
+                instance.image.sprite = CardManager.instance.rangeSupporterSprite;
+                break;
+
+            case Card.ItemType.Action_Points_Supporter:
+                instance.image.sprite = CardManager.instance.actionPointsSupporterSprite;
+                break;
         }
 
     }
