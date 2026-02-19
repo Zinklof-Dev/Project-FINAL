@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static TurnManager;
 
 public class Actor : MonoBehaviour
 {
@@ -115,6 +116,15 @@ public class Actor : MonoBehaviour
         ActorManager.instance.allActors.Remove(this);
         ActorManager.instance.partyMemberActors.Remove(this);
         ActorManager.instance.enemyActors.Remove(this);
+
+        if (ActorManager.instance.partyMemberActors.Count == 0)
+        {
+            TurnManager.instance.turnState = TurnState.Defeat;
+        }
+        if (ActorManager.instance.enemyActors.Count == 0)
+        {
+            TurnManager.instance.turnState = TurnState.Victory;
+        }
 
         if (ActorManager.instance.enemyActors.Count != 0)
             PlayerInput.instance.targetEnemyActor = ActorManager.instance.enemyActors[0];

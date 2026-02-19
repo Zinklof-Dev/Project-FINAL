@@ -64,6 +64,10 @@ public class TurnManager : MonoBehaviour
         {
             turnState = TurnState.Defeat;
         }
+        if (ActorManager.instance.enemyActors.Count == 0)
+        {
+            turnState = TurnState.Victory;
+        }
 
         currentPlayerIndex++;
         if (PlayerInput.instance.currentTurnActor != null)
@@ -73,6 +77,7 @@ public class TurnManager : MonoBehaviour
         {
             currentPlayerIndex = 0;
             turnState = TurnState.EnemyTurn;
+            BattleCameraMover.instance.MoveCameraToMoveSelectionPosition();
         }
         else
             PlayerInputUIManager.instance.MoveMode();
@@ -89,6 +94,10 @@ public class TurnManager : MonoBehaviour
 
     public void UpdateEnemyActorTurn()
     {
+        if (ActorManager.instance.partyMemberActors.Count == 0)
+        {
+            turnState = TurnState.Defeat;
+        }
         if (ActorManager.instance.enemyActors.Count == 0)
         {
             turnState = TurnState.Victory;

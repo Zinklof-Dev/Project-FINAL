@@ -148,6 +148,8 @@ public class Agent : MonoBehaviour
 
     public void LookAtEnemy (Actor enemy)
     {
+        if (enemy == null) return;
+
         directionToEnemy = (enemy.transform.position - transform.position).normalized;
         startRotationToLookAtEnemy = transform.rotation;
         goalRotationToLookAtEnemy = Quaternion.LookRotation(directionToEnemy, Vector3.up);

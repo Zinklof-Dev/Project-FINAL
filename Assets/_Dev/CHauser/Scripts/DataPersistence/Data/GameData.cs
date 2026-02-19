@@ -25,6 +25,9 @@ public class GameData
         Card card2 = new Card(Card.ItemType.Axe);
         Card card3 = new Card(Card.ItemType.Health_Supporter);
         Card card4 = new Card(Card.ItemType.Action_Points_Supporter);
+
+        cards.Add(card1);
+        cards.Add(card2);
         cards.Add(card1);
         cards.Add(card2);
         cards.Add(card3);
