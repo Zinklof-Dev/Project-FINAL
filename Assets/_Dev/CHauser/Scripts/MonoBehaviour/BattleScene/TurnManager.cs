@@ -95,16 +95,16 @@ public class TurnManager : MonoBehaviour
         }
 
         currentEnemyTurnIndex++;
+        actionPoints = maxActionPoints;
 
         if (currentEnemyTurnIndex > ActorManager.instance.enemyActors.Count - 1)
         {
+            actionPoints += (int) PlayerInput.instance.currentTurnActor.bonusAP;
             currentEnemyTurnIndex = 0;
             turnState = TurnState.PlayerTurn;
             PlayerInputUIManager.instance.MoveMode();
         }
 
-        actionPoints = maxActionPoints;
         EnemyAI.instance.currentTurnActor = ActorManager.instance.enemyActors[currentEnemyTurnIndex];
-
     }
 }

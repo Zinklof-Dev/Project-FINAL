@@ -86,7 +86,7 @@ public class Card
                 rarity = Rarity.Rare;
                 cardClass = CardClass.Weapon;
                 cardSubClass = CardSubClass.Two_Handed;
-                description = "Meduim speed, high damage";
+                description = "Meduim speed, high damage.";
                 break;
 
             case ItemType.Great_Sword:
