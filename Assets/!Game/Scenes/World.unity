@@ -840,7 +840,7 @@ MonoBehaviour:
   cameraObjective2: {fileID: 649226035}
   objObjective: {fileID: 1167006278}
   cameraTransform: {fileID: 801091617}
-  speed: 10
+  speed: 25
   rotSpeed: 100
   scrollSpeed: 1000
   shiftMult: 2.5
