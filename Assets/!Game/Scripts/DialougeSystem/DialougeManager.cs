@@ -1,3 +1,4 @@
+/*
 using System;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -14,8 +15,9 @@ namespace BOTD.Dialouge
         [SerializeField] Speaker[] speakers;
         [SerializeField] Line[] lines;
         [Header("Settings")]
-        [SerializeField] float timePerChar = 0.05f;
+        [SerializeField] float timePerChar = 0.025f;
         [SerializeField] float dialougeTimeScale = 0f;
+        [SerializeField] float lerp = 0.1f;
         [Header("References")]
         [SerializeField] Volume volume;
         [SerializeField] TMP_Text dialougeBox;
@@ -27,6 +29,9 @@ namespace BOTD.Dialouge
 
         DepthOfField dof;
 
+        RectTransform rt;
+        bool open, awaiting, done = false;
+
         private void Start()
         {
             if (!volume.profile.TryGet<DepthOfField>(out dof))
@@ -35,36 +40,52 @@ namespace BOTD.Dialouge
             }
 
             StartDialouge();
+
+            rt = gameObject.GetComponent<RectTransform>();
+
+            rt.anchoredPosition.y = -rt.achoredPosition.height
         }
         
         public void StartDialouge()
         {
+            returnTimeScale = Time.timeScale;
             Time.timeScale = dialougeTimeScale;
 
             dof.active = true;
-            
-            NextLine();
+
+            open = true;
+            awaiting true;
         }
 
         public void NextLine()
         {
+            if (awaiting || !open)
+            {
+                return;
+            }
+        
             StopAllCoroutines();
 
-            currentLine++;
-
-            if (currentLine > lines.Length - 1)
+            if (++currentLine > lines.Length - 1)
             {
-                cleanUpDialouge();
+                done = true;
                 return;
             }
 
-            speakerName.text = speakers[lines[currentLine].speaker].name;
+            Speaker s = lines[currentLine].speaker;
+
+            if (s.overrideColors)
+                s.image.color = s.speaking;
+            else
+                s.image.color = Color.white;
+
+            speakerName.text = s.name;
             dialougeBox.text = "";
 
             StartCoroutine(Typewriter());
         }
 
-        private void cleanUpDialouge()
+        private void cleanupDialouge()
         {
             Time.timeScale = returnTimeScale;
 
@@ -87,6 +108,32 @@ namespace BOTD.Dialouge
             {
                 dialougeBox.text += c;
                 yield return new WaitForSecondsRealtime(timePerChar);
+            }
+            if (open)
+            {
+                rt.anchoredPosition.y = mathF.lerp(rt.anchoredPosition.y, 0, lerp);
+            }
+            else
+            {
+                rt.anchoredPosition.y = mathF.lerp(rt.anchoredPosition.y, -rt.anchoredPosition.height, lerp);
+            }
+
+            if (awaiting)
+            {
+                if (rt.anchoredPosition.y > -2.5f)
+                {
+                    rt.anchoredPosition.y = 0;
+                    
+                    NextLine();
+                    awaiting = false;
+                }
+            }
+            else if (done)
+            {
+                if (rt.anchoredPosition.y <-rt.anchoredPosition.height + 2.5f)
+                {
+                    CleanupDialouge();
+                }
             }
         }
     }
