@@ -63,10 +63,12 @@ public class TurnManager : MonoBehaviour
         if (ActorManager.instance.partyMemberActors.Count == 0)
         {
             turnState = TurnState.Defeat;
+            return;
         }
         if (ActorManager.instance.enemyActors.Count == 0)
         {
             turnState = TurnState.Victory;
+            return;
         }
 
         currentPlayerIndex++;
@@ -97,10 +99,12 @@ public class TurnManager : MonoBehaviour
         if (ActorManager.instance.partyMemberActors.Count == 0)
         {
             turnState = TurnState.Defeat;
+            return;
         }
         if (ActorManager.instance.enemyActors.Count == 0)
         {
             turnState = TurnState.Victory;
+            return;
         }
 
         currentEnemyTurnIndex++;
