@@ -15,7 +15,7 @@ namespace BOTD.Dialouge
     public struct Speaker
     {
         [SerializeField] public string name;
-        [SerializeField] public Image sprite;
+        [SerializeField] public Sprite sprite;
 
         [SerializeField] private bool overrideColors;
         [SerializeField] private Color notSpeaking;
