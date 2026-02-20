@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace BOTD.Dialouge
 {
@@ -14,8 +15,7 @@ namespace BOTD.Dialouge
     public struct Speaker
     {
         [SerializeField] public string name;
-        [SerializeField] public Sprite sprite;
-        [SerializeField] public Vector2 scale;
+        [SerializeField] public Image sprite;
 
         [SerializeField] private bool overrideColors;
         [SerializeField] private Color notSpeaking;
