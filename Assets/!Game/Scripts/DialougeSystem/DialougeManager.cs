@@ -1,9 +1,10 @@
-/*using System;
+using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using TMPro;
 using System.Collections;
+using System.Linq.Expressions;
 
 namespace BOTD.Dialouge
 {
@@ -26,12 +27,14 @@ namespace BOTD.Dialouge
 
         DepthOfField dof;
 
-        private void start()
+        private void Start()
         {
-            if (!volume.profile.TryGet<DepthOfFeild>(out dof))
+            if (!volume.profile.TryGet<DepthOfField>(out dof))
             {
                 Debug.LogWarning("Volume does not have a depth of field!");
-            }                
+            }
+
+            StartDialouge();
         }
         
         public void StartDialouge()
@@ -45,10 +48,20 @@ namespace BOTD.Dialouge
 
         public void NextLine()
         {
-            currentLine++:
+            StopAllCoroutines();
 
-            speakerName = speakers[lines[currentLine].speaker].name;
+            currentLine++;
+
+            if (currentLine > lines.Length - 1)
+            {
+                cleanUpDialouge();
+                return;
+            }
+
+            speakerName.text = speakers[lines[currentLine].speaker].name;
             dialougeBox.text = "";
+
+            StartCoroutine(Typewriter());
         }
 
         private void cleanUpDialouge()
@@ -56,6 +69,16 @@ namespace BOTD.Dialouge
             Time.timeScale = returnTimeScale;
 
             dof.active = false;
+
+            Destroy(this.gameObject);
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyUp(KeyCode.P))
+            {
+                NextLine();
+            }
         }
 
         IEnumerator Typewriter()
@@ -63,9 +86,8 @@ namespace BOTD.Dialouge
             foreach (char c in lines[currentLine].text)
             {
                 dialougeBox.text += c;
-                yield await new WaitForSeconds(timePerChar);
+                yield return new WaitForSecondsRealtime(timePerChar);
             }
         }
     }
 }
-*/

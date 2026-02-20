@@ -6,16 +6,16 @@ namespace BOTD.Dialouge
     [Serializable]
     public struct Line
     {
-        [SerializeField] private string text;
-        [SerializeField] private byte speaker; // 0 always = player
+        [SerializeField] public string text;
+        [SerializeField] public byte speaker;
     }
 
     [Serializable]
-    public struct speaker
+    public struct Speaker
     {
-        [SerializeField] private string name;
-        [SerializeField] private Sprite sprite;
-        [SerializeField] private Vector2 scale;
+        [SerializeField] public string name;
+        [SerializeField] public Sprite sprite;
+        [SerializeField] public Vector2 scale;
 
         [SerializeField] private bool overrideColors;
         [SerializeField] private Color notSpeaking;
