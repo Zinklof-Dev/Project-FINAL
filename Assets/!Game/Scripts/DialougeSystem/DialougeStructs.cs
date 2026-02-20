@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace BOTD.Dialouge
 {
-    [Serializeable]
+    [Serializable]
     public struct Line
     {
         [SerializeField] private string text;
         [SerializeField] private byte speaker; // 0 always = player
     }
 
-    [Serializeable]
+    [Serializable]
     public struct speaker
     {
         [SerializeField] private string name;

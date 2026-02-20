@@ -1,8 +1,9 @@
-using System;
+/*using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using TMPro;
+using System.Collections;
 
 namespace BOTD.Dialouge
 {
@@ -29,7 +30,7 @@ namespace BOTD.Dialouge
         {
             if (!volume.profile.TryGet<DepthOfFeild>(out dof))
             {
-                Debug.LogWarning("Volume does not have a depth of field!")
+                Debug.LogWarning("Volume does not have a depth of field!");
             }                
         }
         
@@ -67,3 +68,4 @@ namespace BOTD.Dialouge
         }
     }
 }
+*/

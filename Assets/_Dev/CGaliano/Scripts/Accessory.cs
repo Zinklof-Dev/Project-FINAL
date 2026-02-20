@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace BOTD.CharacterModels
 {
-    [Serializeable]
+    [Serializable]
     public struct Accessory
     {
         public Mesh mesh;
