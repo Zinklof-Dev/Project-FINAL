@@ -9,16 +9,13 @@ namespace BOTD.Dialouge
     {
         [SerializeField] public string text;
         [SerializeField] public byte speaker;
+        [SerializeField] public byte expression;
     }
 
     [Serializable]
     public struct Speaker
     {
         [SerializeField] public string name;
-        [SerializeField] public Image sprite;
-
-        [SerializeField] private bool overrideColors;
-        [SerializeField] private Color notSpeaking;
-        [SerializeField] private Color speaking;
+        [SerializeField] public Sprite[] expressions;
     }
 }

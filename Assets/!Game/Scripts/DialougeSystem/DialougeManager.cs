@@ -1,4 +1,3 @@
-/*
 using System;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -6,6 +5,7 @@ using UnityEngine.Rendering.Universal;
 using TMPro;
 using System.Collections;
 using System.Linq.Expressions;
+using UnityEngine.UI;
 
 namespace BOTD.Dialouge
 {
@@ -22,6 +22,9 @@ namespace BOTD.Dialouge
         [SerializeField] Volume volume;
         [SerializeField] TMP_Text dialougeBox;
         [SerializeField] TMP_Text speakerName;
+        [SerializeField] Image speakerImage;
+        [Header("Debug")]
+        [SerializeField] Vector3 pos;
     
         int currentLine = -1; // -1 = no dialouge right now;
 
@@ -30,20 +33,24 @@ namespace BOTD.Dialouge
         DepthOfField dof;
 
         RectTransform rt;
-        bool open, awaiting, done = false;
+        public bool open, awaiting, done = false;
+
+        float halfres;
 
         private void Start()
         {
+            halfres = Screen.currentResolution.height / 2;
+
             if (!volume.profile.TryGet<DepthOfField>(out dof))
             {
                 Debug.LogWarning("Volume does not have a depth of field!");
             }
 
-            StartDialouge();
+            //StartDialouge();
 
             rt = gameObject.GetComponent<RectTransform>();
 
-            rt.anchoredPosition.y = -rt.achoredPosition.height
+            rt.localPosition = new Vector3 (0, -halfres - 700, 0);
         }
         
         public void StartDialouge()
@@ -54,7 +61,7 @@ namespace BOTD.Dialouge
             dof.active = true;
 
             open = true;
-            awaiting true;
+            awaiting = true;
         }
 
         public void NextLine()
@@ -72,12 +79,9 @@ namespace BOTD.Dialouge
                 return;
             }
 
-            Speaker s = lines[currentLine].speaker;
+            Speaker s = speakers[lines[currentLine].speaker];
 
-            if (s.overrideColors)
-                s.image.color = s.speaking;
-            else
-                s.image.color = Color.white;
+            speakerImage.sprite = s.expressions[lines[currentLine].expression];
 
             speakerName.text = s.name;
             dialougeBox.text = "";
@@ -85,7 +89,7 @@ namespace BOTD.Dialouge
             StartCoroutine(Typewriter());
         }
 
-        private void cleanupDialouge()
+        private void CleanupDialouge()
         {
             Time.timeScale = returnTimeScale;
 
@@ -96,9 +100,40 @@ namespace BOTD.Dialouge
 
         private void Update()
         {
+            pos = rt.localPosition;
+
             if (Input.GetKeyUp(KeyCode.P))
             {
                 NextLine();
+            }
+            if (Input.GetKeyUp(KeyCode.O))
+            {
+                StartDialouge();
+            }
+
+            if (open)
+            {
+                rt.localPosition = new Vector3(0, Mathf.Lerp(rt.localPosition.y, -halfres, lerp), 0);
+            }
+            else
+            {
+                rt.localPosition = new Vector3(0, Mathf.Lerp(rt.localPosition.y, -halfres - 700, lerp), 0);
+            }
+
+            if (awaiting)
+            {
+                if (rt.localPosition.y < -540.1f)
+                {
+                    awaiting = false;
+                    NextLine();
+                }
+            }
+            else if (done)
+            {
+                if (rt.localPosition.y < -540 + 2.5f)
+                {
+                    CleanupDialouge();
+                }
             }
         }
 
@@ -109,33 +144,7 @@ namespace BOTD.Dialouge
                 dialougeBox.text += c;
                 yield return new WaitForSecondsRealtime(timePerChar);
             }
-            if (open)
-            {
-                rt.anchoredPosition.y = mathF.lerp(rt.anchoredPosition.y, 0, lerp);
-            }
-            else
-            {
-                rt.anchoredPosition.y = mathF.lerp(rt.anchoredPosition.y, -rt.anchoredPosition.height, lerp);
-            }
 
-            if (awaiting)
-            {
-                if (rt.anchoredPosition.y > -2.5f)
-                {
-                    rt.anchoredPosition.y = 0;
-                    
-                    NextLine();
-                    awaiting = false;
-                }
-            }
-            else if (done)
-            {
-                if (rt.anchoredPosition.y <-rt.anchoredPosition.height + 2.5f)
-                {
-                    CleanupDialouge();
-                }
-            }
         }
     }
 }
-*/
