@@ -17,5 +17,6 @@ namespace BOTD.Dialouge
     {
         [SerializeField] public string name;
         [SerializeField] public Sprite[] expressions;
+        [SerializeField] public Transform lookAtPoint;
     }
 }

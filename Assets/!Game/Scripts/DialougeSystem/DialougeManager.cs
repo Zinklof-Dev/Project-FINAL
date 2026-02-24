@@ -18,37 +18,41 @@ namespace BOTD.Dialouge
         [SerializeField] float timePerChar = 0.025f;
         [SerializeField] float dialougeTimeScale = 0f;
         [SerializeField] float lerp = 0.1f;
+        [SerializeField] float rotateDegrees;
+        [SerializeField] bool doDOF;
+        [SerializeField] bool LookatSpeaker;
         [Header("References")]
         [SerializeField] Volume volume;
         [SerializeField] TMP_Text dialougeBox;
         [SerializeField] TMP_Text speakerName;
         [SerializeField] Image speakerImage;
-        [Header("Debug")]
-        [SerializeField] Vector3 pos;
-    
+
+        // Status
+        bool open, awaiting, done = false;
         int currentLine = -1; // -1 = no dialouge right now;
-
+        // Memories
         float returnTimeScale;
-
+        // References
         DepthOfField dof;
-
         RectTransform rt;
-        public bool open, awaiting, done = false;
-
+        transform lookAt;
+        transform cameraTransform;
+        // Saved Math Results
         float halfres;
 
         private void Start()
         {
+            // save result of common math
             halfres = Screen.currentResolution.height / 2;
 
+            // fetch references
             if (!volume.profile.TryGet<DepthOfField>(out dof))
             {
                 Debug.LogWarning("Volume does not have a depth of field!");
             }
 
-            //StartDialouge();
-
             rt = gameObject.GetComponent<RectTransform>();
+            cameraTransform = GameObject.FindGameObjectWithTag("MainCaemera").GetComponent<transform>();
 
             rt.localPosition = new Vector3 (0, -halfres - 700, 0);
         }
@@ -58,7 +62,8 @@ namespace BOTD.Dialouge
             returnTimeScale = Time.timeScale;
             Time.timeScale = dialougeTimeScale;
 
-            dof.active = true;
+            if (doDOF)
+                dof.active = true;
 
             open = true;
             awaiting = true;
@@ -81,6 +86,9 @@ namespace BOTD.Dialouge
 
             Speaker s = speakers[lines[currentLine].speaker];
 
+            if (LookatSpeaker)
+                lookAt = s.lookAtPoint;
+
             speakerImage.sprite = s.expressions[lines[currentLine].expression];
 
             speakerName.text = s.name;
@@ -93,24 +101,14 @@ namespace BOTD.Dialouge
         {
             Time.timeScale = returnTimeScale;
 
-            dof.active = false;
+            if (doDOF)
+                dof.active = false;
 
             Destroy(this.gameObject);
         }
 
-        private void Update()
+        private void DoLerp()
         {
-            pos = rt.localPosition;
-
-            if (Input.GetKeyUp(KeyCode.P))
-            {
-                NextLine();
-            }
-            if (Input.GetKeyUp(KeyCode.O))
-            {
-                StartDialouge();
-            }
-
             if (open)
             {
                 rt.localPosition = new Vector3(0, Mathf.Lerp(rt.localPosition.y, -halfres, lerp), 0);
@@ -135,6 +133,21 @@ namespace BOTD.Dialouge
                     CleanupDialouge();
                 }
             }
+
+            if (LookatSpeaker)
+                cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.Rotation, Quaternon.LookRotation(lookAt, Vector3.up), rotateDegrees);
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyUp(KeyCode.P))
+            {
+                NextLine();
+            }
+            if (Input.GetKeyUp(KeyCode.O))
+            {
+                StartDialouge();
+            }
         }
 
         IEnumerator Typewriter()
@@ -144,7 +157,6 @@ namespace BOTD.Dialouge
                 dialougeBox.text += c;
                 yield return new WaitForSecondsRealtime(timePerChar);
             }
-
         }
     }
 }
