@@ -52,7 +52,7 @@ namespace BOTD.Dialouge
             }
 
             rt = gameObject.GetComponent<RectTransform>();
-            cameraTransform = GameObject.FindGameObjectWithTag("MainCaemera").GetComponent<Transform>();
+            cameraTransform = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
 
             rt.localPosition = new Vector3 (0, -halfres - 700, 0);
         }
@@ -83,6 +83,8 @@ namespace BOTD.Dialouge
                 done = true;
                 return;
             }
+
+            Debug.Log(currentLine);
 
             Speaker s = speakers[lines[currentLine].speaker];
 
@@ -149,8 +151,8 @@ namespace BOTD.Dialouge
                 }
             }
 
-            if (LookatSpeaker)
-                cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.rotation, Quaternion.LookRotation(lookAt.position, Vector3.up), rotateDegrees);
+            if (LookatSpeaker && open)
+                cameraTransform.rotation = Quaternion.Slerp(cameraTransform.rotation, Quaternion.LookRotation(lookAt.position - cameraTransform.position, cameraTransform.up), rotateDegrees);
         }
 
         private void Update()
