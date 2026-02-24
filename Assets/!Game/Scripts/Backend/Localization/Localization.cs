@@ -15,11 +15,11 @@ namespace BOTD.Localization {
 
     public static class Internal 
     {
-        private LocalizationLibrary[] LocalizedGame;
+        static private LocalizationLibrary[] LocalizedGame;
 
         static bool LoadLocalization()
         {
-
+            return false;
         }
 
         public static string LookUpKey(string key, string library = "")
@@ -28,11 +28,11 @@ namespace BOTD.Localization {
             {
                 foreach (LocalizationLibrary ll in LocalizedGame)
                 {
-                    if (ll.name == library)
+                    if (ll.libraryName == library)
                     {
                         foreach (Loc l in ll.localizations)
                         {
-                            if (l.key = key)
+                            if (l.key == key)
                                 return l.value;
                         }
                     }
@@ -42,6 +42,7 @@ namespace BOTD.Localization {
             else
             {
             }
+            return key;
         }
     }
 }

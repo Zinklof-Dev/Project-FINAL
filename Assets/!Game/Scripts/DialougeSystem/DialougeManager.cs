@@ -35,8 +35,8 @@ namespace BOTD.Dialouge
         // References
         DepthOfField dof;
         RectTransform rt;
-        transform lookAt;
-        transform cameraTransform;
+        Transform lookAt;
+        Transform cameraTransform;
         // Saved Math Results
         float halfres;
 
@@ -52,7 +52,7 @@ namespace BOTD.Dialouge
             }
 
             rt = gameObject.GetComponent<RectTransform>();
-            cameraTransform = GameObject.FindGameObjectWithTag("MainCaemera").GetComponent<transform>();
+            cameraTransform = GameObject.FindGameObjectWithTag("MainCaemera").GetComponent<Transform>();
 
             rt.localPosition = new Vector3 (0, -halfres - 700, 0);
         }
@@ -109,7 +109,22 @@ namespace BOTD.Dialouge
 
         private void DoLerp()
         {
-            if (open)
+            if (Input.GetKeyUp(KeyCode.P))
+            {
+                NextLine();
+            }
+            if (Input.GetKeyUp(KeyCode.O))
+            {
+                StartDialouge();
+            }
+
+            if (done)
+            {
+                rt.localPosition = new Vector3(0, Mathf.Lerp(rt.localPosition.y, -halfres - 735, lerp), 0);
+                dof.active = false;
+            }
+            else if (open)
+
             {
                 rt.localPosition = new Vector3(0, Mathf.Lerp(rt.localPosition.y, -halfres, lerp), 0);
             }
@@ -120,7 +135,7 @@ namespace BOTD.Dialouge
 
             if (awaiting)
             {
-                if (rt.localPosition.y < -540.1f)
+                if (rt.localPosition.y < halfres -540.1f)
                 {
                     awaiting = false;
                     NextLine();
@@ -128,14 +143,14 @@ namespace BOTD.Dialouge
             }
             else if (done)
             {
-                if (rt.localPosition.y < -540 + 2.5f)
-                {
+                if (rt.localPosition.y < -halfres - 735f + 2.5f)
+                { 
                     CleanupDialouge();
                 }
             }
 
             if (LookatSpeaker)
-                cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.Rotation, Quaternon.LookRotation(lookAt, Vector3.up), rotateDegrees);
+                cameraTransform.rotation = Quaternion.RotateTowards(cameraTransform.rotation, Quaternion.LookRotation(lookAt.position, Vector3.up), rotateDegrees);
         }
 
         private void Update()
@@ -148,6 +163,8 @@ namespace BOTD.Dialouge
             {
                 StartDialouge();
             }
+
+            DoLerp();
         }
 
         IEnumerator Typewriter()
