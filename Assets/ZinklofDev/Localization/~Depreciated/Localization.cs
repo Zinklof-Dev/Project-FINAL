@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.VisualScripting;
 
-namespace BOTD.Localization {
+namespace ZinklofDev.LocalizationOLD {
     internal struct Loc 
     {
         public string key {get; private set;}
@@ -33,6 +33,7 @@ namespace BOTD.Localization {
     {
         static private LocalizationLibrary[] LocalizedGame;
 
+        [Obsolete("this function is obsolete and will generate errors when attempting to read a newer .loc file, please see Localization.CompileLocalization() instead")]
         static public bool LoadLocalization(string loadLang = "English.loc", bool verbose = false)
         {
             string currentLib = "none";
@@ -137,6 +138,7 @@ namespace BOTD.Localization {
             }
         }
 
+        [Obsolete("This function will only search the old localization system, and is 99% of the time not correct to use. please see Localization.LookUpkey() instead")]
         static public string LookUpKey(string key, string library = "")
         {
             if (library != "" || library != null)

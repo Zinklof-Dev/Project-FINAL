@@ -1,0 +1,13 @@
+[lib]:intro_dialogue
+# names
+
+name_king : King Buffle Fart
+name_queen : Queen System.IO
+name_princess : Princess NoFart
+
+# Lines
+
+line_king0 : localization is working!
+line_queen0 : Wow! how amazing is that!?
+line_king1 : yippe! this was so time consuming to do!
+line_princess0 : *farts*
