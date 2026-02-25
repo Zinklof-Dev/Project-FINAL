@@ -39,12 +39,13 @@ namespace BOTD.Dialogue
         Transform cameraTransform;
         // Saved Math Results
         float halfres;
+        string localizedLine;
 
         private void Start()
         {
             // save result of common math
             halfres = Screen.currentResolution.height / 2;
-            Debug.Log(Screen.currentResolution.height + " | " + halfres);
+            //Debug.Log(Screen.currentResolution.height + " | " + halfres);
 
             // fetch references
             if (!volume.profile.TryGet<DepthOfField>(out dof))
@@ -68,6 +69,8 @@ namespace BOTD.Dialogue
 
             open = true;
             awaiting = true;
+
+            Localization.Internal.LoadLocalization();
         }
 
         public void NextLine()
@@ -96,6 +99,8 @@ namespace BOTD.Dialogue
 
             speakerName.text = s.name;
             dialogueBox.text = "";
+
+            localizedLine = Localization.Internal.LookUpKey(lines[currentLine].text, "misc");
 
             StartCoroutine(Typewriter());
         }
@@ -163,7 +168,7 @@ namespace BOTD.Dialogue
 
         IEnumerator Typewriter()
         {
-            foreach (char c in lines[currentLine].text)
+            foreach (char c in localizedLine)
             {
                 dialogueBox.text += c;
                 yield return new WaitForSecondsRealtime(timePerChar);

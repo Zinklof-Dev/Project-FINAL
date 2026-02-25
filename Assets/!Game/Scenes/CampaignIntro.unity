@@ -435,8 +435,8 @@ MonoBehaviour:
   - {x: 7, y: 3, z: 39}
   - {x: 50, y: 3, z: 39}
   - {x: 112, y: 1, z: 39}
-  slerp: 0.2
-  moveSpeed: 2
+  slerp: 0.05
+  moveSpeed: 5
 --- !u!1 &153753516
 GameObject:
   m_ObjectHideFlags: 0
@@ -1360,26 +1360,29 @@ MonoBehaviour:
     - {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
     lookAtPoint: {fileID: 191310426}
   lines:
-  - text: Test
+  - text: dialogue_buffle_1
     speaker: 0
     expression: 0
-  - text: Test2
+  - text: dialogue_system_1
     speaker: 1
     expression: 0
-  - text: Test23
+  - text: dialogue_buffle_2
     speaker: 0
     expression: 0
-  - text: Fart
+  - text: dialouge_fart_1
     speaker: 2
     expression: 0
+  - text: bad_key_test
+    speaker: 0
+    expression: 0
   timePerChar: 0.025
-  dialougeTimeScale: 0
+  dialogueTimeScale: 0
   lerp: 0.1
   rotateDegrees: 0.05
   doDOF: 0
   LookatSpeaker: 1
   volume: {fileID: 1308444235}
-  dialougeBox: {fileID: 1792626759}
+  dialogueBox: {fileID: 1792626759}
   speakerName: {fileID: 72856174}
   speakerImage: {fileID: 1876800415}
 --- !u!114 &369155616

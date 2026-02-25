@@ -33,7 +33,7 @@ namespace BOTD.Localization {
     {
         static private LocalizationLibrary[] LocalizedGame;
 
-        static bool LoadLocalization(string loadLang = "English.loc")
+        static public bool LoadLocalization(string loadLang = "English.loc")
         {
             string currentLib = "none";
             List<LocalizationLibrary> libs = new List<LocalizationLibrary>();
@@ -43,7 +43,7 @@ namespace BOTD.Localization {
             
             try
             {
-                using (StreamReader sr = new StreamReader(Application.dataPath + "/JSON/Localization" + loadLang))
+                using (StreamReader sr = new StreamReader(Application.dataPath + "/JSON/Localization/" + loadLang))
                 {
                     string line = null;
                     currentLine++;
@@ -73,19 +73,19 @@ namespace BOTD.Localization {
                             Debug.LogWarning("Line: " + currentLine + " | Second half of localization line is blank or null?");
                             continue;
                         }
-                        
+
                         if (values[0] == "[lib]")
-                        { 
+                        {
                             //ignore repeats if in a lib already
                             if (values[1] == currentLib)
                             {
-                            continue;
+                                continue;
                             }
-                            
+
                             //if (CheckForRepeats(values[1]))
-                            {
-                                Debug.LogError("Localization Library already exists, two different structs will be made, this is not performant, memory performant, and will likely result in lookup issues, make sure to define a library once and only once!");
-                            }
+                            //{
+                            //    Debug.LogError("Localization Library already exists, two different structs will be made, this is not performant, memory performant, and will likely result in lookup issues, make sure to define a library once and only once!");
+                            //}
 
                             libs.Add(new LocalizationLibrary(values[1], currentLocs));
                             currentLocs = new List<Loc>();
@@ -93,6 +93,8 @@ namespace BOTD.Localization {
                         else
                         {
                             currentLocs.Add(new Loc(values[0], values[1]));
+                            Debug.Log(values[0] + " " + values[1]);
+                            Debug.Log(currentLocs[currentLocs.Count-1].key + " " + currentLocs[currentLocs.Count - 1].value);
                         }
                     }
                     //stream reader finished, wrap up final library
@@ -110,7 +112,7 @@ namespace BOTD.Localization {
             }
         }
 
-        public static string LookUpKey(string key, string library = "")
+        static public string LookUpKey(string key, string library = "")
         {
             if (library != "" || library != null)
             {
