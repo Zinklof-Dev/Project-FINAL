@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace BOTD.Dialouge
+namespace BOTD.Dialogue
 {
     [Serializable]
     public struct Line

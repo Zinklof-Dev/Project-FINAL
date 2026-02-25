@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
+using UnityEngine;
+using Unity.VisualScripting;
 
 namespace BOTD.Localization {
     internal struct Loc 
@@ -20,10 +22,10 @@ namespace BOTD.Localization {
         public string libraryName {get; private set;}
         public Loc[] localizations {get; private set;}
 
-        public LocalizationLibrary(string name, List<Localizations> Locs)
+        public LocalizationLibrary(string name, List<Loc> locs)
         {
             this.libraryName = name;
-            this.Localizations = locs.ToArray;
+            this.localizations = locs.ToArray();
         }
     }
 
@@ -34,7 +36,6 @@ namespace BOTD.Localization {
         static bool LoadLocalization(string loadLang = "English.loc")
         {
             string currentLib = "none";
-            int currentLibIndex = 0;
             List<LocalizationLibrary> libs = new List<LocalizationLibrary>();
             List<Loc> currentLocs = new List<Loc>();
 
@@ -45,33 +46,35 @@ namespace BOTD.Localization {
                 using (StreamReader sr = new StreamReader(Application.dataPath + "/JSON/Localization" + loadLang))
                 {
                     string line = null;
-                    currentline++;
+                    currentLine++;
+
+                    string[] values = null;
 
                     while ((line = sr.ReadLine()) != null)
                     {
-                        string[] values = line.Split(":");
+                        values = line.Split(":");
 
-                        if (values.length > 2)
+                        if (values.Length > 2)
                         {
                             string fix = "";
 
                             // starts at one, goes to each string after one and adds it to one, nulls that line in order to save on memory, stops once I is greater than the length of the array
-                            for (int i = 1; i <= lines.length; i++;)
+                            for (int i = 1; i <= values.Length; i++)
                             {
-                                fix = fix + lines[i];
-                                lines[i] = null;
+                                fix = fix + values[i];
+                                values[i] = null;
                             }
 
                             values[1] = fix;
                         }
 
-                        if (values[1] == null || "")
+                        if (values[1] == null || values[1] == "")
                         {
-                            Debug.LogWarning("Line: " + currentLine + " | Second half of localization line is blank or null?")
+                            Debug.LogWarning("Line: " + currentLine + " | Second half of localization line is blank or null?");
                             continue;
                         }
                         
-                        if (values[0] = "[lib]")
+                        if (values[0] == "[lib]")
                         { 
                             //ignore repeats if in a lib already
                             if (values[1] == currentLib)
@@ -79,7 +82,7 @@ namespace BOTD.Localization {
                             continue;
                             }
                             
-                            if (CheckForRepeats(values[1]))
+                            //if (CheckForRepeats(values[1]))
                             {
                                 Debug.LogError("Localization Library already exists, two different structs will be made, this is not performant, memory performant, and will likely result in lookup issues, make sure to define a library once and only once!");
                             }
@@ -93,15 +96,17 @@ namespace BOTD.Localization {
                         }
                     }
                     //stream reader finished, wrap up final library
-                    libs.Add(new LocalizationLibrary(values[1], currentLocs));
+                    libs.Add(new LocalizationLibrary(currentLib, currentLocs));
                     currentLocs = null; // clean memory even though garbage will handle it
 
                     LocalizedGame = libs.ToArray();
+                    return true;
                 }
             }
             catch
             {
                 Debug.LogWarning("Localization fetch error, file may not exist?");
+                return false;
             }
         }
 
@@ -148,7 +153,6 @@ namespace BOTD.Localization {
                 }
                 return key;
             }
-            return key;
         }
     }
 }

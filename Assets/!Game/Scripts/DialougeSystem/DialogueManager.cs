@@ -7,29 +7,29 @@ using System.Collections;
 using System.Linq.Expressions;
 using UnityEngine.UI;
 
-namespace BOTD.Dialouge
+namespace BOTD.Dialogue
 {
-    class DialougeManager : MonoBehaviour
+    class DialogueManager : MonoBehaviour
     {
-        [Header("Dialouge")]
+        [Header("Dialogue")]
         [SerializeField] Speaker[] speakers;
         [SerializeField] Line[] lines;
         [Header("Settings")]
         [SerializeField] float timePerChar = 0.025f;
-        [SerializeField] float dialougeTimeScale = 0f;
+        [SerializeField] float dialogueTimeScale = 0f;
         [SerializeField] float lerp = 0.1f;
         [SerializeField] float rotateDegrees;
         [SerializeField] bool doDOF;
         [SerializeField] bool LookatSpeaker;
         [Header("References")]
         [SerializeField] Volume volume;
-        [SerializeField] TMP_Text dialougeBox;
+        [SerializeField] TMP_Text dialogueBox;
         [SerializeField] TMP_Text speakerName;
         [SerializeField] Image speakerImage;
 
         // Status
         bool open, awaiting, done = false;
-        int currentLine = -1; // -1 = no dialouge right now;
+        int currentLine = -1; // -1 = no dialogue right now;
         // Memories
         float returnTimeScale;
         // References
@@ -44,6 +44,7 @@ namespace BOTD.Dialouge
         {
             // save result of common math
             halfres = Screen.currentResolution.height / 2;
+            Debug.Log(Screen.currentResolution.height + " | " + halfres);
 
             // fetch references
             if (!volume.profile.TryGet<DepthOfField>(out dof))
@@ -57,10 +58,10 @@ namespace BOTD.Dialouge
             rt.localPosition = new Vector3 (0, -halfres - 700, 0);
         }
         
-        public void StartDialouge()
+        public void StartDialogue()
         {
             returnTimeScale = Time.timeScale;
-            Time.timeScale = dialougeTimeScale;
+            Time.timeScale = dialogueTimeScale;
 
             if (doDOF)
                 dof.active = true;
@@ -94,12 +95,12 @@ namespace BOTD.Dialouge
             speakerImage.sprite = s.expressions[lines[currentLine].expression];
 
             speakerName.text = s.name;
-            dialougeBox.text = "";
+            dialogueBox.text = "";
 
             StartCoroutine(Typewriter());
         }
 
-        private void CleanupDialouge()
+        private void CleanupDialogue()
         {
             Time.timeScale = returnTimeScale;
 
@@ -113,7 +114,7 @@ namespace BOTD.Dialouge
         {
             if (done)
             {
-                rt.localPosition = new Vector3(0, Mathf.Lerp(rt.localPosition.y, -halfres - 735, lerp), 0);
+                rt.localPosition = new Vector3(0, Mathf.Lerp(rt.localPosition.y, -halfres - 735f, lerp), 0);
                 dof.active = false;
             }
             else if (open)
@@ -123,7 +124,7 @@ namespace BOTD.Dialouge
             }
             else
             {
-                rt.localPosition = new Vector3(0, Mathf.Lerp(rt.localPosition.y, -halfres - 700, lerp), 0);
+                rt.localPosition = new Vector3(0, Mathf.Lerp(rt.localPosition.y, -halfres - 735f, lerp), 0);
             }
 
             if (awaiting)
@@ -138,7 +139,7 @@ namespace BOTD.Dialouge
             {
                 if (rt.localPosition.y < -halfres - 735f + 2.5f)
                 { 
-                    CleanupDialouge();
+                    CleanupDialogue();
                 }
             }
 
@@ -154,7 +155,7 @@ namespace BOTD.Dialouge
             }
             if (Input.GetKeyUp(KeyCode.O))
             {
-                StartDialouge();
+                StartDialogue();
             }
 
             DoLerp();
@@ -164,7 +165,7 @@ namespace BOTD.Dialouge
         {
             foreach (char c in lines[currentLine].text)
             {
-                dialougeBox.text += c;
+                dialogueBox.text += c;
                 yield return new WaitForSecondsRealtime(timePerChar);
             }
         }
