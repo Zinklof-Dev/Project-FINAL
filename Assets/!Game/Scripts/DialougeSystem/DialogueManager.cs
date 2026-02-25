@@ -21,6 +21,7 @@ namespace BOTD.Dialogue
         [SerializeField] float rotateDegrees;
         [SerializeField] bool doDOF;
         [SerializeField] bool LookatSpeaker;
+        [SerializeField] string localizationLib = dialogue;
         [Header("References")]
         [SerializeField] Volume volume;
         [SerializeField] TMP_Text dialogueBox;
@@ -39,7 +40,9 @@ namespace BOTD.Dialogue
         Transform cameraTransform;
         // Saved Math Results
         float halfres;
+        // localized
         string localizedLine;
+        string localizedName;
 
         private void Start()
         {
@@ -97,10 +100,10 @@ namespace BOTD.Dialogue
 
             speakerImage.sprite = s.expressions[lines[currentLine].expression];
 
-            speakerName.text = s.name;
+            speakerName.text = Localization.Internal.LookUpKey(s.name, localizationLib);
             dialogueBox.text = "";
 
-            localizedLine = Localization.Internal.LookUpKey(lines[currentLine].text, "misc");
+            localizedLine = Localization.Internal.LookUpKey(lines[currentLine].text, localizationLib);
 
             StartCoroutine(Typewriter());
         }

@@ -33,7 +33,7 @@ namespace BOTD.Localization {
     {
         static private LocalizationLibrary[] LocalizedGame;
 
-        static public bool LoadLocalization(string loadLang = "English.loc")
+        static public bool LoadLocalization(string loadLang = "English.loc", bool verbose = false)
         {
             string currentLib = "none";
             List<LocalizationLibrary> libs = new List<LocalizationLibrary>();
@@ -52,6 +52,11 @@ namespace BOTD.Localization {
 
                     while ((line = sr.ReadLine()) != null)
                     {
+                        if(line[0] == "#" || line[0] == "/")
+                            continue;
+                        if(line == "" || line == "\n")
+                            continue;
+
                         values = line.Split(":");
 
                         if (values.Length > 2)
@@ -87,18 +92,38 @@ namespace BOTD.Localization {
                             //    Debug.LogError("Localization Library already exists, two different structs will be made, this is not performant, memory performant, and will likely result in lookup issues, make sure to define a library once and only once!");
                             //}
 
-                            libs.Add(new LocalizationLibrary(values[1], currentLocs));
+                            libs.Add(new LocalizationLibrary(currentLib, currentLocs));
+
+                            if (verbose)
+                            {
+                                string locsToString = "";
+                                foreach (loc l in currentLocs)
+                                {
+                                    locsToString += l.key + " | " + l.value + "\n";
+                                }
+                                Debug.Log("New Library!: " + currentLib.libraryName + "\ncontaining:\n" + locsToString);
+                            }
+
                             currentLocs = new List<Loc>();
                         }
                         else
                         {
                             currentLocs.Add(new Loc(values[0], values[1]));
-                            Debug.Log(values[0] + " " + values[1]);
-                            Debug.Log(currentLocs[currentLocs.Count-1].key + " " + currentLocs[currentLocs.Count - 1].value);
                         }
                     }
                     //stream reader finished, wrap up final library
                     libs.Add(new LocalizationLibrary(currentLib, currentLocs));
+                    
+                    if (verbose)
+                    {
+                        string locsToString = "";
+                        foreach (loc l in currentLocs)
+                        {
+                            locsToString += l.key + " | " + l.value + "\n";
+                        }
+                        Debug.Log("New Library!: " + currentLib.libraryName + "\ncontaining:\n" + locsToString);
+                    }
+
                     currentLocs = null; // clean memory even though garbage will handle it
 
                     LocalizedGame = libs.ToArray();
