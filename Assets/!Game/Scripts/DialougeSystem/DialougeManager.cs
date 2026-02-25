@@ -111,15 +111,6 @@ namespace BOTD.Dialouge
 
         private void DoLerp()
         {
-            if (Input.GetKeyUp(KeyCode.P))
-            {
-                NextLine();
-            }
-            if (Input.GetKeyUp(KeyCode.O))
-            {
-                StartDialouge();
-            }
-
             if (done)
             {
                 rt.localPosition = new Vector3(0, Mathf.Lerp(rt.localPosition.y, -halfres - 735, lerp), 0);
