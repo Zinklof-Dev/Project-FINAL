@@ -168,6 +168,47 @@ namespace ZinklofDev
             }
         }
 
+        public static string ColorEditorLine(string line)
+        {
+            string regColor = "#77dddd";
+            string libColor = "#dede65";
+            string keyColor = "#deae45";
+            string commentColor = "#757575";
+            string colonColor = "#bbbbbb";
+            string errorColor = "#de2525";
+             
+            int commentStart = line.IndexOf("#");
+
+            bool libLine = line.Contains("[lib]");
+            bool commentLine = (line.remove(" ")[0] == '#');
+            bool keyLine = line.Contains(":");
+
+            line = $"<color={regColor}>" + line + "</color>"; // set base color
+
+            if (commentLine)
+            {
+                line = $"<color={commentColor}>{line}</color>"
+            }
+            else if (!libLine && !keyLine)
+            {
+                line = $"<color={errorColor}>{line}</color>"
+            }
+            else
+            {
+                line.Replace("[lib]", $"<color={libColor}>[lib]</color>");
+                line.Replace(":", $"<color={colonColor}>:</color>");
+
+                if (line.IndexOf("#") != -1 && libLine)
+                {
+                    string comment = line.SubString(line.IndexOf("#"));
+                    line.remove(line.IndexOf("#"));
+                    line += $"</color><color={commentColor}>{comment}";
+                }
+            }
+
+            return line;
+        }
+
         private static string SearchSpecificLibForKey(string key, string library, bool verbose = false)
         {
             foreach (LocalizationLibrary ll in LocalizedGame)
@@ -211,9 +252,23 @@ namespace ZinklofDev
 
         private static string[] SplitLine(string line)
         {
-            int index = line.IndexOf(":");
+            string split = new string[2];
 
-            string[] split = new string[2];
+            if (line.ToLower().Contains("[lib]"))
+            {
+                split[0] = "[lib]"
+
+                split[1] = line.Replace("[lib]", "").Replace(" ", "");
+
+                if (int index = split[1].IndexOf("#") != -1) // remove comments
+                {
+                    split[1].remove(split[1].IndexOf("#"));
+                }
+
+                return split;
+            }
+
+            int index = line.IndexOf(":");
 
             // add each char from first half, ignoring the index
             for (int i = 0; i < index; i++)
@@ -229,6 +284,11 @@ namespace ZinklofDev
 
             // force key to lowercase in order to avoid case sensitivty on the keys
             split[0] = split[0].ToLower();
+
+            if (split[0] == "[lib]" && int index = split[1].IndexOf("#") != -1)
+            {
+                split[1].remove(split[1].IndexOf("#"));
+            }
 
             return split;
         }

@@ -1,1 +1,10 @@
-[lib]:settings
+[lib]:settings.tabs
+
+video : video
+audio : Audio
+game : Game
+
+[lib]:settings.video
+
+textures : textures
+vsync : vsync

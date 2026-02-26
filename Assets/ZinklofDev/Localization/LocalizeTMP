@@ -1,0 +1,29 @@
+using UnityEngine;
+using ZinklofDev;
+using TMPro;
+
+
+namespace ZinklofDev.Localization
+{
+    public class LocalizeTMP : MonoBehaviour
+    {
+        [SerializeField] string library = "";
+        [SerializeField] string key;
+
+        private void TMP_Text text;
+
+        private void start()
+        {
+            text = gameObject.GetComponent<TMP_Text>();
+
+            if (key = "")
+            {
+                key = text.text
+            }
+
+            text.text = Localization.LookUpKey(key, library);
+
+            Destroy(this);
+        }
+    }
+}
