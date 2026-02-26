@@ -1,15 +1,15 @@
-using System;
 using System.IO;
-using System.Collections.Generic
+using System.Collections.Generic;
 using UnityEngine;
 using ZinklofDev.LocalizationOLD;
+using System;
 
 namespace ZinklofDev
 {
     internal struct UncompiledLocLibrary
     {
         public string libraryName;
-        public List<Loc> locs = new List<Loc>();
+        public List<Loc> locs;
 
         public UncompiledLocLibrary(string name)
         {
@@ -19,7 +19,7 @@ namespace ZinklofDev
 
         public LocalizationLibrary Compile()
         {
-            return new LocalizationLibrary(name, locs);
+            return new LocalizationLibrary(libraryName, locs);
         }
 
         public void Add(string key, string value) // wrapper in order to add to the list with less characters becasuse it looks nicer :P
@@ -29,19 +29,19 @@ namespace ZinklofDev
 
         public string Log()
         {
-            string return = "Lib: " + libraryName + "\n";
+            return "Lib: " + libraryName + "\n";
         }
     }
 
     public static class Langs
     {
-        public string en {get; private set;}
-        public string it {get; private set;}
-        public string fr {get; private set;}
-        public string de {get; private set;}
-        public string es {get; private set;}
-        public string gb {get; private set;}
-        public string lc {get; private set;}
+        public static string en {get; private set;}
+        public static string it {get; private set;}
+        public static string fr {get; private set;}
+        public static string de {get; private set;}
+        public static string es {get; private set;}
+        public static string gb {get; private set;}
+        public static string lc {get; private set;}
 
         static Langs()
         {
@@ -60,19 +60,19 @@ namespace ZinklofDev
         // static array that contains all the info we need, stays here as private as we querry it and send only the absolute neccesary info out.
         private static LocalizationLibrary[] LocalizedGame;
 
-        public bool CompileLocalization(string lang = Langs.en, bool verbose = false)
+        private static List<UncompiledLocLibrary> uncompiledLibraries = new List<UncompiledLocLibrary>();
+
+        public static void CompileLocalization(string lang = "English", bool verbose = false)
         {
             // make a list of the uncompiled libraries (like the library struct but list instead of array so we can add to it easier till we've finished searching all files)
-            List<UncompiledLocLibrary> uncompiledLibraries = new List<UncompiledLocLibrary>();
-            string currentLibrary; 
 
             // current library being worked on so we don't have to constantly fetch the list
-            UncompiledLocLibrary workingLibrary = new workingLibrary("none");
+            UncompiledLocLibrary workingLibrary = new UncompiledLocLibrary("none");
 
             try
             {
                 // fetch all files
-                string[] allFiles = FetchFileList();
+                string[] allFiles = FetchFileList(verbose, lang);
 
                 // work on every file
                 foreach (string file in allFiles)
@@ -90,14 +90,14 @@ namespace ZinklofDev
                         while((line = sr.ReadLine()) != null)
                         {
                             // skip comment lines
-                            if (line.Replace(" ", "")[0] == "#" || line.Replace(" ", "")[0] == "/")
+                            if (line.Replace(" ", "")[0].ToString() == "#" || line.Replace(" ", "")[0].ToString() == "/")
                                 continue;
                             // skip blank lines
-                            if (line[0] = "" || line[0] = "\n")
+                            if (line[0].ToString() == "" || line[0].ToString() == "\n")
                                 continue;
 
                             // split into key, and value
-                            string values[] = SplitLine(line);
+                            string[] values = SplitLine(line);
 
                             // check if library def and isn't of the one we are current working on
                             if (values[0] == "[lib]" && values[1].ToLower() != workingLibrary.libraryName)
@@ -106,11 +106,19 @@ namespace ZinklofDev
                             }
 
                             // now we can assume we have a loc line
-                            if (values[1][0] = " ")
-                                values[1][0] = "";
+                            if (values[1][0].ToString() == " ")
+                            {
+                                char[] fix = values[1].ToCharArray();
+                                fix[0] = '\0';
+                                values[1] = fix.ToString();
+                            }
 
-                            if (values[0][values[0].Length-1] = " ") 
-                                values[0][values[0].Length-1] = "";
+                            if (values[0][values[0].Length - 1].ToString() == " ")
+                            {
+                                char[] fix = values[0].ToCharArray();
+                                fix[fix.Length - 1] = '\0';
+                                values[0] = fix.ToString();
+                            }
                             
                             workingLibrary.Add(values[0], values[1]);
                         }
@@ -141,26 +149,26 @@ namespace ZinklofDev
         }
 
         // wrapper to combine the usage of two functions into one.
-        public static string LookUpKey(string key, string library = "", bool verbose = false;)
+        public static string LookUpKey(string key, string library = "", bool verbose = false)
         {
             library = library.ToLower();
             key = key.ToLower();
 
             if (library == null || library == "")
             {
-                return SearchAllLibsForKey(key);
+                return SearchAllLibsForKey(key, false, verbose);
             }
-            else if (library = "all")
+            else if (library == "all")
             {
-                return SearchAllLibsForKey(key, true);
+                return SearchAllLibsForKey(key, true, verbose);
             }
             else
             {
-                return SearchSpecificLibForKey(key, library);
+                return SearchSpecificLibForKey(key, library, verbose);
             }
         }
 
-        private static string SearchSpecificLibForKey(string key, string library)
+        private static string SearchSpecificLibForKey(string key, string library, bool verbose = false)
         {
             foreach (LocalizationLibrary ll in LocalizedGame)
             {
@@ -172,7 +180,7 @@ namespace ZinklofDev
                             return l.value;
                     }
                     if (verbose)
-                        Debug.LogWarning("When Searching " + ll.libraryName + " (" + library ") for the key " + key + " nothing was found, returning key." );
+                        Debug.LogWarning("When Searching " + ll.libraryName + " (" + library + ") for the key " + key + " nothing was found, returning key." );
                     return key;
                 }
             }
@@ -181,7 +189,7 @@ namespace ZinklofDev
             return key;
         }
 
-        private static string SearchAllLibsForKey(string key, bool passWarning = false)
+        private static string SearchAllLibsForKey(string key, bool passWarning = false, bool verbose = false)
         {
             if (!passWarning)
                 Debug.LogWarning("You are looking up a key without a known library, this is less performant than if you know the library due to searching more. If this is your only option please set the library querry to 'all'");
@@ -191,7 +199,7 @@ namespace ZinklofDev
                 foreach (Loc l in ll.localizations)
                 {
                     if (l.key == key)
-                        return l.value
+                        return l.value;
                     else
                         continue;
                 }
@@ -205,7 +213,7 @@ namespace ZinklofDev
         {
             int index = line.IndexOf(":");
 
-            string[] split = string[2];
+            string[] split = new string[2];
 
             // add each char from first half, ignoring the index
             for (int i = 0; i < index; i++)
@@ -214,7 +222,7 @@ namespace ZinklofDev
             }
 
             // add each char from second half, ignoring index
-            for (int i = IndexOf + 1; i <= line.Length; i++)
+            for (int i = index + 1; i <= line.Length; i++)
             {
                 split[1] += line[i];
             }
@@ -225,10 +233,10 @@ namespace ZinklofDev
             return split;
         }
 
-        private static string[] FetchFileList()
+        private static string[] FetchFileList(bool verbose, string lang)
         {
             // get the file location of every file within the language folder and its subfolders
-            string[] allFiles = Directory.GetFiles(Application.DataPath + "/JSON/Localization/" + lang, "*.loc", SearchOption.AllDirectories);
+            string[] allFiles = Directory.GetFiles(Application.dataPath + "/JSON/Localization/" + lang, "*.loc", SearchOption.AllDirectories);
 
             // verbose print all files found
             if (verbose)
@@ -247,33 +255,32 @@ namespace ZinklofDev
         private static UncompiledLocLibrary SwitchLibrary(string name, UncompiledLocLibrary workingLibrary)
         {
             bool savedWorkingLibrary = false;
-            UncompiledLocLibrary returnLibrary = null;
+            UncompiledLocLibrary ?returnLibrary = null;
 
             // begin to check if the library needing saved exists, and if the library we are looking for exists
-            foreach (UncompiledLocLibrary ull in uncompiledLibraries)
+            for (int index = 0; index < uncompiledLibraries.Count; index++)
             {
                 // if we find the one needing saved, save it
-                if (ull.libraryName = workingLibrary.libraryName)
+                if (uncompiledLibraries[index].libraryName == workingLibrary.libraryName)
                 {
-                    ull = workingLibrary;
+                    uncompiledLibraries[index] = workingLibrary;
                     savedWorkingLibrary = true;
                 }
                 // if we find the one being searched for, and we already saved the one needing save it, just return it right away.
-                if (ull.libraryName == name && savedWorkingLibrary)
-                    return ull;
+                if (uncompiledLibraries[index].libraryName == name && savedWorkingLibrary)
+                    return uncompiledLibraries[index];
                 // otherwise save it to the return variable to return later and keep looking
-                else if (ull.libraryName == name)
-                    returnLibrary = ull;
+                else if (uncompiledLibraries[index].libraryName == name)
+                    returnLibrary = uncompiledLibraries[index];
             }
             // if we never saved the library (aka it didn't exist prior), then add it to the list.
             if (!savedWorkingLibrary)
                 uncompiledLibraries.Add(workingLibrary);
 
             // if we never found the library we were trying to fetch, then make a new one of the same name and return that.
-            if (returnLibrary == null)
-                returnLibrary = new UncompiledLocLibrary(name);
+            returnLibrary ??= new UncompiledLocLibrary(name);
 
-            return returnLibrary;
+            return (UncompiledLocLibrary)returnLibrary;
         }
     }
 }

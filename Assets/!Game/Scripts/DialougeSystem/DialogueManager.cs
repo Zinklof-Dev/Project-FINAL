@@ -1,11 +1,10 @@
-using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using TMPro;
 using System.Collections;
-using System.Linq.Expressions;
 using UnityEngine.UI;
+using ZinklofDev;
 
 namespace BOTD.Dialogue
 {
@@ -21,7 +20,7 @@ namespace BOTD.Dialogue
         [SerializeField] float rotateDegrees;
         [SerializeField] bool doDOF;
         [SerializeField] bool LookatSpeaker;
-        [SerializeField] string localizationLib = dialogue;
+        [SerializeField] string localizationLib = "dialogue";
         [Header("References")]
         [SerializeField] Volume volume;
         [SerializeField] TMP_Text dialogueBox;
@@ -73,7 +72,7 @@ namespace BOTD.Dialogue
             open = true;
             awaiting = true;
 
-            Localization.Internal.LoadLocalization();
+            Localization.CompileLocalization();
         }
 
         public void NextLine()
@@ -100,10 +99,10 @@ namespace BOTD.Dialogue
 
             speakerImage.sprite = s.expressions[lines[currentLine].expression];
 
-            speakerName.text = Localization.Internal.LookUpKey(s.name, localizationLib);
+            speakerName.text = Localization.LookUpKey(s.name, localizationLib);
             dialogueBox.text = "";
 
-            localizedLine = Localization.Internal.LookUpKey(lines[currentLine].text, localizationLib);
+            localizedLine = Localization.LookUpKey(lines[currentLine].text, localizationLib);
 
             StartCoroutine(Typewriter());
         }

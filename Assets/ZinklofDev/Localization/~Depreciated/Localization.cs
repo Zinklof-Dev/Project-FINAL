@@ -53,7 +53,7 @@ namespace ZinklofDev.LocalizationOLD {
 
                     while ((line = sr.ReadLine()) != null)
                     {
-                        if(line[0] == "#" || line[0] == "/")
+                        if(line[0].ToString() == "#" || line[0].ToString() == "/")
                             continue;
                         if(line == "" || line == "\n")
                             continue;
@@ -98,11 +98,11 @@ namespace ZinklofDev.LocalizationOLD {
                             if (verbose)
                             {
                                 string locsToString = "";
-                                foreach (loc l in currentLocs)
+                                foreach (Loc l in currentLocs)
                                 {
                                     locsToString += l.key + " | " + l.value + "\n";
                                 }
-                                Debug.Log("New Library!: " + currentLib.libraryName + "\ncontaining:\n" + locsToString);
+                                Debug.Log("New Library!: " + currentLib + "\ncontaining:\n" + locsToString);
                             }
 
                             currentLocs = new List<Loc>();
@@ -118,11 +118,11 @@ namespace ZinklofDev.LocalizationOLD {
                     if (verbose)
                     {
                         string locsToString = "";
-                        foreach (loc l in currentLocs)
+                        foreach (Loc l in currentLocs)
                         {
                             locsToString += l.key + " | " + l.value + "\n";
                         }
-                        Debug.Log("New Library!: " + currentLib.libraryName + "\ncontaining:\n" + locsToString);
+                        Debug.Log("New Library!: " + currentLib + "\ncontaining:\n" + locsToString);
                     }
 
                     currentLocs = null; // clean memory even though garbage will handle it
