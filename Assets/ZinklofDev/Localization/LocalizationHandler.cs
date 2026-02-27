@@ -109,18 +109,16 @@ namespace ZinklofDev
                             // now we can assume we have a loc line
                             if (values[1][0].ToString() == " ")
                             {
-                                char[] fix = values[1].ToCharArray();
-                                if (fix[0] == ' ')
-                                    fix[0] = '\0';
+                                if (values[0] == ' ')
+                                    values[0].Remove(0, 1);
 
                                 values[1] = new string(fix);
                             }
 
                             if (values[0][values[0].Length - 1].ToString() == " ")
                             {
-                                char[] fix = values[0].ToCharArray();
-                                if (fix[fix.Length-1] == ' ')
-                                    fix[fix.Length - 1] = '\0';
+                                if (values[0][values[0].Length-1] == ' ')
+                                    values[0].Remove(values[0].Length-1);
 
                                 values[0] = new string(fix);
                             }
@@ -193,7 +191,7 @@ namespace ZinklofDev
             bool commentLine = (line[0] == '#');
             bool keyLine = line.Contains(":");
 
-            line = $"<color={regColor}>" + line + "</color>"; // set base color
+            int index = 0;
 
             if (commentLine)
             {
@@ -205,15 +203,23 @@ namespace ZinklofDev
             }
             else
             {
-                line.Replace("[lib]", $"<color={libColor}>[lib]</color>");
-                line.Replace(":", $"<color={colonColor}>:</color>");
-
                 if (line.IndexOf("#") != -1 && libLine)
                 {
                     string comment = line.Substring(line.IndexOf("#"));
                     line.Remove(line.IndexOf("#"));
                     line += $"</color><color={commentColor}>{comment}";
                 }
+
+                if (keyLine)
+                {
+                    index = line.IndexOf(":");
+                    line = $"<color={keyColor}>" + line.Substring(0, index-1) + "</color>" + line.Substring(index);
+                }
+
+                line.Replace("[lib]", $"<color={libColor}>[lib]</color>");
+                line.Replace(":", $"<color={colonColor}>:</color>");
+
+                line = $"<color={regColor}>" + line + "</color>"; // set base color
             }
 
             return line;

@@ -6,12 +6,12 @@ namespace ZinklofDev.localizationEditor
 {
     public class EditorMain : MonoBehaviour
     {
-        [SerializeField] FileViewer fv;
-        [SerializeField] FileExplorer fe;
+        public FileViewer fv;
+        public FileExplorer fe;
 
         private void Start()
         {
-            
+            fe.ContactFE(this);
         }
     }
 }
