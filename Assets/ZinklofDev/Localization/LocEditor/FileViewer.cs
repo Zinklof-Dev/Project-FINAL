@@ -1,4 +1,4 @@
-using system;
+using System;
 using UnityEngine;
 using TMPro;
 using ZinklofDev;

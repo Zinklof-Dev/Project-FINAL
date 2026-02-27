@@ -180,18 +180,18 @@ namespace ZinklofDev
             int commentStart = line.IndexOf("#");
 
             bool libLine = line.Contains("[lib]");
-            bool commentLine = (line.remove(" ")[0] == '#');
+            bool commentLine = (line[0] == '#');
             bool keyLine = line.Contains(":");
 
             line = $"<color={regColor}>" + line + "</color>"; // set base color
 
             if (commentLine)
             {
-                line = $"<color={commentColor}>{line}</color>"
+                line = $"<color={commentColor}>{line}</color>";
             }
             else if (!libLine && !keyLine)
             {
-                line = $"<color={errorColor}>{line}</color>"
+                line = $"<color={errorColor}>{line}</color>";
             }
             else
             {
@@ -200,8 +200,8 @@ namespace ZinklofDev
 
                 if (line.IndexOf("#") != -1 && libLine)
                 {
-                    string comment = line.SubString(line.IndexOf("#"));
-                    line.remove(line.IndexOf("#"));
+                    string comment = line.Substring(line.IndexOf("#"));
+                    line.Remove(line.IndexOf("#"));
                     line += $"</color><color={commentColor}>{comment}";
                 }
             }
@@ -252,23 +252,25 @@ namespace ZinklofDev
 
         private static string[] SplitLine(string line)
         {
-            string split = new string[2];
+            string[] split = new string[2];
+
+            int index = split[1].IndexOf("#");
 
             if (line.ToLower().Contains("[lib]"))
             {
-                split[0] = "[lib]"
+                split[0] = "[lib]";
 
                 split[1] = line.Replace("[lib]", "").Replace(" ", "");
 
-                if (int index = split[1].IndexOf("#") != -1) // remove comments
+                if (index != -1) // remove comments
                 {
-                    split[1].remove(split[1].IndexOf("#"));
+                    split[1].Remove(split[1].IndexOf("#"));
                 }
 
                 return split;
             }
 
-            int index = line.IndexOf(":");
+            index = line.IndexOf(":");
 
             // add each char from first half, ignoring the index
             for (int i = 0; i < index; i++)
@@ -285,9 +287,9 @@ namespace ZinklofDev
             // force key to lowercase in order to avoid case sensitivty on the keys
             split[0] = split[0].ToLower();
 
-            if (split[0] == "[lib]" && int index = split[1].IndexOf("#") != -1)
+            if (split[0] == "[lib]" && split[1].IndexOf("#") != -1)
             {
-                split[1].remove(split[1].IndexOf("#"));
+                split[1].Remove(split[1].IndexOf("#"));
             }
 
             return split;
