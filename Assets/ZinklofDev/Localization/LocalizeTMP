@@ -1,9 +1,8 @@
 using UnityEngine;
-using ZinklofDev;
 using TMPro;
+using ZinklofDev;
 
-
-namespace ZinklofDev.Localization
+namespace ZinklofDev.LocalizationTools
 {
     public class LocalizeTMP : MonoBehaviour
     {

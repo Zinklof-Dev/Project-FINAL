@@ -1,0 +1,17 @@
+using System;
+using UnityEngine;
+using ZinklofDev;
+
+namespace ZinklofDev.localizationEditor
+{
+    public class EditorMain : MonoBehaviour
+    {
+        [SerializeField] FileViewer fv;
+        [SerializeField] FileExplorer fe;
+
+        private void Start()
+        {
+            
+        }
+    }
+}
