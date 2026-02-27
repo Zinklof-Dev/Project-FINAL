@@ -1367,10 +1367,10 @@ MonoBehaviour:
     speaker: 1
     expression: 0
   - text: line_king1
-    speaker: 2
+    speaker: 0
     expression: 0
   - text: line_princess0
-    speaker: 0
+    speaker: 2
     expression: 0
   timePerChar: 0.025
   dialogueTimeScale: 0
