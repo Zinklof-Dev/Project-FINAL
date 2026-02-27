@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MMButtonUtils : MonoBehaviour
 {
@@ -23,7 +23,7 @@ public class MMButtonUtils : MonoBehaviour
         {
             if (gameObject.name == name)
             {
-                container.SetActive(true);
+                container.SetActive(true);
                 break;
             }
         }
