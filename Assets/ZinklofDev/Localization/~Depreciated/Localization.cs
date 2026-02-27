@@ -27,6 +27,18 @@ namespace ZinklofDev.LocalizationOLD {
             this.libraryName = name;
             this.localizations = locs.ToArray();
         }
+
+        public override string ToString()
+        {
+            string returnVar = libraryName + "\n";
+
+            foreach (Loc loc in localizations)
+            {
+                returnVar += (loc.key + " : " + loc.value + "\n");
+            }
+
+            return returnVar;
+        }
     }
 
     public static class Internal 

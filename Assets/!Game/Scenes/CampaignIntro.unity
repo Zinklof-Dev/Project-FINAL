@@ -1347,32 +1347,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BOTD.Dialouge.DialougeManager
   speakers:
-  - name: King BuffleFart
+  - name: name_king
     expressions:
     - {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
     lookAtPoint: {fileID: 1710890991}
-  - name: Queen System.IO
+  - name: name_queen
     expressions:
     - {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
     lookAtPoint: {fileID: 371412704}
-  - name: Princess NoFart
+  - name: name_princess
     expressions:
     - {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
     lookAtPoint: {fileID: 191310426}
   lines:
-  - text: dialogue_buffle_1
+  - text: line_king0
     speaker: 0
     expression: 0
-  - text: dialogue_system_1
+  - text: line_queen0
     speaker: 1
     expression: 0
-  - text: dialogue_buffle_2
-    speaker: 0
-    expression: 0
-  - text: dialouge_fart_1
+  - text: line_king1
     speaker: 2
     expression: 0
-  - text: bad_key_test
+  - text: line_princess0
     speaker: 0
     expression: 0
   timePerChar: 0.025
@@ -1381,6 +1378,7 @@ MonoBehaviour:
   rotateDegrees: 0.05
   doDOF: 0
   LookatSpeaker: 1
+  localizationLib: dialogue.intro
   volume: {fileID: 1308444235}
   dialogueBox: {fileID: 1792626759}
   speakerName: {fileID: 72856174}

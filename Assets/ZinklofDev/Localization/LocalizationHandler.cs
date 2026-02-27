@@ -26,11 +26,6 @@ namespace ZinklofDev
         {
             locs.Add(new Loc(key, value));
         }
-
-        public string Log()
-        {
-            return "Lib: " + libraryName + "\n";
-        }
     }
 
     public static class Langs
@@ -89,35 +84,45 @@ namespace ZinklofDev
                         // itterate through each line
                         while((line = sr.ReadLine()) != null)
                         {
-                            // skip comment lines
-                            if (line.Replace(" ", "")[0].ToString() == "#" || line.Replace(" ", "")[0].ToString() == "/")
-                                continue;
                             // skip blank lines
-                            if (line[0].ToString() == "" || line[0].ToString() == "\n")
+                            if (line.Length == 0)
+                                continue;
+                            else if (line[0] == '\0' || line[0] == '\n')
+                                continue;
+
+                            // skip comment lines
+                            if (line.Replace(" ", "")[0] == '#' || line.Replace(" ", "")[0] == '/')
                                 continue;
 
                             // split into key, and value
                             string[] values = SplitLine(line);
 
+                            Debug.Log(values[0] + " | " + values[1]);
+
                             // check if library def and isn't of the one we are current working on
                             if (values[0] == "[lib]" && values[1].ToLower() != workingLibrary.libraryName)
                             {
-                                SwitchLibrary(values[1].ToLower(), workingLibrary);
+                                workingLibrary = SwitchLibrary(values[1].ToLower(), workingLibrary);
+                                continue;
                             }
 
                             // now we can assume we have a loc line
                             if (values[1][0].ToString() == " ")
                             {
                                 char[] fix = values[1].ToCharArray();
-                                fix[0] = '\0';
-                                values[1] = fix.ToString();
+                                if (fix[0] == ' ')
+                                    fix[0] = '\0';
+
+                                values[1] = new string(fix);
                             }
 
                             if (values[0][values[0].Length - 1].ToString() == " ")
                             {
                                 char[] fix = values[0].ToCharArray();
-                                fix[fix.Length - 1] = '\0';
-                                values[0] = fix.ToString();
+                                if (fix[fix.Length-1] == ' ')
+                                    fix[fix.Length - 1] = '\0';
+
+                                values[0] = new string(fix);
                             }
                             
                             workingLibrary.Add(values[0], values[1]);
@@ -130,21 +135,26 @@ namespace ZinklofDev
                 
                 foreach (UncompiledLocLibrary ull in uncompiledLibraries)
                 {
-                    if (verbose)
-                    {
-
-                    }
-
                     LocalizationLibrary ll = ull.Compile();
                     HalfCompiled.Add(ll);
                 }
 
                 LocalizedGame = HalfCompiled.ToArray();
+                uncompiledLibraries.Clear();
+
+                if (verbose)
+                {
+                    foreach (LocalizationLibrary ll in LocalizedGame)
+                    {
+                            Debug.Log(ll.ToString());
+                    }
+                }
             }
             catch(Exception e)
             {
                 // uh oh
-                Debug.LogWarning("Localization ran into an exception that it has no way of handling!\n" + e.Message);
+                Debug.LogWarning("Localization ran into an exception that it has no way of handling!");
+                Debug.LogException(e);
             }
         }
 
@@ -254,13 +264,15 @@ namespace ZinklofDev
         {
             string[] split = new string[2];
 
-            int index = split[1].IndexOf("#");
+            int index = 0;
 
             if (line.ToLower().Contains("[lib]"))
             {
                 split[0] = "[lib]";
 
                 split[1] = line.Replace("[lib]", "").Replace(" ", "");
+
+                index = split[1].IndexOf("#");
 
                 if (index != -1) // remove comments
                 {
@@ -279,7 +291,7 @@ namespace ZinklofDev
             }
 
             // add each char from second half, ignoring index
-            for (int i = index + 1; i <= line.Length; i++)
+            for (int i = index + 1; i < line.Length; i++)
             {
                 split[1] += line[i];
             }

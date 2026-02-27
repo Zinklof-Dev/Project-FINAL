@@ -72,7 +72,7 @@ namespace BOTD.Dialogue
             open = true;
             awaiting = true;
 
-            Localization.CompileLocalization();
+            Localization.CompileLocalization(Langs.en, true);
         }
 
         public void NextLine()
