@@ -41,6 +41,8 @@ namespace Bastion.LocalizationEditor
 
             for(int i = 0; i < dirs.Length-1; i++)
             {
+                dirs[i] = dirs[i].Replace("/", "");
+
                 returnDir += "/" + dirs[i];
             }
 
