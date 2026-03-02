@@ -1,5 +1,5 @@
 using UnityEngine;
-using ZinklofDev.ConsoleV2;
+using Bastion.ConsoleV2;
 
 public class CameraMover : MonoBehaviour
 {

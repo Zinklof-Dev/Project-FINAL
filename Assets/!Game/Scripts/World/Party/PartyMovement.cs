@@ -1,6 +1,6 @@
 /*using System;
 using UnityEngine;
-using ZinklofDev.Utils.MathZ
+using Bastion.Utils.MathZ
 
 public class PartyMovement : MonoBehaviour
 {

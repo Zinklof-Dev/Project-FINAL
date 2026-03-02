@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using ZinklofDev.ConsoleV2;
+using Bastion.ConsoleV2;
 using UnityEngine;
 
 public class GridSystem : MonoBehaviour

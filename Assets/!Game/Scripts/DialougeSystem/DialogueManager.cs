@@ -4,7 +4,7 @@ using UnityEngine.Rendering.Universal;
 using TMPro;
 using System.Collections;
 using UnityEngine.UI;
-using ZinklofDev;
+using Bastion;
 
 namespace BOTD.Dialogue
 {
@@ -72,7 +72,7 @@ namespace BOTD.Dialogue
             open = true;
             awaiting = true;
 
-            Localization.CompileLocalization(Langs.en, true);
+            Localization.ParseLocalization(Langs.en, true);
         }
 
         public void NextLine()
@@ -99,12 +99,14 @@ namespace BOTD.Dialogue
 
             speakerImage.sprite = s.expressions[lines[currentLine].expression];
 
-            speakerName.text = Localization.LookUpKey(s.name, localizationLib);
+            speakerName.text = Localization.LookUpKey(s.name, localizationLib, true);
             dialogueBox.text = "";
 
-            localizedLine = Localization.LookUpKey(lines[currentLine].text, localizationLib);
+            localizedLine = Localization.LookUpKey(lines[currentLine].text, localizationLib, true);
 
             StartCoroutine(Typewriter());
+
+            dialogueBox.RecalculateClipping();
         }
 
         private void CleanupDialogue()
