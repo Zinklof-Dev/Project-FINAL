@@ -41,7 +41,14 @@ namespace Bastion.LocalizationEditor
 
             for(int i = 0; i < dirs.Length-1; i++)
             {
-                dirs[i] = dirs[i].Replace("/", "");
+                //dirs[i] = dirs[i].Replace("/", "");
+
+                if (dirs[i] == "")
+                {
+                    continue;
+                }
+
+                //Debug.Log(dirs[i]);
 
                 returnDir += "/" + dirs[i];
             }
@@ -132,11 +139,11 @@ namespace Bastion.LocalizationEditor
 
             foreach (string folder in folders)
             {
-                itemList.Add("/" + folder.Split("/")[folder.Split("/").Length-1]);
+                itemList.Add("/" + folder.Replace('\\', '/').Split("/")[folder.Replace('\\', '/').Split("/").Length-1]);
             }
             foreach (string file in files)
             {
-                itemList.Add(file.Split("/")[file.Split("/").Length - 1]);
+                itemList.Add(file.Replace('\\', '/').Split("/")[file.Replace('\\', '/').Split("/").Length-1]);
             }
 
             return itemList.ToArray();

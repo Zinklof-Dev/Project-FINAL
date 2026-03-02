@@ -810,34 +810,31 @@ MonoBehaviour:
 
     # names
 
-    
 
-    name_king : King Buffle
-    Fart
+    name_king : King Buffle Fart
 
-    name_queen : Queen System.IO
+    name_queen
+    : Queen System.IO
 
     name_princess : Princess NoFart
 
-    
 
-    #
-    Lines
+    # Lines
 
 
-    error test!
+    error
+    test!
 
-    
 
     line_king0 : localization is working!
 
-    line_queen0
-    : Wow! how amazing is that!?
+    line_queen0 : Wow! how
+    amazing is that!?
 
-    line_king1 : yippe! this was so time consuming
-    to do!
+    line_king1 : yippe! this was so time consuming to do!
 
-    line_princess0 : *farts*'
+    line_princess0
+    : *farts*'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 42549684804ac0647b353bdbef8c0cb9, type: 2}
   m_sharedMaterial: {fileID: -1618772814625067518, guid: 42549684804ac0647b353bdbef8c0cb9, type: 2}
