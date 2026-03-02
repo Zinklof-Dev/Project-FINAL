@@ -85,7 +85,59 @@ namespace Bastion.LocalizationEditor
                 }
             }
 
-            em.ed.PushNewData(linesList.ToArray());
+            em.ed.PushNewData(linesList.ToArray(), currentDir + "/" + name);
+        }
+
+        public void DeleteFile(string path)
+        {
+            string fileName = path.Replace("\\", "/").Split("/")[path.Replace("\\", "/").Split("/").Length-1];
+
+            File.Delete(path);
+
+            DestroySpecificObj(fileName);
+        }
+
+        public void RenameFile(string path, string newName)
+        {
+            string[] pathComponents = path.Replace("\\", "/").Split("/");
+
+            string newPath = "";
+
+            for (int i = 0; i < pathComponents.Length-1; i++)
+            {
+                newPath += pathComponents[i];
+            }
+
+            string newPath += newName + ".loc";
+
+            using (StreamWriter sw = StreamWriter())
+            {
+                using (StreamReader sr = StreamReader(path))
+                {
+                    string line = "";
+
+                    while ((line = sr.ReadLine(newPath)) != null)
+                    {
+                        sw.WriteLine(line);
+                    }
+                }
+            }
+        }
+
+        public void MoveFile(string path, string newPath)
+        {
+            using (StreamWriter sw = StreamWriter())
+            {
+                using (StreamReader sr = StreamReader(path))
+                {
+                    string line = "";
+
+                    while ((line = sr.ReadLine(newPath)) != null)
+                    {
+                        sw.WriteLine(line);
+                    }
+                }
+            }
         }
 
         private void DestroyObjs()
@@ -94,6 +146,15 @@ namespace Bastion.LocalizationEditor
             {
                 if (child.GetComponent<FileExplorerButton>() != null)
                 Destroy(child.gameObject);
+            }
+        }
+
+        private void DestroySpecificObj(string name)
+        {
+            foreach (Transform child in feContainer.transform)
+            {
+                if (child.GameObject.name == name)
+                Destroy(child.GameObject);
             }
         }
 
