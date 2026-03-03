@@ -15,6 +15,8 @@ namespace Bastion.ConsoleV2
         public static bool cheatsEnabled = false;
         public static bool devBuild = false;
 
+        public static GameObject console;
+
         struct ConsoleLog
         {
             public string rawContent;

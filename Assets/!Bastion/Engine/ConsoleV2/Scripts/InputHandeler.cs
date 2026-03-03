@@ -32,7 +32,7 @@ namespace Bastion.ConsoleV2
 
         private void Start()
         {
-            Assembler.Initialize();
+            //Assembler.Initialize();
 
             Application.logMessageReceived += HandleUnityLog;
             Console.OnNewLog += UpdateLog;
