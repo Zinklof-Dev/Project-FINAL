@@ -7,13 +7,15 @@ namespace Bastion.LaunchHandler
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void OnInitialize()
         {
-            Bastion.SettingsManager.ParseSettings(true);
+            Bastion.Engine.verbose = SettingsManager.FetchSetting("verbose", "false", "Engine", MissingMode.AddThenMinorSave, true);
 
-            string language = Bastion.SettingsManager.FetchSetting("language", "English", "Gameplay", MissingMode.AddThenMinorSave, true);
+            Bastion.SettingsManager.ParseSettings(Engine.verbose);
 
-            Bastion.Localization.ParseLocalization(language);
+            string language = Bastion.SettingsManager.FetchSetting("language", "English", "Gameplay", MissingMode.AddThenMinorSave, Engine.verbose);
 
-            Bastion.ConsoleV2.Assembler.Initialize();
+            Bastion.Localization.ParseLocalization(language, Engine.verbose);
+
+            Bastion.ConsoleV2.Assembler.Initialize(Engine.verbose);
         }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
