@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Bastion
 {
@@ -151,12 +152,19 @@ namespace Bastion
 
         private static Setting[] settings = new Setting[1];
 
-        public static Setting FetchSetting(string key, string defaultValue = "", string defaultLibrary = "misc", MissingMode missingMode = MissingMode.Add)
+        public static Setting FetchSetting(string key, string defaultValue = "", string defaultLibrary = "misc", MissingMode missingMode = MissingMode.Add, bool verbose = false)
         {
+            string logPrefix = $"{Branding.engineLogPrefix}[SettingsManager.FetchSetting()] ";
+
             foreach (Setting s in settings)
             {
                 if (s.key == key)
+                {
+                    if (verbose)
+                        Debug.Log(logPrefix + $"setting found for key {key}, returning setting object with value of {s.value}");
+
                     return s;
+                }
             }
 
             // we can now assume the setting doesn't exist.
@@ -164,9 +172,13 @@ namespace Bastion
             switch (missingMode)
             {
                 case MissingMode.Ignore:
+                    if (verbose)
+                        Debug.Log(logPrefix + "Setting not found, ignoring request");
                     return Setting.Empty();
 
                 case MissingMode.Add:
+                    if (verbose)
+                        Debug.Log(logPrefix + "Setting not found, adding to memory but not saving to file");
                     List<Setting> list = new List<Setting>(settings)
                     {
                         new Setting(key, defaultValue, defaultLibrary)
@@ -175,6 +187,8 @@ namespace Bastion
                     return settings[settings.Length - 1];
 
                 case MissingMode.AddThenSave:
+                    if (verbose)
+                        Debug.Log(logPrefix + "Setting not found, adding to memory then saving all settings to file");
                     List<Setting> list1 = new List<Setting>(settings)
                     {
                         new Setting(key, defaultValue, defaultLibrary)
@@ -184,6 +198,8 @@ namespace Bastion
                     return settings[settings.Length - 1];
 
                 case MissingMode.AddThenMinorSave:
+                    if (verbose)
+                        Debug.Log(logPrefix + "Setting not found, adding to memory then appending to settings file");
                     List<Setting> list2 = new List<Setting>(settings)
                     {
                         new Setting(key, defaultValue, defaultLibrary)
@@ -192,6 +208,9 @@ namespace Bastion
                     SaveSetting(settings[settings.Length-1]);
                     return settings[settings.Length - 1];
             };
+
+            if (verbose)
+                Debug.Log(logPrefix + "left switch case without a result... uh oh");
 
             // unreachable in practice, only here so the compiler stops bitching about CS0161
             return Setting.Empty();
@@ -244,10 +263,11 @@ namespace Bastion
                                 Debug.Log(logPrefix + "changed library to " + currentLibrary);
 
                             totalLibrariesParsed++;
+                            continue;
                         }
 
                         // split into key, and value
-                        string[] values = SplitLine(line);
+                        string[] values = SplitLine(line, verbose);
 
                         if (verbose)
                             Debug.Log(logPrefix + values[0] + " | " + values[1]);
@@ -343,7 +363,7 @@ namespace Bastion
                 using (StreamWriter sw = new StreamWriter(fullpath, true))
                 {
                     // write the library, then the setting so its somewhat neat, and on read later we know what library it belongs to if we read then save, at which point it'd get sorted properly.
-                    sw.Write($"[{setting.library}]");
+                    sw.WriteLine($"[{setting.library}]");
                     sw.WriteLine($"{setting.key} : {setting.value}");
                 }
             }
@@ -391,8 +411,10 @@ namespace Bastion
 
         // modified version of the SplitLine from the localization system.
         // removed the [lib] check, added the ' ' remover that happens at the end of the localization handler that frankly could've been in this function
-        private static string[] SplitLine(string line)
+        private static string[] SplitLine(string line, bool verbose = false)
         {
+            string logPrefix = $"{Bastion.Branding.engineLogPrefix}[SettingsManager.SplitString()] ";
+
             string[] split = new string[2];
 
             int index = 0;
@@ -411,10 +433,17 @@ namespace Bastion
                 split[1] += line[i];
             }
 
+            if (verbose)
+            {
+                Debug.Log(logPrefix + $"index = {index}");
+                Debug.Log(logPrefix + $"split[0] = {split[0]}");
+                Debug.Log(logPrefix + $"split[1] = {split[1]}");
+            }
+
             // force key to lowercase in order to avoid case sensitivty on the keys
             split[0] = split[0].ToLower();
 
-            if (split[0] == "[lib]" && split[1].IndexOf("#") != -1)
+            if (split[0][0] == '[' && split[1].IndexOf("#") != -1)
             {
                 split[1].Remove(split[1].IndexOf("#"));
             }

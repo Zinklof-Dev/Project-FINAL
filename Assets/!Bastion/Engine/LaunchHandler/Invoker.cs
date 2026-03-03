@@ -9,7 +9,7 @@ namespace Bastion.LaunchHandler
         {
             Bastion.SettingsManager.ParseSettings(true);
 
-            string language = Bastion.SettingsManager.FetchSetting("language", "English", "Gameplay");
+            string language = Bastion.SettingsManager.FetchSetting("language", "English", "Gameplay", MissingMode.AddThenMinorSave, true);
 
             Bastion.Localization.ParseLocalization(language);
 
@@ -19,12 +19,12 @@ namespace Bastion.LaunchHandler
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void PostInitialize()
         {
-            if (BastionMonoManager.instance = null)
+            if (BastionMonoManager.instance == null)
             {
-                Debug.LogWarning("BastionMonoManager is null on first scene load, creating one now, may result in unwanted variable assignments!");
+                Debug.LogWarning($"{Bastion.Branding.engineLogPrefix}[Invoker.PostInitialize()] BastionMonoManager is null on first scene load, creating one now, may result in unwanted variable assignments!");
                 GameObject bmm =  new GameObject("BastionMonoManager", typeof(BastionMonoManager));
             }
-            BastionMonoManager.instance.InstantiateConsole();
+            //BastionMonoManager.instance.InstantiateConsole();
         }
 
         /// <summary>

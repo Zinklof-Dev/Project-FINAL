@@ -11,7 +11,7 @@ namespace Bastion.ConsoleV2
         public static bool HasInitialized = false;
         public static Assembly[] assemblyArray = new Assembly[1];
 
-        public static void Initialize()
+        public static void Initialize(bool verbose = false)
         {
             if (HasInitialized)
             {
@@ -56,7 +56,8 @@ namespace Bastion.ConsoleV2
 
                             ShellCommandClass shellCommand = new ShellCommandClass(commandName, commandAttribute.helpDescription, commandAttribute.cheat, commandAttribute.developmental, vars.ToArray(), m);
 
-                            Debug.Log(shellCommand.callName);
+                            if (verbose)
+                                Debug.Log(Bastion.Branding.engineLogPrefix + "[ConsoleV2.Assembler.Initialize] " + shellCommand.callName);
 
                             Shell.registeredCommands.Add(shellCommand);
 
