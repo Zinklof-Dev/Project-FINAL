@@ -57,7 +57,7 @@ namespace Bastion.ConsoleV2
                             ShellCommandClass shellCommand = new ShellCommandClass(commandName, commandAttribute.helpDescription, commandAttribute.cheat, commandAttribute.developmental, vars.ToArray(), m);
 
                             if (verbose)
-                                Debug.Log(Bastion.Branding.engineLogPrefix + "[ConsoleV2.Assembler.Initialize] " + shellCommand.callName);
+                                Debug.Log(Bastion.Branding.engineLogPrefix + "[ConsoleV2.Assembler.Initialize()] " + shellCommand.callName);
 
                             Shell.registeredCommands.Add(shellCommand);
 

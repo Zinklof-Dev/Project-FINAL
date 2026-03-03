@@ -13,6 +13,8 @@ namespace Bastion
         public static string blackHex = "#000000";
         public static Color black = new Color(0, 0, 0);
 
-        public static string engineLogPrefix = $"<color={blackHex}>[BASTION]</color> ";
+        public static string name = "BASTION";
+
+        public static string engineLogPrefix = $"<color={blackHex}><b><mark=#ffffff77>[BASTION]</mark></b></color> ";
     }
 }

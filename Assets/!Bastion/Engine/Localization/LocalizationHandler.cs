@@ -103,6 +103,7 @@ namespace Bastion
         /// </summary>
         /// <param name="lang">Language to use, see Bastion.Lang class for references to standard language spellings via their abrevation.</param>
         /// <param name="verbose">Whether or not to spew out tons of verbose debug information, not recommended.</param>
+        [Command("Wipes memory of localization and parses again")]
         public static bool ParseLocalization(string lang = "English", bool verbose = false)
         {
             // make a list of the uncompiled libraries (like the library struct but list instead of array so we can add to it easier till we've finished searching all files)

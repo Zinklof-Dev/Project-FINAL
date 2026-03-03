@@ -416,7 +416,7 @@ namespace Bastion.Utils.Mapping
         /// <param name="accuracy">how many samples the algorithm does before giving up on a potential point, a low number can ruin the effect. too many gets very expensive.</param>
         /// <param name="seed">seed to base the random number generator off of, useful for getting the same result multiple times </param>
         /// <returns>A List of Vector 2s</returns>
-        public static async Task<List<Vector2>> PoissonSamplingAsync(float radius, Vector2 regionSize, int seed, int accuracy = 30)
+        public static async Task<Vector2[]> PoissonSamplingAsync(float radius, Vector2 regionSize, int seed, int accuracy = 30)
         {   
             System.Random rand = new System.Random(seed);
 
@@ -458,7 +458,7 @@ namespace Bastion.Utils.Mapping
                 }
             });
 
-            return points;
+            return points.ToArray();
         }
         
         /// <summary>
@@ -574,12 +574,24 @@ namespace Bastion.Utils.Mapping
         /// Generates a complete random noise map, literally TV static, no rhyme or reason or connection between each point, just a completely random number (float) from 0-1 (This function does open another thread to help avoid any kind of freezing, use with caution and this in mind)
         /// </summary>
         /// <param name="xSize"> How large the map is on the X axis</param>
-        /// <param name="ySize> How large the map is on the Y axis</param>
+        /// <param name="ySize"> How large the map is on the Y axis</param>
         /// <param name="seed"> Optional param to set the seed for the random number algorithm</param>
-        public static float[,] GenerateStaticNoiseMap(float xSize, float ySize, long seed = 0)
+        public static async Task<float[,]> GenerateStaticNoiseMap(float xSize, float ySize, long seed = 0)
         {
-            // implement later
-            return null;
+            float[,] returnArray = new float[xSize,ySize];
+
+            await Task.Run(() =>
+            {
+                for (int y = 0; x < ySize; y++)
+                {
+                    for (int x = 0; x < xSize x++)
+                    {
+                        returnArray[x,y] = Random.Range(0f,1f);
+                    }
+                }
+            });
+
+            return returnArray;
         }
     }
 }

@@ -221,6 +221,7 @@ namespace Bastion
         /// </summary>
         /// <param name="verbose">Whether or not to spew out tons of verbose debug information, not recommended.</param>
         /// <returns>Boolean representing if it (probably) failed or succeded.</returns>
+        [Command("Wipes memory of settings then parses the settings file")]
         public static bool ParseSettings(bool verbose = false)
         {
             string fullpath = Application.dataPath + "/" + filePath + fileName + fileExtension;
@@ -294,10 +295,11 @@ namespace Bastion
         }
 
         /// <summary>
-        /// 
+        /// Saves the current settings in memory to the settings file, overwriting the file.
         /// </summary>
         /// <param name="verbose">Whether or not to spew out tons of verbose debug information, not recommended.</param>
         /// <returns>Boolean representing if it (probably) failed or succeded.</returns>
+        [Command("Saves the current settings in memory to the settings file, overwriting the file.")]
         public static bool SaveSettings(bool verbose = false)
         {
             // define the full path to the settings file

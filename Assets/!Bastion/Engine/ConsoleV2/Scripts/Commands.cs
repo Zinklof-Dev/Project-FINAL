@@ -19,6 +19,7 @@ namespace Bastion.ConsoleV2
         /// </summary>
         /// <param name="helpDescription">The text returned for this command when the help command is run.</param>
         /// <param name="cheat">Whether or not this command is a cheat and requires cheats to be enabled.</param>
+        /// <param name="developmental">Whether or not this command is only available in editor and dev builds</param>
         /// <param name="callName">Custom callname instead of the function name.</param>
         public Command(string helpDescription, bool cheat = false, bool developmental = false, string callName = "")
         {

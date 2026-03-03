@@ -23,15 +23,16 @@ namespace Bastion.LaunchHandler
         {
             if (BastionMonoManager.instance == null)
             {
-                Debug.LogWarning($"{Bastion.Branding.engineLogPrefix}[Invoker.PostInitialize()] BastionMonoManager is null on first scene load, creating one now, may result in unwanted variable assignments!");
+                Debug.LogWarning($"{Bastion.Branding.engineLogPrefix}[Invoker.PostInitialize()] BastionMonoManager is null on first scene load, creating one now, may result in unwanted variable assignments and undoubtably null reference errors in build!");
                 GameObject bmm =  new GameObject("BastionMonoManager", typeof(BastionMonoManager));
             }
-            //BastionMonoManager.instance.InstantiateConsole();
+            BastionMonoManager.instance.InstantiateConsole();
         }
 
         /// <summary>
         /// Wrapper around the private OnInitialize function. Not recommended to use unless debuging or hitting a vital error, will likely be fairly expensive to run.
         /// </summary>
+        [Command("Re-does the initialization functions", false, true)]
         public static void ReInitialize()
         {
             OnInitialize();
