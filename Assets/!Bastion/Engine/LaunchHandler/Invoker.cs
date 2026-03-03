@@ -22,7 +22,7 @@ namespace Bastion.LaunchHandler
             if (BastionMonoManager.instance = null)
             {
                 Debug.LogWarning("BastionMonoManager is null on first scene load, creating one now, may result in unwanted variable assignments!");
-                GameObject bmm =  new GameObject("BastionMonoManager", TypeOf(BastionMonoManager));
+                GameObject bmm =  new GameObject("BastionMonoManager", typeof(BastionMonoManager));
             }
             BastionMonoManager.instance.InstantiateConsole();
         }

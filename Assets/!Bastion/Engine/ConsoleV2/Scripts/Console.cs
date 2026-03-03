@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Bastion.ConsoleV2
 {
     public static class Console

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Bastion.LaunchHandler
 {
-    public class BastionMonoManger : MonoBehaviour
+    public class BastionMonoManager : MonoBehaviour
     {
         public static BastionMonoManager instance;
 
@@ -18,7 +18,7 @@ namespace Bastion.LaunchHandler
             else
             {
                 instance = this;
-                DontDestroyOnLoad(this.GameObject);
+                DontDestroyOnLoad(this.gameObject);
             }
         }
 

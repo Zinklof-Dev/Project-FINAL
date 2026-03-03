@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Bastion.ConsoleV2
 {
-    public class InputHandler : MonoBehaviour
+    public class InputHandeler : MonoBehaviour
     {
         [Header("TMP References")]
         [SerializeField] private TMPro.TextMeshProUGUI log;
@@ -32,7 +32,7 @@ namespace Bastion.ConsoleV2
 
         private void Start()
         {
-            //Assembler.Initialize();s
+            //Assembler.Initialize();
 
             Application.logMessageReceived += HandleUnityLog;
             Console.OnNewLog += UpdateLog;

@@ -108,15 +108,15 @@ namespace Bastion.LocalizationEditor
                 newPath += pathComponents[i];
             }
 
-            string newPath += newName + ".loc";
+            newPath += newName + ".loc";
 
-            using (StreamWriter sw = StreamWriter())
+            using (StreamWriter sw = new StreamWriter(newPath))
             {
-                using (StreamReader sr = StreamReader(path))
+                using (StreamReader sr = new StreamReader(path))
                 {
                     string line = "";
 
-                    while ((line = sr.ReadLine(newPath)) != null)
+                    while ((line = sr.ReadLine()) != null)
                     {
                         sw.WriteLine(line);
                     }
@@ -126,13 +126,13 @@ namespace Bastion.LocalizationEditor
 
         public void MoveFile(string path, string newPath)
         {
-            using (StreamWriter sw = StreamWriter())
+            using (StreamWriter sw = new StreamWriter(newPath))
             {
-                using (StreamReader sr = StreamReader(path))
+                using (StreamReader sr = new StreamReader(path))
                 {
                     string line = "";
 
-                    while ((line = sr.ReadLine(newPath)) != null)
+                    while ((line = sr.ReadLine()) != null)
                     {
                         sw.WriteLine(line);
                     }
@@ -153,8 +153,8 @@ namespace Bastion.LocalizationEditor
         {
             foreach (Transform child in feContainer.transform)
             {
-                if (child.GameObject.name == name)
-                Destroy(child.GameObject);
+                if (child.gameObject.name == name)
+                Destroy(child.gameObject);
             }
         }
 

@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
- 
+using System.IO;
+
 namespace Bastion.LocalizationEditor
 {
     public class FileEditor : MonoBehaviour
@@ -12,9 +13,9 @@ namespace Bastion.LocalizationEditor
         // fully hidden References
         EditorMain em;
         // display variables
-        string name;
+        string fileName;
         // variables
-        string path
+        string path;
         bool unsavedChanges = false;
 
         public void ContactED(EditorMain em)
@@ -38,7 +39,7 @@ namespace Bastion.LocalizationEditor
 
         public void UpdateUI()
         {
-            nameBar.text = name;
+            nameBar.text = fileName;
 
             if (unsavedChanges)
                 nameBar.text += "*";
@@ -46,7 +47,7 @@ namespace Bastion.LocalizationEditor
 
         public void PushChanges()
         {
-            if (unsavedChanges = false)
+            if (unsavedChanges == false)
             {
                 unsavedChanges = true;
                 UpdateUI();
@@ -57,15 +58,15 @@ namespace Bastion.LocalizationEditor
 
         public void SaveCurrentData()
         {
-            unsavedChanges = false();
+            unsavedChanges = false;
 
-            srting[] lines = inputField.text.Split("\n");
+            string[] lines = inputField.text.Split("\n");
 
-            using (StreamWriter sw = StreamWriter(path))
+            using (StreamWriter sw = new StreamWriter(path))
             {
                 foreach (string s in lines)
                 {
-                    sw.WriteLine(line);
+                    sw.WriteLine(s);
                 }
             }
 
