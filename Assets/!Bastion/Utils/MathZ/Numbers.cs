@@ -16,112 +16,112 @@ namespace Bastion.Utils.MathZ
         /// </summary>
         /// <param name="x">Value to square</param>
         /// <returns>Sqaured Value of X</returns>
-        [Obsolete("Quicker to do the math in script.")]
+        [Obsolete("Function Deprecated for perfromance reasons. It's quicker for you to do the math yourself in a script (sub milisecond save). May be removed in the future.")]
         static public double Sqr(double x) { return x * x; }
         /// <summary>
         /// Provides the Square Value of a number.
         /// </summary>
         /// <param name="x">Value to square</param>
         /// <returns>Sqaured Value of X</returns>
-        [Obsolete("Quicker to do the math in script.")]
+        [Obsolete("Function Deprecated for perfromance reasons. It's quicker for you to do the math yourself in a script (sub milisecond save). May be removed in the future.")]
         static public float Sqr(float x) { return x * x; }
         /// <summary>
         /// Provides the Square Value of a number.
         /// </summary>
         /// <param name="x">Value to square</param>
         /// <returns>Sqaured Value of X</returns>
-        [Obsolete("Quicker to do the math in script.")]
+        [Obsolete("Function Deprecated for perfromance reasons. It's quicker for you to do the math yourself in a script (sub milisecond save). May be removed in the future.")]
         static public int Sqr(int x) { return x * x; }
         /// <summary>
         /// Provides the Square Value of a number.
         /// </summary>
         /// <param name="x">Value to square</param>
         /// <returns>Sqaured Value of X</returns>
-        [Obsolete("Quicker to do the math in script.")]
+        [Obsolete("Function Deprecated for perfromance reasons. It's quicker for you to do the math yourself in a script (sub milisecond save). May be removed in the future.")]
         static public long Sqr(long x) { return x * x; }
         /// <summary>
         /// Provides the Square Value of a number.
         /// </summary>
         /// <param name="x">Value to square</param>
         /// <returns>Sqaured Value of X</returns>
-        [Obsolete("Quicker to do the math in script.")]
+        [Obsolete("Function Deprecated for perfromance reasons. It's quicker for you to do the math yourself in a script (sub milisecond save). May be removed in the future.")]
         static public short Sqr(short x) { return (short)(x * x); }
         /// <summary>
         /// Provides the Square Value of a number.
         /// </summary>
         /// <param name="x">Value to square</param>
         /// <returns>Sqaured Value of X</returns>
-        [Obsolete("Quicker to do the math in script.")]
+        [Obsolete("Function Deprecated for perfromance reasons. It's quicker for you to do the math yourself in a script (sub milisecond save). May be removed in the future.")]
         static public uint Sqr(uint x) { return x * x; }
         /// <summary>
         /// Provides the Square Value of a number.
         /// </summary>
         /// <param name="x">Value to square</param>
         /// <returns>Sqaured Value of X</returns>
-        [Obsolete("Quicker to do the math in script.")]
+        [Obsolete("Function Deprecated for perfromance reasons. It's quicker for you to do the math yourself in a script (sub milisecond save). May be removed in the future.")]
         static public ulong Sqr(ulong x) { return x * x; }
         /// <summary>
         /// Provides the Square Value of a number.
         /// </summary>
         /// <param name="x">Value to square</param>
         /// <returns>Sqaured Value of X</returns>
-        [Obsolete("Quicker to do the math in script.")]
+        [Obsolete("Function Deprecated for perfromance reasons. It's quicker for you to do the math yourself in a script (sub milisecond save). May be removed in the future.")]
         static public ushort Sqr(ushort x) { return (ushort)(x * x); }
         /// <summary>
         /// Provides the Cubed Value of a number.
         /// </summary>
         /// <param name="x">Value to cube</param>
         /// <returns>Cubed Value of X</returns>
-        [Obsolete("Quicker to do the math in script.")]
+        [Obsolete("Function Deprecated for perfromance reasons. It's quicker for you to do the math yourself in a script (sub milisecond save). May be removed in the future.")]
         static public double Cube(double x) { return x * x * x; }
         /// <summary>
         /// Provides the Cubed Value of a number.
         /// </summary>
         /// <param name="x">Value to cube</param>
         /// <returns>Cubed Value of X</returns>
-        [Obsolete("Quicker to do the math in script.")]
+        [Obsolete("Function Deprecated for perfromance reasons. It's quicker for you to do the math yourself in a script (sub milisecond save). May be removed in the future.")]
         static public float Cube(float x) { return x * x * x; }
         /// <summary>
         /// Provides the Cubed Value of a number.
         /// </summary>
         /// <param name="x">Value to cube</param>
         /// <returns>Cubed Value of X</returns>
-        [Obsolete("Quicker to do the math in script.")]
+        [Obsolete("Function Deprecated for perfromance reasons. It's quicker for you to do the math yourself in a script (sub milisecond save). May be removed in the future.")]
         static public int Cube(int x) { return x * x * x; }
         /// <summary>
         /// Provides the Cubed Value of a number.
         /// </summary>
         /// <param name="x">Value to cube</param>
         /// <returns>Cubed Value of X</returns>
-        [Obsolete("Quicker to do the math in script.")]
+        [Obsolete("Function Deprecated for perfromance reasons. It's quicker for you to do the math yourself in a script (sub milisecond save). May be removed in the future.")]
         static public long Cube(long x) { return x * x * x; }
         /// <summary>
         /// Provides the Cubed Value of a number.
         /// </summary>
         /// <param name="x">Value to cube</param>
         /// <returns>Cubed Value of X</returns>
-        [Obsolete("Quicker to do the math in script.")]
+        [Obsolete("Function Deprecated for perfromance reasons. It's quicker for you to do the math yourself in a script (sub milisecond save). May be removed in the future.")]
         static public short Cube(short x) { return (short)(x * x * x); }
         /// <summary>
         /// Provides the Cubed Value of a number.
         /// </summary>
         /// <param name="x">Value to cube</param>
         /// <returns>Cubed Value of X</returns>
-        [Obsolete("Quicker to do the math in script.")]
+        [Obsolete("Function Deprecated for perfromance reasons. It's quicker for you to do the math yourself in a script (sub milisecond save). May be removed in the future.")]
         static public uint Cube(uint x) { return x * x * x; }
         /// <summary>
         /// Provides the Cubed Value of a number.
         /// </summary>
         /// <param name="x">Value to cube</param>
         /// <returns>Cubed Value of X</returns>
-        [Obsolete("Quicker to do the math in script.")]
+        [Obsolete("Function Deprecated for perfromance reasons. It's quicker for you to do the math yourself in a script (sub milisecond save). May be removed in the future.")]
         static public ulong Cube(ulong x) { return x * x * x; }
         /// <summary>
         /// Provides the Cubed Value of a number.
         /// </summary>
         /// <param name="x">Value to cube</param>
         /// <returns>Cubed Value of X</returns>
-        [Obsolete("Quicker to do the math in script.")]
+        [Obsolete("Function Deprecated for perfromance reasons. It's quicker for you to do the math yourself in a script (sub milisecond save). May be removed in the future.")]
         static public ushort Cube(ushort x) { return (ushort)(x * x * x); }
         /// <summary>
         /// Returns X to the Y power.
@@ -129,7 +129,7 @@ namespace Bastion.Utils.MathZ
         /// <param name="x">Number to raise to Y power</param>
         /// <param name="y">power to raise X to</param>
         /// <returns>X^Y / X to the Y power</returns>
-        [Obsolete("See MathF.Pow / Math.Pow")]
+        [Obsolete("Function deprecated due to being outright worse than the built in System and unity library; See MathF.Pow / Math.Pow (or just do the multiplication yourself in the instance of solid integers because thats cheaper!)"]
         static public double Power(double x, double y)
         {
             double temp = x;
@@ -145,7 +145,7 @@ namespace Bastion.Utils.MathZ
         /// <param name="x">Number to raise to Y power</param>
         /// <param name="y">power to raise X to</param>
         /// <returns>X^Y / X to the Y power</returns>
-        [Obsolete("See MathF.Pow / Math.Pow")]
+        [Obsolete("Function deprecated due to being outright worse than the built in System and unity library; See MathF.Pow / Math.Pow (or just do the multiplication yourself in the instance of solid integers because thats cheaper!)"]
         static public float Power(float x, float y)
         {
             float temp = x;
