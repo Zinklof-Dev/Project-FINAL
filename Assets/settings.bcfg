@@ -1,6 +1,4 @@
+[Engine]
+engine.verbose : false
 [Gameplay]
 language : English
-[Engine]
-verbose : true
-[Engine]
-verbose : false

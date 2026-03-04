@@ -2,7 +2,7 @@ using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEngine.Analytics;
+using Bastion.ConsoleV2;
 
 namespace Bastion
 {

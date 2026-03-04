@@ -15,6 +15,6 @@ namespace Bastion
 
         public static string name = "BASTION";
 
-        public static string engineLogPrefix = $"<color={blackHex}><b><mark=#ffffff77>[BASTION]</mark></b></color> ";
+        public static string engineLogPrefix = $"<color={blackHex}><b><mark=#ffffff55>[BASTION]</mark></b></color> ";
     }
 }

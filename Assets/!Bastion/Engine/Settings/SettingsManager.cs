@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.UIElements;
+using Bastion.ConsoleV2;
 
 namespace Bastion
 {
@@ -142,6 +142,10 @@ namespace Bastion
         /// Add the setting to memory, then add it and only it to the end of the file, ensuring that it at least gets into the settings file without potentially saving other unsaved settings when saving should not occur.
         /// </summary>
         AddThenMinorSave = 3,
+        /// <summary>
+        /// Return the default value, but don't add to memory or save the value. functionally keeping it hidden from the player if they never specify it in the .bcfg
+        /// </summary>
+        ReturnDefault = 4,
     }
 
     public static class SettingsManager
@@ -207,6 +211,11 @@ namespace Bastion
                     settings = list2.ToArray();
                     SaveSetting(settings[settings.Length-1]);
                     return settings[settings.Length - 1];
+
+                case MissingMode.ReturnDefault:
+                    if (verbose)
+                        Debug.Log(logPrefix + "Setting not found, returning default value but not saving to memory or file");
+                    return new Setting(key, defaultValue, defaultLibrary);
             };
 
             if (verbose)

@@ -1,4 +1,5 @@
 using UnityEngine;
+using Bastion.ConsoleV2;
 
 namespace Bastion.LaunchHandler
 {
@@ -7,7 +8,9 @@ namespace Bastion.LaunchHandler
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void OnInitialize()
         {
-            Bastion.Engine.verbose = SettingsManager.FetchSetting("verbose", "false", "Engine", MissingMode.AddThenMinorSave, true);
+            Bastion.SettingsManager.ParseSettings(false);
+
+            Bastion.Engine.verbose = SettingsManager.FetchSetting("engine.verbose", "false", "Engine", MissingMode.AddThenMinorSave, false);
 
             Bastion.SettingsManager.ParseSettings(Engine.verbose);
 
@@ -21,12 +24,16 @@ namespace Bastion.LaunchHandler
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void PostInitialize()
         {
+            bool makeConsole = SettingsManager.FetchSetting("engine.console", "true", "Engine", MissingMode.ReturnDefault, Engine.verbose);
+
             if (BastionMonoManager.instance == null)
             {
                 Debug.LogWarning($"{Bastion.Branding.engineLogPrefix}[Invoker.PostInitialize()] BastionMonoManager is null on first scene load, creating one now, may result in unwanted variable assignments and undoubtably null reference errors in build!");
                 GameObject bmm =  new GameObject("BastionMonoManager", typeof(BastionMonoManager));
             }
-            BastionMonoManager.instance.InstantiateConsole();
+
+            if (makeConsole)
+                BastionMonoManager.instance.InstantiateConsole();
         }
 
         /// <summary>

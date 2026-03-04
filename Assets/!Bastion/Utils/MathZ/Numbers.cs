@@ -129,7 +129,7 @@ namespace Bastion.Utils.MathZ
         /// <param name="x">Number to raise to Y power</param>
         /// <param name="y">power to raise X to</param>
         /// <returns>X^Y / X to the Y power</returns>
-        [Obsolete("Function deprecated due to being outright worse than the built in System and unity library; See MathF.Pow / Math.Pow (or just do the multiplication yourself in the instance of solid integers because thats cheaper!)"]
+        [Obsolete("Function deprecated due to being outright worse than the built in System and unity library; See MathF.Pow / Math.Pow (or just do the multiplication yourself in the instance of solid integers because thats cheaper!)")]
         static public double Power(double x, double y)
         {
             double temp = x;
@@ -145,7 +145,7 @@ namespace Bastion.Utils.MathZ
         /// <param name="x">Number to raise to Y power</param>
         /// <param name="y">power to raise X to</param>
         /// <returns>X^Y / X to the Y power</returns>
-        [Obsolete("Function deprecated due to being outright worse than the built in System and unity library; See MathF.Pow / Math.Pow (or just do the multiplication yourself in the instance of solid integers because thats cheaper!)"]
+        [Obsolete("Function deprecated due to being outright worse than the built in System and unity library; See MathF.Pow / Math.Pow (or just do the multiplication yourself in the instance of solid integers because thats cheaper!)")]
         static public float Power(float x, float y)
         {
             float temp = x;

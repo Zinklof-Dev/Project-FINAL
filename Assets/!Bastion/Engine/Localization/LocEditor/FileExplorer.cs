@@ -160,7 +160,7 @@ namespace Bastion.LocalizationEditor
 
         private void CreateObjs(string path)
         {
-            Debug.Log(path);
+            //Debug.Log(path);
 
             DestroyObjs();
 
@@ -191,9 +191,9 @@ namespace Bastion.LocalizationEditor
 
         private string[] GetViewForFolder(string path)
         {
-            Debug.Log(path);
+            //Debug.Log(path);
             string[] files = Directory.GetFiles(path, "*.loc", SearchOption.TopDirectoryOnly);
-            Debug.Log(path);
+            //Debug.Log(path);
             string[] folders = Directory.GetDirectories(path + "/");
 
             List<string> itemList = new List<string>();

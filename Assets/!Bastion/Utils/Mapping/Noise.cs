@@ -576,17 +576,17 @@ namespace Bastion.Utils.Mapping
         /// <param name="xSize"> How large the map is on the X axis</param>
         /// <param name="ySize"> How large the map is on the Y axis</param>
         /// <param name="seed"> Optional param to set the seed for the random number algorithm</param>
-        public static async Task<float[,]> GenerateStaticNoiseMap(float xSize, float ySize, long seed = 0)
+        public static async Task<float[,]> GenerateStaticNoiseMap(int xSize, int ySize, long seed = 0)
         {
             float[,] returnArray = new float[xSize,ySize];
 
             await Task.Run(() =>
             {
-                for (int y = 0; x < ySize; y++)
+                for (int y = 0; y < ySize; y++)
                 {
-                    for (int x = 0; x < xSize x++)
+                    for (int x = 0; x < xSize; x++)
                     {
-                        returnArray[x,y] = Random.Range(0f,1f);
+                        returnArray[x,y] = UnityEngine.Random.Range(0f,1f);
                     }
                 }
             });

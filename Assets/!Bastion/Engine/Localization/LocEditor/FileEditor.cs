@@ -13,7 +13,7 @@ namespace Bastion.LocalizationEditor
         // fully hidden References
         EditorMain em;
         // display variables
-        string fileName;
+        string fileName = "";
         // variables
         string path;
         bool unsavedChanges = false;
@@ -39,6 +39,10 @@ namespace Bastion.LocalizationEditor
 
         public void UpdateUI()
         {
+            string[] split = path.Replace("\\", "/").Split('/');
+
+            fileName = split[split.Length - 1];
+
             nameBar.text = fileName;
 
             if (unsavedChanges)

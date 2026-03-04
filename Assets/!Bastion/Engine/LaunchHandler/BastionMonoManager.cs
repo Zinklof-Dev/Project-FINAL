@@ -35,6 +35,10 @@ namespace Bastion.LaunchHandler
 
             console.transform.SetParent(canvas.transform, false);
 
+            DontDestroyOnLoad(canvas);
+
+            Bastion.Engine.canvas = canvas;
+
             Bastion.ConsoleV2.Console.console = console;
         }
     }
