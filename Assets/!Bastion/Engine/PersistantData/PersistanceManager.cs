@@ -1,12 +1,13 @@
 using System;
 using System.IO;
+using System.Text;
 using UnityEngine;
 
 namespace Bastion
 {
     public static class PersistanceManager
     {
-        public bool Save(T data, string fileName = "save", string fileExtension = ".dat", bool useEncryption = false, bool verbose = false) where T : class
+        public static bool Save(T data, string fileName = "save", string fileExtension = ".dat", bool useEncryption = false, bool verbose = false) where T : class
         {
             string logPrefix = $"{Branding.engineLogPrefix}[PersistanceManager.Save ]"
 
@@ -49,14 +50,44 @@ namespace Bastion
             }
         }
 
-        public T load<T>(string fileName = "save", string fileExtension = ".dat", bool useEncryption = false, bool verbose = false) where T : class
+        public static T load<T>(string fileName = "save", string fileExtension = ".dat", bool useEncryption = false, bool verbose = false) where T : class
         {
             return null;   
         }
 
-        private string Encrypt(string input, string codeword)
+        private static string Encrypt(string input, string codeword)
         {
-            return input; // implement at home
+            byte[] bytes = new byte[input.length * 2];
+
+            foreach (char c in input)
+            {
+                foreach(byte b in BitConverter.GetBytes(c))
+                {
+                    b = RotateRight(b, 6);
+                    b = RotateLeft(b, 2);
+                    b = RotateLeft(b, 6);
+
+                    b = RotateRight(b, 7);
+                    b = RotateRight(b, 3);
+                    b = RotateLeft(b, 4);
+                }
+            }
+
+            return null;
+        }
+
+        private static byte RotateRight(byte byte, int bits)
+        {
+            bits %= 8;
+
+            return (byte)((byte >> bits) | (byte << (8 - bits)));
+        }
+
+        private static byte RotateLeft(byte byte, int bits)
+        {
+            bits %= 8
+
+            return (byte)((byte << bits) | (byte >> (8 - bits)));
         }
     }
 }
