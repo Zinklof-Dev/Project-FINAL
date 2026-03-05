@@ -7,9 +7,9 @@ namespace Bastion
 {
     public static class PersistanceManager
     {
-        public static bool Save(T data, string fileName = "save", string fileExtension = ".dat", bool useEncryption = false, bool verbose = false) where T : class
+        public static bool Save<T>(T data, string fileName = "save", string fileExtension = ".dat", bool useEncryption = false, bool verbose = false) where T : class
         {
-            string logPrefix = $"{Branding.engineLogPrefix}[PersistanceManager.Save ]"
+            string logPrefix = $"{Branding.engineLogPrefix}[PersistanceManager.Save ]";
 
             if (fileExtension[0] != '.')
             {
@@ -30,7 +30,7 @@ namespace Bastion
 
             if (useEncryption)
             {
-                serializedData = EncryptDecrypt(serializedData, "ExampleForNow");
+                //serializedData = EncryptDecrypt(serializedData, "ExampleForNow");
             }
 
             try
@@ -40,9 +40,9 @@ namespace Bastion
                     sw.Write(serializedData);
                 }
 
-                return true
+                return true;
             }
-            catch
+            catch(Exception e)
             {
                 //uh oh
                 Debug.LogWarning(logPrefix + "ran into an exception that it has no way of handling!\n" + e.Message + "\n" + e.StackTrace);
@@ -57,37 +57,31 @@ namespace Bastion
 
         private static string Encrypt(string input, string codeword)
         {
-            byte[] bytes = new byte[input.length * 2];
+            byte[] bytes = new byte[input.Length * 2];
 
             foreach (char c in input)
             {
                 foreach(byte b in BitConverter.GetBytes(c))
                 {
-                    b = RotateRight(b, 6);
-                    b = RotateLeft(b, 2);
-                    b = RotateLeft(b, 6);
 
-                    b = RotateRight(b, 7);
-                    b = RotateRight(b, 3);
-                    b = RotateLeft(b, 4);
                 }
             }
 
             return null;
         }
 
-        private static byte RotateRight(byte byte, int bits)
+        private static byte RotateRight(byte b, int bits)
         {
             bits %= 8;
 
-            return (byte)((byte >> bits) | (byte << (8 - bits)));
+            return (byte)((b >> bits) | (b << (8 - bits)));
         }
 
-        private static byte RotateLeft(byte byte, int bits)
+        private static byte RotateLeft(byte b, int bits)
         {
-            bits %= 8
+            bits %= 8;
 
-            return (byte)((byte << bits) | (byte >> (8 - bits)));
+            return (byte)((b << bits) | (b >> (8 - bits)));
         }
     }
 }
