@@ -21,6 +21,11 @@ namespace Bastion.LocalizationEditor
         public void ContactED(EditorMain em)
         {
             this.em = em;
+
+            string encrypted = Bastion.PersistanceManager.Encrypt("This Is a Test", "0205cbcc699dce8e10a1b0d9bd9ba4f86ca7da5675af67057802dfd5c7aa932d");
+            string decrypted = Bastion.PersistanceManager.Decrypt(encrypted, "0205cbcc699dce8e10a1b0d9bd9ba4f86ca7da5675af67057802dfd5c7aa932d");
+
+            Debug.Log(encrypted + " | " +  decrypted);
         }
 
         public void PushNewData(string[] data, string path)
