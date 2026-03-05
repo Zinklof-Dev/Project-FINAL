@@ -63,7 +63,12 @@ namespace Bastion
         {
             string output = "";
 
-            byte adder = 69;
+            ulong IV = UnityEngine.Random.Range(0, ulong.MaxValue);
+            ulong IV2 = UnityEngine.Random.Range(0, ulong.MaxValue);
+
+            System.Random rand = new System.Random(IV2);
+            
+            byte adder = IV % 255;
 
             for (int c = 0; c < input.Length; c++)
             {
@@ -86,12 +91,14 @@ namespace Bastion
 
                     if (adder % 2 == 0)
                     {
-                        adder = RotateRight(adder, sb[1] + sb[0] - adder + secret.Length);
+                        adder = RotateRight(adder, sb[1] + sb[0] - adder + secret.Length - (IV % 255));
                     }
                     else
                     {
-                        adder = RotateLeft(adder, sb[1] - sb[0] + adder - secret.Length);
+                        adder = RotateLeft(adder, sb[1] - sb[0] + adder - secret.Length + (IV % 255));
                     }
+
+                    IV += (ulong)(Rand.Next() * ulong.MaxValue);
                 }
 
                 for (int s = secret.Length-1; s > -1; s--)
@@ -111,15 +118,50 @@ namespace Bastion
 
                     if (adder % 2 == 0)
                     {
-                        adder = RotateRight(adder, sb[1] + sb[0] - adder + secret.Length);
+                        adder = RotateRight(adder, sb[1] + sb[0] - adder + secret.Length + (IV % 255));
                     }
                     else
                     {
-                        adder = RotateLeft(adder, sb[1] - sb[0] + adder - secret.Length);
+                        adder = RotateLeft(adder, sb[1] - sb[0] + adder - secret.Length - (IV % 255);
                     }
+
+                    IV -= (ulong)(Rand.Next() * ulong.MaxValue);
                 }
 
+                byte[] IVtoBytes = BitConverter.GetBytes(IV);
+                byte[] IV2toBytes = BitConveter.GetBytes(IV2);
+
+                List<char> cList = new List<Char>();
+
+                byte[] bytes = new byte[2]
+                
+                for (int i = 0; i < 4; i++)
+                {
+                    bytes[0] = IVtoBytes[i]; // 0 , 1 , 2 , 3
+                    bytes[1] = IVtoBytes[IVtoBytes.length-1-i]; // 7 , 6 , 5 , 4
+
+                    cList.Add(BitConverter.ToChar(bytes));
+                }
+
+                for (int i = 0; i < 4; i++)
+                {
+                    bytes[0] = IV2toBytes[i]; // 0 , 1 , 2 , 3
+                    bytes[1] = IV2toBytes[IV2toBytes.length-1-i]; // 7 , 6 , 5 , 4
+
+                    cList.Add(BitConverter.ToChar(bytes));
+                }
+
+                for (int i = 0; i < 4; i++)
+                {
+                    output += cList[i];
+                }
+                
                 output += BitConverter.ToChar(cb);
+
+                for (int i = 4; i < 8; i++)
+                {
+                    output += cList[i];
+                }
             }
 
             return output;
@@ -212,4 +254,5 @@ namespace Bastion
             return (byte)((b << bits) | (b >> (8 - bits)));
         }
     }
+
 }
