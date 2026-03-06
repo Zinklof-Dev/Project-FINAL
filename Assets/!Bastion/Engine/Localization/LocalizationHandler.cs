@@ -69,23 +69,79 @@ namespace Bastion
     /// </summary>
     public static class Langs
     {
-        public static string en {get; private set;}
-        public static string it {get; private set;}
-        public static string fr {get; private set;}
-        public static string de {get; private set;}
-        public static string es {get; private set;}
-        public static string gb {get; private set;}
-        public static string lc {get; private set;}
+        // --- Official European Union Languages ---
+        public static string bg { get; private set; } // Bulgarian
+        public static string hr { get; private set; } // Croatian
+        public static string cs { get; private set; } // Czech
+        public static string da { get; private set; } // Danish
+        public static string nl { get; private set; } // Dutch
+        public static string en { get; private set; } // English
+        public static string et { get; private set; } // Estonian
+        public static string fi { get; private set; } // Finnish
+        public static string fr { get; private set; } // French
+        public static string de { get; private set; } // German
+        public static string el { get; private set; } // Greek
+        public static string hu { get; private set; } // Hungarian
+        public static string ga { get; private set; } // Irish
+        public static string it { get; private set; } // Italian
+        public static string lv { get; private set; } // Latvian
+        public static string lt { get; private set; } // Lithuanian
+        public static string mt { get; private set; } // Maltese
+        public static string pl { get; private set; } // Polish
+        public static string pt { get; private set; } // Portuguese
+        public static string ro { get; private set; } // Romanian
+        public static string sk { get; private set; } // Slovak
+        public static string sl { get; private set; } // Slovenian
+        public static string es { get; private set; } // Spanish
+        public static string sv { get; private set; } // Swedish
+    
+        // --- Major Non-EU European Languages ---
+        public static string ru { get; private set; } // Russian
+        public static string uk { get; private set; } // Ukrainian
+        public static string tr { get; private set; } // Turkish
+    
+        // --- Top Spoken Non-European Languages (2025 Rankings) ---
+        public static string zh { get; private set; } // Mandarin Chinese
+        public static string hi { get; private set; } // Hindi
+        public static string ar { get; private set; } // Arabic (Standard)
+        public static string bn { get; private set; } // Bengali
+        public static string id { get; private set; } // Indonesian
+        public static string ur { get; private set; } // Urdu
+        public static string ja { get; private set; } // Japanese
+        public static string mr { get; private set; } // Marathi
+        public static string te { get; private set; } // Telugu
+        public static string vi { get; private set; } // Vietnamese
+        public static string ko { get; private set; } // Korean
 
+        // --- Some Joke Languages ---
+        public static string gb { get; private set; } // goblin, based on goblinbane
+        public static string lc { get; private set; } // lolcat
+        public static string ps { get; private set; } // pirate speak
+        public static string dg { get; private set; } // doge
+        public static string bf { get; private set; } // brainfuck (the programming langauge)
+        public static string iv { get; private set; } // Intellectual-property Distinct village folk
+    
         static Langs()
         {
-            en = "English";
-            it = "Italian";
-            fr = "Français";
-            de = "Deutsch";
-            es = "Español";
-            gb = "Goblin";
-            lc = "Lolcat";
+            // European Union
+            bg = "Български"; hr = "Hrvatski"; cs = "Čeština"; da = "Dansk";
+            nl = "Nederlands"; en = "English"; et = "Eesti"; fi = "Suomi";
+            fr = "Français"; de = "Deutsch"; el = "Ελληνικά"; hu = "Magyar";
+            ga = "Gaeilge"; it = "Italiano"; lv = "Latviešu"; lt = "Lietuvių";
+            mt = "Malti"; pl = "Polski"; pt = "Português"; ro = "Română";
+            sk = "Slovenčina"; sl = "Slovenščina"; es = "Español"; sv = "Svenska";
+    
+            // Non-EU European
+            ru = "Русский"; uk = "Українська"; tr = "Türkçe";
+    
+            // Global Non-European
+            zh = "普通话"; hi = "हिन्दी"; ar = "العربية"; bn = "বাংলা";
+            id = "Bahasa Indonesia"; ur = "اُردُو"; ja = "日本語"; mr = "मराठी";
+            te = "తెలుగు"; vi = "Tiếng Việt"; ko = "한국어";
+
+            // Joke Langauges
+            gb = "Goblin"; lc = "LolCat"; ps = "Pirate Speak"; dg = "Doge";
+            bf = "Brainfuck", iv = "Intellectually Distinct Village Folk";
         }
     }
 
