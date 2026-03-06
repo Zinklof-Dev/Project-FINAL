@@ -1,4 +1,7 @@
-[lib]:menu
-start : Start
+[lib] menu.buttons
+new_game : New Game
+load : Load Game
+settings : Settings
 tutorial : Tutorial
+modding : Modding
 quit : Quit
