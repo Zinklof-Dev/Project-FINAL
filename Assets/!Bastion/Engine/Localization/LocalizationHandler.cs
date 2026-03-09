@@ -119,8 +119,8 @@ namespace Bastion
         public static string ps { get; private set; } // pirate speak
         public static string dg { get; private set; } // doge
         public static string bf { get; private set; } // brainfuck (the programming langauge)
-        public static string iv { get; private set; } // Intellectual-property Distinct village folk
-    
+        public static string iv { get; private set; } // Intellectually Distinct village folk
+
         static Langs()
         {
             // European Union
@@ -130,10 +130,10 @@ namespace Bastion
             ga = "Gaeilge"; it = "Italiano"; lv = "Latviešu"; lt = "Lietuvių";
             mt = "Malti"; pl = "Polski"; pt = "Português"; ro = "Română";
             sk = "Slovenčina"; sl = "Slovenščina"; es = "Español"; sv = "Svenska";
-    
+
             // Non-EU European
             ru = "Русский"; uk = "Українська"; tr = "Türkçe";
-    
+
             // Global Non-European
             zh = "普通话"; hi = "हिन्दी"; ar = "العربية"; bn = "বাংলা";
             id = "Bahasa Indonesia"; ur = "اُردُو"; ja = "日本語"; mr = "मराठी";
@@ -141,7 +141,7 @@ namespace Bastion
 
             // Joke Langauges
             gb = "Goblin"; lc = "LolCat"; ps = "Pirate Speak"; dg = "Doge";
-            bf = "Brainfuck", iv = "Intellectually Distinct Village Folk";
+            bf = "Brainfuck"; iv = "Intellectually Distinct Village Folk";
         }
     }
 
