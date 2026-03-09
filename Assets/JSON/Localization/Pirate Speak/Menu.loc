@@ -1,0 +1,7 @@
+[lib] menu.buttons
+new_game : Start a New Voyage
+load : Recall an Old Tale
+settings : Ship's Articles
+tutorial : Recruit Trainin'
+modding : Custom Riggin'
+quit : Abandon Ship
