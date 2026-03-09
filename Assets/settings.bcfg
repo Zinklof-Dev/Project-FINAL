@@ -1,4 +1,18 @@
 [Engine]
 engine.verbose : false
+engine.allow_localization_fallback_to_english : false
+engine.console : true
+engine.show_fps : false
+engine.show_more_performance : false 
 [Gameplay]
 language : English
+[Video]
+framerate : -1
+vsycn : false
+resolutionx : 1920
+resolutiony : 1080
+bloom : true
+chromatic_aberation : true
+dialouge_blur : true
+shadow_quality : 4
+window_mode : FullscreenBorderless

@@ -11,8 +11,11 @@ namespace Bastion.LaunchHandler
             Bastion.SettingsManager.ParseSettings(false);
 
             Bastion.Engine.verbose = SettingsManager.FetchSetting("engine.verbose", "false", "Engine", MissingMode.AddThenMinorSave, false);
+            Bastion.Engine.localizationFallbackEnglish = SettingsManager.FetchSetting("engine.allow_localization_fallback_to_english", "true", "Engine", MissingMode.AddThenMinorSave, Engine.verbose);
+            Bastion.Engine.showFPS = SettingsManager.FetchSetting("engine.show_fps", "false", "Engine", MissingMode.AddThenMinorSave, Engine.verbose);
+            Bastion.Engine.showOtherPerformance = SettingsManager.FetchSetting("engine.show_more_performance", "false", "Engine", MissingMode.AddThenMinorSave, Engine.verbose);
 
-            Bastion.SettingsManager.ParseSettings(Engine.verbose);
+            //Bastion.SettingsManager.ParseSettings(Engine.verbose);
 
             string language = Bastion.SettingsManager.FetchSetting("language", "English", "Gameplay", MissingMode.AddThenMinorSave, Engine.verbose);
 
@@ -24,7 +27,7 @@ namespace Bastion.LaunchHandler
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void PostInitialize()
         {
-            bool makeConsole = SettingsManager.FetchSetting("engine.console", "true", "Engine", MissingMode.ReturnDefault, Engine.verbose);
+            bool makeConsole = SettingsManager.FetchSetting("engine.console", "true", "Engine", MissingMode.AddThenMinorSave, Engine.verbose);
 
             if (BastionMonoManager.instance == null)
             {

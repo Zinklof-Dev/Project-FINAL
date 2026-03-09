@@ -6,6 +6,10 @@ namespace Bastion
     {
         public static bool verbose;
         public static bool console;
+        public static bool localiztionFallbackToEnglish;
+        public static bool showFPS;
+        public static bool showOtherPerformance;
+
 
         public static GameObject canvas;
     }
