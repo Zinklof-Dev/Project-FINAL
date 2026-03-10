@@ -5,7 +5,7 @@ using TMPro;
 
 namespace Bastion
 {
-    public class PerformanceVisualizer : MonoBehavoir
+    public class PerformanceVisualizer : MonoBehaviour
     {
         [Header("References")]
         [SerializeField] TMP_text fpsText;
@@ -34,7 +34,7 @@ namespace Bastion
             
             fpsText = gameObject.GetComponent<TMP_text>();
 
-            
+
         }
 
         private void logFrame(bool fixed)
