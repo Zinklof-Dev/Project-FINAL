@@ -1,6 +1,6 @@
 using System;
-using System.Diagnostiscs;
-using UntiyEngine;
+using System.Diagnostics;
+using UnityEngine;
 using TMPro;
 
 namespace Bastion
@@ -8,17 +8,17 @@ namespace Bastion
     public class PerformanceVisualizer : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField] TMP_text fpsText;
+        [SerializeField] TMP_Text fpsText;
         [Header("States")]
-        public bool enabled;
+        public bool on;
         [Header("Debug View")]
-        [SerializeField] float FPS;
+        [SerializeField] float fps;
         [SerializeField] float fixedFPS;
         [SerializeField] int loggedFPS;
-        [SerializeField] int loggedFixedFPS
+        [SerializeField] int loggedFixedFPS;
         [SerializeField] float totalMemoryMB;
         [SerializeField] float totalMemoryGB;
-        [SerializeField] float timeSinceLastCheck
+        [SerializeField] float timeSinceLastCheck;
 
         private int framesPassed;
         private int fixedFramesPassed;
@@ -30,29 +30,27 @@ namespace Bastion
             if (Engine.showFPS)
                 enabled = true;
             else
-                Destroy(This);
+                Destroy(this);
             
-            fpsText = gameObject.GetComponent<TMP_text>();
-
-
+            fpsText = gameObject.GetComponent<TMP_Text>();
         }
 
-        private void logFrame(bool fixed)
+        private void LogFrame(bool fixedFrame)
         {
-            if (fixed)
+            if (fixedFrame)
                 fixedFramesPassed++;
             else
                 framesPassed++;
         }
 
-        private void getFPS(bool fixed)
+        private void GetFPS(bool fixedFrame)
         {
-            if (fixed)
-                fixedFPS = 1 / time.fixedDeltaTime;
+            if (fixedFrame)
+                fixedFPS = 1 / Time.fixedDeltaTime;
             else
                 fps = 1 / Time.deltaTime;
 
-            if (timeSinceLastCheck > 1 && !fixed)
+            if (timeSinceLastCheck > 1 && !fixedFrame)
             {
                 loggedFPS = framesPassed;
                 loggedFixedFPS = fixedFramesPassed;
@@ -60,7 +58,7 @@ namespace Bastion
             }
         }
 
-        private void getOther()
+        private void GetOther()
         {
             Process.GetCurrentProcess().Refresh();
             long memoryInBytes = Process.GetCurrentProcess().WorkingSet64;
@@ -72,8 +70,7 @@ namespace Bastion
         private void UpdateUI()
         {
             fpsText.text = 
-            $"Delta FPS: {fps} | Delta Physics FPS: {fixedFPS}\n
-            Logged FPS: {loggedFPS} | Logged Physics FPS: {loggedFixedFPS}";
+            $"Delta FPS: {fps} | Delta Physics FPS: {fixedFPS}\n Logged FPS: {loggedFPS} | Logged Physics FPS: {loggedFixedFPS}";
 
             if (Engine.showOtherPerformance)
             {
@@ -83,11 +80,11 @@ namespace Bastion
 
         private void CheckInput()
         {
-            if (Input.GetKey(KeyCode.LShift) && Inpt.GetKey(KeyCode.Zero))
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.Alpha0))
             {
-                enabled = !enabled;
+                on = !on;
 
-                if (enabled) // little nesty for update but... actually no screw it new function time
+                if (on) // little nesty for update but... actually no screw it new function time
                 {
                     transform.position = startPos;
                 }
@@ -96,7 +93,7 @@ namespace Bastion
 
         private void GetDiagnostics()
         {
-            if (!enabled)
+            if (!on)
             {
                 fpsText.text = "";
                 fpsText.transform.position = new Vector3(9999,9999,9999);
@@ -106,14 +103,14 @@ namespace Bastion
             if (Engine.showFPS)
             {
                 timeSinceLastCheck += Time.deltaTime;
-                getFPS();
-                logFrame(false);
+                GetFPS(false);
+                LogFrame(false);
             }
 
             if (Engine.showOtherPerformance)
-                getOther();
+                GetOther();
 
-            if (engine.showFPS)
+            if (Engine.showFPS)
             {
                 UpdateUI();
             }

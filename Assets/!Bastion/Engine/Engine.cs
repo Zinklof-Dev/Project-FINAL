@@ -6,7 +6,7 @@ namespace Bastion
     {
         public static bool verbose;
         public static bool console;
-        public static bool localiztionFallbackToEnglish;
+        public static bool localizationFallbackEnglish;
         public static bool showFPS;
         public static bool showOtherPerformance;
 

@@ -2,10 +2,7 @@ using Bastion.ConsoleV2;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Bastion
 {
