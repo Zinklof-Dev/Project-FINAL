@@ -22,8 +22,8 @@ namespace Bastion
         float totalMemoryGB;
         float timeSinceLastCheck;
 
-        private int framesPassed;
-        private int fixedFramesPassed;
+        public int framesPassed;
+        public int fixedFramesPassed;
 
         private Vector3 startPos;
 
@@ -35,14 +35,8 @@ namespace Bastion
                 Destroy(this);
             
             fpsText = gameObject.GetComponent<TMP_Text>();
-        }
 
-        private void LogFrame(bool fixedFrame)
-        {
-            if (fixedFrame)
-                fixedFramesPassed++;
-            else
-                framesPassed++;
+            on = true;
         }
 
         private void GetFPS(bool fixedFrame)
@@ -57,6 +51,8 @@ namespace Bastion
                 loggedFPS = framesPassed;
                 loggedFixedFPS = fixedFramesPassed;
                 timeSinceLastCheck = 0;
+                framesPassed = 0;
+                fixedFramesPassed = 0;
             }
         }
 
@@ -72,11 +68,11 @@ namespace Bastion
         private void UpdateUI()
         {
             fpsText.text = 
-            $"Delta FPS: {fps} | Delta Physics FPS: {fixedFPS}\n Logged FPS: {loggedFPS} | Logged Physics FPS: {loggedFixedFPS}";
+            $"Delta FPS: {fps} | Delta Physics FPS: {fixedFPS}\nLogged FPS: {loggedFPS} | Logged Physics FPS: {loggedFixedFPS}";
 
             if (Engine.showOtherPerformance)
             {
-                fpsText.text += $"\n Ram Usage: {totalMemoryGB} GB ({totalMemoryMB} MB)";
+                fpsText.text += $"\nRam Usage: {totalMemoryGB} GB ({totalMemoryMB} MB)";
             }
         }
 
@@ -105,7 +101,6 @@ namespace Bastion
             {
                 timeSinceLastCheck += Time.deltaTime;
                 GetFPS(fixedFrame);
-                LogFrame(fixedFrame);
             }
 
             if (Engine.showOtherPerformance)
@@ -119,12 +114,16 @@ namespace Bastion
 
         private void Update()
         {
+            framesPassed++;
+
             CheckInput();
             GetDiagnostics(false);
         }
 
         private void FixedUpdate()
         {
+            fixedFramesPassed++;
+
             GetDiagnostics(true);
             textValue = fpsText.text;
         }
