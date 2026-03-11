@@ -12,13 +12,15 @@ namespace Bastion
         [Header("States")]
         public bool on;
         [Header("Debug View")]
-        [SerializeField] float fps;
-        [SerializeField] float fixedFPS;
-        [SerializeField] int loggedFPS;
-        [SerializeField] int loggedFixedFPS;
-        [SerializeField] float totalMemoryMB;
-        [SerializeField] float totalMemoryGB;
-        [SerializeField] float timeSinceLastCheck;
+        [SerializeField] string textValue;
+        
+        float fps;
+        float fixedFPS;
+        int loggedFPS;
+        int loggedFixedFPS;
+        float totalMemoryMB;
+        float totalMemoryGB;
+        float timeSinceLastCheck;
 
         private int framesPassed;
         private int fixedFramesPassed;
@@ -85,26 +87,25 @@ namespace Bastion
                 on = !on;
 
                 if (on) // little nesty for update but... actually no screw it new function time
-                {
                     transform.position = startPos;
+                else
+                {
+                    fpsText.text = "";
+                    fpsText.transform.position = new Vector3(9999,9999,9999);
                 }
             }
         }
 
-        private void GetDiagnostics()
+        private void GetDiagnostics(bool fixedFrame)
         {
             if (!on)
-            {
-                fpsText.text = "";
-                fpsText.transform.position = new Vector3(9999,9999,9999);
                 return;
-            }
 
             if (Engine.showFPS)
             {
                 timeSinceLastCheck += Time.deltaTime;
-                GetFPS(false);
-                LogFrame(false);
+                GetFPS(fixedFrame);
+                LogFrame(fixedFrame);
             }
 
             if (Engine.showOtherPerformance)
@@ -119,7 +120,13 @@ namespace Bastion
         private void Update()
         {
             CheckInput();
-            GetDiagnostics();
+            GetDiagnostics(false);
+        }
+
+        private void FixedUpdate()
+        {
+            GetDiagnostics(true);
+            textValue = fpsText.text;
         }
     }
 }

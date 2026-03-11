@@ -27,16 +27,17 @@ namespace Bastion.LaunchHandler
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void PostInitialize()
         {
-            bool makeConsole = SettingsManager.FetchSetting("engine.console", "true", "Engine", MissingMode.AddThenMinorSave, Engine.verbose);
-
+            // create the bmm if it doesn't exist, this is really only for editor where people may be entering into the game environment from a scnene other than start
             if (BastionMonoManager.instance == null)
             {
-                Debug.LogWarning($"{Bastion.Branding.engineLogPrefix}[Invoker.PostInitialize()] BastionMonoManager is null on first scene load, creating one now, may result in unwanted variable assignments and undoubtably null reference errors in build!");
+                Debug.LogWarning($"{Bastion.Branding.engineLogPrefix}[Invoker.PostInitialize()] BastionMonoManager is null on first scene load, creating one now, may result in unwanted variable assignments and undoubtably null reference exceptions in build! <size=11>(Ensure you create one in your first/intro scene so the rest of the game has one)</size>");
                 GameObject bmm =  new GameObject("BastionMonoManager", typeof(BastionMonoManager));
             }
 
-            if (makeConsole)
-                BastionMonoManager.instance.InstantiateConsole();
+            // if the above code has to run to create one (for editor purposes is the only reason the above code exists, always have one in your intro scene so it doesn't have to)
+            // it may, in some odd edge case cause a null reference exception here. it shouldn't awak should always run before control is returned to the creating function...
+            // but it is unity, so who knows, maybe that changes one day, or it just chooses to not do it in the right timing.
+            BastionMonoManager.instance.Initialize();
         }
 
         /// <summary>
