@@ -6,6 +6,7 @@ MonoImporter:
   defaultReferences:
   - consolePrefab: {fileID: 4084281037841991388, guid: 5457c59d4459fde42afbf6fe003967ee, type: 3}
   - bastionCanvasPrefab: {fileID: 7872062708969860688, guid: 8cb2676f952470a478f72d3def47b6ca, type: 3}
+  - performanceVisualizerPrefab: {fileID: 857366244087654085, guid: 79cee5225a9171948bc387e1856b9029, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

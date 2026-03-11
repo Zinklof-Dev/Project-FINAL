@@ -2,8 +2,8 @@
 engine.verbose : false
 engine.allow_localization_fallback_to_english : false
 engine.console : true
-engine.show_fps : false
-engine.show_more_performance : false 
+engine.show_fps : true
+engine.show_more_performance : true 
 [Gameplay]
 language : English
 [Video]
