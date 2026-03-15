@@ -13,7 +13,7 @@ namespace Bastion.SampleScripts
         SoftMetal = 5,
         HardMetal = 6,
         Plastic = 7,
-        Paper = 8;
+        Paper = 8,
     }
 
     public class SurfaceProperties : MonoBehaviour

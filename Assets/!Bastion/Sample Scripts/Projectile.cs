@@ -1,10 +1,11 @@
 using System;
-using System.Collections.Generic
+using System.Collections.Generic;
 using UnityEngine;
+using Bastion.Utils.MathZ;
 
 namespace Bastion.SampleScripts
 {
-    public class Projectile : Monobehaviour
+    public class Projectile : MonoBehaviour
     {
         [Header("References")]
         [SerializeField] GameObject model;
@@ -31,26 +32,26 @@ namespace Bastion.SampleScripts
 
         private List<Vector3> points = new List<Vector3>();
 
-        private void start()
+        private void Start()
         {
             if (toggleDebug)
-                points.Add(transform.position)
+                points.Add(transform.position);
 
-            if (pointTowardsVelocity)
-                model.transform.LookAt(nextPoint);
+            //if (pointTowardsVelocity)
+             //   model.transform.LookAt(nextPoint);
         }
 
         private void OnDrawGizmos()
         {
             
-            if (points.length <= 1)
+            if (points.Count <= 1)
                 return;
 
             Gizmos.color = Color.red;
 
             Vector3 lastPoint = points[0];
 
-            for (int i = 1; i < points.length - 1; i++)
+            for (int i = 1; i < points.Count - 1; i++)
             {
                 Gizmos.DrawLine(lastPoint, points[i]);
             }
@@ -61,7 +62,7 @@ namespace Bastion.SampleScripts
             if (snap)
                 model.transform.LookAt(nextPoint);
             else
-                model.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(nextPoint - transform.position), 0.3);
+                model.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(nextPoint - transform.position), 0.3f);
         }
 
         private void CollisionCheck(Vector3 nextPoint)
@@ -70,9 +71,9 @@ namespace Bastion.SampleScripts
 
             if (Physics.Linecast(transform.position, nextPoint, out hit))
             {
-                float dotProduct = Vector3.dot(hit.normal, transform.forward);
+                float dotProduct = Vector3.Dot(hit.normal, transform.forward);
 
-                SurfaceProperties sp = hit.gameObject.GetComponent<SurfaceProperties>();
+                SurfaceProperties sp = hit.collider.gameObject.GetComponent<SurfaceProperties>();
 
                 float bounceAngle = sp.bounceAngle;
                 float velocityMultiplier = sp.velocityMultiplier;
@@ -89,21 +90,22 @@ namespace Bastion.SampleScripts
 
                     currentVelocity = currentVelocity * velocityMultiplier; // lose velocity when bouncing
 
-                    transform.posiiton = hit.point;
+                    transform.position = hit.point;
                     return;
                 }
 
-                Vetor3 exitPoint = new Vector3();
+                Vector3 exitPoint = new Vector3();
 
                 float thickness = GetThickness(hit.point, out exitPoint);
+
+                GameObject decal = Instantiate(hitDecalPrefab);
 
                 if (thickness != -1f)
                 {
                     transform.position = hit.point;
                     hitFX.Play();
 
-                    GameObject decal = Instantiate(hitDecalPrefab);
-                    decal.transform.positon = hit.point;
+                    decal.transform.position = hit.point;
                     decal.transform.rotation = transform.rotation;
 
                     // PSUEDO
@@ -114,29 +116,32 @@ namespace Bastion.SampleScripts
 
                     // currentVelocity = currentvelocity * newdir
 
-                    transform.position = exitPoint
+                    transform.position = exitPoint;
                 }
 
                 transform.position = hit.point;
-                model.enabled = false;
+                model.SetActive(false);
                 hitFX.Play();
-                
-                GameObject decal = Instantiate(hitDecalPrefab);
-                decal.transform.positon = hit.point;
+                decal.transform.position = hit.point;
                 decal.transform.rotation = transform.rotation;
 
-                cleanable = true
+                cleanable = true;
             }
             else
-                transform.positon = nextPoint;
+                transform.position = nextPoint;
         }
 
-        private float GetThickness(Vector3 hitPoint)
+        private float GetThickness(Vector3 hitPoint, out Vector3 exitPoint)
         {
             RaycastHit hit = new RaycastHit();
 
+            exitPoint = Vector3.zero;
+
             if (Physics.Linecast(hitPoint + (currentVelocity.normalized), hitPoint, out hit))
-                return SqrDist3f(hitPoint, hit.point);
+            {
+                exitPoint = hit.point;
+                return Vectors.SqrDist3f(hitPoint, hit.point);
+            }
             else
                 return -1f;
         }
@@ -155,7 +160,7 @@ namespace Bastion.SampleScripts
                 Destroy(this);
 
             if (maxTime != -1f)
-                timeExisting += time.deltaTime;
+                timeExisting += Time.deltaTime;
         }
 
         private void CheckForCleanup()
@@ -166,17 +171,17 @@ namespace Bastion.SampleScripts
             if (cleanable)
                 timeTillCleanup -= Time.deltaTime;
 
-        }/;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;.................................................../
+        }
 
         private void HandleMovement()
         {
             if (cleanable)
                 return;
 
-            Vector3 nextPoint = transform.position + ((currentVelocity - (gravity * Vector3.up)) * time.deltaTime);
+            Vector3 nextPoint = transform.position + ((currentVelocity - (gravity * Vector3.up)) * Time.deltaTime);
 
             if (maxDistance != -1f)
-                distanceTraveled += SqrDist3f(transform.posiiton, nextPoint);
+                distanceTraveled += Vectors.SqrDist3f(transform.position, nextPoint);
 
             if (pointTowardsVelocity)
                 LookTowardsVelocity(nextPoint);
@@ -193,7 +198,7 @@ namespace Bastion.SampleScripts
 
             if (!cheapDebugPath)
                 points.Add(transform.position);
-            else if (cheapDebugPath && Time.frameCount % 10 = 0)
+            else if (cheapDebugPath && (Time.frameCount % 10) == 0)
                 points.Add(transform.position);
         }
 
@@ -202,7 +207,7 @@ namespace Bastion.SampleScripts
             HandleMovement();
             CheckForMax();
             CheckForCleanup();
-            Debug();....
+            Debug();
         }
     }
 }
