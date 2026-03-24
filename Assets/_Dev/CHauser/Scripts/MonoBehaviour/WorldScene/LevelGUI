@@ -1,3 +1,4 @@
+// - zink
 using UnityEngine;
 using TMPro;
 
@@ -17,6 +18,7 @@ namespace BOTD.LevelManagement
             instance = this;
         }
 
+        // bool exists incase anyone interfaces in another script in the future, I don't use it tbh.
         public void ChangeData(string name, string desc, int sceneID, bool openGUI = true)
         {
             nameText = name;
