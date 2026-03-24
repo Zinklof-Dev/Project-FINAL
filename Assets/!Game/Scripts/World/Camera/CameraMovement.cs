@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using BOTD.LevelManagement;
 
 public class CameraMovement : MonoBehaviour
 {
@@ -146,9 +147,17 @@ public class CameraMovement : MonoBehaviour
             if (copyRotation)
                 objObjective.rotation = hitObject.transform.rotation;
         }
-        if (objAttributes.GetAttribute("Map_Party"))
+        if (objAttributes.GetAttribute("Map_Level"))
         {
-        
+            try
+            {
+                hitObject.GetComponent<Level>.CreateLevelGUI();
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning("Ran into an exception trying to contact the Level class. Does your object have a wrong attribute? or is it missing a class?");
+                Debug.LogWarning(e.message + e.stackTrace);
+            }
         }
     }
 
