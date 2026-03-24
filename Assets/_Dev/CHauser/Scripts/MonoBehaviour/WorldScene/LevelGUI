@@ -1,0 +1,44 @@
+using UnityEngine;
+using TMPro;
+
+namespace BOTD.LevelManagement
+{
+    public class LevelGUI : MonoBehaviour
+    {
+        LevelGUI instance;
+        [SerializeField] TMP_Text nameText;
+        [SerializeField] TMP_Text descText;
+        [SerializeField] int sceneID;
+        [SerializeField] canvasGroup canvasGroup;
+
+        private void Start()
+        {
+            // this is purposeful, incase the map is ever re-opened it will change the static instance to the new object so we don't have to DNDOL it.
+            instance = this;
+        }
+
+        public void ChangeData(string name, string desc, int sceneID, bool openGUI = true)
+        {
+            nameText = name;
+            descText = desc;
+            this.sceneID = sceneID
+
+            if (!openGUI)
+                return;
+
+            canvasGroup.alpha = 1f;
+            canvasGroup.blocksRaycasts = true;
+        }
+
+        public void CloseGUI()
+        {
+            canvasGroup.alpha = 0f;
+            canvasGroup.blocksRaycasts = false;
+        }
+
+        public void LoadLevel()
+        {
+            SceneManager.LoadLevel(sceneID);
+        }
+    }
+}
