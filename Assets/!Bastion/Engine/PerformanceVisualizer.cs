@@ -78,7 +78,7 @@ namespace Bastion
 
         private void CheckInput()
         {
-            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.Alpha0))
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Alpha0))
             {
                 on = !on;
 
@@ -99,7 +99,8 @@ namespace Bastion
 
             if (Engine.showFPS)
             {
-                timeSinceLastCheck += Time.deltaTime;
+                if (!fixedFrame)
+                    timeSinceLastCheck += Time.deltaTime;
                 GetFPS(fixedFrame);
             }
 
