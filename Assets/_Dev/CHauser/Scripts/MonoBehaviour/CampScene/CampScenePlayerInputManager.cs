@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CampScenePlayerInputManager : MonoBehaviour
 {
@@ -104,5 +105,11 @@ public class CampScenePlayerInputManager : MonoBehaviour
         CameraMover.MoveCamera(cameraDefaultPosition.x, cameraDefaultPosition.y, cameraDefaultPosition.z, cameraDefaultEulerRotation.x, cameraDefaultEulerRotation.y, cameraDefaultEulerRotation.z);
         mapTableUI.SetActive(false);
         playerEditorUI.SetActive(false);
+    }
+
+    public void MapTableSceneChangeButton()
+    {
+        DataPersistenceManager.Save();
+        SceneManager.LoadScene("World");
     }
 }
