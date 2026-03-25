@@ -349,7 +349,7 @@ namespace Bastion
                     var op = secondOps[i];
 
                     if (op.rotatedLeft)
-                        cb[1] = RotateRight(cb[1], op.amount); // HorizontalWrapMode to write good like a good typer and then oi got the store and then he yearsn for the leafs and gets the job done and im soick of typing and im not done yet theyre 
+                        cb[1] = RotateRight(cb[1], op.amount); // HorizontalWrapMode to write good like a good typer and then oi got the store and then he yearsn for the leafs and gets the job done and im soick of typing and im not done yet theyre - Carson Monsalvo (10th grader - 10:05 A.M. March 25th, 2026)
                     else
                         cb[1] = RotateLeft(cb[1], op.amount);
                 }
