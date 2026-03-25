@@ -225,6 +225,20 @@ namespace Bastion
             return Setting.Empty();
         }
 
+        public static bool ChangeSetting(string key, string value)
+        {
+            for (int i = 0; i < settings.Length; i++)
+            {
+                if (settings.key == key)
+                {
+                    setting.value = value;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         /// <summary>
         /// Call at start of runtime, wipes current memory of settings and parses again, can be expensive.
         /// </summary>
