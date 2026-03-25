@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using BOTD.LevelManagement;
@@ -38,7 +39,7 @@ public class CameraMovement : MonoBehaviour
     private List<Vector3> hits = new List<Vector3>();
     private Vector3 ?latestHit = null;
 
-    private vector3 lastObjectiveOnePosition;
+    private Vector3 lastObjectiveOnePosition;
 
     private void Start()
     {
@@ -153,12 +154,12 @@ public class CameraMovement : MonoBehaviour
         {
             try
             {
-                hitObject.GetComponent<Level>.CreateLevelGUI();
+                hitObject.GetComponent<Level>().CreateLevelGUI();
             }
             catch (Exception e)
             {
                 Debug.LogWarning("Ran into an exception trying to contact the Level class. Does your object have a wrong attribute? or is it missing a class?");
-                Debug.LogWarning(e.message + e.stackTrace);
+                Debug.LogWarning(e.Message + e.StackTrace);
             }
         }
     }

@@ -1,18 +1,19 @@
 // - zink
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace BOTD.LevelManagement
 {
-    public class Level : Monobehaviour
+    public class Level : MonoBehaviour
     {
         [Header("Level Info")]
-        [SerializeField] string name { get; private set; }
-        [SerializeField] [TextArea(8, 12)] string description { get; private set; }
-        [SerializeField] Scene scene { get; private set; }
+        [SerializeField] public string levelName { get; private set; }
+        [SerializeField] [TextArea(8, 12)] public string description { get; private set; }
+        [SerializeField] public Scene scene { get; private set; }
 
         public void CreateLevelGUI()
         {
-            LevelGUI.instance.ChangeData(name, description, scene.buildIndex);
+            LevelGUI.instance.ChangeData(levelName, description, scene.buildIndex);
         }
     }
 }

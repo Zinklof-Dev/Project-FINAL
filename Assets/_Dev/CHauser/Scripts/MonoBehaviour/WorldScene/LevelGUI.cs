@@ -1,16 +1,17 @@
 // - zink
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 namespace BOTD.LevelManagement
 {
     public class LevelGUI : MonoBehaviour
     {
-        LevelGUI instance;
+        static public LevelGUI instance;
         [SerializeField] TMP_Text nameText;
         [SerializeField] TMP_Text descText;
         [SerializeField] int sceneID;
-        [SerializeField] canvasGroup canvasGroup;
+        [SerializeField] CanvasGroup canvasGroup;
 
         private void Start()
         {
@@ -21,9 +22,9 @@ namespace BOTD.LevelManagement
         // bool exists incase anyone interfaces in another script in the future, I don't use it tbh.
         public void ChangeData(string name, string desc, int sceneID, bool openGUI = true)
         {
-            nameText = name;
-            descText = desc;
-            this.sceneID = sceneID
+            nameText.text = name;
+            descText.text = desc;
+            this.sceneID = sceneID;
 
             if (!openGUI)
                 return;
@@ -40,7 +41,7 @@ namespace BOTD.LevelManagement
 
         public void LoadLevel()
         {
-            SceneManager.LoadLevel(sceneID);
+            SceneManager.LoadScene(sceneID);
         }
     }
 }
