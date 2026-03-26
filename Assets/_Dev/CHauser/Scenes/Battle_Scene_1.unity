@@ -560,7 +560,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4084281037841991388, guid: 5457c59d4459fde42afbf6fe003967ee, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7209509409730898603, guid: 5457c59d4459fde42afbf6fe003967ee, type: 3}
       propertyPath: m_LocalPosition.x
@@ -572,11 +572,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9058105759778379669, guid: 5457c59d4459fde42afbf6fe003967ee, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9058105759778379669, guid: 5457c59d4459fde42afbf6fe003967ee, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2932,7 +2932,7 @@ MonoBehaviour:
     attackPower: 0
     inventory: []
   type: 0
-  actorName: Larry
+  actorName: 2
   health: 10
   maxHealth: 10
   speed: 1
@@ -14084,7 +14084,7 @@ MonoBehaviour:
     attackPower: 0
     inventory: []
   type: 0
-  actorName: Bob
+  actorName: 4
   health: 10
   maxHealth: 10
   speed: 1
@@ -15060,7 +15060,7 @@ MonoBehaviour:
     attackPower: 0
     inventory: []
   type: 0
-  actorName: Greg
+  actorName: 1
   health: 10
   maxHealth: 10
   speed: 1
@@ -18213,7 +18213,7 @@ MonoBehaviour:
     attackPower: 0
     inventory: []
   type: 0
-  actorName: Mack
+  actorName: 3
   health: 10
   maxHealth: 10
   speed: 1
