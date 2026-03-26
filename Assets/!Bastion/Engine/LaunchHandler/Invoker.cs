@@ -35,8 +35,8 @@ namespace Bastion.LaunchHandler
             }
 
             // if the above code has to run to create one (for editor purposes is the only reason the above code exists, always have one in your intro scene so it doesn't have to)
-            // it may, in some odd edge case cause a null reference exception here. it shouldn't awak should always run before control is returned to the creating function...
-            // but it is unity, so who knows, maybe that changes one day, or it just chooses to not do it in the right timing.
+            // it may, in some odd edge case cause a null reference exception here. it shouldn't, as awake should always run before control is returned to the creating function...
+            // but it is unity, so who knows, maybe that changes one day, or it just chooses to be silly as unity does.
             BastionMonoManager.instance.Initialize();
         }
 

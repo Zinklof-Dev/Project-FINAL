@@ -11,14 +11,17 @@ namespace Bastion.Editor
         [PostProcessBuildAttribute(100)]
         public static void incrementBuild()
         {
+            // need to parse the settings in order to be able to check the build number, theoretically i could bake this into a seperate file thats binary, but for now this is the most basic and logical solution until more stuff needs to be accessed in this kind of way
             Bastion.SettingsManager.ParseSettings();
 
             int value = Bastion.SettingsManager.FetchSetting("engine.build_number", "0", "Engine", MissingMode.AddThenMinorSave);
 
             value++;
 
+            // change the value of the build number setting in memory
             Bastion.SettingsManager.ChangeSetting("engine.build_number", value.ToString());
 
+            // save all the settings in memory
             Bastion.SettingsManager.SaveSettings();
         }
 
