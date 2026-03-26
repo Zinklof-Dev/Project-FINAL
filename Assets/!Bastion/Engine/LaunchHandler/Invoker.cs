@@ -22,6 +22,8 @@ namespace Bastion.LaunchHandler
             Bastion.Localization.ParseLocalization(language, Engine.verbose);
 
             Bastion.ConsoleV2.Assembler.Initialize(Engine.verbose);
+
+            ApplyQualitySettings();
         }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -48,6 +50,27 @@ namespace Bastion.LaunchHandler
         {
             OnInitialize();
             PostInitialize();
+        }
+
+        private static void ApplyQualitySettings()
+        {
+            QualitySettings.vSyncCount = SettingsManager.FetchSetting("vsync", "0", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose);
+            QualitySettings.antiAiliasing = SettingsManager.FetchSetting("anti_ailiasing", "4", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose);
+            QualitySettings.anisotropicFiltering = SettingsManager.FetchSetting("anisotropic_filtering", "16", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose);
+            QualitySettings.shadowDistance = SettingsManager.FetchSetting("shadow_distance", "512", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose);
+            QualitySettings.shadowResolution = SettingsManager.FetchSetting("shadow_resolution", "1024", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose);
+            QualitySettings.textureQualityLevel = SettingsManager.FetchSetting("texture_quality_level", "0", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose);
+        
+            // add logic here to get the enumeration from settings file, don't know the enums int values right now so i'll have to do it when i have intelisense to inform me since unity documentation lacks documentation.
+
+            // be ready for an extra long line
+            Screen.SetResolution(SettingsManager.FetchSetting("resolutionx", "1920", "Video", MissingMode.AddThenMinorSave, engine.verbose), SettingsManager.FetchSetting("resolutiony", "1080", "Video", MissingMode.AddThenMinorSave, engine.verbose))
+
+            // unity ignores target framerate if you have vsync on, not exactly sure why since vsync is hardware based, and application.targetframerate is software based, so they very well could both be applied at once if you wanted them to? but hey, whatever
+            if (QualitySettings.vSyncCount == 0)
+            {
+                Application.targetFrameRate = SettingsManager.FetchSetting("framerate", "-1", "Video", MissingMode.AddThenMinorSave, Engine.verbose)
+            }
         }
     }
 }

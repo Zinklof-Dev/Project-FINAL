@@ -10,11 +10,17 @@ engine.build_number : 22
 language : English
 [Video]
 framerate : -1
-vsycn : false
 resolutionx : 1920
 resolutiony : 1080
+window_mode : FullscreenBorderless
+[PostProcessing]
 bloom : true
 chromatic_aberation : true
 dialouge_blur : true
-shadow_quality : 4
-window_mode : FullscreenBorderless
+[QualitySettings]
+vsync : 0
+anisotropic_filtering : 16
+anti_ailiasing : 4
+shadow_distance : 512
+shadow_resolution : 1024
+texture_resolution_level : 0
