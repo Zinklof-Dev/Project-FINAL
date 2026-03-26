@@ -64,12 +64,12 @@ namespace Bastion.LaunchHandler
             // add logic here to get the enumeration from settings file, don't know the enums int values right now so i'll have to do it when i have intelisense to inform me since unity documentation lacks documentation.
 
             // be ready for an extra long line
-            Screen.SetResolution(SettingsManager.FetchSetting("resolutionx", "1920", "Video", MissingMode.AddThenMinorSave, engine.verbose), SettingsManager.FetchSetting("resolutiony", "1080", "Video", MissingMode.AddThenMinorSave, engine.verbose))
+            Screen.SetResolution(SettingsManager.FetchSetting("resolutionx", "1920", "Video", MissingMode.AddThenMinorSave, engine.verbose), SettingsManager.FetchSetting("resolutiony", "1080", "Video", MissingMode.AddThenMinorSave, engine.verbose));
 
             // unity ignores target framerate if you have vsync on, not exactly sure why since vsync is hardware based, and application.targetframerate is software based, so they very well could both be applied at once if you wanted them to? but hey, whatever
             if (QualitySettings.vSyncCount == 0)
             {
-                Application.targetFrameRate = SettingsManager.FetchSetting("framerate", "-1", "Video", MissingMode.AddThenMinorSave, Engine.verbose)
+                Application.targetFrameRate = SettingsManager.FetchSetting("framerate", "-1", "Video", MissingMode.AddThenMinorSave, Engine.verbose);
             }
         }
     }
