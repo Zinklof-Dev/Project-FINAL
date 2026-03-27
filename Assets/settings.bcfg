@@ -22,5 +22,5 @@ vsync : 0
 anisotropic_filtering : 16
 anti_ailiasing : 4
 shadow_distance : 512
-shadow_resolution : 1024
+shadow_resolution : 0
 texture_resolution_level : 0

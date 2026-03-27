@@ -54,17 +54,53 @@ namespace Bastion.LaunchHandler
 
         private static void ApplyQualitySettings()
         {
+            AnisotropicFiltering af = new AnisotropicFiltering();
+
+            switch((int)SettingsManager.FetchSetting("anisotropic_filtering", "16", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose))
+            {
+                case 0:
+                    af = AnisotropicFiltering.Disable; break;
+                default:
+                    af = AnisotropicFiltering.ForceEnable; break;
+            }
+
+            ShadowResolution sr = new ShadowResolution();
+
+            switch((int)SettingsManager.FetchSetting("shadow_resolution", "1", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose))
+            {
+                case 2:
+                    sr = ShadowResolution.Low; break;
+                case 1:
+                    sr = ShadowResolution.Medium; break;
+                case 0: 
+                    sr = ShadowResolution.High; break;
+                default:
+                    sr = ShadowResolution.Low; break;
+            }
+
             QualitySettings.vSyncCount = SettingsManager.FetchSetting("vsync", "0", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose);
             QualitySettings.antiAliasing = SettingsManager.FetchSetting("anti_ailiasing", "4", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose);
-            QualitySettings.anisotropicFiltering = SettingsManager.FetchSetting("anisotropic_filtering", "16", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose);
-            QualitySettings.shadowDistance = SettingsManager.FetchSetting("shadow_distance", "512", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose);
-            QualitySettings.shadowResolution = SettingsManager.FetchSetting("shadow_resolution", "1024", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose);
+            QualitySettings.anisotropicFiltering = af;
+            QualitySettings.shadowDistance = SettingsManager.FetchSetting("shadow_distance", "256", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose);
+            QualitySettings.shadowResolution = sr;
             QualitySettings.globalTextureMipmapLimit = SettingsManager.FetchSetting("texture_quality_level", "0", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose);
         
-            // add logic here to get the enumeration from settings file, don't know the enums int values right now so i'll have to do it when i have intelisense to inform me since unity documentation lacks documentation.
+            FullScreenMode fsm = new FullScreenMode();
+
+            switch((string)SettingsManager.FetchSetting("window_mode", "0", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose))
+            {
+                case "FullscreenBorderless":
+                    fsm = FullScreenMode.FullScreenWindow; break;
+                case "Fullscreen":
+                    fsm = FullScreenMode.ExclusiveFullScreen; break;
+                case "Windowed":
+                    fsm = FullScreenMode.Windowed; break;
+                default:
+                    fsm = FullScreenMode.ExclusiveFullScreen; break;
+            }
 
             // be ready for an extra long line
-            Screen.SetResolution(SettingsManager.FetchSetting("resolutionx", "1920", "Video", MissingMode.AddThenMinorSave, engine.verbose), SettingsManager.FetchSetting("resolutiony", "1080", "Video", MissingMode.AddThenMinorSave, engine.verbose));
+            Screen.SetResolution(SettingsManager.FetchSetting("resolutionx", "1920", "Video", MissingMode.AddThenMinorSave, Engine.verbose), SettingsManager.FetchSetting("resolutiony", "1080", "Video", MissingMode.AddThenMinorSave, Engine.verbose), fsm);
 
             // unity ignores target framerate if you have vsync on, not exactly sure why since vsync is hardware based, and application.targetframerate is software based, so they very well could both be applied at once if you wanted them to? but hey, whatever
             if (QualitySettings.vSyncCount == 0)

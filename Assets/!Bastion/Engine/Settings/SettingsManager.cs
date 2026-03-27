@@ -229,9 +229,9 @@ namespace Bastion
         {
             for (int i = 0; i < settings.Length; i++)
             {
-                if (settings.key == key)
+                if (settings[i].key == key)
                 {
-                    setting.value = value;
+                    settings[i].value = value;
                     return true;
                 }
             }
