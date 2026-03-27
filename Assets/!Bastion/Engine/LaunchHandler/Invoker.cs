@@ -55,11 +55,11 @@ namespace Bastion.LaunchHandler
         private static void ApplyQualitySettings()
         {
             QualitySettings.vSyncCount = SettingsManager.FetchSetting("vsync", "0", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose);
-            QualitySettings.antiAiliasing = SettingsManager.FetchSetting("anti_ailiasing", "4", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose);
+            QualitySettings.antiAliasing = SettingsManager.FetchSetting("anti_ailiasing", "4", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose);
             QualitySettings.anisotropicFiltering = SettingsManager.FetchSetting("anisotropic_filtering", "16", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose);
             QualitySettings.shadowDistance = SettingsManager.FetchSetting("shadow_distance", "512", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose);
             QualitySettings.shadowResolution = SettingsManager.FetchSetting("shadow_resolution", "1024", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose);
-            QualitySettings.textureQualityLevel = SettingsManager.FetchSetting("texture_quality_level", "0", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose);
+            QualitySettings.globalTextureMipmapLimit = SettingsManager.FetchSetting("texture_quality_level", "0", "QualitySettings", MissingMode.AddThenMinorSave, Engine.verbose);
         
             // add logic here to get the enumeration from settings file, don't know the enums int values right now so i'll have to do it when i have intelisense to inform me since unity documentation lacks documentation.
 
