@@ -22,6 +22,8 @@ namespace BOTD.LevelManagement
         // bool exists incase anyone interfaces in another script in the future, I don't use it tbh.
         public void ChangeData(string name, string desc, int sceneID, bool openGUI = true)
         {
+            Debug.Log("entered changedata with: " + name + " | " + desc + " | " + sceneID);
+
             nameText.text = name;
             descText.text = desc;
             this.sceneID = sceneID;
