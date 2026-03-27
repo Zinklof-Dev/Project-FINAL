@@ -14,6 +14,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/!Game/Scenes/World.unity
     guid: 71fe16e49207c6140acd1d488555e4af
+  - enabled: 1
+    path: Assets/_Dev/CHauser/Scenes/Battle_Scene_1.unity
+    guid: ea42b7d58912c8e408097606c20f5782
+  - enabled: 1
+    path: Assets/_Dev/CHauser/Scenes/Battle_Scene_2.unity
+    guid: 5702b4ee37a368c4dbecaa3d015af88e
+  - enabled: 1
+    path: Assets/_Dev/CHauser/Scenes/Battle_Scene_3.unity
+    guid: cf8fc445bbc03bd419fbd66c3a85dd94
+  - enabled: 1
+    path: Assets/_Dev/CHauser/Scenes/Battle_Scene_4.unity
+    guid: 1ac406d072ff2714a8fa298b17fb05a5
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
