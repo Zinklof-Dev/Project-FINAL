@@ -1,8 +1,9 @@
 using System;
-using System.Collections.Generics;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Callbacks;
+using System.IO;
 
 namespace Bastion.Editor
 {
@@ -34,15 +35,15 @@ namespace Bastion.Editor
 
             try
             {
-                using (StreamReader sr = new StreamReader(Application.DataPath + "/settings.bcfg"))
+                using (StreamReader sr = new StreamReader(Application.dataPath + "/settings.bcfg"))
                 {
                     string line;
 
-                    while ((line = sr.readLine()) != null)
+                    while ((line = sr.ReadLine()) != null)
                     {
                         using (StreamWriter sw = new StreamWriter(pathToBuild + "/settings.bcfg"))
                         {
-                            sw.writeLine(line);
+                            sw.WriteLine(line);
                         }
                     }
                 }
