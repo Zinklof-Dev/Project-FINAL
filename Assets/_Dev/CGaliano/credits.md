@@ -3,7 +3,7 @@ Game Crediting Guide 10.1 (March 2023)</size>
 
 <size=13>in all categories, names are in order of ammount of work done.</size>
 
-<b><color=#ab0101><size=45>BASTION ENGINE</color></size><b>
+<b><color=#ab0101><size=45>BASTION ENGINE</color></size></b>
 <size=18>
 <b>Technical Director</b>
 Cameron Galiano
