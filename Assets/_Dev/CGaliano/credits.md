@@ -1,99 +1,94 @@
-In compliance with the International Game Developers Association (IDGA)
-Game Crediting Guide 10.1 (March 2023)
+<size=11>In compliance with the International Game Developers Association (IDGA)
+Game Crediting Guide 10.1 (March 2023)</size>
 
-in all categories, names are in order of ammount of work done.
+<size=13>in all categories, names are in order of ammount of work done.</size>
 
-BASTION ENGINE
-
-Technical Director
+<b><color=#ab0101><size=45>BASTION ENGINE</color></size><b>
+<size=18>
+<b>Technical Director</b>
 Cameron Galiano
 
-Programming
+<b>Programming</b>
 Cameron Galiano
 Cole Hauser
 
-External Assistance
+<b>External Assistance</b>
 Bunny83 (one function, stack overflow, 2024)
 Dgoyette (one function, stack overflow, 2024)
 
-Art Design
+<b>Art Design</b>
 Cameron Galiano
 Lucas West
 
-ZINKLOF.DEV
-
-Cheif Executive Officer
+ZINKLOF.DEV (LOGO)
+<color=#0fffff>
+<b>Cheif Executive Officer</b>
 Cameron Galiano
 
-Lead Supervisor
+<b>Lead Supervisor</b>
 Cole Hauser
 
-Additional Staff
+<b>Additional Staff</b>
 Jadon "Luigi" Vargo
 Lucas West
 
-Band Of The Damned
+Band Of The Damned (LOGO)
 
-Lead Designer
+<b>Lead Designer</b>
 Cameron Galiano
 
-Lead Supervisor
+<b>Lead Supervisor</b>
 Cole Hauser
 
-Lead Artist
+<b>Lead Artist</b>
 Lucas West
 
-Programming
+<b>Programming</b>
 Cameron Galiano
 Cole Hauser
 
-Art
+<b>Art</b>
 Lucas West
 Cameron Galiano
 
-Textures
+<b>Textures</b>
 Cameron Galiano
 
-Shaders
+<b>Shaders</b>
 Cameron Galiano
 Cole Hauser
 
-Modeling
+<b>Modeling</b>
 Jadon "Luigi" Vargo
 Cameron Galiano
 
-Fundraising/Investment
+<b>Fundraising/Investment</b>
 Cameron Galiano 
 Cole Hauser
 Jadon "Luigi" Vargo
-Lucas West
-
+Lucas West</color>
 _
 
-Major Inspiration
-XCOM 2
-
-Minor Inspiration
-Slay the Spire
-Darkest Dungeon
+<b>Major Inspiration</b>
+<color=#007D90>XCOM 2</color>>
 Various Rouglikes
 
-Mentors and Special Thanks
+<b>Mentors and Special Thanks</b>
 Ronald "Mr. Flowe" Flowers
 Aiden Mundell
 Dani Dev
-Sabastian Lague
+Sabastian Lague>
 
-External Testing
+<b>External Testing</b>
 Carlos "Gomez Squared" Gomez-Gomez
 Jacob "Rhya" McCall
 Mitchel Arbano
 
-Powered By:
+<b>Powered By:</b>
 UNITY 6.2
-BASTION V.E2604
+<color=ab0101>BASTION V.E2604</color>
 
-Software Used
+<b>Software Used</b>
 Maya 2024
 Blender
 Photoshop
@@ -101,8 +96,13 @@ Piscel
 Visual Studio
 Github
 BandLabs
-FL Studio
-
+FL Studio</size>
+<size=32>
 And as always, thank you for playing!
+</size>
 
-© 2026 Zinklof.Dev. Band of The Damned and the BASTION Game Engine, including all associated assets and marketing materials, are protected under United States and international copyright laws. Zinklof.Dev reserves all rights. For more information, please visit the EULA page in settings, zinklof.dev/copyright or zinklof.dev/botd/copyright.
+
+<size=16>In loving memory of Aiden Mundell</size>
+
+
+<size=8>© 2026 Zinklof.Dev. Band of The Damned and the BASTION Game Engine, including all associated assets and marketing materials, are protected under United States and international copyright laws. Zinklof.Dev reserves all rights. For more information, please visit the EULA page in settings, zinklof.dev/copyright or zinklof.dev/botd/copyright.</size>
