@@ -3,6 +3,7 @@ Hey Creators! You have full permission to stream/record Band of the Damned and u
 End User License Agreement (EULA) for Band of the Damned
 Last Updated: 3/27/2026
 This End User License Agreement ("Agreement") is a legal contract between you ("User") and Zinklof.Dev ("Company") regarding the video game Band of the Damned ("Game").
+
 1. Irrevocable License & Data Privacy
 
 * Grant of License: Subject to your compliance with this Agreement, the Company grants you a non-exclusive, perpetual, and irrevocable license to use the Game. This license may only be revoked in the event of a direct material violation of this EULA. The Company commits to ensuring the Game remains accessible in your digital libraries and will not voluntarily pull the title from active distribution for existing owners.
@@ -10,6 +11,7 @@ This End User License Agreement ("Agreement") is a legal contract between you ("
 
 2. Ownership and Intellectual Property
 All title, ownership, and intellectual property rights in the Game—including source code, artwork, character designs, and musical compositions—remain the sole property of Zinklof.Dev. All rights not expressly granted are reserved.
+
 3. Content Creation, "Members Only" Guidance, & Music Rights
 The Company grants a royalty-free license to create, record, stream, and monetize video/audio content featuring the Game:
 
@@ -23,8 +25,10 @@ The Company grants a royalty-free license to create, record, stream, and monetiz
 
 5. Limitation of Liability
 To the maximum extent permitted by applicable law, in no event shall Zinklof.Dev or its affiliates be liable for any special, incidental, indirect, or consequential damages whatsoever (including, but not limited to, damages for loss of profits, data, or personal injury) arising out of or in any way related to the use of or inability to use the Game. The Company’s total liability under any provision of this Agreement shall be limited to the amount actually paid by you for the Game.
+
 6. Governing Law & Electronic Assent (Florida, USA)
 This Agreement is governed by the laws of the State of Florida, USA. Any legal action shall be brought exclusively in the state or federal courts located in Florida. In accordance with Florida Statutes Section 668.50, your electronic assent (e.g., clicking "I Agree" or installing the Game) constitutes a legally binding electronic signature.
+
 7. Termination for Breach
 This license terminates automatically if you violate any material term of this Agreement. Upon termination, you must cease all use of the Game.
 ------------------------------
