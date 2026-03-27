@@ -39,7 +39,7 @@ public class CameraMovement : MonoBehaviour
     private List<Vector3> hits = new List<Vector3>();
     private Vector3 ?latestHit = null;
 
-    private Vector3 lastObjectiveOnePosition;
+    [SerializeField] private Vector3 lastObjectiveOnePosition;
 
     private void Start()
     {
@@ -192,11 +192,14 @@ public class CameraMovement : MonoBehaviour
 
     private void Update()
     {
-        if (cameraObjective.position != lastObjectiveOnePosition)
-            LevelGUI.instance.CloseGUI();
-
         DoMovement();
         HandleMouseInput();
+
+        if (cameraObjective.position != lastObjectiveOnePosition)
+        {
+            //Debug.Log("Close GUI time!");
+            LevelGUI.instance.CloseGUI();
+        }
 
         lastObjectiveOnePosition = cameraObjective.position;
     }

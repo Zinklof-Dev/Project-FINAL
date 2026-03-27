@@ -10,10 +10,11 @@ namespace BOTD.LevelManagement
         [SerializeField] public string levelName;
         [SerializeField] [TextArea(8, 12)] public string description;
         [SerializeField] public int scene;
+        [SerializeField] public Sprite sprite;
 
         public void CreateLevelGUI()
         {
-            LevelGUI.instance.ChangeData(levelName, description, scene);
+            LevelGUI.instance.ChangeData(levelName, description, scene, sprite);
         }
     }
 }
