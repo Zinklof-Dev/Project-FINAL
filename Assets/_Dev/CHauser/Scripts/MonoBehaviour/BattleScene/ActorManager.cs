@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
+[DefaultExecutionOrder(1000)]
 public class ActorManager : MonoBehaviour, IDataPersistence
 {
     public List<Actor> allActors = new List<Actor>();
@@ -12,7 +14,7 @@ public class ActorManager : MonoBehaviour, IDataPersistence
 
     private void Start()
     {
-        
+        DataPersistenceManager.Load();
     }
     
     public void LoadData(GameData data)
