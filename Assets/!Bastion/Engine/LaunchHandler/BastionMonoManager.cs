@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Bastion.LaunchHandler
 {
@@ -53,6 +54,14 @@ namespace Bastion.LaunchHandler
 
             // set the canvas to DNDOL
             DontDestroyOnLoad(Bastion.Engine.canvas);
+        }
+
+        public void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene(1);
+            }
         }
     }
 }
