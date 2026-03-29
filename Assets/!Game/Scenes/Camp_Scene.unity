@@ -863,6 +863,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 689a78b1215d1514dacc63ad941d3fda, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b4ebc7a2b8a657b4e9b7917bf8070966, type: 2}
     - target: {fileID: 919132149155446097, guid: 689a78b1215d1514dacc63ad941d3fda, type: 3}
       propertyPath: m_Name
       value: Tent (3)
@@ -1898,6 +1902,118 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 278506919}
   m_CullTransparentMesh: 1
+--- !u!1 &290195823
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 290195824}
+  - component: {fileID: 290195827}
+  - component: {fileID: 290195826}
+  - component: {fileID: 290195825}
+  m_Layer: 0
+  m_Name: Quad
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &290195824
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290195823}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: 16.68, y: 118.45, z: -27.3}
+  m_LocalScale: {x: 353.48053, y: 170.72108, z: 100.000015}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 618330892}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 90}
+--- !u!64 &290195825
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290195823}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &290195826
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290195823}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 3bb4cc10ffb42c24dafa65b9689bdc0f, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &290195827
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290195823}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &354232598
 GameObject:
   m_ObjectHideFlags: 0
@@ -2366,7 +2482,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: af499260f7d380049abbd16ca59ce796, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 1833810152192036645, guid: a31b865014187634c9cb367bc0b15a53, type: 3}
+      objectReference: {fileID: 2100000, guid: 97fbf4075ed83d74ab9e39f46acac92a, type: 2}
     - target: {fileID: 919132149155446097, guid: af499260f7d380049abbd16ca59ce796, type: 3}
       propertyPath: m_Name
       value: Gravestone
@@ -3408,6 +3524,10 @@ PrefabInstance:
       value: 0.010000003
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1b58e869b7982ef4c85167dfb7d0656d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1b58e869b7982ef4c85167dfb7d0656d, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.010000003
       objectReference: {fileID: 0}
@@ -3470,6 +3590,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1b58e869b7982ef4c85167dfb7d0656d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 219269279}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1b58e869b7982ef4c85167dfb7d0656d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 290195824}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1b58e869b7982ef4c85167dfb7d0656d, type: 3}
       insertIndex: -1
@@ -3566,6 +3689,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a31b865014187634c9cb367bc0b15a53, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 13037682f4ee80340b2820bd738cdca9, type: 2}
     - target: {fileID: 919132149155446097, guid: a31b865014187634c9cb367bc0b15a53, type: 3}
       propertyPath: m_Name
       value: Lecturn
@@ -5528,6 +5655,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 2bac6f73141596f4688b9e29221ffb09, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 92d499d03b338504ab4e03a532592be1, type: 2}
     - target: {fileID: 919132149155446097, guid: 2bac6f73141596f4688b9e29221ffb09, type: 3}
       propertyPath: m_Name
       value: Tent2 (4)
@@ -6192,6 +6323,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 2bac6f73141596f4688b9e29221ffb09, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 92d499d03b338504ab4e03a532592be1, type: 2}
     - target: {fileID: 919132149155446097, guid: 2bac6f73141596f4688b9e29221ffb09, type: 3}
       propertyPath: m_Name
       value: Tent2 (6)
@@ -7717,6 +7852,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 689a78b1215d1514dacc63ad941d3fda, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b4ebc7a2b8a657b4e9b7917bf8070966, type: 2}
     - target: {fileID: 919132149155446097, guid: 689a78b1215d1514dacc63ad941d3fda, type: 3}
       propertyPath: m_Name
       value: Tent (5)
@@ -8127,6 +8266,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 2bac6f73141596f4688b9e29221ffb09, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b4ebc7a2b8a657b4e9b7917bf8070966, type: 2}
     - target: {fileID: 919132149155446097, guid: 2bac6f73141596f4688b9e29221ffb09, type: 3}
       propertyPath: m_Name
       value: Tent2 (2)
@@ -8196,6 +8339,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 689a78b1215d1514dacc63ad941d3fda, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b4ebc7a2b8a657b4e9b7917bf8070966, type: 2}
     - target: {fileID: 919132149155446097, guid: 689a78b1215d1514dacc63ad941d3fda, type: 3}
       propertyPath: m_Name
       value: Tent (6)
@@ -10367,6 +10514,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 2bac6f73141596f4688b9e29221ffb09, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b4ebc7a2b8a657b4e9b7917bf8070966, type: 2}
     - target: {fileID: 919132149155446097, guid: 2bac6f73141596f4688b9e29221ffb09, type: 3}
       propertyPath: m_Name
       value: Tent2 (5)
@@ -11186,6 +11337,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 689a78b1215d1514dacc63ad941d3fda, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 295975f19a100dc46b72ff440a0a6e88, type: 2}
     - target: {fileID: 919132149155446097, guid: 689a78b1215d1514dacc63ad941d3fda, type: 3}
       propertyPath: m_Name
       value: Tent (4)

@@ -1,6 +1,7 @@
 using UnityEngine;
+using Bastion;
 
-namespace BOT
+namespace BOTD
 {
     public class EULA : MonoBehaviour
     {
@@ -14,14 +15,14 @@ namespace BOT
 
         public void Disagree()
         {
-            Application.Exit();
+            Application.Quit();
         }
 
         public void Accept()
         {
             SettingsManager.ChangeSetting("eula_accepted", "true");
 
-            Destory(this.gameObject);
+            Destroy(this.gameObject);
         }
     }
 }
