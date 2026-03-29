@@ -14,6 +14,8 @@ public class PlayerInputUIManager : MonoBehaviour
     [SerializeField] GameObject confirmMovePrompt;
     [SerializeField] GameObject moveInfoObject;
     [SerializeField] GameObject attackInfoObject;
+    [SerializeField] public GameObject winScreen;
+    [SerializeField] public GameObject loseScreen;
 
 
     public static PlayerInputUIManager instance;
@@ -37,6 +39,11 @@ public class PlayerInputUIManager : MonoBehaviour
             endTurnButton.interactable = false;
 
         currentSquadMemberTxt.text = "Current Squad Member: " + PlayerInput.instance.currentTurnActor.actorName; 
+
+        if(TurnManager.instance.turnState == TurnManager.TurnState.Defeat || TurnManager.instance.turnState == TurnManager.TurnState.Victory)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
 

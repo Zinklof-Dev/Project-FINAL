@@ -50,10 +50,12 @@ public class TurnManager : MonoBehaviour
 
             case TurnState.Victory:
                 // Handle victory logic
+                PlayerInputUIManager.instance.winScreen.SetActive(true);
                 break;
 
             case TurnState.Defeat:
                 // Handle defeat logic
+                PlayerInputUIManager.instance.loseScreen.SetActive(true);
                 break;
         }
     }
