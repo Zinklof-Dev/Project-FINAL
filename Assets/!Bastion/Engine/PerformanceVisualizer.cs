@@ -1,5 +1,3 @@
-using System;
-using System.Diagnostics;
 using UnityEngine;
 using TMPro;
 
@@ -18,8 +16,6 @@ namespace Bastion
         float fixedFPS;
         int loggedFPS;
         int loggedFixedFPS;
-        float totalMemoryMB;
-        float totalMemoryGB;
         float timeSinceLastCheck;
 
         public int framesPassed;
@@ -56,24 +52,10 @@ namespace Bastion
             }
         }
 
-        private void GetOther()
-        {
-            Process.GetCurrentProcess().Refresh();
-            long memoryInBytes = Process.GetCurrentProcess().WorkingSet64;
-
-            totalMemoryMB = memoryInBytes / (1024f * 1024f);
-            totalMemoryGB = totalMemoryMB / (1024f);
-        }
-
         private void UpdateUI()
         {
             fpsText.text = 
             $"Delta FPS: {fps} | Delta Physics FPS: {fixedFPS}\nLogged FPS: {loggedFPS} | Logged Physics FPS: {loggedFixedFPS}";
-
-            if (Engine.showOtherPerformance)
-            {
-                fpsText.text += $"\nRam Usage: {totalMemoryGB} GB ({totalMemoryMB} MB)";
-            }
         }
 
         private void CheckInput()
@@ -103,9 +85,6 @@ namespace Bastion
                     timeSinceLastCheck += Time.deltaTime;
                 GetFPS(fixedFrame);
             }
-
-            if (Engine.showOtherPerformance)
-                GetOther();
 
             if (Engine.showFPS)
             {

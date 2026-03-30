@@ -32,6 +32,8 @@ namespace Bastion.LaunchHandler
         /// </summary>
         public void Initialize()
         {
+            Debug.Log("FUCK FUCK FUCK FUCK!");
+
             // if the bastion canvas exists already destroy it so we don't cause problems in the event we need to reinitialize
             if (Bastion.Engine.canvas != null)
             {

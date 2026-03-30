@@ -483,8 +483,26 @@ namespace Bastion
         {
             string logPrefix = $"{Branding.engineLogPrefix}[Localization.FetchFileList()] ";
 
+            string dataPath = Application.dataPath;
+
+            string[] splitDataPath = dataPath.Split('/');
+
+            dataPath = "";
+
+            for (int i = 0; i < splitDataPath.Length; i++)
+            {
+                if (splitDataPath[i].ToLower().Contains(".exe") || splitDataPath[i].ToLower().Contains("botd_data"))
+                {
+                    continue;
+                }
+                else
+                {
+                    dataPath += splitDataPath[i] + "/";
+                }
+            }
+
             // get the file location of every file within the language folder and its subfolders
-            string[] allFiles = Directory.GetFiles(Application.dataPath + "/JSON/Localization/" + lang, "*.loc", SearchOption.AllDirectories);
+            string[] allFiles = Directory.GetFiles(dataPath + "/JSON/Localization/" + lang, "*.loc", SearchOption.AllDirectories);
 
             // verbose print all files found
             if (verbose)

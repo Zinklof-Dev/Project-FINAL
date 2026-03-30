@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using Bastion.ConsoleV2;
+using System.Globalization;
 
 namespace Bastion
 {
@@ -247,7 +248,25 @@ namespace Bastion
         [Command("Wipes memory of settings then parses the settings file")]
         public static bool ParseSettings(bool verbose = false)
         {
-            string fullpath = Application.dataPath + "/" + filePath + fileName + fileExtension;
+            string dataPath = Application.dataPath;
+
+            string[] splitDataPath = dataPath.Split('/');
+
+            dataPath = "";
+
+            for (int i = 0; i < splitDataPath.Length; i++)
+            {
+                if (splitDataPath[i].ToLower().Contains(".exe") || splitDataPath[i].ToLower().Contains("botd_data"))
+                {
+                    continue;
+                }
+                else
+                {
+                    dataPath += splitDataPath[i] + "/";
+                }
+            }
+
+            string fullpath = dataPath + "/" + filePath + fileName + fileExtension;
 
             string currentLibrary = "misc";
 
@@ -312,7 +331,7 @@ namespace Bastion
             catch (Exception e)
             {
                 // uh oh
-                Debug.LogWarning(logPrefix + "ran into an exception that it has no way of handling!\n" + e.Message + "\n" + e.StackTrace);
+                Debug.LogWarning(logPrefix + "ran into an exception that it has no way of handling!\n" + e.Message + "\n" + e.StackTrace); 
                 return false;
             }
         }
@@ -325,8 +344,26 @@ namespace Bastion
         [Command("Saves the current settings in memory to the settings file, overwriting the file.")]
         public static bool SaveSettings(bool verbose = false)
         {
+            string dataPath = Application.dataPath;
+
+            string[] splitDataPath = dataPath.Split('/');
+
+            dataPath = "";
+
+            for (int i = 0; i < splitDataPath.Length; i++)
+            {
+                if (splitDataPath[i].ToLower().Contains(".exe") || splitDataPath[i].ToLower().Contains("botd_data"))
+                {
+                    continue;
+                }
+                else
+                {
+                    dataPath += splitDataPath[i] + "/";
+                }
+            }
+
             // define the full path to the settings file
-            string fullpath = Application.dataPath + "/" + filePath + fileName + fileExtension;
+            string fullpath = dataPath + "/" + filePath + fileName + fileExtension;
 
             // create the list of libraries and use the CompileAllLibraries function to create a list of library structs containing all our settings
             List<SettingLibrary> libraries = CompileAllLibraries();
@@ -378,8 +415,26 @@ namespace Bastion
         /// <returns>Boolean representing if it (probably) failed or succeded.</returns>
         public static bool SaveSetting(Setting setting, bool verbose = false)
         {
+            string dataPath = Application.dataPath;
+
+            string[] splitDataPath = dataPath.Split('/');
+
+            dataPath = "";
+
+            for (int i = 0; i < splitDataPath.Length; i++)
+            {
+                if (splitDataPath[i].ToLower().Contains(".exe") || splitDataPath[i].ToLower().Contains("botd_data"))
+                {
+                    continue;
+                }
+                else
+                {
+                    dataPath += splitDataPath[i] + "/";
+                }
+            }
+
             // define the full path to the settings file
-            string fullpath = Application.dataPath + "/" + filePath + fileName + fileExtension;
+            string fullpath = dataPath + "/" + filePath + fileName + fileExtension;
 
             string logPrefix = $"{Branding.engineLogPrefix}[SettingsManager.SaveSetting()] ";
 

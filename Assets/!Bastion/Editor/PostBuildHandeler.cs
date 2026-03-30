@@ -10,7 +10,7 @@ namespace Bastion.Editor
     public class PostBuildHandeler
     {
         [PostProcessBuildAttribute(100)]
-        public static void incrementBuild()
+        public static void incrementBuild(BuildTarget target, string pathToBuild)
         {
             // need to parse the settings in order to be able to check the build number, theoretically i could bake this into a seperate file thats binary, but for now this is the most basic and logical solution until more stuff needs to be accessed in this kind of way
             Bastion.SettingsManager.ParseSettings();
@@ -33,15 +33,28 @@ namespace Bastion.Editor
         {
             //Bastion.SettingsManager.SaveSettings();
 
+            //Debug.Log(pathToBuild);
+
+            string[] partsOfPath = pathToBuild.Split('/');
+
+            pathToBuild = "";
+
+            for (int i = 0; i < partsOfPath.Length - 1; i++)
+            {
+                pathToBuild += partsOfPath[i] + "/";
+            }
+
+            //Debug.Log(pathToBuild + "settings.bcfg");
+
             try
             {
                 using (StreamReader sr = new StreamReader(Application.dataPath + "/settings.bcfg"))
                 {
-                    string line;
-
-                    while ((line = sr.ReadLine()) != null)
+                    using (StreamWriter sw = new StreamWriter(pathToBuild + "settings.bcfg"))
                     {
-                        using (StreamWriter sw = new StreamWriter(pathToBuild + "/settings.bcfg"))
+                        string line;
+
+                        while ((line = sr.ReadLine()) != null)
                         {
                             sw.WriteLine(line);
                         }
