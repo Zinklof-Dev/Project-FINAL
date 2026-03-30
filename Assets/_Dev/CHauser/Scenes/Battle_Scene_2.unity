@@ -15324,7 +15324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a35589a540c1cf428a39cb20f513fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurnManager
-  actionPoints: 10
+  actionPoints: 964
   maxActionPoints: 10
   currentPlayerIndex: 0
   turnState: 0

@@ -129,6 +129,9 @@ public class Actor : MonoBehaviour
         if (ActorManager.instance.enemyActors.Count != 0)
             PlayerInput.instance.targetEnemyActor = ActorManager.instance.enemyActors[0];
 
+        if (type == ActorType.Enemy && ActorManager.instance.enemyActors.Count > 0)
+            PlayerInput.instance.targetEnemyActor = ActorManager.instance.enemyActors[0];
+
         Destroy(this.gameObject);
         /*
         if (ActorManager.instance.enemyActors.Count == 0)
