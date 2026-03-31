@@ -8993,7 +8993,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 98, y: -50}
+  m_AnchoredPosition: {x: 98, y: -34}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1629862215
@@ -11151,7 +11151,6 @@ MonoBehaviour:
   cameraPlayerEditorPosition: {x: -3, y: 4, z: 3}
   cameraGravestonePosition: {x: -4, y: 1, z: 8}
   cameraDefaultEulerRotation: {x: 15, y: 0, z: 0}
-  state: 0
 --- !u!4 &2106041111
 Transform:
   m_ObjectHideFlags: 0
