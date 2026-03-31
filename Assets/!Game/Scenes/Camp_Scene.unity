@@ -4149,8 +4149,8 @@ MonoBehaviour:
   cardPrefab: {fileID: 3394009605402899191, guid: 475628b327f37c548b2c20dd0f60682f, type: 3}
   content: {fileID: 24616742}
   baseCanvas: {fileID: 1058256276}
-  axeSprite: {fileID: 21300000, guid: ee50367d172d1c043982fa7d75d0ced9, type: 3}
-  swordSprite: {fileID: 21300000, guid: 4c80c98053a114a46be413f09bd16a58, type: 3}
+  axeSprite: {fileID: -369225645, guid: 0498668636d359640b52d1a85915f0fb, type: 3}
+  swordSprite: {fileID: 94524613, guid: 0498668636d359640b52d1a85915f0fb, type: 3}
   zweihanderSprite: {fileID: 0}
   daneAxeSprite: {fileID: 0}
   greatSwordSprite: {fileID: 0}
@@ -4176,9 +4176,9 @@ MonoBehaviour:
   arbalestSprite: {fileID: 0}
   earlyCrossbowSprite: {fileID: 0}
   halberdSprite: {fileID: 0}
-  healthSupporterSprite: {fileID: 21300000, guid: d18cb27ea26d40141b2e60333a209bdd, type: 3}
-  rangeSupporterSprite: {fileID: 21300000, guid: 4d2293f89e7a5404db1d63d1fdb7b7c0, type: 3}
-  actionPointsSupporterSprite: {fileID: 21300000, guid: b5722b63602616b41957fe09da52167d, type: 3}
+  healthSupporterSprite: {fileID: -1527074848, guid: 0498668636d359640b52d1a85915f0fb, type: 3}
+  rangeSupporterSprite: {fileID: 1544898247, guid: 0498668636d359640b52d1a85915f0fb, type: 3}
+  actionPointsSupporterSprite: {fileID: 59850880, guid: 0498668636d359640b52d1a85915f0fb, type: 3}
   cards: []
   cardsInScene: []
 --- !u!1 &748066590
@@ -4715,6 +4715,10 @@ PrefabInstance:
     - target: {fileID: 9189266780945042210, guid: 71f60996ee8585a4180fad1cbeb2d118, type: 3}
       propertyPath: prewarm
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189266780945042210, guid: 71f60996ee8585a4180fad1cbeb2d118, type: 3}
+      propertyPath: UVModule.cycles
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9189266780945042210, guid: 71f60996ee8585a4180fad1cbeb2d118, type: 3}
       propertyPath: ShapeModule.angle
@@ -11782,6 +11786,10 @@ PrefabInstance:
     - target: {fileID: 7870993474422312368, guid: 71f60996ee8585a4180fad1cbeb2d118, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189266780945042210, guid: 71f60996ee8585a4180fad1cbeb2d118, type: 3}
+      propertyPath: UVModule.cycles
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9189266780945042210, guid: 71f60996ee8585a4180fad1cbeb2d118, type: 3}
       propertyPath: ShapeModule.angle
