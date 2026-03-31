@@ -344,7 +344,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 689a78b1215d1514dacc63ad941d3fda, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: b4ebc7a2b8a657b4e9b7917bf8070966, type: 2}
+      objectReference: {fileID: 2100000, guid: 62543be89a126ca4496e114e74fa4c38, type: 2}
     - target: {fileID: 919132149155446097, guid: 689a78b1215d1514dacc63ad941d3fda, type: 3}
       propertyPath: m_Name
       value: Tent (4)
@@ -631,7 +631,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 689a78b1215d1514dacc63ad941d3fda, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 295975f19a100dc46b72ff440a0a6e88, type: 2}
+      objectReference: {fileID: 2100000, guid: 41e5130875057e74c902f70ec94ca9b3, type: 2}
     - target: {fileID: 919132149155446097, guid: 689a78b1215d1514dacc63ad941d3fda, type: 3}
       propertyPath: m_Name
       value: Tent (6)
@@ -1763,7 +1763,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 689a78b1215d1514dacc63ad941d3fda, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 295975f19a100dc46b72ff440a0a6e88, type: 2}
+      objectReference: {fileID: 2100000, guid: 41e5130875057e74c902f70ec94ca9b3, type: 2}
     - target: {fileID: 919132149155446097, guid: 689a78b1215d1514dacc63ad941d3fda, type: 3}
       propertyPath: m_Name
       value: Tent (3)
@@ -7058,7 +7058,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 689a78b1215d1514dacc63ad941d3fda, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: b4ebc7a2b8a657b4e9b7917bf8070966, type: 2}
+      objectReference: {fileID: 2100000, guid: 62543be89a126ca4496e114e74fa4c38, type: 2}
     - target: {fileID: 919132149155446097, guid: 689a78b1215d1514dacc63ad941d3fda, type: 3}
       propertyPath: m_Name
       value: Tent

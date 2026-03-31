@@ -1371,7 +1371,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 901a222501b9d38468cd66944780df1c, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 295975f19a100dc46b72ff440a0a6e88, type: 2}
+      objectReference: {fileID: 2100000, guid: 41e5130875057e74c902f70ec94ca9b3, type: 2}
     - target: {fileID: 919132149155446097, guid: 901a222501b9d38468cd66944780df1c, type: 3}
       propertyPath: m_Name
       value: Overhang (2)
@@ -10889,6 +10889,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 2bac6f73141596f4688b9e29221ffb09, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: bbc1d136e732f7a4aa4033f9c90c63de, type: 2}
     - target: {fileID: 919132149155446097, guid: 2bac6f73141596f4688b9e29221ffb09, type: 3}
       propertyPath: m_Name
       value: Tent2
@@ -12553,7 +12557,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 901a222501b9d38468cd66944780df1c, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: b4ebc7a2b8a657b4e9b7917bf8070966, type: 2}
+      objectReference: {fileID: 2100000, guid: 62543be89a126ca4496e114e74fa4c38, type: 2}
     - target: {fileID: 919132149155446097, guid: 901a222501b9d38468cd66944780df1c, type: 3}
       propertyPath: m_Name
       value: Overhang (1)
