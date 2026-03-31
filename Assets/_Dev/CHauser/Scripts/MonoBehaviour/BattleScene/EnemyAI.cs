@@ -103,7 +103,7 @@ public class EnemyAI : MonoBehaviour
                 playerTarget = actor;
                 Debug.Log("[EnemyAI] " + currentTurnActor.actorName + " Selected Target Actor: " + playerTarget.actorName);
 
-                currentTurnActor.agent.LookAtEnemy(playerTarget);
+                //currentTurnActor.agent.LookAtEnemy(playerTarget);
 
                 state = EnemyState.Attacking;
 
@@ -130,7 +130,7 @@ public class EnemyAI : MonoBehaviour
                 playerTarget = actor;
                 Debug.Log("[EnemyAI] " + currentTurnActor.actorName + " Selected Target Actor: " + playerTarget.actorName);
 
-                currentTurnActor.agent.LookAtEnemy(playerTarget);
+                //currentTurnActor.agent.LookAtEnemy(playerTarget);
 
                 state = EnemyState.Attacking;
 
@@ -174,7 +174,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (currentTurnActor.agent.currentState == Agent.State.Idle)
         {
-            currentTurnActor.agent.LookAtEnemy(playerTarget);
+            //currentTurnActor.agent.LookAtEnemy(playerTarget);
             state = EnemyState.Attacking;
         }
     }
