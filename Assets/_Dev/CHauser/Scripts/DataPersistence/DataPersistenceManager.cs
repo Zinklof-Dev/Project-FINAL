@@ -138,7 +138,25 @@ public class DataPersistenceManager : MonoBehaviour
     [Command("loads the names list")]
     public static void LoadNamesList()
     {
-        instance.namesList = instance.dataHandler.Load<NamesList>(Path.Combine(Application.dataPath, instance.editableJSONDataFolderName), instance.namesListFileName, instance.namesListUseEncryption);
+        string dataPath = Application.dataPath;
+
+        string[] splitDataPath = dataPath.Split('/');
+
+        dataPath = "";
+
+        for (int i = 0; i < splitDataPath.Length; i++)
+        {
+            if (splitDataPath[i].ToLower().Contains(".exe") || splitDataPath[i].ToLower().Contains("botd_data"))
+            {
+                continue;
+            }
+            else
+            {
+                dataPath += splitDataPath[i] + "/";
+            }
+        }
+
+        instance.namesList = instance.dataHandler.Load<NamesList>(Path.Combine(dataPath, instance.editableJSONDataFolderName), instance.namesListFileName, instance.namesListUseEncryption);
 
         if(instance.namesList == null)
         {
@@ -153,13 +171,31 @@ public class DataPersistenceManager : MonoBehaviour
     [Command("saves the names list")]
     public static void SaveNamesList()
     {
-        if(instance.namesList == null)
+        if (instance.namesList == null)
         {
             Console.Log("Names list is null, cannot save.", "DataPersistenceManager");
             return;
         }
 
-        instance.dataHandler.Save<NamesList>(instance.namesList, Path.Combine(Application.dataPath, instance.editableJSONDataFolderName), instance.namesListFileName, instance.namesListUseEncryption);
+        string dataPath = Application.dataPath;
+
+        string[] splitDataPath = dataPath.Split('/');
+
+        dataPath = "";
+
+        for (int i = 0; i < splitDataPath.Length; i++)
+        {
+            if (splitDataPath[i].ToLower().Contains(".exe") || splitDataPath[i].ToLower().Contains("botd_data"))
+            {
+                continue;
+            }
+            else
+            {
+                dataPath += splitDataPath[i] + "/";
+            }
+        }
+
+        instance.dataHandler.Save<NamesList>(instance.namesList, Path.Combine(dataPath, instance.editableJSONDataFolderName), instance.namesListFileName, instance.namesListUseEncryption);
         Console.Log("Names list saved.", "DataPersistenceManager");
     }
     [Command("Add a name to the first names list")]
@@ -223,7 +259,25 @@ public class DataPersistenceManager : MonoBehaviour
     [Command("loads the backgrounds list")]
     public static void LoadBackgroundsList()
     {
-        instance.backgroundsList = instance.dataHandler.Load<BackgroundsList>(Path.Combine(Application.dataPath, instance.editableJSONDataFolderName), instance.backgroundsListFileName, false);
+        string dataPath = Application.dataPath;
+
+        string[] splitDataPath = dataPath.Split('/');
+
+        dataPath = "";
+
+        for (int i = 0; i < splitDataPath.Length; i++)
+        {
+            if (splitDataPath[i].ToLower().Contains(".exe") || splitDataPath[i].ToLower().Contains("botd_data"))
+            {
+                continue;
+            }
+            else
+            {
+                dataPath += splitDataPath[i] + "/";
+            }
+        }
+
+        instance.backgroundsList = instance.dataHandler.Load<BackgroundsList>(Path.Combine(dataPath, instance.editableJSONDataFolderName), instance.backgroundsListFileName, false);
         if (instance.backgroundsList == null)
         {
             instance.backgroundsList = new BackgroundsList();
@@ -243,7 +297,25 @@ public class DataPersistenceManager : MonoBehaviour
             return;
         }
 
-        instance.dataHandler.Save<BackgroundsList>(instance.backgroundsList, Path.Combine(Application.dataPath, instance.editableJSONDataFolderName), instance.backgroundsListFileName, false);
+        string dataPath = Application.dataPath;
+
+        string[] splitDataPath = dataPath.Split('/');
+
+        dataPath = "";
+
+        for (int i = 0; i < splitDataPath.Length; i++)
+        {
+            if (splitDataPath[i].ToLower().Contains(".exe") || splitDataPath[i].ToLower().Contains("botd_data"))
+            {
+                continue;
+            }
+            else
+            {
+                dataPath += splitDataPath[i] + "/";
+            }
+        }
+
+        instance.dataHandler.Save<BackgroundsList>(instance.backgroundsList, Path.Combine(dataPath, instance.editableJSONDataFolderName), instance.backgroundsListFileName, false);
         Console.Log("Backgrounds list saved.", "DataPersistenceManager");
     }
 }
