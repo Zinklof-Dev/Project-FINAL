@@ -24,7 +24,7 @@ public class CampScenePlayerInputManager : MonoBehaviour
 
     public enum State { Default, MapTable, PlayerEditor, Gravestone }
 
-    private State state = State.Default;
+    [SerializeField] private State state = State.Default;
 
     private void Update()
     {
