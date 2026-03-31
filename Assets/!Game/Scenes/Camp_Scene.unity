@@ -2498,6 +2498,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af499260f7d380049abbd16ca59ce796, type: 3}
       insertIndex: -1
       addedObject: {fileID: 396408682}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af499260f7d380049abbd16ca59ce796, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 396408686}
   m_SourcePrefab: {fileID: 100100000, guid: af499260f7d380049abbd16ca59ce796, type: 3}
 --- !u!1 &396408681 stripped
 GameObject:
@@ -2525,6 +2528,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.1259178, y: 0.18897754, z: 0.04608918}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &396408686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396408681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d64fcbf3750f9b4ab8c7e7c9027d60b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OutlinedObject
+  isOutlineActive: 0
 --- !u!1 &400762885
 GameObject:
   m_ObjectHideFlags: 0
@@ -3601,6 +3617,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1b58e869b7982ef4c85167dfb7d0656d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 618330889}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1b58e869b7982ef4c85167dfb7d0656d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 618330895}
   m_SourcePrefab: {fileID: 100100000, guid: 1b58e869b7982ef4c85167dfb7d0656d, type: 3}
 --- !u!1 &618330888 stripped
 GameObject:
@@ -3633,6 +3652,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1b58e869b7982ef4c85167dfb7d0656d, type: 3}
   m_PrefabInstance: {fileID: 618330887}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &618330895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618330888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d64fcbf3750f9b4ab8c7e7c9027d60b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OutlinedObject
+  isOutlineActive: 0
 --- !u!1001 &622656533
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3708,6 +3740,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a31b865014187634c9cb367bc0b15a53, type: 3}
       insertIndex: -1
       addedObject: {fileID: 650350737}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a31b865014187634c9cb367bc0b15a53, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 650350741}
   m_SourcePrefab: {fileID: 100100000, guid: a31b865014187634c9cb367bc0b15a53, type: 3}
 --- !u!1 &630376447
 GameObject:
@@ -3846,6 +3881,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 78.990875, y: 162.72383, z: 124.12673}
   m_Center: {x: -0.897465, y: 81.361916, z: 0}
+--- !u!114 &650350741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650350736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d64fcbf3750f9b4ab8c7e7c9027d60b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OutlinedObject
+  isOutlineActive: 0
 --- !u!1001 &655988607
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7267,6 +7315,7 @@ GameObject:
   - component: {fileID: 1360785367}
   - component: {fileID: 1360785370}
   - component: {fileID: 1360785371}
+  - component: {fileID: 1360785372}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -7405,6 +7454,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraMover
   moveDuration: 2.25
+--- !u!114 &1360785372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1360785366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0577013473415464bade4a1c8b1ef014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CampSceneOutliner
 --- !u!1 &1385854583
 GameObject:
   m_ObjectHideFlags: 0
@@ -11163,6 +11224,7 @@ MonoBehaviour:
   cameraPlayerEditorPosition: {x: -3, y: 4, z: 3}
   cameraGravestonePosition: {x: -4, y: 1, z: 8}
   cameraDefaultEulerRotation: {x: 15, y: 0, z: 0}
+  state: 0
 --- !u!4 &2106041111
 Transform:
   m_ObjectHideFlags: 0

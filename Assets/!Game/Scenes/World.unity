@@ -339,6 +339,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af976aeffa5a9c74485b7170443a6e34, type: 3}
       insertIndex: -1
       addedObject: {fileID: 219757555}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af976aeffa5a9c74485b7170443a6e34, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 219757558}
   m_SourcePrefab: {fileID: 100100000, guid: af976aeffa5a9c74485b7170443a6e34, type: 3}
 --- !u!1 &219757553 stripped
 GameObject:
@@ -403,6 +406,19 @@ MonoBehaviour:
   attributes:
   - Map_Zoomable
   - Map_Level
+--- !u!114 &219757558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 219757553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d64fcbf3750f9b4ab8c7e7c9027d60b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OutlinedObject
+  isOutlineActive: 0
 --- !u!4 &292714675 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3050652245170794281, guid: 1878e7acce1afc34eb4b24cc4bbfb992, type: 3}
@@ -504,6 +520,7 @@ GameObject:
   - component: {fileID: 801091616}
   - component: {fileID: 801091615}
   - component: {fileID: 801091618}
+  - component: {fileID: 801091619}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -629,6 +646,18 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &801091619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 801091614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0577013473415464bade4a1c8b1ef014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CampSceneOutliner
 --- !u!1 &840821133
 GameObject:
   m_ObjectHideFlags: 0
@@ -1130,6 +1159,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af976aeffa5a9c74485b7170443a6e34, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1037671225}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af976aeffa5a9c74485b7170443a6e34, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1037671226}
   m_SourcePrefab: {fileID: 100100000, guid: af976aeffa5a9c74485b7170443a6e34, type: 3}
 --- !u!1 &1037671216 stripped
 GameObject:
@@ -1194,6 +1226,19 @@ MonoBehaviour:
     it has houses and stuff!
   scene: 7
   sprite: {fileID: 21300000, guid: 36bc90f311b804842bd3f33e7650df33, type: 3}
+--- !u!114 &1037671226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037671216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d64fcbf3750f9b4ab8c7e7c9027d60b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OutlinedObject
+  isOutlineActive: 0
 --- !u!1 &1055051012
 GameObject:
   m_ObjectHideFlags: 0
@@ -2164,6 +2209,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8369472590785176364, guid: 1878e7acce1afc34eb4b24cc4bbfb992, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2092811342}
+    - targetCorrespondingSourceObject: {fileID: 8369472590785176364, guid: 1878e7acce1afc34eb4b24cc4bbfb992, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2092811343}
     - targetCorrespondingSourceObject: {fileID: 3017066723640291166, guid: 1878e7acce1afc34eb4b24cc4bbfb992, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2122880206}
@@ -2173,6 +2221,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3017066723640291166, guid: 1878e7acce1afc34eb4b24cc4bbfb992, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2122880213}
+    - targetCorrespondingSourceObject: {fileID: 3017066723640291166, guid: 1878e7acce1afc34eb4b24cc4bbfb992, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2122880214}
   m_SourcePrefab: {fileID: 100100000, guid: 1878e7acce1afc34eb4b24cc4bbfb992, type: 3}
 --- !u!1 &1965680553
 GameObject:
@@ -2590,6 +2641,19 @@ MonoBehaviour:
     it was missing 90% of whats here now... but hey, same layout!
   scene: 5
   sprite: {fileID: 21300000, guid: e28edf7989f63854195d85e0e8d15cda, type: 3}
+--- !u!114 &2092811343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092811335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d64fcbf3750f9b4ab8c7e7c9027d60b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OutlinedObject
+  isOutlineActive: 0
 --- !u!1 &2122880204 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3017066723640291166, guid: 1878e7acce1afc34eb4b24cc4bbfb992, type: 3}
@@ -2647,13 +2711,26 @@ MonoBehaviour:
   description: Why have one? When you can have two?
   scene: 6
   sprite: {fileID: 21300000, guid: 71e046865e68e0a4780d1c0675500a01, type: 3}
+--- !u!114 &2122880214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122880204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d64fcbf3750f9b4ab8c7e7c9027d60b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OutlinedObject
+  isOutlineActive: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1001736063}
-  - {fileID: 1896741172}
   - {fileID: 1096800103}
+  - {fileID: 1896741172}
   - {fileID: 1167006278}
   - {fileID: 840821137}
   - {fileID: 2046847524}
