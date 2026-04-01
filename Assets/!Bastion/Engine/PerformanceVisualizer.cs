@@ -28,7 +28,7 @@ namespace Bastion
             if (Engine.showFPS)
                 enabled = true;
             else
-                Destroy(this);
+                Destroy(this.gameObject);
             
             fpsText = gameObject.GetComponent<TMP_Text>();
 

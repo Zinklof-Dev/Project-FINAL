@@ -5,7 +5,7 @@ engine.console : true
 engine.show_fps : false
 engine.show_more_performance : false
 engine.watermark : Experimental Build E-2604A (Build #{bldnmbr}) | Skills USA States 2026 | Jacksonville Florida
-engine.build_number : 86
+engine.build_number : 87
 [Gameplay]
 language : English
 eula_accepted : false
