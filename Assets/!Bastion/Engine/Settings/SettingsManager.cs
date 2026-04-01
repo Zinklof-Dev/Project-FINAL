@@ -248,6 +248,8 @@ namespace Bastion
         [Command("Wipes memory of settings then parses the settings file")]
         public static bool ParseSettings(bool verbose = false)
         {
+            settings = new Setting[1];
+
             string dataPath = Application.dataPath;
 
             string[] splitDataPath = dataPath.Split('/');

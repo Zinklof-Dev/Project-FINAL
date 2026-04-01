@@ -2,25 +2,18 @@
 engine.verbose : false
 engine.allow_localization_fallback_to_english : false
 engine.console : true
-engine.show_fps : true
-engine.show_more_performance : true 
-engine.watermark : Experimental Build E-2604A (Build #{bldnmbr}) | Skills USA States 2026 | Jacksonville Florida
-engine.build_number : 37
-engine.verbose : false
-engine.allow_localization_fallback_to_english : true
 engine.show_fps : false
 engine.show_more_performance : false
-engine.console : true
+engine.watermark : Experimental Build E-2604A (Build #{bldnmbr}) | Skills USA States 2026 | Jacksonville Florida
+engine.build_number : 86
 [Gameplay]
 language : English
-eula_accepted : true
+eula_accepted : false
 [Video]
 framerate : 120
 resolutionx : 1920
 resolutiony : 1080
 window_mode : Fullscreen
-resolutionx : 1920
-resolutiony : 1080
 [PostProcessing]
 bloom : true
 chromatic_aberation : true
@@ -31,12 +24,6 @@ anisotropic_filtering : 16
 anti_ailiasing : 4
 shadow_distance : 512
 shadow_resolution : 0
-texture_resolution_level : 3
 texture_quality_level : 0
 anisotropic_filtering : 16
-shadow_resolution : 1
-vsync : 0
-anti_ailiasing : 4
-shadow_distance : 256
-texture_quality_level : 0
 window_mode : 0

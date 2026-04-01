@@ -7,7 +7,7 @@ namespace BOTD
     {
         private void Start()
         {
-            if (SettingsManager.FetchSetting("eula_accepted", "false", "Gameplay", MissingMode.AddThenMinorSave))
+            if (SettingsManager.FetchSetting("eula_accepted", "false", "Gameplay", MissingMode.AddThenMinorSave) || Application.isEditor)
             {
                 Destroy(this.gameObject);
             }
