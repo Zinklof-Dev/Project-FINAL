@@ -21,6 +21,7 @@ namespace BOTD
         public void Accept()
         {
             SettingsManager.ChangeSetting("eula_accepted", "true");
+            SettingsManager.SaveSettings();
 
             Destroy(this.gameObject);
         }
