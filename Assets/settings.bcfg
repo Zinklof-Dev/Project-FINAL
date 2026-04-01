@@ -13,6 +13,7 @@ engine.show_more_performance : false
 engine.console : true
 [Gameplay]
 language : English
+eula_accepted : true
 [Video]
 framerate : 120
 resolutionx : 1920
